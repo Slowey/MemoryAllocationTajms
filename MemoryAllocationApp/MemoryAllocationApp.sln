@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MemoryAllocationApp", "Memo
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MemLib", "MemLib\MemLib.vcxproj", "{BA384447-FFC6-4271-8E27-CB21D0FAB637}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TajmsLib", "TajmsLib\TajmsLib.vcxproj", "{3E458E52-EE3B-4212-8E8A-538C50037AF0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -31,6 +33,14 @@ Global
 		{BA384447-FFC6-4271-8E27-CB21D0FAB637}.Release|x64.Build.0 = Release|x64
 		{BA384447-FFC6-4271-8E27-CB21D0FAB637}.Release|x86.ActiveCfg = Release|Win32
 		{BA384447-FFC6-4271-8E27-CB21D0FAB637}.Release|x86.Build.0 = Release|Win32
+		{3E458E52-EE3B-4212-8E8A-538C50037AF0}.Debug|x64.ActiveCfg = Debug|x64
+		{3E458E52-EE3B-4212-8E8A-538C50037AF0}.Debug|x64.Build.0 = Debug|x64
+		{3E458E52-EE3B-4212-8E8A-538C50037AF0}.Debug|x86.ActiveCfg = Debug|Win32
+		{3E458E52-EE3B-4212-8E8A-538C50037AF0}.Debug|x86.Build.0 = Debug|Win32
+		{3E458E52-EE3B-4212-8E8A-538C50037AF0}.Release|x64.ActiveCfg = Release|x64
+		{3E458E52-EE3B-4212-8E8A-538C50037AF0}.Release|x64.Build.0 = Release|x64
+		{3E458E52-EE3B-4212-8E8A-538C50037AF0}.Release|x86.ActiveCfg = Release|Win32
+		{3E458E52-EE3B-4212-8E8A-538C50037AF0}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

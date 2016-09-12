@@ -1,8 +1,12 @@
 #include <MemoryManager.h>
 #include <PoolAllocator.h>
+#include <TajmsLib.h>
 
 int main()
 {
+    TajmsLib tajm;
+    tajm.InitTajmsLib();
+    int hasj = 2;
     // Create big ass memory manager (this should be a singleton)
     MemoryManager memManager;
     // Create an allocator pointer
