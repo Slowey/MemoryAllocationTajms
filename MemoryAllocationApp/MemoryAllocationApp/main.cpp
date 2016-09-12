@@ -6,6 +6,11 @@
 
 int main()
 {
+    TajmsLib tajm;
+    tajm.InitTajmsLib();
+    int hasj = 2;
+    // Create big ass memory manager (this should be a singleton)
+    MemoryManager memManager;
     // Create an allocator pointer
     PoolAllocator* poolAllocator;
     // Ask memory manager for an actual pool allocator
