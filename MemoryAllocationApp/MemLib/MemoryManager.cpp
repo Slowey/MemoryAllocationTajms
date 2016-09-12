@@ -1,5 +1,6 @@
 #include "MemoryManager.h"
 #include "Internal/PoolAllocatorInternal.h"
+#include <iostream>
 
 
 MemoryManager* MemoryManager::m_singleton = nullptr;
@@ -26,4 +27,10 @@ PoolAllocator * MemoryManager::CreatePoolAllocator()
     return new PoolAllocatorInternal();
 }
 
+void* operator new (size_t size)
+{
+	void* outPointer = malloc(size);
 
+	std::cout << "Allocating" << std::endl;
+	return outPointer;
+}
