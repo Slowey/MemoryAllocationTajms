@@ -5,7 +5,6 @@
 
 int main()
 {
-
     // Create an allocator pointer
     PoolAllocator* poolAllocator;
     // Ask memory manager for an actual pool allocator
