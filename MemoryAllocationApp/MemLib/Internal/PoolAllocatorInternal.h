@@ -2,7 +2,7 @@
 #include "../PoolAllocator.h"
 
 class PoolAllocatorInternal
-    :PoolAllocator
+    :public PoolAllocator
 {
 public:
     PoolAllocatorInternal();
