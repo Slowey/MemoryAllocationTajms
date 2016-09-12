@@ -5,12 +5,11 @@
 
 int main()
 {
-    // Create big ass memory manager (this should be a singleton)
-    MemoryManager memManager;
+
     // Create an allocator pointer
     PoolAllocator* poolAllocator;
     // Ask memory manager for an actual pool allocator
-    poolAllocator = memManager.CreatePoolAllocator();
+    poolAllocator = MemoryManager::Get()->CreatePoolAllocator();
     // Use pool allocator to varify it works
     int test = poolAllocator->TestMethod();
 
