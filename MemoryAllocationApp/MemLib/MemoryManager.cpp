@@ -1,7 +1,7 @@
 #include "MemoryManager.h"
+#include "Internal/PoolAllocatorInternal.h"
 
-
-int TestMethod()
+PoolAllocator * MemoryManager::CreatePoolAllocator()
 {
-    return 42;
+    return new PoolAllocatorInternal();
 }

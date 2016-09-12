@@ -1,7 +1,9 @@
 #pragma once
+#include "PoolAllocator.h"
 
 class MemoryManager
 {
-    int TestMethod();
+public:
+    PoolAllocator* CreatePoolAllocator();
 };
 
