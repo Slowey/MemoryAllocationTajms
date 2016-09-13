@@ -9,4 +9,8 @@ public:
     ~PoolAllocatorInternal();
 
     int TestMethod() override;
+    void Allocate() override;
+    void Deallocate() override;
+
+    int numAllocations = 0;
 };

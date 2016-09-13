@@ -3,6 +3,9 @@
 #include "TestClass.h"
 #include <iostream>
 
+// MAke the allocators in a seperate container class that is singleton
+// Then include it in the memoryMAnager cpp file instead.
+// Now there shouldnt be conflict between overriding new operator for Allocators on init
 int main()
 {
     // Create an allocator pointer
@@ -12,8 +15,13 @@ int main()
     // Use pool allocator to varify it works
     int test = poolAllocator->TestMethod();
 
-	TestClass testClass = TestClass();
-	testClass.TestAllocate();
+    
+
+	//TestClass testClass = TestClass();
+	//testClass.TestAllocate();
+
+    int* b = new int();
+    int* a = new (poolAllocator) int();
 
     // Silly int. Put a breakpoint here to ensure the program doesn't end (there are better ways of doing this but cba)
     int stop = 2;

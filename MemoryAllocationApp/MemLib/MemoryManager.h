@@ -19,7 +19,9 @@ private:
     ~MemoryManager();
     static MemoryManager* m_singleton;
     PoolAllocator* m_default4BytePool;
-    PoolAllocator* m_default8BytePool;
-    PoolAllocator* m_default16BytePool;
+    PoolAllocatorInternal m_default8BytePool;
+    PoolAllocatorInternal m_default16BytePool;
 };
 
+void* operator new (size_t size, PoolAllocator* allocator);
+void* operator new (size_t size);

@@ -14,3 +14,12 @@ int PoolAllocatorInternal::TestMethod()
 {
     return 42;
 }
+
+void PoolAllocatorInternal::Allocate()
+{
+    numAllocations++;
+}
+
+void PoolAllocatorInternal::Deallocate()
+{
+}

@@ -7,17 +7,25 @@ MemoryManager* MemoryManager::m_singleton = nullptr;
 
 MemoryManager::MemoryManager()
 {
-    m_default4BytePool = (PoolAllocatorInternal*)malloc(sizeof(PoolAllocatorInternal));
-    PoolAllocatorInternal* internalPool = static_cast<PoolAllocatorInternal*>(m_default4BytePool);
-    new (internalPool) PoolAllocatorInternal();
+    static PoolAllocatorInternal derp;
+    m_default4BytePool = &derp;
 
-    m_default8BytePool = (PoolAllocatorInternal*)malloc(sizeof(PoolAllocatorInternal));
-    internalPool = static_cast<PoolAllocatorInternal*>(m_default8BytePool);
-    new (internalPool) PoolAllocatorInternal();
 
-    m_default16BytePool = (PoolAllocatorInternal*)malloc(sizeof(PoolAllocatorInternal));
-    internalPool = static_cast<PoolAllocatorInternal*>(m_default16BytePool);
-    new (internalPool) PoolAllocatorInternal();
+
+   m_default4BytePool = (PoolAllocatorInternal*)malloc(sizeof(PoolAllocatorInternal));
+   PoolAllocatorInternal* internalPool = static_cast<PoolAllocatorInternal*>(m_default4BytePool);
+   new PoolAllocatorInternal();
+   //m_default4BytePool = (PoolAllocatorInternal*)malloc(sizeof(PoolAllocatorInternal));
+   //PoolAllocatorInternal* internalPool = static_cast<PoolAllocatorInternal*>(m_default4BytePool);
+   //new (internalPool) PoolAllocatorInternal();
+   //
+   //m_default8BytePool = (PoolAllocatorInternal*)malloc(sizeof(PoolAllocatorInternal));
+   //internalPool = static_cast<PoolAllocatorInternal*>(m_default8BytePool);
+   //new (internalPool) PoolAllocatorInternal();
+   //
+   //m_default16BytePool = (PoolAllocatorInternal*)malloc(sizeof(PoolAllocatorInternal));
+   //internalPool = static_cast<PoolAllocatorInternal*>(m_default16BytePool);
+   //new (internalPool) PoolAllocatorInternal();
 }
 
 MemoryManager::~MemoryManager()
@@ -36,23 +44,26 @@ MemoryManager * MemoryManager::Get()
 
 PoolAllocator * MemoryManager::GetDefault4BytePool()
 {
-    return m_default4BytePool;
+    PoolAllocator* ret = &m_default4BytePool;
+    return ret;
 }
 
 PoolAllocator * MemoryManager::GetDefault8BytePool()
 {
-    return m_default8BytePool;
+    return &m_default8BytePool;
 }
 
 PoolAllocator * MemoryManager::GetDefault16BytePool()
 {
-    return m_default16BytePool;
+    return &m_default16BytePool;
 }
 
 PoolAllocator * MemoryManager::CreatePoolAllocator()
 {
     PoolAllocatorInternal* internalPool = (PoolAllocatorInternal*)malloc(sizeof(PoolAllocatorInternal));
     new (internalPool) PoolAllocatorInternal();
+
+    int *a = new (internalPool)int();
 
     return internalPool;
 }
@@ -62,6 +73,8 @@ void* operator new (size_t size, PoolAllocator* allocator)
     void* outPointer = malloc(size);
 
     std::cout << "Allocating with allocator" << std::endl;
+    allocator->Allocate();
+
     return outPointer;
 }
 
