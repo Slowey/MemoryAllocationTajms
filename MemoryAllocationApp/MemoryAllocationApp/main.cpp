@@ -2,6 +2,7 @@
 #include <PoolAllocator.h>
 #include <iostream>
 #include <TajmsLib.h>
+#include "MemoryTests.h"
 
 int main()
 {
