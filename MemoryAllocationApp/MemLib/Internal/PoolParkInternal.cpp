@@ -17,31 +17,35 @@ PoolParkInternal::~PoolParkInternal()
 
 void * PoolParkInternal::GetNewMemoryBlockStartPoint()
 {
-    int returnBlockNumber;
-
+    void* returnAddress;
+    
     // Check if we have any free block in queue. If true, use that block and remove it from list
     if (!m_freeBlocks.empty())
     {
-        returnBlockNumber = m_freeBlocks.front();
+        returnAddress = m_freeBlocks.front();
         m_freeBlocks.pop();
     }
 
     // Otherwise use the next block
     else
     {
-        returnBlockNumber = m_currentBlock;
         // If return block number is larger than allocated blocks, throw exception
-        if (returnBlockNumber >= m_numberOfMemoryBlocks)
+        if (m_currentBlock >= m_numberOfMemoryBlocks)
         {
             throw std::exception("No available memory blocks");
         }
+        // Add the block number * size of each block to the start of memory pointer
+        returnAddress = reinterpret_cast<char*>(m_startOfMemory) + m_currentBlock * m_memoryBlockSize;
+
         m_currentBlock++;
     }
 
-    // Add the block number * size of each block to the start of memory pointer
-    void* returnAddress;
-    returnAddress = reinterpret_cast<char*>(m_startOfMemory) + returnBlockNumber * m_memoryBlockSize;
-
-    // Return the offseted address
+    // Return the address
     return returnAddress;
+}
+
+void PoolParkInternal::FreeMemoryBlock(void * p_blockStartPointer)
+{
+    // TODO do we need to make sure the void* given is in the start of a memory block?
+    m_freeBlocks.push(p_blockStartPointer);
 }
