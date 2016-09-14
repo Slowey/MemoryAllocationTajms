@@ -18,5 +18,6 @@ private:
 
 };
 
+void* operator new[](size_t size, PoolAllocator* allocator);
 void* operator new (size_t size, PoolAllocator* allocator);
 void* operator new (size_t size);

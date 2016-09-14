@@ -13,7 +13,7 @@ int main()
     // Use pool allocator to varify it works
     int test = poolAllocator->TestMethod();
 
-    //int* o = new (poolAllocator)int[300];
+    int* o = new (poolAllocator)int[300]();
 
 	TestClass* testClass = new TestClass();
 	//testClass->TestAllocate();

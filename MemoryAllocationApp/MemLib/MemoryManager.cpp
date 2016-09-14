@@ -31,6 +31,12 @@ PoolAllocator * MemoryManager::CreatePoolAllocator()
     return AllocatorManager::Get()->CreatePoolAllocator();
 }
 
+void* operator new[] (size_t size, PoolAllocator* allocator)
+{
+    void* outpointer = operator new (size, allocator);
+    return outpointer;
+}
+
 void* operator new (size_t size, PoolAllocator* allocator)
 {
     void* outPointer = malloc(size);
