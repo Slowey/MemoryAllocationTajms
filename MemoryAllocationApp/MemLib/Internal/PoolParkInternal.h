@@ -29,7 +29,7 @@ public:
 
     const int& GetMemoryBlockSize() const { return m_memoryBlockSize; };
 private:
-    std::queue<void*> m_freeBlocks;
+    std::vector<void*>* m_freeBlocks;
     int m_currentBlock;
     void* m_startOfMemory;
     int m_memoryBlockSize;
