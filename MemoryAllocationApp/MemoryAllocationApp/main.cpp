@@ -4,7 +4,6 @@
 #include <iostream>
 #include <TajmsLib.h>
 
-
 int main()
 {
     TajmsLib tajm;
@@ -28,15 +27,11 @@ int main()
     // Ask memory manager for an actual pool allocator
     poolAllocator = MemoryManager::Get()->CreatePoolAllocator();
     // Use pool allocator to varify it works
-    int test = poolAllocator->TestMethod();
 
-    int* o = new (poolAllocator)int[300]();
-
-	TestClass* testClass = new TestClass();
-	//testClass->TestAllocate();
-    TestAllocate();
-    int* b = new int();
-    int* a = new (poolAllocator) int();
+    MemoryTests tests = MemoryTests();
+    tests.TestAllocateMany(10000);
+    tests.TestAllocateManyAndUse(10000);
+    tests.TestAllocateManyDifferent(10000);
 
     // Silly int. Put a breakpoint here to ensure the program doesn't end (there are better ways of doing this but cba)
     int stop = 2;
