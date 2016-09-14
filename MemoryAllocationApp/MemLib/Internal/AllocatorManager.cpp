@@ -15,6 +15,7 @@ AllocatorManager * AllocatorManager::Get()
 
 AllocatorManager::AllocatorManager()
 {
+    int* derp = new int(4);
     m_poolPark = PoolParkInternal(1024, 20);
     PoolAllocatorInternal hej;
     m_default4BytePool = PoolAllocatorInternal(&m_poolPark,4);
