@@ -5,6 +5,7 @@
 using namespace std;
 class PoolInternal 
 {
+public:
     /**
     Creates a pool of memory. Start of memory has to be provided by allocator.
     p_segmentSize: how many bytes each segment is.

@@ -15,6 +15,8 @@ AllocatorManager * AllocatorManager::Get()
 
 AllocatorManager::AllocatorManager()
 {
+    m_poolPark = PoolParkInternal(1024, 20);
+
 }
 
 AllocatorManager::~AllocatorManager()

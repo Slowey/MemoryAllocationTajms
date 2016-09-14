@@ -1,5 +1,6 @@
 #pragma once
 #include "PoolAllocatorInternal.h"
+#include "PoolParkInternal.h"
 
 class AllocatorManager
 {
@@ -21,4 +22,5 @@ private:
     PoolAllocatorInternal m_default4BytePool;
     PoolAllocatorInternal m_default8BytePool;
     PoolAllocatorInternal m_default16BytePool;
+    PoolParkInternal m_poolPark;
 };
