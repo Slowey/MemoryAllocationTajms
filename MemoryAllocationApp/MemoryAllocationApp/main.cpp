@@ -1,6 +1,5 @@
 #include <MemoryManager.h>
 #include <PoolAllocator.h>
-#include "TestClass.h"
 #include <iostream>
 #include "MemoryTests.h"
 
