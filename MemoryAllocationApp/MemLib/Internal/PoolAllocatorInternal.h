@@ -6,6 +6,7 @@ class PoolAllocatorInternal
 {
 public:
     PoolAllocatorInternal();
+    PoolAllocatorInternal(int a);
     ~PoolAllocatorInternal();
 
     int TestMethod() override;
