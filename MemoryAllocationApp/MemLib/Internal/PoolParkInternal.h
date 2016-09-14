@@ -27,6 +27,7 @@ public:
     */
     void FreeMemoryBlock(void* p_blockStartPointer);
 
+    const int& GetMemoryBlockSize() const { return m_memoryBlockSize; };
 private:
     std::queue<void*> m_freeBlocks;
     int m_currentBlock;
