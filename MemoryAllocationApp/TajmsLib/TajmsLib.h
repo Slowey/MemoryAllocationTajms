@@ -30,6 +30,7 @@ private:
     float m_totalTimeForProgram;
     float m_begin; // Kanske kan göra om till unsigned int om det fungerar
     float m_endOfProgram;
+    unsigned int nrOfTimers;
     std::vector<TajmsTimer> m_timers;
 
 };
