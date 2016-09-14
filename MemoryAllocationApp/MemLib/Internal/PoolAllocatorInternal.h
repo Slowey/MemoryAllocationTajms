@@ -9,8 +9,9 @@ class PoolAllocatorInternal
 public:
     /**
     @desc - creates one initial pool whit the size of a memory block
+    @param1 - the pool park, this class will not be responsible for deleting
     */
-    PoolAllocatorInternal(PoolParkInternal* p_poolPark);
+    PoolAllocatorInternal(PoolParkInternal* p_poolPark, const int& p_segmentSize);
     PoolAllocatorInternal();
     ~PoolAllocatorInternal();
 
@@ -22,5 +23,5 @@ public:
 
 private:
     PoolParkInternal* m_poolPark;
-    std::vector<PoolInternal*> m_pools;
+    std::vector<PoolInternal>* m_pools;
 };
