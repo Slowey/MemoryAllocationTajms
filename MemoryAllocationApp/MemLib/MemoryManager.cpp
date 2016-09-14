@@ -25,11 +25,11 @@ MemoryManager * MemoryManager::Get()
 }
 
 
-
 PoolAllocator * MemoryManager::CreatePoolAllocator()
 {
     return AllocatorManager::Get()->CreatePoolAllocator();
 }
+#ifdef USE_LIBRARY
 
 void* operator new[] (size_t size, PoolAllocator* allocator)
 {
@@ -41,7 +41,6 @@ void* operator new (size_t size, PoolAllocator* allocator)
 {
     void* outPointer = malloc(size);
 
-    std::cout << "Allocating with allocator" << std::endl;
     allocator->Allocate();
 
     return outPointer;
@@ -55,21 +54,17 @@ void* operator new (size_t size)
     if (size <= 4)
     {
         allocator = AllocatorManager::Get()->GetDefault4BytePool();
-        std::cout << "Allocating from 4" << std::endl;
     }
     else if (size <= 8)
     {
         allocator = AllocatorManager::Get()->GetDefault8BytePool();
-        std::cout << "Allocating from 8" << std::endl;
     }
     else if (size <= 16)
     {
         allocator = AllocatorManager::Get()->GetDefault16BytePool();
-        std::cout << "Allocating from 16" << std::endl;
     }
     else
     {
-        std::cout << "Not implemented allocating normal" << std::endl;
         outPointer = malloc(size);
     }
 
@@ -79,3 +74,5 @@ void* operator new (size_t size)
     
 	return outPointer;
 }
+
+#endif
