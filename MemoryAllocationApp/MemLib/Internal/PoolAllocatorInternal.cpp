@@ -10,11 +10,6 @@ PoolAllocatorInternal::PoolAllocatorInternal()
 {
 }
 
-PoolAllocatorInternal::PoolAllocatorInternal(int a)
-{
-    int b = 4;
-}
-
 PoolAllocatorInternal::~PoolAllocatorInternal()
 {
 }
