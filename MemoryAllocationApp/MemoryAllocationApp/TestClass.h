@@ -5,6 +5,6 @@ public:
 	TestClass();
 	~TestClass();
 
-	void TestAllocate();
+	//void TestAllocate();
 };
-
+void TestAllocate();

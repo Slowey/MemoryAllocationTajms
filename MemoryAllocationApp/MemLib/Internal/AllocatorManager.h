@@ -1,10 +1,10 @@
 #pragma once
 #include "PoolAllocatorInternal.h"
 
-class GenericAllocators
+class AllocatorManager
 {
 public:
-    static GenericAllocators* Get();
+    static AllocatorManager* Get();
 
     PoolAllocatorInternal* GetDefault4BytePool();
     PoolAllocatorInternal* GetDefault8BytePool();
@@ -13,10 +13,10 @@ public:
     PoolAllocatorInternal * CreatePoolAllocator();
 
 private:
-    static GenericAllocators* m_singleton;
+    static AllocatorManager* m_singleton;
 
-    GenericAllocators();
-    ~GenericAllocators();
+    AllocatorManager();
+    ~AllocatorManager();
 
     PoolAllocatorInternal m_default4BytePool;
     PoolAllocatorInternal m_default8BytePool;

@@ -15,9 +15,9 @@ int main()
 
     
 
-	//TestClass testClass = TestClass();
-	//testClass.TestAllocate();
-
+	TestClass* testClass = new TestClass();
+	//testClass->TestAllocate();
+    TestAllocate();
     int* b = new int();
     int* a = new (poolAllocator) int();
 
