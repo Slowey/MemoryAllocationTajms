@@ -50,7 +50,7 @@ void TajmsLib::ShutdownTajmsLib()
     std::ofstream myfile;
     myfile.open(secondString + "_" + minuteString + "_" + hourString + "_" + dayString + "_" + monthString + "_" + yearString + ".txt");
 
-    myfile << "Total runtime: " << m_totalTimeForProgram << std::endl;
+    myfile << "Total runtime: " << m_totalTimeForProgram << std::endl; // den här fungerar ju klart ej!
     for (size_t i = 0; i < nrOfTimers; ++i)
     {
         myfile << m_timers[i].timerName + ": ";
