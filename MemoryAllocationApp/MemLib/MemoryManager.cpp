@@ -1,5 +1,5 @@
 #include "MemoryManager.h"
-#include "Internal/GenericAllocators.h"
+#include "Internal/AllocatorManager.h"
 #include <iostream>
 
 
@@ -7,7 +7,7 @@ MemoryManager* MemoryManager::m_singleton = nullptr;
 
 MemoryManager::MemoryManager()
 {
-    GenericAllocators::Get(); // Initialize
+    AllocatorManager::Get(); // Initialize
 }
 
 MemoryManager::~MemoryManager()
@@ -28,7 +28,7 @@ MemoryManager * MemoryManager::Get()
 
 PoolAllocator * MemoryManager::CreatePoolAllocator()
 {
-    return GenericAllocators::Get()->CreatePoolAllocator();
+    return AllocatorManager::Get()->CreatePoolAllocator();
 }
 
 void* operator new (size_t size, PoolAllocator* allocator)
@@ -47,17 +47,17 @@ void* operator new (size_t size)
     // Choose pool to allocate depending on size
     if (size <= 4)
     {
-        allocator = GenericAllocators::Get()->GetDefault4BytePool();
+        allocator = AllocatorManager::Get()->GetDefault4BytePool();
         std::cout << "Allocating from 4" << std::endl;
     }
     else if (size <= 8)
     {
-        allocator = GenericAllocators::Get()->GetDefault8BytePool();
+        allocator = AllocatorManager::Get()->GetDefault8BytePool();
         std::cout << "Allocating from 8" << std::endl;
     }
     else if (size <= 16)
     {
-        allocator = GenericAllocators::Get()->GetDefault16BytePool();
+        allocator = AllocatorManager::Get()->GetDefault16BytePool();
         std::cout << "Allocating from 16" << std::endl;
     }
     else

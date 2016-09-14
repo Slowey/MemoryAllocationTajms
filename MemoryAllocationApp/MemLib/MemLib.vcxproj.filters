@@ -33,6 +33,7 @@
     <ClCompile Include="Internal\PoolInternal.cpp">
       <Filter>Source Files\Internal</Filter>
     </ClCompile>
+    <ClCompile Include="Internal\AllocatorManager.cpp">
     <ClCompile Include="Internal\PoolParkInternal.cpp">
       <Filter>Source Files\Internal</Filter>
     </ClCompile>
@@ -62,7 +63,7 @@
     <ClInclude Include="Internal\PoolInternal.h">
       <Filter>Header Files\Internal</Filter>
     </ClInclude>
-    <ClInclude Include="Internal\GenericAllocators.h">
+    <ClInclude Include="Internal\AllocatorManager.h">
       <Filter>Header Files\Internal</Filter>
     </ClInclude>
   </ItemGroup>
