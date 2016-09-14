@@ -15,9 +15,6 @@ AllocatorManager * AllocatorManager::Get()
 
 AllocatorManager::AllocatorManager()
 {
-    m_default4BytePool = PoolAllocatorInternal(1);
-    m_default8BytePool = PoolAllocatorInternal(1);
-    m_default16BytePool = PoolAllocatorInternal(1);
 }
 
 AllocatorManager::~AllocatorManager()
@@ -43,7 +40,7 @@ PoolAllocatorInternal * AllocatorManager::GetDefault16BytePool()
 PoolAllocatorInternal * AllocatorManager::CreatePoolAllocator()
 {
     PoolAllocatorInternal* internalPool = (PoolAllocatorInternal*)malloc(sizeof(PoolAllocatorInternal));
-    new (internalPool) PoolAllocatorInternal(2);
+    new (internalPool) PoolAllocatorInternal();
 
     return internalPool;
 }

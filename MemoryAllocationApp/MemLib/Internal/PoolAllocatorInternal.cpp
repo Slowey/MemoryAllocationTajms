@@ -1,12 +1,13 @@
 #include "PoolAllocatorInternal.h"
 
-PoolAllocatorInternal::PoolAllocatorInternal()
+PoolAllocatorInternal::PoolAllocatorInternal(PoolParkInternal * p_poolPark):
+    m_poolPark(p_poolPark)
 {
+
 }
 
-PoolAllocatorInternal::PoolAllocatorInternal(int a)
+PoolAllocatorInternal::PoolAllocatorInternal()
 {
-    int b = 4;
 }
 
 PoolAllocatorInternal::~PoolAllocatorInternal()
