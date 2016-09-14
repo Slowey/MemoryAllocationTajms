@@ -17,25 +17,25 @@ void * PoolInternal::Allocate()
     // This should already have been done...
     assert(m_full);
     // Check if there's a free segment
-    if (m_emptySegments.size() > 0)
-    {
-        // Get segment
-        int segment = m_emptySegments.front();
-        // Remove from queue
-        m_emptySegments.pop();
-        // Calculate where pointer should point and return
-        return reinterpret_cast <char*> (m_memoryStart) + segment * m_segmentSize;
-    }
+    //if (m_emptySegments.size() > 0)
+    //{
+    //    // Get segment
+    //    int segment = m_emptySegments.front();
+    //    // Remove from queue
+    //    m_emptySegments.pop();
+    //    // Calculate where pointer should point and return
+    //    return reinterpret_cast <char*> (m_memoryStart) + segment * m_segmentSize;
+    //}
     // Take last free slot
-    else
-    {
+    //else
+    //{
         // Keep track of how many segments we've used
         m_lastFreeSegment++;
         if (m_lastFreeSegment >= m_numSegments)
             m_full = true;
         // Calculate where pointer should point and return
         return reinterpret_cast<char*> (m_memoryStart) + m_lastFreeSegment * m_segmentSize;
-    }
+    //}
 }
 
 bool PoolInternal::Full()

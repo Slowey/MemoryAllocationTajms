@@ -23,5 +23,4 @@ public:
 
 private:
     PoolParkInternal* m_poolPark;
-    std::vector<PoolInternal>* m_pools;
 };

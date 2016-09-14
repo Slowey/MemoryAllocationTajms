@@ -1,6 +1,5 @@
 #pragma once
 #include <string>
-#include <queue>
 
 using namespace std;
 class PoolInternal 
@@ -41,5 +40,5 @@ private:
     int m_numSegments;
 
     // Queue of indices for empty segments
-    queue<int> m_emptySegments;
+    // queue<int> m_emptySegments;
 };
