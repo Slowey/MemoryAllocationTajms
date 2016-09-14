@@ -22,11 +22,11 @@ int main()
     tajm.StopTimer(forLoopTimerId1);
     tajm.StopTimer(forLoopTimerId4);
     tajm.StopTimer(forLoopTimerId2);
-    MemoryManager memManager;
+    //MemoryManager memManager;
     // Create an allocator pointer
     PoolAllocator* poolAllocator;
     // Ask memory manager for an actual pool allocator
-    poolAllocator = memManager.CreatePoolAllocator();
+    poolAllocator = MemoryManager::Get()->CreatePoolAllocator();
     // Use pool allocator to varify it works
     int test = poolAllocator->TestMethod();
 
@@ -40,5 +40,5 @@ int main()
 
     // Silly int. Put a breakpoint here to ensure the program doesn't end (there are better ways of doing this but cba)
     int stop = 2;
-    tajm.ShutdownTajmsLib();
+    // tajm.ShutdownTajmsLib();
 }
