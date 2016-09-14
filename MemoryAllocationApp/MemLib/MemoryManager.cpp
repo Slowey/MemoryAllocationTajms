@@ -49,7 +49,8 @@ void* operator new (size_t size, PoolAllocator* allocator)
 
 void* operator new (size_t size)
 {	
-    PoolAllocator* allocator;
+    PoolAllocator* allocator = nullptr;
+    void* outPointer = nullptr;
     // Choose pool to allocate depending on size
     if (size <= 4)
     {
@@ -68,12 +69,13 @@ void* operator new (size_t size)
     }
     else
     {
-        std::cout << "Not implemented" << std::endl;
-        return nullptr;
+        std::cout << "Not implemented allocating normal" << std::endl;
+        outPointer = malloc(size);
     }
 
     // Allocate from correct pool
-    void* outPointer = operator new (size, allocator);
+    if(outPointer == nullptr)
+        outPointer = operator new (size, allocator);
     
 	return outPointer;
 }
