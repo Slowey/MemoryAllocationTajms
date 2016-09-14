@@ -12,9 +12,14 @@ public:
     */
     PoolAllocatorInternal(PoolParkInternal* p_poolPark);
     PoolAllocatorInternal();
+    PoolAllocatorInternal(int a);
     ~PoolAllocatorInternal();
 
     int TestMethod() override;
+    void Allocate() override;
+    void Deallocate() override;
+
+    int numAllocations = 0;
 
 private:
     PoolParkInternal* m_poolPark;

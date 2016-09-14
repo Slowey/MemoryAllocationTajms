@@ -10,9 +10,13 @@ public:
     static MemoryManager* Get();
 
 
+
 private:
     MemoryManager();
     ~MemoryManager();
     static MemoryManager* m_singleton;
+
 };
 
+void* operator new (size_t size, PoolAllocator* allocator);
+void* operator new (size_t size);
