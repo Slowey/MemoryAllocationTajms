@@ -24,6 +24,7 @@ void TajmsLib::ShutdownTajmsLib()
 {
     // Stop the timer and write to textfiles.
     // unsigned int end = clock();
+    m_totalTimeForProgram = clock();
     time_t  timev = time(0);
     time(&timev);
     struct tm now;
@@ -48,7 +49,23 @@ void TajmsLib::ShutdownTajmsLib()
 
     std::ofstream myfile;
     myfile.open(secondString + "_" + minuteString + "_" + hourString + "_" + dayString + "_" + monthString + "_" + yearString + ".txt");
-    myfile << timeSecond + timeMinute + timeHour + timeDay + timeMonth + timeYear;
+
+    myfile << "Total runtime: " << m_totalTimeForProgram << std::endl;
+    for (size_t i = 0; i < nrOfTimers; ++i)
+    {
+        myfile << m_timers[i].timerName + ": ";
+        if (m_timers[i].timerEndTime == 0)
+        {
+            myfile << "No end time recorded" << std::endl;
+        }
+        else
+        {
+            myfile << (m_timers[i].timerEndTime - m_timers[i].timerStartTime) / CLOCKS_PER_SEC << std::endl; // Skriv ut hur stor andel av tiden som görs i denna del. fast kan vara weird eftersom vi kanske trådar.
+        }
+    }
+
+    // myfile << timeSecond + timeMinute + timeHour + timeDay + timeMonth + timeYear;
+
 
     myfile.close();
 }
@@ -64,10 +81,9 @@ float TajmsLib::Test()
 }
 int TajmsLib::StartTimer(std::string p_timerName)
 {
-    int timerId = 0; // Ändra tvåan till en funktion som fixar detta
-    m_timers.push_back(TajmsTimer(clock(), timerId, p_timerName));
-
-    return timerId;
+    m_timers.push_back(TajmsTimer(clock(), nrOfTimers, p_timerName));
+    ++nrOfTimers;
+    return nrOfTimers - 1;
 }
 void TajmsLib::StopTimer(int p_id)
 {
