@@ -3,9 +3,7 @@
 #include "TestClass.h"
 #include <iostream>
 
-// MAke the allocators in a seperate container class that is singleton
-// Then include it in the memoryMAnager cpp file instead.
-// Now there shouldnt be conflict between overriding new operator for Allocators on init
+
 int main()
 {
     // Create an allocator pointer

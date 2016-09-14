@@ -110,6 +110,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Internal\GenericAllocators.h" />
     <ClInclude Include="Internal\PoolAllocatorInternal.h" />
     <ClInclude Include="Internal\PoolInternal.h" />
     <ClInclude Include="Internal\StackAllocatorInternal.h" />
@@ -118,6 +119,7 @@
     <ClInclude Include="StackAllocator.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Internal\GenericAllocators.cpp" />
     <ClCompile Include="Internal\PoolAllocatorInternal.cpp" />
     <ClCompile Include="Internal\PoolInternal.cpp" />
     <ClCompile Include="Internal\StackAllocatorInternal.cpp" />

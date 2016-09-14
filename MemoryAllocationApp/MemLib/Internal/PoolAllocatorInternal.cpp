@@ -2,7 +2,10 @@
 
 PoolAllocatorInternal::PoolAllocatorInternal()
 {
-    int a = 3;
+}
+
+PoolAllocatorInternal::PoolAllocatorInternal(int a)
+{
     int b = 4;
 }
 
