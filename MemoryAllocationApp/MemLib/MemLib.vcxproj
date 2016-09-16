@@ -110,8 +110,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="DynamicList.h" />
     <ClInclude Include="Internal\AllocatorManager.h" />
+    <ClInclude Include="Internal\DynamicList.h" />
     <ClInclude Include="Internal\PoolAllocatorInternal.h" />
     <ClInclude Include="Internal\PoolParkInternal.h" />
     <ClInclude Include="Internal\PoolInternal.h" />
