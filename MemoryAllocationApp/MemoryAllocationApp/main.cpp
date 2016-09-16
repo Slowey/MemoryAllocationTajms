@@ -21,15 +21,12 @@ public:
 
 //#define RUN_PRE_VALUES 1
 #define RUN_NORMAL 2
-#define TEST_TO_RUN 2
+#define TEST_TO_RUN 1
 
 
 int main()
 {
-
     TajmsLib tajm;
-
-    
 
     // Create big ass memory manager (this should be a singleton)
 
@@ -65,17 +62,6 @@ int main()
 
 #elif TEST_TO_RUN == 2
 
-    int forLoopTimerId2 = tajm.StartTimer("ForLoopTimer2");
-    tests.TestAllocateManyAndUse(numObjects);
-    tajm.StopTimer(forLoopTimerId2);
-
-#elif TEST_TO_RUN == 3
-
-    int forLoopTimerId3 = tajm.StartTimer("ForLoopTimer3");
-    tests.TestAllocateManyDifferent(numObjects);
-    tajm.StopTimer(forLoopTimerId3);
-
-#elif TEST_TO_RUN == 4
 
     
 #endif
