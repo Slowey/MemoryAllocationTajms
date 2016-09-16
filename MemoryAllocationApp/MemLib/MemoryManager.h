@@ -1,6 +1,7 @@
 #pragma once
 #include "PoolAllocator.h"
-#include "Internal\StackAllocatorInternal.h"
+#include "StackAllocator.h"
+
 #define USE_LIBRARY
 
 class MemoryManager
@@ -17,7 +18,6 @@ private:
     MemoryManager();
     ~MemoryManager();
     static MemoryManager* m_singleton;
-	StackAllocatorInternal* m_stackAllocator;
 
 };
 

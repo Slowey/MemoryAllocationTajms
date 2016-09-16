@@ -1,6 +1,8 @@
 #include "StackAllocatorInternal.h"
 #include <string>
 
+StackAllocatorInternal* StackAllocatorInternal::m_singleton = nullptr;
+
 StackAllocatorInternal::StackAllocatorInternal(void * p_start)
 	:m_startPointer(p_start), m_head(p_start)
 {
@@ -17,7 +19,7 @@ StackAllocatorInternal * StackAllocatorInternal::Get()
 {
 	if (m_singleton == nullptr)
 	{
-		// Not initialized
+		// Not initialized. Prolly good with an error message
 		return nullptr;
 	}
 	return m_singleton;

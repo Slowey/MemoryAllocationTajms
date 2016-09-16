@@ -42,6 +42,8 @@ int main()
 	int* derp = new(poolAllocator)int(5);
 	TestClass* testClass = new(poolAllocator)TestClass();
 
+	int* derp2 = new(Stack::LongTerm)int(5);
+
 
     int numObjects = 100000;
 
