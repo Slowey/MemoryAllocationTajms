@@ -20,7 +20,7 @@ void TajmsLib::InitTajmsLib()
 {
     //start the program timer.
     m_begin = clock();
-    //mkdir("myfolder");
+    _mkdir("Test timers");
 
 }
 void TajmsLib::ShutdownTajmsLib(std::string p_fileName)
