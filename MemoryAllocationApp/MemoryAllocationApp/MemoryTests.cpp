@@ -1,5 +1,7 @@
 #include "MemoryTests.h"
-#include <vector>
+#include <iostream>
+#include <algorithm>
+
 
 
 MemoryTests::MemoryTests()
@@ -9,6 +11,34 @@ MemoryTests::MemoryTests()
 
 MemoryTests::~MemoryTests()
 {
+}
+
+void MemoryTests::CreateRandomAccessNumbers(std::string fileName, int amount)
+{
+    for (size_t i = 0; i < amount; i++)
+    {
+        randomNumbers.push_back(i);
+    }
+
+    std::random_shuffle(randomNumbers.begin(), randomNumbers.end());
+
+    FILE* newFile;
+    fopen_s(&newFile, fileName.c_str(), "wb");
+    
+    fwrite(&randomNumbers[0], sizeof(int), amount, newFile);
+
+    fclose(newFile);
+}
+
+void MemoryTests::LoadRandomAccessNumbers(std::string fileName, int amount)
+{
+    FILE* openFile;
+    fopen_s(&openFile, fileName.c_str(), "rb");
+
+    randomNumbers.resize(amount);
+    fread(&randomNumbers[0], sizeof(int), amount, openFile);
+
+    fclose(openFile);
 }
 
 void MemoryTests::TestAllocateMany(double amount)
