@@ -14,8 +14,10 @@
 
 int main()
 {
+
     TajmsLib tajm;
-    tajm.InitTajmsLib();
+
+    
 
     // Create big ass memory manager (this should be a singleton)
 
@@ -38,6 +40,7 @@ int main()
 #elif RUN_NORMAL
 
     tests.LoadRandomAccessNumbers("randomNum", numObjects);
+    tajm.InitTajmsLib();
 
 #if TEST_TO_RUN == 1
     int forLoopTimerId1 = tajm.StartTimer("ForLoopTimer1");

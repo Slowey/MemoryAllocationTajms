@@ -24,7 +24,7 @@ void TajmsLib::ShutdownTajmsLib(std::string p_fileName)
 {
     // Stop the timer and write to textfiles.
     // unsigned int end = clock();
-    m_totalTimeForProgram = clock();
+    m_totalTimeForProgram = clock() - m_begin;
     time_t  timev = time(0);
     time(&timev);
     struct tm now;
@@ -50,7 +50,7 @@ void TajmsLib::ShutdownTajmsLib(std::string p_fileName)
     std::ofstream myfile;
     myfile.open("Test timers/" + p_fileName + "_" + yearString + "_" + monthString + "_" + dayString + "_" + hourString + "_" + minuteString + "_" + secondString + ".txt");
 
-    float totalTimeForOutput = m_totalTimeForProgram / CLOCKS_PER_SEC;
+    double totalTimeForOutput = (double)m_totalTimeForProgram / (double)CLOCKS_PER_SEC;
     myfile << "Total runtime: " << totalTimeForOutput << std::endl; // den här fungerar ju klart ej!
     for (size_t i = 0; i < nrOfTimers; ++i)
     {
@@ -61,9 +61,9 @@ void TajmsLib::ShutdownTajmsLib(std::string p_fileName)
         }
         else
         {
-            float tempForOutput = (m_timers[i].timerEndTime - m_timers[i].timerStartTime) / CLOCKS_PER_SEC;
-            myfile << tempForOutput; // Skriv ut hur stor andel av tiden som görs i denna del. fast kan vara weird eftersom vi kanske trådar.
-            myfile << " It was " << tempForOutput / totalTimeForOutput << " of the total run time" << std::endl;
+            double tempForOutput = (double)(m_timers[i].timerEndTime - m_timers[i].timerStartTime) / (double)CLOCKS_PER_SEC;
+            myfile << tempForOutput;
+            myfile << " It was " << (double)tempForOutput / totalTimeForOutput << " of the total run time" << std::endl;
         }
     }
 

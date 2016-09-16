@@ -16,11 +16,11 @@ public:
     struct TajmsTimer
     {
         unsigned int timerId = 0;
-        float timerStartTime = 0;
-        float timerEndTime = 0;
+        long timerStartTime = 0;
+        long timerEndTime = 0;
         std::string timerName = "";
         // int nrOfThreads = 0; // Detta kanske kan lösa något om flera trådar ska stänga av en timer. fast man kan också bara ge en timer för varje tråd.
-        TajmsTimer(float p_timerStartTime, unsigned int p_timerId, std::string p_timerName)
+        TajmsTimer(long p_timerStartTime, unsigned int p_timerId, std::string p_timerName)
         {
             timerStartTime = p_timerStartTime;
             timerId = p_timerId;
@@ -28,9 +28,9 @@ public:
         }
     };
 private:
-    float m_totalTimeForProgram;
-    float m_begin; // Kanske kan göra om till unsigned int om det fungerar
-    float m_endOfProgram;
+    long m_totalTimeForProgram;
+    long m_begin; // Kanske kan göra om till unsigned int om det fungerar
+    long m_endOfProgram;
     unsigned int nrOfTimers;
     std::vector<TajmsTimer> m_timers;
 
