@@ -6,6 +6,10 @@
 
 
 
+//#define RUN_PRE_VALUES 1
+#define RUN_NORMAL 2
+
+
 int main()
 {
     TajmsLib tajm;
@@ -20,20 +24,31 @@ int main()
     poolAllocator = MemoryManager::Get()->CreatePoolAllocator();
     // Use pool allocator to varify it works
 
+    int numObjects = 100000;
+
+
     MemoryTests tests = MemoryTests();
+
+#ifdef RUN_PRE_VALUES
+
+    tests.CreateRandomAccessNumbers("randomNum", numObjects);
+
+#elif RUN_NORMAL
+
+    tests.LoadRandomAccessNumbers("randomNum", numObjects);
+
     int forLoopTimerId1 = tajm.StartTimer("ForLoopTimer1");
-    tests.TestAllocateMany(100000);
+    tests.TestAllocateMany(numObjects);
     tajm.StopTimer(forLoopTimerId1);
 
     int forLoopTimerId2 = tajm.StartTimer("ForLoopTimer2");
-    tests.TestAllocateManyAndUse(100000);
+    tests.TestAllocateManyAndUse(numObjects);
     tajm.StopTimer(forLoopTimerId2);
 
     int forLoopTimerId3 = tajm.StartTimer("ForLoopTimer3");
-    tests.TestAllocateManyDifferent(100000);
+    tests.TestAllocateManyDifferent(numObjects);
     tajm.StopTimer(forLoopTimerId3);
 
-    // Silly int. Put a breakpoint here to ensure the program doesn't end (there are better ways of doing this but cba)
-    int stop = 2;
     tajm.ShutdownTajmsLib();
+#endif
 }
