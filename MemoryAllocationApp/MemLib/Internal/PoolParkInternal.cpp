@@ -51,5 +51,5 @@ void * PoolParkInternal::GetEndPointer()
 {
 	// Return the very end of the memory space of this pool
 	//-1 since otherwise we'd get where the next block starts
-	return reinterpret_cast<char*>(m_startOfMemory) + m_memoryBlockSize * m_numberOfMemoryBlocks - 1; 
+	return reinterpret_cast<char*>(m_startOfMemory) + m_memoryBlockSize * m_numberOfMemoryBlocks - 1;
 }
