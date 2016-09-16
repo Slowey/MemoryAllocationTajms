@@ -15,7 +15,6 @@ AllocatorManager * AllocatorManager::Get()
 
 AllocatorManager::AllocatorManager()
 {
-    int* derp = new int(4);
     m_poolPark = PoolParkInternal(1024, 20);
     PoolAllocatorInternal hej;
     m_default4BytePool = PoolAllocatorInternal(&m_poolPark,4);
@@ -43,10 +42,10 @@ PoolAllocatorInternal * AllocatorManager::GetDefault16BytePool()
     return &m_default16BytePool;
 }
 
-PoolAllocatorInternal * AllocatorManager::CreatePoolAllocator()
+PoolAllocatorInternal * AllocatorManager::CreatePoolAllocator(const int& p_segmentSize)
 {
     PoolAllocatorInternal* internalPool = (PoolAllocatorInternal*)malloc(sizeof(PoolAllocatorInternal));
-    new (internalPool) PoolAllocatorInternal();
+    new (internalPool) PoolAllocatorInternal(&m_poolPark, p_segmentSize);
 
     return internalPool;
 }
