@@ -1,5 +1,5 @@
 #include "MemoryTests.h"
-#include <MemoryManager.h>
+#include "LibDefines.h"
 #include <iostream>
 #include <algorithm>
 
@@ -173,7 +173,7 @@ struct Matrix
 
 void MemoryTests::TestAllocateMatricesForFramesSpecific(double amount, int frames)
 {
-    PoolAllocator* matricAllocator = MemoryManager::Get()->CreatePoolAllocator();
+    PoolAllocator* matricAllocator = MemoryManager::Get()->CreatePoolAllocator(sizeof(Matrix));
 
     for (size_t i = 0; i < frames; i++)
     {
@@ -188,7 +188,7 @@ void MemoryTests::TestAllocateMatricesForFramesSpecific(double amount, int frame
 
 void MemoryTests::TestAllocateAndUseMatricesForFramesSpecific(double amount, int frames)
 {
-    PoolAllocator* matricAllocator = MemoryManager::Get()->CreatePoolAllocator();
+    PoolAllocator* matricAllocator = MemoryManager::Get()->CreatePoolAllocator(sizeof(Matrix));
 
     for (size_t i = 0; i < frames; i++)
     {
