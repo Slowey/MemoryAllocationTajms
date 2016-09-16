@@ -244,3 +244,4 @@ ModelManifest.xml
 # FAKE - F# Make
 .fake/
 /MemoryAllocationApp/MemoryAllocationApp/Test timers
+/MemoryAllocationApp/MemoryAllocationApp/randomNum

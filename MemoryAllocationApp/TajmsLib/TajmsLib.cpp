@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <direct.h>
 
 //http://stackoverflow.com/questions/2808398/easily-measure-elapsed-time
 // kolla chrono grejen längre ner för clock kollade cpu clocken o inte actual time tydligen.
@@ -19,6 +20,8 @@ void TajmsLib::InitTajmsLib()
 {
     //start the program timer.
     m_begin = clock();
+    //mkdir("myfolder");
+
 }
 void TajmsLib::ShutdownTajmsLib(std::string p_fileName)
 {
@@ -78,9 +81,10 @@ void TajmsLib::UpdateTimer()
 }
 float TajmsLib::Test()
 {
-    float end = clock();
-    float elapsed_secs = double(end - m_begin) / CLOCKS_PER_SEC;
-    return elapsed_secs;
+    //float end = clock();
+    //float elapsed_secs = double(end - m_begin) / CLOCKS_PER_SEC;
+    //return elapsed_secs;
+    return 0;
 }
 int TajmsLib::StartTimer(std::string p_timerName)
 {
