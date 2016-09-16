@@ -1,4 +1,5 @@
 #include "AllocatorManager.h"
+#include "StackAllocatorInternal.h"
 #include <iostream>
 
 AllocatorManager* AllocatorManager::m_singleton = nullptr;
@@ -15,8 +16,9 @@ AllocatorManager * AllocatorManager::Get()
 
 AllocatorManager::AllocatorManager()
 {
-    int* derp = new int(4);
     m_poolPark = PoolParkInternal(1024, 20);
+	StackAllocatorInternal::Initialize(m_poolPark.GetEndPointer());
+
     PoolAllocatorInternal hej;
     m_default4BytePool = PoolAllocatorInternal(&m_poolPark,4);
     m_default8BytePool = PoolAllocatorInternal(&m_poolPark, 8);
@@ -43,10 +45,10 @@ PoolAllocatorInternal * AllocatorManager::GetDefault16BytePool()
     return &m_default16BytePool;
 }
 
-PoolAllocatorInternal * AllocatorManager::CreatePoolAllocator()
+PoolAllocatorInternal * AllocatorManager::CreatePoolAllocator(const int& p_segmentSize)
 {
     PoolAllocatorInternal* internalPool = (PoolAllocatorInternal*)malloc(sizeof(PoolAllocatorInternal));
-    new (internalPool) PoolAllocatorInternal();
+    new (internalPool) PoolAllocatorInternal(&m_poolPark, p_segmentSize);
 
     return internalPool;
 }

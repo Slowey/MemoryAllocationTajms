@@ -27,6 +27,10 @@ public:
     */
     void FreeMemoryBlock(void* p_blockStartPointer);
 
+	/**
+	Returns pointer to end of pool park*/
+	void* GetEndPointer();
+
     const int& GetMemoryBlockSize() const { return m_memoryBlockSize; };
 private:
     MemLib::OwnVector<void*> m_freedBlocks;
