@@ -18,12 +18,17 @@ namespace MemLib
         vector<T>(const int& p_capacity);
         // pushes the item to the end of the list
         void push_back(const T& p_item);
-        // Removes the last item and returns it
+        // Removes the last item and returns it, no delete here
         T pop();
         // gets the item at the given index point
         T at( const int& p_index);
-        // erases the item at the given index point effectivly reducing size of list
+        // gets the item at the end of the list
+        T endItem();
+        // erases the item at the given index point effectivly reducing size of list. TODO implement
         void erase(const int& p_index);
+        // Returns true if the list is empty
+        bool empty();
+
     };
 
     template<class T>
@@ -77,10 +82,23 @@ namespace MemLib
         return vectorData[p_index];
     }
 
+    template<class T>
+    inline T vector<T>::endItem()
+    {
+        assert(size >= 1);
+        return vectorData[size-1];
+    }
 
+    template<class T>
+    inline bool vector<T>::empty()
+    {
+        return size==0;
+    }
+    
     template<class T>
     inline T vector<T>::pop()
     {
+        assert(size >= 1);
         T returnItem = vectorData[size - 1];
         size--;
         return returnItem;
