@@ -24,7 +24,7 @@ MemoryManager * MemoryManager::Get()
 }
 
 
-PoolAllocator * MemoryManager::CreatePoolAllocator()
+PoolAllocator * MemoryManager::CreatePoolAllocator(int p_alignment)
 {
 	return new PoolAllocator();
 }
@@ -35,6 +35,16 @@ void* operator new[](size_t size, PoolAllocator* allocator)
 }
 
 void* operator new (size_t size, PoolAllocator* allocator)
+{
+	void* outPointer = malloc(size);
+	return outPointer;
+}
+void* operator new (size_t size, Stack p_stackDuration)
+{
+	void* outPointer = malloc(size);
+	return outPointer;
+}
+void* operator new[](size_t size, Stack p_stackDuration)
 {
 	void* outPointer = malloc(size);
 	return outPointer;

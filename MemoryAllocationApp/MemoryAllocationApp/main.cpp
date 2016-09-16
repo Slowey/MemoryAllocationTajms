@@ -4,6 +4,7 @@
 #include <TajmsLib.h>
 #include "MemoryTests.h"
 #include "LibDefines.h"
+#include <StackAllocator.h>
 #include <string>
 
 class TestClass
