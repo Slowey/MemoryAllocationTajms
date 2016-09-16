@@ -2,12 +2,13 @@
 #include "iostream"
 #include "time.h"
 #include <vector>
+#include <string>
 // Call initTajmslib to start the counter for the whole program and make sure to use ShutdownTajmsLib before you close the program to make sure you get every timer.
 class TajmsLib
 {
 public:
     void InitTajmsLib();
-    void ShutdownTajmsLib();
+    void ShutdownTajmsLib(std::string p_fileName);
     void UpdateTimer();
     float Test();
     int StartTimer(std::string p_timerName);// Saves the start time of the timer and returns an id for the timer.

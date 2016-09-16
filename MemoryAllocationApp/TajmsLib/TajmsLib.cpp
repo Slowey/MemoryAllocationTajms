@@ -20,7 +20,7 @@ void TajmsLib::InitTajmsLib()
     //start the program timer.
     m_begin = clock();
 }
-void TajmsLib::ShutdownTajmsLib()
+void TajmsLib::ShutdownTajmsLib(std::string p_fileName)
 {
     // Stop the timer and write to textfiles.
     // unsigned int end = clock();
@@ -48,7 +48,7 @@ void TajmsLib::ShutdownTajmsLib()
     std::string secondString = std::to_string(timeSecond);
 
     std::ofstream myfile;
-    myfile.open("Test timers/" + secondString + "_" + minuteString + "_" + hourString + "_" + dayString + "_" + monthString + "_" + yearString + ".txt");
+    myfile.open("Test timers/" + p_fileName + "_" + yearString + "_" + monthString + "_" + dayString + "_" + hourString + "_" + minuteString + "_" + secondString + ".txt");
 
     float totalTimeForOutput = m_totalTimeForProgram / CLOCKS_PER_SEC;
     myfile << "Total runtime: " << totalTimeForOutput << std::endl; // den här fungerar ju klart ej!
