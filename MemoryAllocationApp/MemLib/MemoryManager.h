@@ -8,7 +8,7 @@ class MemoryManager
 {
 public:
 
-    PoolAllocator* CreatePoolAllocator();
+    PoolAllocator* CreatePoolAllocator(const int& p_segmentSize);
 
     static MemoryManager* Get();
 

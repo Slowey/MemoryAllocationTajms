@@ -36,8 +36,8 @@ int main()
     //MemoryManager memManager;
     // Create an allocator pointer
     PoolAllocator* poolAllocator;
-    // Ask memory manager for an actual pool allocator
-    poolAllocator = MemoryManager::Get()->CreatePoolAllocator();
+    // Ask memory manager for an actual pool allocator with 32 segment size!!
+    poolAllocator = MemoryManager::Get()->CreatePoolAllocator(32);
     // Use pool allocator to varify it works
 	int* derp = new(poolAllocator)int(5);
 	TestClass* testClass = new(poolAllocator)TestClass();

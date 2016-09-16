@@ -11,7 +11,7 @@ public:
     PoolAllocatorInternal* GetDefault8BytePool();
     PoolAllocatorInternal* GetDefault16BytePool();
 
-    PoolAllocatorInternal * CreatePoolAllocator();
+    PoolAllocatorInternal * CreatePoolAllocator(const int& p_segmentSize);
 
 private:
     static AllocatorManager* m_singleton;
