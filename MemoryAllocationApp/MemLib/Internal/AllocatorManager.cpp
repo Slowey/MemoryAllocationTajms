@@ -1,4 +1,5 @@
 #include "AllocatorManager.h"
+#include "StackAllocatorInternal.h"
 #include <iostream>
 
 AllocatorManager* AllocatorManager::m_singleton = nullptr;
@@ -16,6 +17,8 @@ AllocatorManager * AllocatorManager::Get()
 AllocatorManager::AllocatorManager()
 {
     m_poolPark = PoolParkInternal(1024, 20);
+	StackAllocatorInternal::Initialize(m_poolPark.GetEndPointer());
+
     PoolAllocatorInternal hej;
     m_default4BytePool = PoolAllocatorInternal(&m_poolPark,4);
     m_default8BytePool = PoolAllocatorInternal(&m_poolPark, 8);

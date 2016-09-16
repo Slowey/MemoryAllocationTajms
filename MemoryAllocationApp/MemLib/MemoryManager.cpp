@@ -9,10 +9,6 @@ MemoryManager* MemoryManager::m_singleton = nullptr;
 MemoryManager::MemoryManager()
 {
     AllocatorManager::Get(); // Initialize
-	int stackSizeBytes = 8000;
-	void* stackMemory = malloc(stackSizeBytes);
-	stackMemory = reinterpret_cast<char*>(stackMemory) + stackSizeBytes;
-	StackAllocatorInternal::Initialize(stackMemory);
 }
 
 MemoryManager::~MemoryManager()
