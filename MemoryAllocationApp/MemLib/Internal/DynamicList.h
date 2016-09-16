@@ -5,7 +5,7 @@
 namespace MemLib
 {
     template <class T>
-    class vector
+    class OwnVector
     {
     private:
         int size;
@@ -14,8 +14,8 @@ namespace MemLib
 
         void AllocateMore();
     public:
-        vector<T>();
-        vector<T>(const int& p_capacity);
+        OwnVector<T>();
+        OwnVector<T>(const int& p_capacity);
         // pushes the item to the end of the list
         void push_back(const T& p_item);
         // Removes the last item and returns it, no delete here
@@ -28,11 +28,14 @@ namespace MemLib
         void erase(const int& p_index);
         // Returns true if the list is empty
         bool empty();
-
+        // Returns the size of the vector
+        int getSize();
+        // Deletes all elements in the vector and frees memory
+        void deleteAndFree();
     };
 
     template<class T>
-    inline vector<T>::vector()
+    inline OwnVector<T>::OwnVector()
     {
         capacity = 10;
         size = 0;
@@ -40,7 +43,7 @@ namespace MemLib
     }
 
     template<class T>
-    inline vector<T>::vector(const int & p_capacity)
+    inline OwnVector<T>::OwnVector(const int & p_capacity)
     {
         capacity = p_capacity;
         size = 0;
@@ -48,7 +51,7 @@ namespace MemLib
     }
 
     template<class T>
-    inline void vector<T>::AllocateMore()
+    inline void OwnVector<T>::AllocateMore()
     {
         // increase capacity by 2x
         capacity *= 2;
@@ -65,7 +68,7 @@ namespace MemLib
     }
 
     template<class T>
-    inline void vector<T>::push_back(T const & p_item)
+    inline void OwnVector<T>::push_back(T const & p_item)
     {
         if (size >= capacity)
         {
@@ -76,27 +79,39 @@ namespace MemLib
     }
 
     template<class T>
-    inline T vector<T>::at(int const & p_index)
+    inline T OwnVector<T>::at(int const & p_index)
     {
         assert(p_index <= size - 1);
         return vectorData[p_index];
     }
 
     template<class T>
-    inline T vector<T>::endItem()
+    inline T OwnVector<T>::endItem()
     {
         assert(size >= 1);
         return vectorData[size-1];
     }
 
     template<class T>
-    inline bool vector<T>::empty()
+    inline bool OwnVector<T>::empty()
     {
         return size==0;
     }
+
+    template<class T>
+    inline int OwnVector<T>::getSize()
+    {
+        return size;
+    }
+
+    template<class T>
+    inline void OwnVector<T>::deleteAndFree()
+    {
+        delete[] vectorData;
+    }
     
     template<class T>
-    inline T vector<T>::pop()
+    inline T OwnVector<T>::pop()
     {
         assert(size >= 1);
         T returnItem = vectorData[size - 1];

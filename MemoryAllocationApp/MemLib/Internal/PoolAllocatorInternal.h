@@ -1,7 +1,8 @@
 #pragma once
 #include "../PoolAllocator.h"
-#include "../Internal/PoolParkInternal.h"
-#include "../Internal/PoolInternal.h"
+#include "PoolParkInternal.h"
+#include "PoolInternal.h"
+#include "DynamicList.h"
 
 class PoolAllocatorInternal
     :public PoolAllocator
@@ -22,5 +23,6 @@ public:
     int numAllocations = 0;
 
 private:
+    MemLib::OwnVector<PoolInternal> m_pools;
     PoolParkInternal* m_poolPark;
 };

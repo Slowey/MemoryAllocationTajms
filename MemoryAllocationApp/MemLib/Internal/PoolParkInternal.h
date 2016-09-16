@@ -29,7 +29,7 @@ public:
 
     const int& GetMemoryBlockSize() const { return m_memoryBlockSize; };
 private:
-    MemLib::vector<void*> m_freedBlocks;
+    MemLib::OwnVector<void*> m_freedBlocks;
     int m_currentBlock;
     void* m_startOfMemory;
     int m_memoryBlockSize;
