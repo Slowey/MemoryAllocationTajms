@@ -1,10 +1,22 @@
-#include <MemoryManager.h>
-#include <PoolAllocator.h>
+
+
 #include <iostream>
 #include <TajmsLib.h>
 #include "MemoryTests.h"
+#include "LibDefines.h"
 
+class TestClass
+{
+public:
+	TestClass()
+	{
+		derp = 5;
+		herp = 2.2f;
+	}
+	int derp;
+	float herp;
 
+};
 
 int main()
 {
@@ -19,6 +31,9 @@ int main()
     // Ask memory manager for an actual pool allocator
     poolAllocator = MemoryManager::Get()->CreatePoolAllocator();
     // Use pool allocator to varify it works
+	int* derp = new(poolAllocator)int(5);
+	TestClass* testClass = new(poolAllocator)TestClass();
+
 
     MemoryTests tests = MemoryTests();
     int forLoopTimerId1 = tajm.StartTimer("ForLoopTimer1");
