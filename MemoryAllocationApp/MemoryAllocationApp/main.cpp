@@ -4,6 +4,7 @@
 #include <TajmsLib.h>
 #include "MemoryTests.h"
 #include "LibDefines.h"
+#include <string>
 
 class TestClass
 {
@@ -20,12 +21,15 @@ public:
 
 //#define RUN_PRE_VALUES 1
 #define RUN_NORMAL 2
+#define TEST_TO_RUN 2
 
 
 int main()
 {
+
     TajmsLib tajm;
-    tajm.InitTajmsLib();
+
+    
 
     // Create big ass memory manager (this should be a singleton)
 
@@ -51,19 +55,54 @@ int main()
 #elif RUN_NORMAL
 
     tests.LoadRandomAccessNumbers("randomNum", numObjects);
+    tajm.InitTajmsLib();
 
+#if TEST_TO_RUN == 1
     int forLoopTimerId1 = tajm.StartTimer("ForLoopTimer1");
     tests.TestAllocateMany(numObjects);
     tajm.StopTimer(forLoopTimerId1);
+
+
+#elif TEST_TO_RUN == 2
 
     int forLoopTimerId2 = tajm.StartTimer("ForLoopTimer2");
     tests.TestAllocateManyAndUse(numObjects);
     tajm.StopTimer(forLoopTimerId2);
 
+#elif TEST_TO_RUN == 3
+
     int forLoopTimerId3 = tajm.StartTimer("ForLoopTimer3");
     tests.TestAllocateManyDifferent(numObjects);
     tajm.StopTimer(forLoopTimerId3);
 
-    tajm.ShutdownTajmsLib();
+#elif TEST_TO_RUN == 4
+
+    
+#endif
+
+    std::string testName = "";
+
+    if (TEST_TO_RUN == 1)
+    {
+        testName = "test1";
+    }
+    else if (TEST_TO_RUN == 2)
+    {
+        testName = "test2";
+    }
+    else if (TEST_TO_RUN == 3)
+    {
+        testName = "test3";
+    }
+    else if (TEST_TO_RUN == 4)
+    {
+        testName = "test4";
+    }
+    else if (TEST_TO_RUN == 5)
+    {
+        testName = "test5";
+    }
+
+    tajm.ShutdownTajmsLib(testName);
 #endif
 }

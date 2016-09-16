@@ -8,6 +8,10 @@ MemoryManager* MemoryManager::m_singleton = nullptr;
 MemoryManager::MemoryManager()
 {
     AllocatorManager::Get(); // Initialize
+	int stackSizeBytes = 8000;
+	void* stackMemory = malloc(stackSizeBytes);
+	stackMemory = reinterpret_cast<char*>(stackMemory) + stackSizeBytes;
+	StackAllocatorInternal::Initialize(stackMemory);
 }
 
 MemoryManager::~MemoryManager()
@@ -42,6 +46,18 @@ void* operator new (size_t size, PoolAllocator* allocator)
     void* outPointer = allocator->Allocate();
 
     return outPointer;
+}
+
+void * operator new[](size_t size, Stack stackDuration)
+{
+	// Should use stackduration in the future
+	return StackAllocatorInternal::Get()->Allocate(size);
+}
+
+void * operator new(size_t size, Stack stackDuration)
+{
+	// Should use stackduration in the future
+	return StackAllocatorInternal::Get()->Allocate(size);
 }
 
 void* operator new (size_t size)
