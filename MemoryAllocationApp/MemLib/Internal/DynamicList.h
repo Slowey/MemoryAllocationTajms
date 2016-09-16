@@ -28,7 +28,10 @@ namespace MemLib
         void erase(const int& p_index);
         // Returns true if the list is empty
         bool empty();
-
+        // Returns the size of the vector
+        int size();
+        // Deletes all elements in the vector and frees memory
+        void deleteAndFree();
     };
 
     template<class T>
@@ -93,6 +96,18 @@ namespace MemLib
     inline bool vector<T>::empty()
     {
         return size==0;
+    }
+
+    template<class T>
+    inline int vector<T>::size()
+    {
+        return size;
+    }
+
+    template<class T>
+    inline void vector<T>::deleteAndFree()
+    {
+        delete[] vectorData;
     }
     
     template<class T>
