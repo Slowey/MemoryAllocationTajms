@@ -41,5 +41,5 @@ private:
     int m_numSegments;
 
     // Queue of indices for empty segments
-    MemLib::vector<int> m_emptySegments;
+    MemLib::OwnVector<int> m_emptySegments;
 };
