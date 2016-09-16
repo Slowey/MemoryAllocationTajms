@@ -5,6 +5,7 @@ PoolAllocatorInternal::PoolAllocatorInternal(PoolParkInternal* p_poolPark, const
 {
     void* startOfPool = m_poolPark->GetNewMemoryBlockStartPoint();
     int size = m_poolPark->GetMemoryBlockSize();
+    m_pools.push_back(PoolInternal(startOfPool, p_segmentSize, size));
 }
 
 PoolAllocatorInternal::PoolAllocatorInternal()

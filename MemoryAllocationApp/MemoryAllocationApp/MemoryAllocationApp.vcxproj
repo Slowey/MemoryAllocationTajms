@@ -79,7 +79,7 @@
       <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>MemLib.lib;TajmsLib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>TajmsLib.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -117,9 +117,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MemoryManagerDummy.cpp" />
     <ClCompile Include="MemoryTests.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="LibDefines.h" />
+    <ClInclude Include="MemoryManagerDummy.h" />
     <ClInclude Include="MemoryTests.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

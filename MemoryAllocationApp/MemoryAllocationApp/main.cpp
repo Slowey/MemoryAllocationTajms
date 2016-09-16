@@ -1,11 +1,23 @@
-#include <MemoryManager.h>
-#include <PoolAllocator.h>
+
+
 #include <iostream>
 #include <TajmsLib.h>
 #include "MemoryTests.h"
+#include "LibDefines.h"
 #include <string>
 
+class TestClass
+{
+public:
+	TestClass()
+	{
+		derp = 5;
+		herp = 2.2f;
+	}
+	int derp;
+	float herp;
 
+};
 
 //#define RUN_PRE_VALUES 1
 #define RUN_NORMAL 2
@@ -27,6 +39,9 @@ int main()
     // Ask memory manager for an actual pool allocator
     poolAllocator = MemoryManager::Get()->CreatePoolAllocator();
     // Use pool allocator to varify it works
+	int* derp = new(poolAllocator)int(5);
+	TestClass* testClass = new(poolAllocator)TestClass();
+
 
     int numObjects = 100000;
 

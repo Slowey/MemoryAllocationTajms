@@ -1,0 +1,4 @@
+Total runtime: 1.708
+ForLoopTimer1: 0.074
+ForLoopTimer2: 0.074
+ForLoopTimer3: 1.497
