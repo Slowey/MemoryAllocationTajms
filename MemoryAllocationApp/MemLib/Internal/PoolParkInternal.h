@@ -1,5 +1,6 @@
 #pragma once
 #include "DynamicList.h"
+#include <mutex>
 
 class PoolParkInternal
 {
@@ -40,6 +41,8 @@ public:
 	int GetCurrentStackBlock();
 
     const int& GetMemoryBlockSize() const { return m_memoryBlockSize; };
+	std::shared_ptr<std::mutex> m_mutexLockFree;	
+	std::shared_ptr<std::mutex> m_mutexLockCreateNew;
 private:
     MemLib::OwnVector<void*> m_freedBlocks;
     int m_currentBlock;
