@@ -18,7 +18,7 @@ public:
 
     int TestMethod() override;
     void* Allocate() override;
-    void Deallocate(void * memBlock, size_t size);
+    void Deallocate(void* p_memory, const int& p_size) override;
 
 private:
     void CreateNewPool();

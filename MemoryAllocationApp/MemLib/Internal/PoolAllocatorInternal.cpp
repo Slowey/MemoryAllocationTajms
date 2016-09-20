@@ -1,4 +1,5 @@
 #include "PoolAllocatorInternal.h"
+#include "Defines.h"
 
 PoolAllocatorInternal::PoolAllocatorInternal(PoolParkInternal* p_poolPark, const int& p_segmentSize):
     m_poolPark(p_poolPark), m_segmentSize(p_segmentSize)
@@ -43,8 +44,26 @@ void* PoolAllocatorInternal::Allocate()
     return memoryStartPos;
 }
 
-void PoolAllocatorInternal::Deallocate(void* memBlock, size_t size)
+void PoolAllocatorInternal::Deallocate(void* p_memory, const int& p_size)
 {
+    // Go through the pools and find which one has the object
+#ifdef SAVE_FREE_SEGMENTS_IN_POOL
+    int size = m_pools.getSize();
+    int i = 0;
+    bool foundPool = false;
+    for (; i < size; i++)
+    {
+        if (m_pools.at(i).FreeMemory(p_memory, p_size))
+        {
+            foundPool = true;
+            break;
+        }
+    }
+    if (!foundPool)
+    {
+        // ERROR memory isnt in given allocator
+    }
+#endif // SAVE_FREE_SEGMENTS_IN_POOL
 }
 
 void PoolAllocatorInternal::CreateNewPool()
