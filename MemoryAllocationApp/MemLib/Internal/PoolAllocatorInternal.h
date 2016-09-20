@@ -18,7 +18,7 @@ public:
 
     int TestMethod() override;
     void* Allocate() override;
-    void Deallocate() override;
+    void Deallocate(void * memBlock, size_t size);
 
     int numAllocations = 0;
 

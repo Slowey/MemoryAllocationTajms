@@ -41,6 +41,6 @@ void* PoolAllocatorInternal::Allocate()
     return memoryStartPos;
 }
 
-void PoolAllocatorInternal::Deallocate()
+void PoolAllocatorInternal::Deallocate(void* memBlock, size_t size)
 {
 }
