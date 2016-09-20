@@ -17,7 +17,7 @@ AllocatorManager * AllocatorManager::Get()
 AllocatorManager::AllocatorManager()
 {
     m_poolPark = PoolParkInternal(1024, 20);
-	StackAllocatorInternal::Initialize(m_poolPark.GetEndPointer());
+	StackAllocatorInternal::Initialize(m_poolPark.GetEndPointer(), &m_poolPark);
 
     PoolAllocatorInternal hej;
     m_default4BytePool = PoolAllocatorInternal(&m_poolPark,4);
