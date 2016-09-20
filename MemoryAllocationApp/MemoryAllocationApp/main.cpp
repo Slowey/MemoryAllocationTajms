@@ -34,7 +34,9 @@ void task1(std::string msg)
 }
 int main()
 {
+    MemoryManager::Startup(1024, 100);
     TajmsLib tajm;
+    
 
 	//std::thread t1(task1, "Hello1");
 	//std::thread t2(task1, "Hello2");
@@ -57,13 +59,14 @@ int main()
     // Ask memory manager for an actual pool allocator with 32 segment size!!
     poolAllocator = MemoryManager::Get()->CreatePoolAllocator(32);
     // Use pool allocator to varify it works
-	int* derp = new(poolAllocator)int(5);
+    
+
 	TestClass* testClass = new(poolAllocator)TestClass();
 
 	int* derp2 = new(Stack::LongTerm)int(5);
 
 
-    int numObjects = 100000;
+    int numObjects = 10000;
 
 
     MemoryTests tests = MemoryTests();

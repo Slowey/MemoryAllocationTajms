@@ -111,6 +111,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Internal\AllocatorManager.h" />
+    <ClInclude Include="Internal\Defines.h" />
     <ClInclude Include="Internal\DynamicList.h" />
     <ClInclude Include="Internal\PoolAllocatorInternal.h" />
     <ClInclude Include="Internal\PoolParkInternal.h" />

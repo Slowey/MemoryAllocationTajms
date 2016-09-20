@@ -21,6 +21,16 @@ public:
     Returns if the pool is full*/
     bool Full();
 
+    /**
+    Checks if a pointer recides in the pool
+    */
+    bool HasMemory(void* p_memoryPointer, const int& p_size);
+
+    /**
+    Frees the memory if it recides in the pool
+    */
+    bool FreeMemory(void* p_memoryPointer, const int& p_size);
+
 private:
     // Pointer to start of memory for this pool
     void* m_memoryStart;
@@ -40,6 +50,6 @@ private:
     // Number of segments in this pool
     int m_numSegments;
 
-    // Queue of indices for empty segments
-    MemLib::OwnVector<int> m_emptySegments;
+    // Queue of pointer to start of empty segments
+    MemLib::OwnVector<void*> m_emptySegments;
 };

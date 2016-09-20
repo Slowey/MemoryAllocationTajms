@@ -7,6 +7,10 @@ class AllocatorManager
 public:
     static AllocatorManager* Get();
 
+    static void Startup(const int & p_blockSize, const int & p_numBlocks);
+
+
+
     PoolAllocatorInternal* GetDefault4BytePool();
     PoolAllocatorInternal* GetDefault8BytePool();
     PoolAllocatorInternal* GetDefault16BytePool();
@@ -16,7 +20,7 @@ public:
 private:
     static AllocatorManager* m_singleton;
 
-    AllocatorManager();
+    AllocatorManager(const int & p_blockSize, const int & p_numBlocks);
     ~AllocatorManager();
 
     PoolAllocatorInternal m_default4BytePool;

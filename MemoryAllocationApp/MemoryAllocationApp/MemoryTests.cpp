@@ -208,3 +208,19 @@ void MemoryTests::TestAllocateAndUseMatricesForFramesSpecific(double amount, int
         }
     }
 }
+
+void MemoryTests::TestAllocateAndDeleteMany(long amount)
+{
+    PoolAllocator* intAllocator = MemoryManager::Get()->CreatePoolAllocator(sizeof(int));
+    std::vector<int*> numbers;
+    numbers.resize(amount);
+    for (size_t i = 0; i < amount; i++)
+    {
+        int* newInt = new (intAllocator)int(i);
+        numbers[i] = newInt;
+    }
+    for (size_t i = 0; i < amount; i++)
+    {
+        operator delete(numbers.at(i), intAllocator, sizeof(int));
+    }
+}

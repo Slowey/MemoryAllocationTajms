@@ -18,11 +18,11 @@ public:
 
     int TestMethod() override;
     void* Allocate() override;
-    void Deallocate() override;
-
-    int numAllocations = 0;
+    void Deallocate(void* p_memory, const int& p_size) override;
 
 private:
+    void CreateNewPool();
     MemLib::OwnVector<PoolInternal> m_pools;
     PoolParkInternal* m_poolPark;
+    int m_segmentSize;
 };

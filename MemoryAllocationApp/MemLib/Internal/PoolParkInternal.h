@@ -17,7 +17,7 @@ public:
 
     /**
     @Return - a void pointer to where the blocks memory starts
-    @throw - std::exception if there is no free memory blocks, aka out of memory
+    @throw - 1337 error (int) if tries to allocate where stack is operating
     */
     void* GetNewMemoryBlockStartPoint();
     /**
@@ -26,11 +26,19 @@ public:
     requests a new memory block. 
     @param1 - the void pointer given when GetNewMemoryBlockStartPoint was called
     */
+	/**
+	Same functionality as GetNewMemoryBlockStartPoint() but works for the stack. Returns the lastblock that is not yet allocated and gives it to the stack
+	@throw - 1337 error (int) tried to allocated memory where heap is operating. (Out of memory)
+	*/
+	void* GetNewMemoryBlockEndPoint();
     void FreeMemoryBlock(void* p_blockStartPointer);
 
 	/**
 	Returns pointer to end of pool park*/
 	void* GetEndPointer();
+	int GetMemoryBlockSize();
+
+	int GetCurrentStackBlock();
 
     const int& GetMemoryBlockSize() const { return m_memoryBlockSize; };
 	std::shared_ptr<std::mutex> m_mutexLockFree;	
@@ -42,5 +50,6 @@ private:
     int m_memoryBlockSize;
     // Used to ensure we dont go outside the 
     int m_numberOfMemoryBlocks;
-
+	//StackSpecific
+	int m_currentStackBlock;
 };

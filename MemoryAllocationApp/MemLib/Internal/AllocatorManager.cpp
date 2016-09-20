@@ -6,18 +6,25 @@ AllocatorManager* AllocatorManager::m_singleton = nullptr;
 
 AllocatorManager * AllocatorManager::Get()
 {
-    if (m_singleton == nullptr)
-    {
-        m_singleton = (AllocatorManager*)malloc(sizeof(AllocatorManager));
-        new (m_singleton) AllocatorManager();
-    }
     return m_singleton;
 }
 
-AllocatorManager::AllocatorManager()
+void AllocatorManager::Startup(const int &p_blockSize, const int &p_numBlocks)
 {
-    m_poolPark = PoolParkInternal(1024, 20);
-	StackAllocatorInternal::Initialize(m_poolPark.GetEndPointer());
+    if (m_singleton != nullptr)
+    {
+        return; // assert? throw?
+    }
+
+    m_singleton = (AllocatorManager*)malloc(sizeof(AllocatorManager));
+    new (m_singleton) AllocatorManager(p_blockSize, p_numBlocks);
+
+}
+
+AllocatorManager::AllocatorManager(const int &p_blockSize, const int &p_numBlocks)
+{
+    m_poolPark = PoolParkInternal(p_blockSize, p_numBlocks);
+	StackAllocatorInternal::Initialize(m_poolPark.GetEndPointer(), &m_poolPark);
 
     PoolAllocatorInternal hej;
     m_default4BytePool = PoolAllocatorInternal(&m_poolPark,4);
