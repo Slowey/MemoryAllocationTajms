@@ -1,5 +1,6 @@
 #include "MemoryManager.h"
 #include "Internal/AllocatorManager.h"
+#include "Internal\StackAllocatorInternal.h"
 #include <iostream>
 
 
@@ -25,9 +26,9 @@ MemoryManager * MemoryManager::Get()
 }
 
 
-PoolAllocator * MemoryManager::CreatePoolAllocator()
+PoolAllocator * MemoryManager::CreatePoolAllocator(const int& p_segmentSize)
 {
-    return AllocatorManager::Get()->CreatePoolAllocator();
+    return AllocatorManager::Get()->CreatePoolAllocator(p_segmentSize);
 }
 #ifdef USE_LIBRARY
 
@@ -39,11 +40,21 @@ void* operator new[] (size_t size, PoolAllocator* allocator)
 
 void* operator new (size_t size, PoolAllocator* allocator)
 {
-    void* outPointer = malloc(size);
-
-    allocator->Allocate();
+    void* outPointer = allocator->Allocate();
 
     return outPointer;
+}
+
+void * operator new[](size_t size, Stack stackDuration)
+{
+	// Should use stackduration in the future
+	return StackAllocatorInternal::Get()->Allocate(size);
+}
+
+void * operator new(size_t size, Stack stackDuration)
+{
+	// Should use stackduration in the future
+	return StackAllocatorInternal::Get()->Allocate(size);
 }
 
 void* operator new (size_t size)

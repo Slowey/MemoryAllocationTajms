@@ -18,12 +18,12 @@ namespace MemLib
         OwnVector<T>(const int& p_capacity);
         // pushes the item to the end of the list
         void push_back(const T& p_item);
-        // Removes the last item and returns it, no delete here
+        // Removes the last item and returns a copy of it, no delete here
         T pop();
         // gets the item at the given index point
-        T at( const int& p_index);
+        T& at( const int& p_index);
         // gets the item at the end of the list
-        T endItem();
+        T& endItem();
         // erases the item at the given index point effectivly reducing size of list. TODO implement
         void erase(const int& p_index);
         // Returns true if the list is empty
@@ -79,14 +79,14 @@ namespace MemLib
     }
 
     template<class T>
-    inline T OwnVector<T>::at(int const & p_index)
+    inline T& OwnVector<T>::at(int const & p_index)
     {
         assert(p_index <= size - 1);
         return vectorData[p_index];
     }
 
     template<class T>
-    inline T OwnVector<T>::endItem()
+    inline T& OwnVector<T>::endItem()
     {
         assert(size >= 1);
         return vectorData[size-1];

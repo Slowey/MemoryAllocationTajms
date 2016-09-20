@@ -1,5 +1,6 @@
 #pragma once
 #include "LibDefines.h"
+#include <StackAllocator.h>
 #ifndef OURLIB
 
 class PoolAllocator
@@ -12,7 +13,7 @@ class MemoryManager
 {
 public:
 
-	PoolAllocator* CreatePoolAllocator();
+	PoolAllocator* CreatePoolAllocator(int p_alignment);
 
 	static MemoryManager* Get();
 
@@ -26,6 +27,9 @@ private:
 };
 void* operator new[](size_t size, PoolAllocator* allocator);
 void* operator new (size_t size, PoolAllocator* allocator);
+void* operator new[](size_t size, Stack stackDuration);
+void* operator new (size_t size, Stack stackDuration);
+
 
 
 

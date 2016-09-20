@@ -4,6 +4,7 @@
 #include <TajmsLib.h>
 #include "MemoryTests.h"
 #include "LibDefines.h"
+#include <StackAllocator.h>
 #include <string>
 
 class TestClass
@@ -21,26 +22,25 @@ public:
 
 //#define RUN_PRE_VALUES 1
 #define RUN_NORMAL 2
-#define TEST_TO_RUN 2
+#define TEST_TO_RUN 1
 
 
 int main()
 {
-
     TajmsLib tajm;
-
-    
 
     // Create big ass memory manager (this should be a singleton)
 
     //MemoryManager memManager;
     // Create an allocator pointer
     PoolAllocator* poolAllocator;
-    // Ask memory manager for an actual pool allocator
-    poolAllocator = MemoryManager::Get()->CreatePoolAllocator();
+    // Ask memory manager for an actual pool allocator with 32 segment size!!
+    poolAllocator = MemoryManager::Get()->CreatePoolAllocator(32);
     // Use pool allocator to varify it works
 	int* derp = new(poolAllocator)int(5);
 	TestClass* testClass = new(poolAllocator)TestClass();
+
+	int* derp2 = new(Stack::LongTerm)int(5);
 
 
     int numObjects = 100000;
@@ -65,17 +65,6 @@ int main()
 
 #elif TEST_TO_RUN == 2
 
-    int forLoopTimerId2 = tajm.StartTimer("ForLoopTimer2");
-    tests.TestAllocateManyAndUse(numObjects);
-    tajm.StopTimer(forLoopTimerId2);
-
-#elif TEST_TO_RUN == 3
-
-    int forLoopTimerId3 = tajm.StartTimer("ForLoopTimer3");
-    tests.TestAllocateManyDifferent(numObjects);
-    tajm.StopTimer(forLoopTimerId3);
-
-#elif TEST_TO_RUN == 4
 
     
 #endif
