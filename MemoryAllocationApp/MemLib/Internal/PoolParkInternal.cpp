@@ -16,8 +16,9 @@ PoolParkInternal::~PoolParkInternal()
 {
 }
 
-void * PoolParkInternal::GetNewMemoryBlockStartPoint()
+void * PoolParkInternal::GetNewMemoryBlockStartPoint() // Ska vara trådsäker TODOEA
 {
+	m_mutexLockCreateNew->lock();
     void* returnAddress;
     
     // Check if we have any free block in queue. If true, use that block and remove it from list
@@ -39,12 +40,15 @@ void * PoolParkInternal::GetNewMemoryBlockStartPoint()
     }
 
     // Return the address
+	m_mutexLockCreateNew->unlock();
     return returnAddress;
 }
 
-void PoolParkInternal::FreeMemoryBlock(void * p_blockStartPointer)
+void PoolParkInternal::FreeMemoryBlock(void * p_blockStartPointer) // Ska vara trådsäker! TODOEA
 {
-    m_freedBlocks.push_back(p_blockStartPointer);
+	m_mutexLockFree->lock();
+    m_freedBlocks.push_back(p_blockStartPointer); 
+	m_mutexLockFree->unlock();
 }
 
 void * PoolParkInternal::GetEndPointer()

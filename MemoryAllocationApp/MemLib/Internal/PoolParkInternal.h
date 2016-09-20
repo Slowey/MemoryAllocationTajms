@@ -1,5 +1,6 @@
 #pragma once
 #include "DynamicList.h"
+#include <mutex>
 
 class PoolParkInternal
 {
@@ -32,6 +33,12 @@ public:
 	void* GetEndPointer();
 
     const int& GetMemoryBlockSize() const { return m_memoryBlockSize; };
+	//std::mutex m_mutexLockFree;
+	//std::mutex m_mutexLockCreateNew;
+	//std::unique_ptr<std::mutex> m_mutexLockPtr = std::make_unique<std::mutex>();
+	std::shared_ptr<std::mutex> m_mutexLockFree;	
+	std::shared_ptr<std::mutex> m_mutexLockCreateNew;
+	// std::shared_ptr m_sharedLock;
 private:
     MemLib::OwnVector<void*> m_freedBlocks;
     int m_currentBlock;
@@ -39,4 +46,5 @@ private:
     int m_memoryBlockSize;
     // Used to ensure we dont go outside the 
     int m_numberOfMemoryBlocks;
+
 };

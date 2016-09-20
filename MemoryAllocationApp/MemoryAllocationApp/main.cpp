@@ -6,6 +6,8 @@
 #include "LibDefines.h"
 #include <StackAllocator.h>
 #include <string>
+#include <thread>
+#include <mutex>
 
 class TestClass
 {
@@ -23,13 +25,31 @@ public:
 //#define RUN_PRE_VALUES 1
 #define RUN_NORMAL 2
 #define TEST_TO_RUN 1
-
-
+std::mutex m;
+void task1(std::string msg)
+{
+	m.lock();
+	std::cout << "task1 says: " << msg << std::endl;
+	m.unlock();
+}
 int main()
 {
     TajmsLib tajm;
 
-    // Create big ass memory manager (this should be a singleton)
+	std::thread t1(task1, "Hello1");
+	std::thread t2(task1, "Hello2");
+	std::thread t5(task1, "Hello5");
+	std::thread t4(task1, "Hello4");
+	t1.join();
+	t2.join();
+	t5.join();
+	t4.join();
+	std::cout << "TRÅDAR SENSEI RAMEN FOOOOOOOOOOOOOOOOOO JOINADE";
+	std::string hej2;
+	std::cin >> hej2;
+    
+	// Create big ass memory manager (this should be a singleton)
+
 
     //MemoryManager memManager;
     // Create an allocator pointer
