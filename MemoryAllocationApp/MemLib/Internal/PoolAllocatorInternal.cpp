@@ -1,14 +1,9 @@
 #include "PoolAllocatorInternal.h"
 
 PoolAllocatorInternal::PoolAllocatorInternal(PoolParkInternal* p_poolPark, const int& p_segmentSize):
-    m_poolPark(p_poolPark)
+    m_poolPark(p_poolPark), m_segmentSize(p_segmentSize)
 {
-    void* startOfPool = m_poolPark->GetNewMemoryBlockStartPoint();
-    int size = m_poolPark->GetMemoryBlockSize();
-    m_pools.push_back(PoolInternal(startOfPool, p_segmentSize, size));
-    MemLib::OwnVector<int> testing;
-    testing.push_back(1);
-    testing.at(0)++;
+    CreateNewPool();
 }
 
 PoolAllocatorInternal::PoolAllocatorInternal()
@@ -28,7 +23,7 @@ void* PoolAllocatorInternal::Allocate()
 {
     // Go through the pools and find one with free space
     int size = m_pools.getSize();
-    int i = 0;
+    int i = -1;
     for (; i < size; i++)
     {
         if (!m_pools.at(i).Full())
@@ -36,11 +31,23 @@ void* PoolAllocatorInternal::Allocate()
             break;
         }
     }
+    // No free pools left, create new!
+    if (i == -1)
+    {
+        CreateNewPool();
+        i = m_pools.getSize() - 1;
+    }
     void* memoryStartPos = m_pools.at(i).Allocate();
-    numAllocations++;
     return memoryStartPos;
 }
 
 void PoolAllocatorInternal::Deallocate()
 {
+}
+
+void PoolAllocatorInternal::CreateNewPool()
+{
+    void* startOfPool = m_poolPark->GetNewMemoryBlockStartPoint();
+    int size = m_poolPark->GetMemoryBlockSize();
+    m_pools.push_back(PoolInternal(startOfPool, m_segmentSize, size));
 }
