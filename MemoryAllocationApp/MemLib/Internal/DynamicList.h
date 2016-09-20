@@ -63,7 +63,7 @@ namespace MemLib
         memcpy(newVectorData, vectorData, size * sizeof(T));
 
         // Delete old data and set it to copy
-        delete[] vectorData;
+        free(vectorData);
         vectorData = newVectorData;
     }
 

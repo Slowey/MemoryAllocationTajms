@@ -18,6 +18,8 @@ public:
 
     void TestAllocateAndUseMatricesForFramesSpecific(double amount, int frames);
 
+    void TestAllocateAndDeleteMany(long amount);
+
     std::vector<int> randomNumbers;
     std::vector<int> numbers;
 };
