@@ -23,16 +23,18 @@ void* PoolAllocatorInternal::Allocate()
 {
     // Go through the pools and find one with free space
     int size = m_pools.getSize();
-    int i = -1;
+    int i = 0;
+    bool freePoolAvailable = false;
     for (; i < size; i++)
     {
         if (!m_pools.at(i).Full())
         {
+            freePoolAvailable = true;
             break;
         }
     }
     // No free pools left, create new!
-    if (i == -1)
+    if (!freePoolAvailable)
     {
         CreateNewPool();
         i = m_pools.getSize() - 1;
