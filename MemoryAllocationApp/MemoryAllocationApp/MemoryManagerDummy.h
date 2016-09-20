@@ -29,6 +29,7 @@ void* operator new[](size_t size, PoolAllocator* allocator);
 void* operator new (size_t size, PoolAllocator* allocator);
 void* operator new[](size_t size, Stack stackDuration);
 void* operator new (size_t size, Stack stackDuration);
+void operator delete (void* memBlock, size_t size, PoolAllocator* allocator);
 
 
 

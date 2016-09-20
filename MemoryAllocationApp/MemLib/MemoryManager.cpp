@@ -103,7 +103,7 @@ void* operator new (size_t size)
 	return outPointer;
 }
 
-void operator delete(void* memBlock, size_t size, PoolAllocator* allocator)
+void operator delete(void* memBlock, PoolAllocator* allocator, size_t size)
 {
     allocator->Deallocate(memBlock, size);
 }
@@ -129,7 +129,7 @@ void operator delete (void* memBlock)
 
     if (allocator != nullptr)
     {
-        operator delete(memBlock, header->memorySize, allocator);
+        operator delete(memBlock, allocator, header->memorySize);
     }
     else
     {
