@@ -22,12 +22,12 @@ public:
 
 //#define RUN_PRE_VALUES 1
 #define RUN_NORMAL 2
-#define TEST_TO_RUN 1
+#define TEST_TO_RUN 2
 
 
 int main()
 {
-    MemoryManager::Startup(1024, 100);
+    MemoryManager::Startup(1024*100000, 10);
     TajmsLib tajm;
     
 
@@ -46,7 +46,7 @@ int main()
 	int* derp2 = new(Stack::LongTerm)int(5);
 
 
-    int numObjects = 10000;
+    int numObjects = 100000;
 
 
     MemoryTests tests = MemoryTests();
@@ -67,7 +67,9 @@ int main()
 
 
 #elif TEST_TO_RUN == 2
-
+    int forLoopTimerId1 = tajm.StartTimer("ForLoopTimer1");
+    tests.TestAllocateAndUseMatricesForFramesSpecific(numObjects, 1);
+    tajm.StopTimer(forLoopTimerId1);
 
     
 #endif
