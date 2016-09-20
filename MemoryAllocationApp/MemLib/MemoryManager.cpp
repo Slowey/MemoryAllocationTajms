@@ -6,9 +6,9 @@
 
 MemoryManager* MemoryManager::m_singleton = nullptr;
 
-MemoryManager::MemoryManager()
+MemoryManager::MemoryManager(const int &p_blockSize, const int &p_numBlocks)
 {
-    AllocatorManager::Get(); // Initialize
+    AllocatorManager::Startup(p_blockSize, p_numBlocks);
 }
 
 MemoryManager::~MemoryManager()
@@ -17,14 +17,18 @@ MemoryManager::~MemoryManager()
 
 MemoryManager * MemoryManager::Get()
 {
-    if (m_singleton == nullptr)
-    {
-        m_singleton = (MemoryManager*)malloc(sizeof(MemoryManager));
-        new (m_singleton) MemoryManager();
-    }
     return m_singleton;
 }
 
+void MemoryManager::Startup(const int &p_blockSize, const int &p_numBlocks)
+{
+    if (m_singleton != nullptr)
+    {
+        return;
+    }
+    m_singleton = (MemoryManager*)malloc(sizeof(MemoryManager));
+    new (m_singleton) MemoryManager(p_blockSize, p_numBlocks);
+}
 
 PoolAllocator * MemoryManager::CreatePoolAllocator(const int& p_segmentSize)
 {

@@ -12,10 +12,13 @@ public:
 
     static MemoryManager* Get();
 
+    static void Startup(const int & p_blockSize, const int & p_numBlocks);
+
 
 
 private:
-    MemoryManager();
+
+    MemoryManager(const int & p_blockSize, const int & p_numBlocks);
     ~MemoryManager();
     static MemoryManager* m_singleton;
 

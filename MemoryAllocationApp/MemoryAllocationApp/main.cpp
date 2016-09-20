@@ -27,7 +27,9 @@ public:
 
 int main()
 {
+    MemoryManager::Startup(1024, 100);
     TajmsLib tajm;
+    
 
     // Create big ass memory manager (this should be a singleton)
 
@@ -44,7 +46,7 @@ int main()
 	int* derp2 = new(Stack::LongTerm)int(5);
 
 
-    int numObjects = 100000;
+    int numObjects = 10000;
 
 
     MemoryTests tests = MemoryTests();
