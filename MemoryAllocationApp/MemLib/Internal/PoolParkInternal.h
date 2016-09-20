@@ -16,7 +16,7 @@ public:
 
     /**
     @Return - a void pointer to where the blocks memory starts
-    @throw - std::exception if there is no free memory blocks, aka out of memory
+    @throw - 1337 error (int) if tries to allocate where stack is operating
     */
     void* GetNewMemoryBlockStartPoint();
     /**
@@ -27,6 +27,7 @@ public:
     */
 	/**
 	Same functionality as GetNewMemoryBlockStartPoint() but works for the stack. Returns the lastblock that is not yet allocated and gives it to the stack
+	@throw - 1337 error (int) tried to allocated memory where heap is operating. (Out of memory)
 	*/
 	void* GetNewMemoryBlockEndPoint();
     void FreeMemoryBlock(void* p_blockStartPointer);
