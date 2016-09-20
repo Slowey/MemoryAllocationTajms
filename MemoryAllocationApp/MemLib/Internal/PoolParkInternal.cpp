@@ -42,6 +42,7 @@ void* PoolParkInternal::GetNewMemoryBlockEndPoint()
 	// Return the address
 	return returnAddress;
 }
+
 void * PoolParkInternal::GetNewMemoryBlockStartPoint()
 {
     void* returnAddress;
@@ -56,8 +57,11 @@ void * PoolParkInternal::GetNewMemoryBlockStartPoint()
     else
     {
         // If return block number is smaller than allocated blocks its OK
-        assert(m_currentBlock < m_numberOfMemoryBlocks);
-
+        //assert(m_currentBlock < m_numberOfMemoryBlocks);
+		if (m_currentBlock+1 >= m_currentStackBlock)
+		{
+			throw 1337;
+		}
         // Add the block number * size of each block to the start of memory pointer
         returnAddress = reinterpret_cast<char*>(m_startOfMemory) + m_currentBlock * m_memoryBlockSize;
 
