@@ -16,7 +16,7 @@ PoolParkInternal::~PoolParkInternal()
 {
 }
 
-void * PoolParkInternal::GetNewMemoryBlockStartPoint() // Ska vara trådsäker TODOEA
+void * PoolParkInternal::GetNewMemoryBlockStartPoint() 
 {
 	m_mutexLockCreateNew->lock();
     void* returnAddress;
@@ -44,7 +44,7 @@ void * PoolParkInternal::GetNewMemoryBlockStartPoint() // Ska vara trådsäker TOD
     return returnAddress;
 }
 
-void PoolParkInternal::FreeMemoryBlock(void * p_blockStartPointer) // Ska vara trådsäker! TODOEA
+void PoolParkInternal::FreeMemoryBlock(void * p_blockStartPointer) 
 {
 	m_mutexLockFree->lock();
     m_freedBlocks.push_back(p_blockStartPointer); 

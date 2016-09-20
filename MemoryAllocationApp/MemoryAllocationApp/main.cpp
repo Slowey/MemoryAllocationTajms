@@ -36,17 +36,17 @@ int main()
 {
     TajmsLib tajm;
 
-	std::thread t1(task1, "Hello1");
-	std::thread t2(task1, "Hello2");
-	std::thread t5(task1, "Hello5");
-	std::thread t4(task1, "Hello4");
-	t1.join();
-	t2.join();
-	t5.join();
-	t4.join();
-	std::cout << "TRÅDAR SENSEI RAMEN FOOOOOOOOOOOOOOOOOO JOINADE";
-	std::string hej2;
-	std::cin >> hej2;
+	//std::thread t1(task1, "Hello1");
+	//std::thread t2(task1, "Hello2");
+	//std::thread t4(task1, "Hello4");
+	//std::thread t5(task1, "Hello5");
+	//t1.join();
+	//t2.join();
+	//t5.join();
+	//t4.join();
+	//std::cout << "TRÅDAR SENSEI RAMEN FOOOOOOOOOOOOOOOOOO JOINADE";
+	//std::string hej2;
+	//std::cin >> hej2;
     
 	// Create big ass memory manager (this should be a singleton)
 
