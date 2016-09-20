@@ -37,7 +37,8 @@ int main()
     // Ask memory manager for an actual pool allocator with 32 segment size!!
     poolAllocator = MemoryManager::Get()->CreatePoolAllocator(32);
     // Use pool allocator to varify it works
-	int* derp = new(poolAllocator)int(5);
+    
+
 	TestClass* testClass = new(poolAllocator)TestClass();
 
 	int* derp2 = new(Stack::LongTerm)int(5);

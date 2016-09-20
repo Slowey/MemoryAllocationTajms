@@ -49,4 +49,9 @@ void* operator new[](size_t size, Stack p_stackDuration)
 	void* outPointer = malloc(size);
 	return outPointer;
 }
+void operator delete (void* memBlock, size_t size, PoolAllocator* allocator)
+{
+    free(memBlock);
+}
+
 #endif
