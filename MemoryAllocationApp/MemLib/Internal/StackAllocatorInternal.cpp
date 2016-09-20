@@ -40,7 +40,12 @@ void* StackAllocatorInternal::Allocate(size_t p_numBytes)
 	if ((reinterpret_cast<char*>(m_head) - p_numBytes) < ((reinterpret_cast<char*>(m_poolPark->GetEndPointer()) + ((m_currentBlock-1) - m_totalNrOfBlocks) * t_blockSize)))
 	{
 		printf("Tried to allocate memory for stack but pool was full. So I snatched another pool");
-		m_poolPark->GetNewMemoryBlockEndPoint();
+		try {
+			m_poolPark->GetNewMemoryBlockEndPoint();
+		}
+		catch (int e) {
+			printf("Error %d Stack wasnt allowed to allocate memory", e);
+		}
 		m_currentBlock--;
 	}
 	// Move head back in memory

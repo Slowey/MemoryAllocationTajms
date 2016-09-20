@@ -19,12 +19,9 @@ void * PoolInternal::Allocate()
     void* returnPointer = nullptr;
     // Check if there's a free segment
     if (!m_emptySegments.empty())
-    {
-        // Get segment and remove from queue
-        int segment = m_emptySegments.pop();
-        
+    {        
         // Calculate where pointer should point and return
-        returnPointer = reinterpret_cast <char*> (m_memoryStart) + segment * m_segmentSize;
+        returnPointer = m_emptySegments.pop();
     }
     // Take last free slot
     else
@@ -42,4 +39,26 @@ void * PoolInternal::Allocate()
 bool PoolInternal::Full()
 {
     return m_full;
+}
+
+bool PoolInternal::HasMemory(void * p_memoryPointer, const int& p_size)
+{
+    // Need to take size in to account...
+    void* t_memoryEnd = reinterpret_cast<char*>( m_memoryStart) + m_numSegments * m_segmentSize - 1;
+    if (p_memoryPointer < t_memoryEnd && p_memoryPointer >= m_memoryStart)
+    {
+        return true;
+    }
+    return false;
+}
+
+bool PoolInternal::FreeMemory(void * p_memoryPointer, const int & p_size)
+{
+    bool memoryWasInPool = HasMemory(p_memoryPointer, p_size);
+    if (memoryWasInPool)
+    {
+        // Need to see if the freed memory recides over more segments...
+        m_emptySegments.push_back(p_memoryPointer);
+    }
+    return memoryWasInPool;
 }
