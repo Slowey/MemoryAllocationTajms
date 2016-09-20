@@ -20,9 +20,9 @@ public:
     void* Allocate() override;
     void Deallocate(void * memBlock, size_t size);
 
-    int numAllocations = 0;
-
 private:
+    void CreateNewPool();
     MemLib::OwnVector<PoolInternal> m_pools;
     PoolParkInternal* m_poolPark;
+    int m_segmentSize;
 };
