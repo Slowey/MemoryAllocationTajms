@@ -25,11 +25,18 @@ public:
     requests a new memory block. 
     @param1 - the void pointer given when GetNewMemoryBlockStartPoint was called
     */
+	/**
+	Same functionality as GetNewMemoryBlockStartPoint() but works for the stack. Returns the lastblock that is not yet allocated and gives it to the stack
+	*/
+	void* GetNewMemoryBlockEndPoint();
     void FreeMemoryBlock(void* p_blockStartPointer);
 
 	/**
 	Returns pointer to end of pool park*/
 	void* GetEndPointer();
+	int GetMemoryBlockSize();
+
+	int GetCurrentStackBlock();
 
     const int& GetMemoryBlockSize() const { return m_memoryBlockSize; };
 private:
@@ -39,4 +46,6 @@ private:
     int m_memoryBlockSize;
     // Used to ensure we dont go outside the 
     int m_numberOfMemoryBlocks;
+	//StackSpecific
+	int m_currentStackBlock;
 };
