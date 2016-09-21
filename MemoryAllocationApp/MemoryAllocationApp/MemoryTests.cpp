@@ -1,5 +1,5 @@
 #include "MemoryTests.h"
-#include "LibDefines.h"
+
 #include <iostream>
 #include <algorithm>
 
@@ -9,9 +9,13 @@ MemoryTests::MemoryTests()
 {
 }
 
-
 MemoryTests::~MemoryTests()
 {
+}
+
+void MemoryTests::CreateAllocator(size_t p_size)
+{
+    poolAllocator = MemoryManager::Get()->CreatePoolAllocator(p_size);
 }
 
 void MemoryTests::CreateRandomAccessNumbers(std::string fileName, double amount)
@@ -107,80 +111,14 @@ void MemoryTests::TestAllocateManyDifferent(double amount)
 
 // Test for specific
 
-struct Matrix
-{
-    Matrix()
-    {
-
-    }
-    Matrix(float x1, float x2, float x3, float x4,
-        float y1, float y2, float y3, float y4, 
-        float z1, float z2, float z3, float z4,
-        float w1, float w2, float w3, float w4 )
-    {
-        x[0] = x1;
-        x[1] = x2;
-        x[2] = x3;
-        x[3] = x4;
-
-        y[0] = y1;
-        y[1] = y2;
-        y[2] = y3;
-        y[3] = y4;
-
-        z[0] = z1;
-        z[1] = z2;
-        z[2] = z3;
-        z[3] = z4;
-
-        w[0] = w1;
-        w[1] = w2;
-        w[2] = w3;
-        w[3] = w4;
-    }
-
-    void operator*(Matrix &mat)
-    {
-        Matrix tempMat;
-        tempMat.x[0] = this->x[0] * mat.x[0] + this->x[1] * mat.y[0] + this->x[2] * mat.z[0] + this->x[2] * mat.z[0] + this->x[3] * mat.w[0];
-        tempMat.x[1] = this->x[0] * mat.x[1] + this->x[1] * mat.y[1] + this->x[2] * mat.z[1] + this->x[2] * mat.z[1] + this->x[3] * mat.w[1];
-        tempMat.x[2] = this->x[0] * mat.x[2] + this->x[1] * mat.y[2] + this->x[2] * mat.z[2] + this->x[2] * mat.z[2] + this->x[3] * mat.w[2];
-        tempMat.x[3] = this->x[0] * mat.x[3] + this->x[1] * mat.y[3] + this->x[2] * mat.z[3] + this->x[2] * mat.z[3] + this->x[3] * mat.w[3];
-
-        tempMat.y[0] = this->y[0] * mat.x[0] + this->y[1] * mat.y[0] + this->y[2] * mat.z[0] + this->y[2] * mat.z[0] + this->y[3] * mat.w[0];
-        tempMat.y[1] = this->y[0] * mat.x[1] + this->y[1] * mat.y[1] + this->y[2] * mat.z[1] + this->y[2] * mat.z[1] + this->y[3] * mat.w[1];
-        tempMat.y[2] = this->y[0] * mat.x[2] + this->y[1] * mat.y[2] + this->y[2] * mat.z[2] + this->y[2] * mat.z[2] + this->y[3] * mat.w[2];
-        tempMat.y[3] = this->y[0] * mat.x[3] + this->y[1] * mat.y[3] + this->y[2] * mat.z[3] + this->y[2] * mat.z[3] + this->y[3] * mat.w[3];
-
-        tempMat.z[0] = this->z[0] * mat.x[0] + this->z[1] * mat.y[0] + this->z[2] * mat.z[0] + this->z[2] * mat.z[0] + this->z[3] * mat.w[0];
-        tempMat.z[1] = this->z[0] * mat.x[1] + this->z[1] * mat.y[1] + this->z[2] * mat.z[1] + this->z[2] * mat.z[1] + this->z[3] * mat.w[1];
-        tempMat.z[2] = this->z[0] * mat.x[2] + this->z[1] * mat.y[2] + this->z[2] * mat.z[2] + this->z[2] * mat.z[2] + this->z[3] * mat.w[2];
-        tempMat.z[3] = this->z[0] * mat.x[3] + this->z[1] * mat.y[3] + this->z[2] * mat.z[3] + this->z[2] * mat.z[3] + this->z[3] * mat.w[3];
-
-        tempMat.w[0] = this->w[0] * mat.x[0] + this->w[1] * mat.y[0] + this->w[2] * mat.z[0] + this->w[2] * mat.z[0] + this->w[3] * mat.w[0];
-        tempMat.w[1] = this->w[0] * mat.x[1] + this->w[1] * mat.y[1] + this->w[2] * mat.z[1] + this->w[2] * mat.z[1] + this->w[3] * mat.w[1];
-        tempMat.w[2] = this->w[0] * mat.x[2] + this->w[1] * mat.y[2] + this->w[2] * mat.z[2] + this->w[2] * mat.z[2] + this->w[3] * mat.w[2];
-        tempMat.w[3] = this->w[0] * mat.x[3] + this->w[1] * mat.y[3] + this->w[2] * mat.z[3] + this->w[2] * mat.z[3] + this->w[3] * mat.w[3];
-
-        *this = tempMat;
-    }
-
-    float x[4];
-    float y[4];
-    float z[4];
-    float w[4];
-};
-
 void MemoryTests::TestAllocateMatricesForFramesSpecific(double amount, int frames)
 {
-    PoolAllocator* matricAllocator = MemoryManager::Get()->CreatePoolAllocator(sizeof(Matrix));
-
     for (size_t i = 0; i < frames; i++)
     {
         std::vector<Matrix*> matrices;
         for (size_t i = 0; i < amount; i++)
         {
-            Matrix* newMat = new (matricAllocator) Matrix();
+            Matrix* newMat = new (poolAllocator) Matrix();
             matrices.push_back(newMat);
         }
     }
@@ -188,14 +126,12 @@ void MemoryTests::TestAllocateMatricesForFramesSpecific(double amount, int frame
 
 void MemoryTests::TestAllocateAndUseMatricesForFramesSpecific(double amount, int frames)
 {
-    PoolAllocator* matricAllocator = MemoryManager::Get()->CreatePoolAllocator(sizeof(Matrix));
-
     for (size_t i = 0; i < frames; i++)
     {
         std::vector<Matrix*> matrices;
         for (size_t i = 0; i < amount; i++)
         {
-            Matrix* newMat = new (matricAllocator) Matrix();
+            Matrix* newMat = new (poolAllocator) Matrix();
             matrices.push_back(newMat);
         }
 
@@ -211,16 +147,15 @@ void MemoryTests::TestAllocateAndUseMatricesForFramesSpecific(double amount, int
 
 void MemoryTests::TestAllocateAndDeleteMany(long amount)
 {
-    PoolAllocator* intAllocator = MemoryManager::Get()->CreatePoolAllocator(sizeof(int));
     std::vector<int*> numbers;
     numbers.resize(amount);
     for (size_t i = 0; i < amount; i++)
     {
-        int* newInt = new (intAllocator)int(i);
+        int* newInt = new (poolAllocator)int(i);
         numbers[i] = newInt;
     }
     for (size_t i = 0; i < amount; i++)
     {
-        operator delete(numbers.at(i), intAllocator, sizeof(int));
+        operator delete(numbers.at(i), poolAllocator, sizeof(int));
     }
 }
