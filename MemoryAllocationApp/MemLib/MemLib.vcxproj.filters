@@ -19,6 +19,9 @@
     <ClCompile Include="Internal\AllocatorManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Internal\PoolAllocatorSelfSustainedInternal.cpp">
+      <Filter>Source Files\Internal</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Internal\PoolAllocatorInternal.h">
@@ -49,6 +52,9 @@
       <Filter>Header Files\Internal</Filter>
     </ClInclude>
     <ClInclude Include="Internal\Defines.h">
+      <Filter>Header Files\Internal</Filter>
+    </ClInclude>
+    <ClInclude Include="Internal\PoolAllocatorSelfSustainedInternal.h">
       <Filter>Header Files\Internal</Filter>
     </ClInclude>
   </ItemGroup>
