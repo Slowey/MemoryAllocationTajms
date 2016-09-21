@@ -11,6 +11,8 @@ PoolParkInternal::PoolParkInternal(const int & p_memoryBlockSize, const int & p_
 {
     m_startOfMemory = malloc(p_memoryBlockSize * p_numberOfMemoryBlocks);
 	m_currentStackBlock = p_numberOfMemoryBlocks;
+	m_mutexLockCreateNew = std::make_shared<std::mutex>();
+	m_mutexLockFree = std::make_shared<std::mutex>();
 }
 
 PoolParkInternal::~PoolParkInternal()

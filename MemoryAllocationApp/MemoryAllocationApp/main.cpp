@@ -25,32 +25,32 @@ public:
 //#define RUN_PRE_VALUES 1
 #define RUN_NORMAL 2
 #define TEST_TO_RUN 1
-std::mutex m;
-void task1(std::string msg)
-{
-	m.lock();
-	std::cout << "task1 says: " << msg << std::endl;
-	m.unlock();
-}
+//std::shared_ptr <std::mutex> m;
+//void task1(std::string msg)
+//{
+//	m->lock();
+//	std::cout << "task1 says: " << msg << std::endl;
+//	m->unlock();
+//}
 int main()
 {
-    MemoryManager::Startup(1024, 100);
+    MemoryManager::Startup(1024*100000, 10);
     TajmsLib tajm;
-    
-
+	//m = std::make_shared<std::mutex>();
+	//
 	//std::thread t1(task1, "Hello1");
 	//std::thread t2(task1, "Hello2");
 	//std::thread t4(task1, "Hello4");
 	//std::thread t5(task1, "Hello5");
-	//t1.join();
+	//t4.join();
 	//t2.join();
 	//t5.join();
-	//t4.join();
+	//t1.join();
 	//std::cout << "TRÅDAR SENSEI RAMEN FOOOOOOOOOOOOOOOOOO JOINADE";
 	//std::string hej2;
 	//std::cin >> hej2;
-    
-	// Create big ass memory manager (this should be a singleton)
+
+    // Create big ass memory manager (this should be a singleton)
 
 
     //MemoryManager memManager;
@@ -66,7 +66,7 @@ int main()
 	int* derp2 = new(Stack::LongTerm)int(5);
 
 
-    int numObjects = 10000;
+    int numObjects = 100000;
 
 
     MemoryTests tests = MemoryTests();
@@ -87,7 +87,9 @@ int main()
 
 
 #elif TEST_TO_RUN == 2
-
+    int forLoopTimerId1 = tajm.StartTimer("ForLoopTimer1");
+    tests.TestAllocateAndUseMatricesForFramesSpecific(numObjects, 1);
+    tajm.StopTimer(forLoopTimerId1);
 
     
 #endif
