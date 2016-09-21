@@ -16,6 +16,7 @@ public:
 	PoolAllocator* CreatePoolAllocator(int p_alignment);
 
 	static MemoryManager* Get();
+    static void MemoryManager::Startup(const int & p_blockSize, const int & p_numBlocks);
 
 
 
@@ -29,7 +30,7 @@ void* operator new[](size_t size, PoolAllocator* allocator);
 void* operator new (size_t size, PoolAllocator* allocator);
 void* operator new[](size_t size, Stack stackDuration);
 void* operator new (size_t size, Stack stackDuration);
-void operator delete (void* memBlock, size_t size, PoolAllocator* allocator);
+void operator delete(void* memBlock, PoolAllocator* allocator, size_t size);
 
 
 

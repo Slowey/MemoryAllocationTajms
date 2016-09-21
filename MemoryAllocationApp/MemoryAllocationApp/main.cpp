@@ -34,7 +34,7 @@ public:
 //}
 int main()
 {
-    MemoryManager::Startup(1024, 100);
+    MemoryManager::Startup(1024*100000, 10);
     TajmsLib tajm;
 	//m = std::make_shared<std::mutex>();
 	//
@@ -49,8 +49,8 @@ int main()
 	//std::cout << "TRÅDAR SENSEI RAMEN FOOOOOOOOOOOOOOOOOO JOINADE";
 	//std::string hej2;
 	//std::cin >> hej2;
-    
-	// Create big ass memory manager (this should be a singleton)
+
+    // Create big ass memory manager (this should be a singleton)
 
 
     //MemoryManager memManager;
@@ -66,7 +66,7 @@ int main()
 	int* derp2 = new(Stack::LongTerm)int(5);
 
 
-    int numObjects = 10000;
+    int numObjects = 100000;
 
 
     MemoryTests tests = MemoryTests();
@@ -87,7 +87,9 @@ int main()
 
 
 #elif TEST_TO_RUN == 2
-
+    int forLoopTimerId1 = tajm.StartTimer("ForLoopTimer1");
+    tests.TestAllocateAndUseMatricesForFramesSpecific(numObjects, 1);
+    tajm.StopTimer(forLoopTimerId1);
 
     
 #endif
