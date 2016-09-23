@@ -18,21 +18,19 @@ void MemoryTests::CreateAllocator(size_t p_size)
     poolAllocator = MemoryManager::Get()->CreatePoolAllocator(p_size);
 }
 
-void MemoryTests::CreateRandomAccessNumbers(std::string fileName, double amount)
+int randomFunc(int max) { return std::rand() % max; }
+
+void MemoryTests::CreateRandomAccessNumbers(std::string fileName, double amount, int seed)
 {
+    std::srand(seed);
+
+    randomNumbers.resize(amount);
     for (size_t i = 0; i < amount; i++)
     {
-        randomNumbers.push_back(i);
+        randomNumbers.at(i) = i;
     }
 
-    std::random_shuffle(randomNumbers.begin(), randomNumbers.end());
-
-    FILE* newFile;
-    fopen_s(&newFile, fileName.c_str(), "wb");
-    
-    fwrite(&randomNumbers[0], sizeof(int), amount, newFile);
-
-    fclose(newFile);
+    std::random_shuffle(randomNumbers.begin(), randomNumbers.end(), randomFunc);
 }
 
 void MemoryTests::LoadRandomAccessNumbers(std::string fileName, double amount)

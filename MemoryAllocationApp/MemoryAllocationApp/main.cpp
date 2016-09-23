@@ -22,8 +22,6 @@ public:
 
 };
 
-//#define RUN_PRE_VALUES 1
-#define RUN_NORMAL 2
 
 int main(int numArgs, char * args[])
 {
@@ -31,7 +29,8 @@ int main(int numArgs, char * args[])
     TajmsLib tajm;
 
     int testToRun = 3;
-    int numObjects = 100000;
+    int numObjects = 5;
+    int seed = 33;
     
     // Parse args
     for (size_t i = 1; i < numArgs; i++)
@@ -55,16 +54,20 @@ int main(int numArgs, char * args[])
                 numObjects = std::stoi(args[i]);
             }
         }
+        else if (std::string("--seed").compare(args[i]) == 0)
+        {
+            i++;
+            // Check if we got another arg
+            if (i < numArgs)
+            {
+                seed = std::stoi(args[i]);
+            }
+        }
     }
  
     MemoryTests tests = MemoryTests();
-#ifdef RUN_PRE_VALUES
 
-    tests.CreateRandomAccessNumbers("randomNum", numObjects);
 
-#elif RUN_NORMAL
-
-    tests.LoadRandomAccessNumbers("randomNum", numObjects);
     tajm.InitTajmsLib();
 
     if (testToRun == 1)
@@ -90,6 +93,7 @@ int main(int numArgs, char * args[])
     else if (testToRun == 4)
     {
         tests.CreateAllocator(sizeof(int));
+        tests.CreateRandomAccessNumbers("randomNum", numObjects, seed);
         int forLoopTimerId1 = tajm.StartTimer("ForLoopTimer1");
         tests.TestAllocateAndDeleteRandomly(numObjects);
         tajm.StopTimer(forLoopTimerId1);
@@ -100,25 +104,26 @@ int main(int numArgs, char * args[])
 
     if (testToRun == 1)
     {
-        testName = "test1";
+        testName = "AllocateMany_";
     }
     else if (testToRun == 2)
     {
-        testName = "test2";
+        testName = "TestAllocateAndUseMatricesForFramesSpecific_";
     }
     else if (testToRun == 3)
     {
-        testName = "test3";
+        testName = "TestAllocateAndDeleteMany_";
     }
     else if (testToRun == 4)
     {
-        testName = "test4";
+        testName = "TestAllocateAndDeleteRandomly_";
     }
     else if (testToRun == 5)
     {
         testName = "test5";
     }
 
+    testName += std::to_string(numObjects);
+
     tajm.ShutdownTajmsLib(testName);
-#endif
 }

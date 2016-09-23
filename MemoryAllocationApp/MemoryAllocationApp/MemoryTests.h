@@ -9,7 +9,7 @@ public:
     MemoryTests();
     ~MemoryTests();
     void CreateAllocator(size_t p_size);
-    void CreateRandomAccessNumbers(std::string fileName, double amount);
+    void CreateRandomAccessNumbers(std::string fileName, double amount, int seed);
     void LoadRandomAccessNumbers(std::string fileName, double amount);
     void TestAllocateMany(double amount);
     void TestAllocateListAndUseRandomly(double amount);
