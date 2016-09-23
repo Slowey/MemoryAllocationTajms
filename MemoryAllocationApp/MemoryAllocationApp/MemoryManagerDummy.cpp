@@ -56,7 +56,7 @@ void* operator new[](size_t size, Stack p_stackDuration)
 }
 void operator delete(void* memBlock, PoolAllocator* allocator, size_t size)
 {
-    free(memBlock);
+    delete memBlock;
 }
 
 #endif
