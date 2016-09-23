@@ -25,33 +25,11 @@ public:
 //#define RUN_PRE_VALUES 1
 #define RUN_NORMAL 2
 #define TEST_TO_RUN 2
-//std::shared_ptr <std::mutex> m;
-//void task1(std::string msg)
-//{
-//	m->lock();
-//	std::cout << "task1 says: " << msg << std::endl;
-//	m->unlock();
-//}
+
 int main(int args[])
 {
     MemoryManager::Startup(1024, 1000000);
     TajmsLib tajm;
-	//m = std::make_shared<std::mutex>();
-	//
-	//std::thread t1(task1, "Hello1");
-	//std::thread t2(task1, "Hello2");
-	//std::thread t4(task1, "Hello4");
-	//std::thread t5(task1, "Hello5");
-	//t4.join();
-	//t2.join();
-	//t5.join();
-	//t1.join();
-	//std::cout << "TRÅDAR SENSEI RAMEN FOOOOOOOOOOOOOOOOOO JOINADE";
-	//std::string hej2;
-	//std::cin >> hej2;
-
-    // Create big ass memory manager (this should be a singleton)
-
 
     //MemoryManager memManager;
     // Create an allocator pointer
@@ -91,6 +69,20 @@ int main(int args[])
         tests.CreateAllocator(sizeof(Matrix));
         int forLoopTimerId1 = tajm.StartTimer("ForLoopTimer1");
         tests.TestAllocateAndUseMatricesForFramesSpecific(numObjects, 1);
+        tajm.StopTimer(forLoopTimerId1);
+    }
+    else if (TEST_TO_RUN == 3)
+    {
+        tests.CreateAllocator(sizeof(Matrix));
+        int forLoopTimerId1 = tajm.StartTimer("ForLoopTimer1");
+        tests.TestAllocateAndDeleteMany(numObjects);
+        tajm.StopTimer(forLoopTimerId1);
+    }
+    else if (TEST_TO_RUN == 4)
+    {
+        tests.CreateAllocator(sizeof(Matrix));
+        int forLoopTimerId1 = tajm.StartTimer("ForLoopTimer1");
+        tests.TestAllocateThenDeleteRandomly(numObjects);
         tajm.StopTimer(forLoopTimerId1);
     }
 
