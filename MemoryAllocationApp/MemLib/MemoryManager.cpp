@@ -20,6 +20,11 @@ MemoryManager * MemoryManager::Get()
     return m_singleton;
 }
 
+void MemoryManager::ClearStack()
+{
+   StackAllocatorInternal::Get()->Clear();
+}
+
 void MemoryManager::Startup(const int &p_blockSize, const int &p_numBlocks)
 {
     if (m_singleton != nullptr)

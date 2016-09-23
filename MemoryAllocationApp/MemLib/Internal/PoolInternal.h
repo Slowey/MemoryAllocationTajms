@@ -2,6 +2,8 @@
 #include <string>
 #include "DynamicList.h"
 
+
+////////////////WARNING! DEPRECATED AND NO LONGER USED!//////////////////
 using namespace std;
 class PoolInternal 
 {

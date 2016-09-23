@@ -53,6 +53,11 @@ void* StackAllocatorInternal::Allocate(size_t p_numBytes)
 	return m_head;
 }
 
+void StackAllocatorInternal::Clear()
+{
+   m_head = m_startPointer;
+}
+
 int StackAllocatorInternal::TestMethod()
 {
     return 42;
