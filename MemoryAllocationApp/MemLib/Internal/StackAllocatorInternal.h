@@ -9,6 +9,8 @@ public:
 	static StackAllocatorInternal* Get();
 	static void Initialize(void* p_start, PoolParkInternal* p_poolPark);
 	void* Allocate(size_t p_numBytes);
+   void Clear();
+
     int TestMethod() override;
 
 private:
