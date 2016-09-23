@@ -24,7 +24,7 @@ public:
 
 //#define RUN_PRE_VALUES 1
 #define RUN_NORMAL 2
-#define TEST_TO_RUN 1
+#define TEST_TO_RUN 2
 //std::shared_ptr <std::mutex> m;
 //void task1(std::string msg)
 //{
@@ -32,9 +32,9 @@ public:
 //	std::cout << "task1 says: " << msg << std::endl;
 //	m->unlock();
 //}
-int main()
+int main(int args[])
 {
-    MemoryManager::Startup(1024*100000, 10);
+    MemoryManager::Startup(1024, 1000000);
     TajmsLib tajm;
 	//m = std::make_shared<std::mutex>();
 	//
@@ -80,19 +80,20 @@ int main()
     tests.LoadRandomAccessNumbers("randomNum", numObjects);
     tajm.InitTajmsLib();
 
-#if TEST_TO_RUN == 1
-    int forLoopTimerId1 = tajm.StartTimer("ForLoopTimer1");
-    tests.TestAllocateMany(numObjects);
-    tajm.StopTimer(forLoopTimerId1);
+    if (TEST_TO_RUN == 1)
+    {
+        int forLoopTimerId1 = tajm.StartTimer("ForLoopTimer1");
+        tests.TestAllocateMany(numObjects);
+        tajm.StopTimer(forLoopTimerId1);
+    }
+    else if (TEST_TO_RUN == 2)
+    {
+        tests.CreateAllocator(sizeof(Matrix));
+        int forLoopTimerId1 = tajm.StartTimer("ForLoopTimer1");
+        tests.TestAllocateAndUseMatricesForFramesSpecific(numObjects, 1);
+        tajm.StopTimer(forLoopTimerId1);
+    }
 
-
-#elif TEST_TO_RUN == 2
-    int forLoopTimerId1 = tajm.StartTimer("ForLoopTimer1");
-    tests.TestAllocateAndUseMatricesForFramesSpecific(numObjects, 1);
-    tajm.StopTimer(forLoopTimerId1);
-
-    
-#endif
 
     std::string testName = "";
 
