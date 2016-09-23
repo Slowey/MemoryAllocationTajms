@@ -2,13 +2,21 @@
 #include "../StackAllocator.h"
 #include "PoolParkInternal.h"
 
+/**
+Stack used for the entire program. Operates as a stack
+filling up memory from the end of the total memory allocated
+with the initialization of the memory manager.*/
 class StackAllocatorInternal
     :StackAllocator
 {
 public:
+   // Singleton-get
 	static StackAllocatorInternal* Get();
+   // Initializes with the end of the total memory of the memory manager
 	static void Initialize(void* p_start, PoolParkInternal* p_poolPark);
+   // Allocates memory on the stack and returns a pointer to the memory
 	void* Allocate(size_t p_numBytes);
+   // Clears the entire stack by reseting the head pointer
    void Clear();
 
     int TestMethod() override;

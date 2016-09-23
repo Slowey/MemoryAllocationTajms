@@ -4,6 +4,11 @@
 
 namespace MemLib
 {
+   /**
+   Class intended to work similar to std::vector.
+   Using the standard library inside the memory
+   library proved difficult so we implemented
+   our own. Syntax is the same.*/
     template <class T>
     class OwnVector
     {
