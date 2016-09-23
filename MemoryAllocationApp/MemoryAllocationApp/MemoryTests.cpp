@@ -147,17 +147,18 @@ void MemoryTests::TestAllocateAndDeleteMany(long amount)
     }
 }
 
-void MemoryTests::TestAllocateThenDeleteRandomly(double amount)
+void MemoryTests::TestAllocateAndDeleteRandomly(double amount)
 {
-    std::vector<int*> myVector;
+    std::vector<int*> numbers;
+    numbers.resize(amount);
     for (size_t i = 0; i < amount; i++)
     {
-        int* newInt = new int();
-        myVector.push_back(newInt);
+        int* newInt = new (poolAllocator)int();
+        numbers.push_back(newInt);
     }
 
     for (size_t i = 0; i < amount; i++)
     {
-        delete myVector[randomNumbers[i]];
+        operator delete (numbers[randomNumbers[i]], poolAllocator, sizeof(int));
     }
 }

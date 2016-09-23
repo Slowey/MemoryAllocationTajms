@@ -24,31 +24,40 @@ public:
 
 //#define RUN_PRE_VALUES 1
 #define RUN_NORMAL 2
-#define TEST_TO_RUN 2
 
-int main(int args[])
+int main(int numArgs, char * args[])
 {
     MemoryManager::Startup(1024, 1000000);
     TajmsLib tajm;
 
-    //MemoryManager memManager;
-    // Create an allocator pointer
-    PoolAllocator* poolAllocator;
-    // Ask memory manager for an actual pool allocator with 32 segment size!!
-    poolAllocator = MemoryManager::Get()->CreatePoolAllocator(32);
-    // Use pool allocator to varify it works
-    
-
-	TestClass* testClass = new(poolAllocator)TestClass();
-
-	int* derp2 = new(Stack::LongTerm)int(5);
-
-
+    int testToRun = 3;
     int numObjects = 100000;
-
-
+    
+    // Parse args
+    for (size_t i = 1; i < numArgs; i++)
+    {
+        if (std::string("--test").compare(args[i]) == 0)
+        {
+            i++;
+            // Check if we got another arg
+            if (i < numArgs)
+            {
+                testToRun = std::stoi(args[i]);
+                
+            }
+        }
+        else if (std::string("--num").compare(args[i]) == 0)
+        {
+            i++;
+            // Check if we got another arg
+            if (i < numArgs)
+            {
+                numObjects = std::stoi(args[i]);
+            }
+        }
+    }
+ 
     MemoryTests tests = MemoryTests();
-
 #ifdef RUN_PRE_VALUES
 
     tests.CreateRandomAccessNumbers("randomNum", numObjects);
@@ -58,54 +67,54 @@ int main(int args[])
     tests.LoadRandomAccessNumbers("randomNum", numObjects);
     tajm.InitTajmsLib();
 
-    if (TEST_TO_RUN == 1)
+    if (testToRun == 1)
     {
         int forLoopTimerId1 = tajm.StartTimer("ForLoopTimer1");
         tests.TestAllocateMany(numObjects);
         tajm.StopTimer(forLoopTimerId1);
     }
-    else if (TEST_TO_RUN == 2)
+    else if (testToRun == 2)
     {
         tests.CreateAllocator(sizeof(Matrix));
         int forLoopTimerId1 = tajm.StartTimer("ForLoopTimer1");
         tests.TestAllocateAndUseMatricesForFramesSpecific(numObjects, 1);
         tajm.StopTimer(forLoopTimerId1);
     }
-    else if (TEST_TO_RUN == 3)
+    else if (testToRun == 3)
     {
-        tests.CreateAllocator(sizeof(Matrix));
+        tests.CreateAllocator(sizeof(int));
         int forLoopTimerId1 = tajm.StartTimer("ForLoopTimer1");
         tests.TestAllocateAndDeleteMany(numObjects);
         tajm.StopTimer(forLoopTimerId1);
     }
-    else if (TEST_TO_RUN == 4)
+    else if (testToRun == 4)
     {
-        tests.CreateAllocator(sizeof(Matrix));
+        tests.CreateAllocator(sizeof(int));
         int forLoopTimerId1 = tajm.StartTimer("ForLoopTimer1");
-        tests.TestAllocateThenDeleteRandomly(numObjects);
+        tests.TestAllocateAndDeleteRandomly(numObjects);
         tajm.StopTimer(forLoopTimerId1);
     }
 
 
     std::string testName = "";
 
-    if (TEST_TO_RUN == 1)
+    if (testToRun == 1)
     {
         testName = "test1";
     }
-    else if (TEST_TO_RUN == 2)
+    else if (testToRun == 2)
     {
         testName = "test2";
     }
-    else if (TEST_TO_RUN == 3)
+    else if (testToRun == 3)
     {
         testName = "test3";
     }
-    else if (TEST_TO_RUN == 4)
+    else if (testToRun == 4)
     {
         testName = "test4";
     }
-    else if (TEST_TO_RUN == 5)
+    else if (testToRun == 5)
     {
         testName = "test5";
     }
