@@ -185,6 +185,17 @@ void MemoryTests::TestStackOurLib(int p_count)
 	operator delete (t_temp, Stack::LongTerm, sizeof(int));
 }
 
+
+void MemoryTests::TestStackOS(int p_count)
+{
+    int t_temp = p_count;
+    if (t_temp < 100)
+    {
+        int t_nextInt = t_temp + 1;
+        TestStackOS(t_nextInt);
+    }
+}
+
 void MemoryTests::TestSpecificTestPre(long amount)
 {
     objects.resize(amount * 3);
@@ -215,12 +226,6 @@ void MemoryTests::TestSpecificTestCaseOne(long amount)
     
 }
 
-void MemoryTests::TestStack()
-{
-		int t_nextInt = t_temp + 1;
-		TestStackOS(t_nextInt);
-	}
-}
 
 
 
