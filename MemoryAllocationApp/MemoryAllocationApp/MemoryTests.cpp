@@ -1,5 +1,5 @@
 #include "MemoryTests.h"
-
+#include "../MemLib/StackAllocator.h"
 #include <iostream>
 #include <algorithm>
 
@@ -160,13 +160,24 @@ void MemoryTests::TestAllocateAndDeleteRandomly(double amount)
         operator delete (numbers[randomNumbers[i]], poolAllocator, sizeof(int));
     }
 }
-
-void MemoryTests::TestStack()
+// TEsta att inte deleta i funktionen utan att istället resetta hela stacken efter helka skiten är klar
+void MemoryTests::TestStackOurLib(int p_count)
 {
+	int* t_temp = new (Stack::ShortTerm)int(p_count);
+	if(*t_temp < 100)
+	{
+		int* t_nextInt = new (Stack::ShortTerm)int(*t_temp+1);
+		TestStackOurLib(*t_nextInt);
+	}
+	operator delete (t_temp, Stack::LongTerm, sizeof(int));
+}
 
-
-
-
-
-
+void MemoryTests::TestStackOS(int p_count)
+{
+	int t_temp = p_count;
+	if (t_temp < 100)
+	{
+		int t_nextInt = t_temp + 1;
+		TestStackOS(t_nextInt);
+	}
 }

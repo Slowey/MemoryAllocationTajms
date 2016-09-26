@@ -117,6 +117,11 @@ void operator delete(void* memBlock, PoolAllocator* allocator, size_t size)
     allocator->Deallocate(memBlock, size);
 }
 
+void operator delete(void* resetPoint, Stack stackDuration, size_t size)
+{
+	StackAllocatorInternal::Get()->ResetHeadTo(reinterpret_cast<char*>(resetPoint) + (size));
+}
+
 void operator delete (void* memBlock)
 {
     AllocHeader* header = (AllocHeader*)(((char*)memBlock) - sizeof(AllocHeader));

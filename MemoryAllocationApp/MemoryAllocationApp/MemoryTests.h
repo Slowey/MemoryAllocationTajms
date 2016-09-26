@@ -23,7 +23,9 @@ public:
 
     void TestAllocateAndDeleteRandomly(double amount);
 
-	void TestStack();
+	void TestStackOurLib(int p_count);
+
+	void TestStackOS(int p_count);
 
     std::vector<int> randomNumbers;
     std::vector<int> numbers;

@@ -58,5 +58,8 @@ void operator delete(void* memBlock, PoolAllocator* allocator, size_t size)
 {
     delete memBlock;
 }
+void operator delete(void* resetPoint, Stack stackDuration, size_t size) {
+	printf("Something went wrong. U called the stackdelete in dummy")
+}
 
 #endif

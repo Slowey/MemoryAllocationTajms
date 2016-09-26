@@ -1,5 +1,5 @@
 #pragma once
-//#define OURLIB
+#define OURLIB
 #ifdef OURLIB  
 #include <MemoryManager.h>
 #include <PoolAllocator.h>

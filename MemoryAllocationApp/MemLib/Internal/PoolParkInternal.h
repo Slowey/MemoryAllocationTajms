@@ -40,6 +40,8 @@ public:
 
 	int GetCurrentStackBlock();
 
+	void SetCurrentStackBlock(int p_newCurrentStackBlock);
+
     const int& GetMemoryBlockSize() const { return m_memoryBlockSize; };
 	std::shared_ptr<std::mutex> m_mutexLockFree;	
 	std::shared_ptr<std::mutex> m_mutexLockCreateNew;

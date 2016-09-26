@@ -18,6 +18,7 @@ public:
 	void* Allocate(size_t p_numBytes);
    // Clears the entire stack by reseting the head pointer
    void Clear();
+   void ResetHeadTo(void* mempoint);
 
     int TestMethod() override;
 
