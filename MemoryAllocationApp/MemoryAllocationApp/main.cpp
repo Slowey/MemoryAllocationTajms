@@ -2,7 +2,6 @@
 #include <TajmsLib.h>
 #include "MemoryTests.h"
 #include "LibDefines.h"
-#include <StackAllocator.h>
 #include <string>
 #include <thread>
 #include <mutex>
@@ -204,6 +203,7 @@ int main(int numArgs, char * args[])
 		tajm.StopTimer(forLoopTimerId1);
 #endif
 	}
+
 
     std::string testName = "";
 

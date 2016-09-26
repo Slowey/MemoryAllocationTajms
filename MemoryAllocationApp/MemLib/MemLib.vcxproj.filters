@@ -1,9 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Internal\PoolAllocatorInternal.cpp">
-      <Filter>Source Files\Internal</Filter>
-    </ClCompile>
     <ClCompile Include="Internal\PoolInternal.cpp">
       <Filter>Source Files\Internal</Filter>
     </ClCompile>
@@ -19,14 +16,11 @@
     <ClCompile Include="Internal\AllocatorManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Internal\PoolAllocatorSelfSustainedInternal.cpp">
+    <ClCompile Include="Internal\PoolAllocatorInternal.cpp">
       <Filter>Source Files\Internal</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Internal\PoolAllocatorInternal.h">
-      <Filter>Header Files\Internal</Filter>
-    </ClInclude>
     <ClInclude Include="Internal\PoolInternal.h">
       <Filter>Header Files\Internal</Filter>
     </ClInclude>
@@ -45,16 +39,10 @@
     <ClInclude Include="PoolAllocator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="StackAllocator.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Internal\DynamicList.h">
       <Filter>Header Files\Internal</Filter>
     </ClInclude>
-    <ClInclude Include="Internal\Defines.h">
-      <Filter>Header Files\Internal</Filter>
-    </ClInclude>
-    <ClInclude Include="Internal\PoolAllocatorSelfSustainedInternal.h">
+    <ClInclude Include="Internal\PoolAllocatorInternal.h">
       <Filter>Header Files\Internal</Filter>
     </ClInclude>
   </ItemGroup>

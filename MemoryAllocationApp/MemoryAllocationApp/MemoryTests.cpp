@@ -1,5 +1,4 @@
 #include "MemoryTests.h"
-
 #include <iostream>
 #include <algorithm>
 #include <thread>
@@ -174,6 +173,17 @@ void MemoryTests::TestSpecificRandomyAllocateDelete(long amount)
         int* newInt = new int();
     }
 }
+// TEsta att inte deleta i funktionen utan att istället resetta hela stacken efter helka skiten är klar
+void MemoryTests::TestStackOurLib(int p_count)
+{
+	int* t_temp = new (Stack::ShortTerm)int(p_count);
+	if(*t_temp < 100)
+	{
+		int* t_nextInt = new (Stack::ShortTerm)int(*t_temp+1);
+		TestStackOurLib(*t_nextInt);
+	}
+	operator delete (t_temp, Stack::LongTerm, sizeof(int));
+}
 
 void MemoryTests::TestSpecificTestPre(long amount)
 {
@@ -207,12 +217,9 @@ void MemoryTests::TestSpecificTestCaseOne(long amount)
 
 void MemoryTests::TestStack()
 {
-
-
-
-
-
-
+		int t_nextInt = t_temp + 1;
+		TestStackOS(t_nextInt);
+	}
 }
 
 

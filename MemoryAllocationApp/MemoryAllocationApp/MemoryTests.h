@@ -155,9 +155,10 @@ public:
     void TestSpecificTestCaseOne(long amount);
 
 
-   
+	void TestStackOurLib(int p_count);
 
-	void TestStack();
+	void TestStackOS(int p_count);
+
 
     void TestThreadedAllocatorCreation();
 

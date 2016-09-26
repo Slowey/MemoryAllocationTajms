@@ -28,6 +28,10 @@ int PoolParkInternal::GetCurrentStackBlock()
 {
 	return m_currentStackBlock;
 }
+void PoolParkInternal::SetCurrentStackBlock(int p_newCurrentStackBlock)
+{
+	m_currentStackBlock = p_newCurrentStackBlock;
+}
 void* PoolParkInternal::GetNewMemoryBlockEndPoint()
 {
 	void* returnAddress;
