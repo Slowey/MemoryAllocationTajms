@@ -1,13 +1,6 @@
 #pragma once
-
-#define SELF_SUSTAINED_POOL_ALLOCATOR
-
 #include "PoolParkInternal.h"
-#ifdef SELF_SUSTAINED_POOL_ALLOCATOR
-#include "PoolAllocatorSelfSustainedInternal.h"
-#else
 #include "PoolAllocatorInternal.h"
-#endif
 
 
 /**
@@ -44,15 +37,9 @@ private:
     AllocatorManager(const int & p_blockSize, const int & p_numBlocks);
     ~AllocatorManager();
 
-    #ifdef SELF_SUSTAINED_POOL_ALLOCATOR
-    PoolAllocatorSelfSustainedInternal m_default4BytePool;
-    PoolAllocatorSelfSustainedInternal m_default8BytePool;
-    PoolAllocatorSelfSustainedInternal m_default16BytePool;
-    #else
     PoolAllocatorInternal m_default4BytePool;
     PoolAllocatorInternal m_default8BytePool;
     PoolAllocatorInternal m_default16BytePool;
-    #endif
 
     // Pool park from which all chunks of memory are fetched
     PoolParkInternal m_poolPark;

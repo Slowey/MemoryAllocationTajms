@@ -60,13 +60,8 @@ PoolAllocator * AllocatorManager::GetDefault16BytePool()
 
 PoolAllocator * AllocatorManager::CreatePoolAllocator(const int& p_segmentSize)
 {
-#ifdef SELF_SUSTAINED_POOL_ALLOCATOR
-    PoolAllocatorSelfSustainedInternal* internalPool = (PoolAllocatorSelfSustainedInternal*)malloc(sizeof(PoolAllocatorSelfSustainedInternal));
-    new (internalPool) PoolAllocatorSelfSustainedInternal(&m_poolPark, p_segmentSize);
-#else
     PoolAllocatorInternal* internalPool = (PoolAllocatorInternal*)malloc(sizeof(PoolAllocatorInternal));
     new (internalPool) PoolAllocatorInternal(&m_poolPark, p_segmentSize);
-#endif
 
     return internalPool;
 }

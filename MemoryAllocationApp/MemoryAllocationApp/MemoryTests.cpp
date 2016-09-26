@@ -1,5 +1,4 @@
 #include "MemoryTests.h"
-
 #include <iostream>
 #include <algorithm>
 #include <thread>
@@ -22,7 +21,7 @@ void MemoryTests::CreateAllocator(size_t p_size)
 
 int randomFunc(int max) { return std::rand() % max; }
 
-void MemoryTests::CreateRandomAccessNumbers(std::string fileName, double amount, int seed)
+void MemoryTests::CreateRandomAccessNumbers( long amount, int seed)
 {
     std::srand(seed);
 
@@ -35,45 +34,27 @@ void MemoryTests::CreateRandomAccessNumbers(std::string fileName, double amount,
     std::random_shuffle(randomNumbers.begin(), randomNumbers.end(), randomFunc);
 }
 
-void MemoryTests::LoadRandomAccessNumbers(std::string fileName, double amount)
+// Test functions for generic
+
+void MemoryTests::TestGenericAllocate(long amount)
 {
-    FILE* openFile;
-    fopen_s(&openFile, fileName.c_str(), "rb");
-
-    randomNumbers.resize(amount);
-    fread(&randomNumbers[0], sizeof(int), amount, openFile);
-
-    fclose(openFile);
-}
-
-// Test functions
-
-void MemoryTests::TestAllocateMany(double amount)
-{
+    numbers.resize(amount);
     for (size_t i = 0; i < amount; i++)
     {
         int* newInt = new int();
+        numbers[i] = newInt;
     }
 }
 
-void MemoryTests::TestAllocateListAndUseRandomly(double amount)
+void MemoryTests::TestGenericUseRandomly(long amount)
 {
-    std::vector<int*> myVector;
-    for (size_t i = 0; i < amount; i++)
-    {
-        int* newInt = new int();
-        myVector.push_back(newInt);
-    }
-
     for (size_t i = 0; i < amount - 1; i++)
     {
-        *myVector[randomNumbers[i + 1]] += *myVector[randomNumbers[i]];
+        *numbers[randomNumbers[i + 1]] += *numbers[randomNumbers[i]];
     }
 }
 
-
-
-void MemoryTests::TestAllocateManyDifferent(double amount)
+void MemoryTests::TestGenericAllocateDifferentSizes(long amount)
 {
     for (size_t i = 0; i < amount; i++)
     {
@@ -96,129 +77,247 @@ void MemoryTests::TestAllocateManyDifferent(double amount)
     }
 }
 
+void MemoryTests::TestGenericDelete(long amount)
+{
+    for (size_t i = 0; i < amount; i++)
+    {
+        delete numbers[i];
+    }
+}
+
+void MemoryTests::TestGenericDeleteRandomly(long amount)
+{
+    for (size_t i = 0; i < amount; i++)
+    {
+        delete numbers[randomNumbers[i]];
+    }
+}
+
 // Test for specific
 
-void MemoryTests::TestAllocateMatricesForFramesSpecific(double amount, int frames)
+void MemoryTests::TestSpecificAllocate(long amount)
 {
-    for (size_t i = 0; i < frames; i++)
-    {
-        std::vector<Matrix*> matrices;
-        for (size_t i = 0; i < amount; i++)
-        {
-            Matrix* newMat = new (poolAllocator) Matrix();
-            matrices.push_back(newMat);
-        }
-    }
-}
-
-void MemoryTests::TestAllocateAndUseMatricesForFramesSpecific(double amount, int frames)
-{
-    for (size_t i = 0; i < frames; i++)
-    {
-        std::vector<Matrix*> matrices;
-        for (size_t i = 0; i < amount; i++)
-        {
-            Matrix* newMat = new (poolAllocator) Matrix();
-            matrices.push_back(newMat);
-        }
-
-        Matrix view = Matrix();
-        
-
-        for (size_t i = 0; i < amount; i++)
-        {
-            *matrices[i]*view;
-        }
-    }
-}
-
-void MemoryTests::TestAllocateAndDeleteMany(long amount)
-{
-    std::vector<int*> numbers;
     numbers.resize(amount);
     for (size_t i = 0; i < amount; i++)
     {
-        int* newInt = new (poolAllocator)int(i);
+        int* newInt = new int();
         numbers[i] = newInt;
     }
+}
+
+void MemoryTests::TestSpecificUseRandomly(long amount)
+{
+    for (size_t i = 0; i < amount - 1; i++)
+    {
+        *numbers[randomNumbers[i + 1]] += *numbers[randomNumbers[i]];
+    }
+}
+
+void MemoryTests::TestSpecificAllocateMatrices(long amount)
+{
+    matrices.resize(amount);
+    for (size_t i = 0; i < amount; i++)
+    {
+        Matrix* newMat = new (poolAllocator) Matrix();
+        matrices[i] = newMat;
+    }
+}
+
+void MemoryTests::TestSpecificUseMatrices(long amount)
+{
+    Matrix view = Matrix();
+        
+    for (size_t i = 0; i < amount; i++)
+    {
+        *matrices[i]*view;
+    }
+}
+
+void MemoryTests::TestSpecificUseMatricesRandomly(long amount)
+{
+    Matrix view = Matrix();
+
+    for (size_t i = 0; i < amount; i++)
+    {
+        *matrices[randomNumbers[i]] * view;
+    }
+}
+
+void MemoryTests::TestSpecificDelete(long amount)
+{
     for (size_t i = 0; i < amount; i++)
     {
         operator delete(numbers.at(i), poolAllocator, sizeof(int));
     }
 }
+
+void MemoryTests::TestSpecificDeleteRandomly(long amount)
+{
+    for (size_t i = 0; i < amount; i++)
+    {
+        operator delete (numbers[randomNumbers[i]], poolAllocator, sizeof(int));
+    }
+}
+
+void MemoryTests::TestSpecificRandomyAllocateDelete(long amount)
+{
+    TestSpecificAllocate(amount);
+    
+    int count = amount / 2;
+    for (size_t i = 0; i < count; i++)
+    {
+        operator delete (numbers[randomNumbers[i]], poolAllocator, sizeof(int));
+    }
+
+    for (size_t i = 0; i < count; i++)
+    {
+        int* newInt = new int();
+    }
+}
+// TEsta att inte deleta i funktionen utan att istället resetta hela stacken efter helka skiten är klar
+void MemoryTests::TestStackOurLib(int p_count)
+{
+	int* t_temp = new (Stack::ShortTerm)int(p_count);
+	if(*t_temp < 100)
+	{
+		int* t_nextInt = new (Stack::ShortTerm)int(*t_temp+1);
+		TestStackOurLib(*t_nextInt);
+	}
+	operator delete (t_temp, Stack::LongTerm, sizeof(int));
+}
+
+
+void MemoryTests::TestStackOS(int p_count)
+{
+    int t_temp = p_count;
+    if (t_temp < 100)
+    {
+        int t_nextInt = t_temp + 1;
+        TestStackOS(t_nextInt);
+    }
+}
+
+void MemoryTests::TestSpecificTestPre(long amount, long differentObjects)
+{
+    objectsWithObjects.resize(differentObjects);
+    for (size_t i = 0; i < differentObjects; i++)
+    {
+        objectsWithObjects[i].resize(amount);
+    }
+
+    poolAllocator = MemoryManager::Get()->CreatePoolAllocator(sizeof(ObjectOne));
+    poolAllocatorTwo = MemoryManager::Get()->CreatePoolAllocator(sizeof(ObjectOne));
+}
+
+void MemoryTests::TestSpecificTestCaseAllocate(long amount, long differentObjects)
+{
+    /**
+    Test
+    Create different data types after each other
+
+    Use type A sequentionally from array
+    */
+
+    //Allocate
+    for (size_t i = 0; i < amount; i++)
+    {
+        objectsWithObjects[0][i] = new (poolAllocator) ObjectOne();
+
+        for (size_t j = 1; j < differentObjects; j++)
+        {
+            objectsWithObjects[j][i] = new (poolAllocatorTwo) ObjectOne();
+        }
+    }
+}
+
+void MemoryTests::TestSpecificTestCaseUse(long amount)
+{
+    // number of frames
+    for (size_t i = 0; i < 60*10; i++)
+    {
+        for (size_t i = 0; i < amount; i++)
+        {
+            objectsWithObjects[0][i]->Function();
+        }
+    }
+}
+
+
+
+
 void ThreadedAllocatorCreationExtension(int p_myInt, bool* p_goTime, std::promise<int> && o_result)//, int& o_endInt)
 {
-	/// Wait for all threads to be created
-	//while (!*p_goTime)
-	//{
-	//}
-	/// Create allocator and value using allocator
-	PoolAllocator* t_poolAllocator = MemoryManager::Get()->CreatePoolAllocator(sizeof(int));
-	int* t_myInt = new (t_poolAllocator)int(p_myInt);
-	//Wait for all threads to be done allocating their ints
-	std::this_thread::sleep_for(std::chrono::milliseconds(100));
-	// Read value and put as output
-	//o_endInt = *t_myInt;
-	//std::cout << *t_myInt << std::endl;
-	o_result.set_value(*t_myInt);
-	operator delete (t_myInt, t_poolAllocator, sizeof(int));
+    /// Wait for all threads to be created
+    //while (!*p_goTime)
+    //{
+    //}
+    /// Create allocator and value using allocator
+    PoolAllocator* t_poolAllocator = MemoryManager::Get()->CreatePoolAllocator(sizeof(int));
+    int* t_myInt = new (t_poolAllocator)int(p_myInt);
+    //Wait for all threads to be done allocating their ints
+    std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    // Read value and put as output
+    //o_endInt = *t_myInt;
+    //std::cout << *t_myInt << std::endl;
+    o_result.set_value(*t_myInt);
+    operator delete (t_myInt, t_poolAllocator, sizeof(int));
 }
 void EmptyShit()
 {
-	std::cout << "derp";
+    std::cout << "derp";
 }
 void MemoryTests::TestThreadedAllocatorCreation()
 {
-	using namespace std;
-	//std::thread t2(task1, "Hello2");
-	bool* t_threadTest = new bool(false);
-	PoolAllocator* t_poolAllocator = MemoryManager::Get()->CreatePoolAllocator(sizeof(int));
-	//int amountOfThreads = 10;
-	int resultValue[800];
-	std::promise<int> promiseVector[800];
-	std::future<int> futureList[800];
-	std::vector<std::thread> threadVector;
-	std::string stringText = "No Error";
-	for (size_t i = 0; i < 800; i++)
-	{
-		futureList[i] = promiseVector[i].get_future();
-	}
-	for (size_t i = 0; i < 800; i++)
-	{
-		//std::thread t(EmptyShit);
-		
-		threadVector.push_back(std::thread(&ThreadedAllocatorCreationExtension, i, t_threadTest, std::move(promiseVector[i])));
+    using namespace std;
+    //std::thread t2(task1, "Hello2");
+    bool* t_threadTest = new bool(false);
+    PoolAllocator* t_poolAllocator = MemoryManager::Get()->CreatePoolAllocator(sizeof(int));
+    //int amountOfThreads = 10;
+    int resultValue[800];
+    std::promise<int> promiseVector[800];
+    std::future<int> futureList[800];
+    std::vector<std::thread> threadVector;
+    std::string stringText = "No Error";
+    for (size_t i = 0; i < 800; i++)
+    {
+        futureList[i] = promiseVector[i].get_future();
+    }
+    for (size_t i = 0; i < 800; i++)
+    {
+        //std::thread t(EmptyShit);
 
-		//int h = f.get();
-		//resultValue[i] = h;
-		//std::future <int> ret = std::thread t_temp(ThreadedAllocatorCreationExtension, i, t_threadTest);
-		//threadVector.push_back(thread(ThreadedAllocatorCreationExtension, i, t_threadTest, resultValue[i]));
-		//threadVector.push_back(t_temp);
-		//threadVector.push_back(thread(EmptyShit));
-	}
-	std::string hej;
-	//std::cin >> hej;
-	*t_threadTest = true;
-	for (size_t i = 0; i < 800; i++)
-	{
-		threadVector[i].join();
-	}
-	for (size_t i = 0; i < 800; i++)
-	{
-		resultValue[i] = futureList[i].get();
-	}
-	for (size_t i = 0; i < 800; i++)
-	{
-		for (size_t j = 0; j < 800; j++)
-		{
-			if (i!=j && resultValue[i] == resultValue[j])
-			{
-				stringText = "Error";
-				std::cout << stringText << std::endl;
-				//std::cin >> hej;
-			}
-		}
-	}
+        threadVector.push_back(std::thread(&ThreadedAllocatorCreationExtension, i, t_threadTest, std::move(promiseVector[i])));
+
+        //int h = f.get();
+        //resultValue[i] = h;
+        //std::future <int> ret = std::thread t_temp(ThreadedAllocatorCreationExtension, i, t_threadTest);
+        //threadVector.push_back(thread(ThreadedAllocatorCreationExtension, i, t_threadTest, resultValue[i]));
+        //threadVector.push_back(t_temp);
+        //threadVector.push_back(thread(EmptyShit));
+    }
+    std::string hej;
+    //std::cin >> hej;
+    *t_threadTest = true;
+    for (size_t i = 0; i < 800; i++)
+    {
+        threadVector[i].join();
+    }
+    for (size_t i = 0; i < 800; i++)
+    {
+        resultValue[i] = futureList[i].get();
+    }
+    for (size_t i = 0; i < 800; i++)
+    {
+        for (size_t j = 0; j < 800; j++)
+        {
+            if (i != j && resultValue[i] == resultValue[j])
+            {
+                stringText = "Error";
+                std::cout << stringText << std::endl;
+                //std::cin >> hej;
+            }
+        }
+    }
 
 	//std::cout << stringText << std::endl;
 	//std::cin >> hej;

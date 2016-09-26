@@ -4,46 +4,30 @@
 #include "LibDefines.h"
 #include <mutex>
 
-class MemoryTests
-{
-public:
-    MemoryTests();
-    ~MemoryTests();
-    void CreateAllocator(size_t p_size);
-    void CreateRandomAccessNumbers(std::string fileName, double amount, int seed);
-    void LoadRandomAccessNumbers(std::string fileName, double amount);
-    void TestAllocateMany(double amount);
-    void TestAllocateListAndUseRandomly(double amount);
-    void TestAllocateManyDifferent(double amount);
-
-    void TestAllocateMatricesForFramesSpecific(double amount, int frames);
-
-    void TestAllocateAndUseMatricesForFramesSpecific(double amount, int frames);
-
-    void TestAllocateAndDeleteMany(long amount);
-
-    void TestAllocateAndDeleteRandomly(double amount);
-
-	void TestStack();
-
-
-	void TestThreadedAllocatorCreation();
-	void MutexTestWithNoMutex();
-	void MutexTest();
-	void PrintTestIntMutex();
-	unsigned long m_mutexTestInt;
-	std::shared_ptr<std::mutex> m_mutexTest;
-	std::vector<int> randomNumbers;
-    std::vector<int> numbers;
-    PoolAllocator* poolAllocator;
-};
-
 
 struct Matrix
 {
     Matrix()
     {
+        x[0] = 1;
+        x[1] = 2;
+        x[2] = 3;
+        x[3] = 4;
 
+        y[0] = 5;
+        y[1] = 6;
+        y[2] = 7;
+        y[3] = 8;
+
+        z[0] = 9;
+        z[1] = 10;
+        z[2] = 11;
+        z[3] = 12;
+
+        w[0] = 13;
+        w[1] = 14;
+        w[2] = 15;
+        w[3] = 16;
     }
     Matrix(float x1, float x2, float x3, float x4,
         float y1, float y2, float y3, float y4,
@@ -102,4 +86,100 @@ struct Matrix
     float z[4];
     float w[4];
 };
+
+#define NUM_INTS 5
+struct ObjectOne  
+{
+    int value[NUM_INTS];
+
+    void Function()
+    {
+        for (size_t i = 0; i < NUM_INTS; i++)
+        {
+            value[i]++;
+        }
+    }
+
+};
+
+
+class MemoryTests
+{
+public:
+    MemoryTests();
+    ~MemoryTests();
+    void CreateAllocator(size_t p_size);
+    void CreateRandomAccessNumbers(long amount, int seed);
+
+    void TestGenericAllocate(long amount);
+
+    void TestGenericUseRandomly(long amount);
+
+    void TestGenericAllocateDifferentSizes(long amount);
+
+    void TestGenericDelete(long amount);
+
+    void TestGenericDeleteRandomly(long amount);
+
+    void TestSpecificAllocate(long amount);
+
+    void TestSpecificUseRandomly(long amount);
+
+    void TestSpecificAllocateMatrices(long amount);
+
+    void TestSpecificUseMatrices(long amount);
+
+    void TestSpecificUseMatricesRandomly(long amount);
+
+    void TestSpecificDelete(long amount);
+
+    void TestSpecificDeleteRandomly(long amount);
+
+    void TestSpecificRandomyAllocateDelete(long amount);
+
+
+    void TestSpecificTestCaseUse(long amount);
+
+
+
+	void TestStackOurLib(int p_count);
+
+	void TestStackOS(int p_count);
+
+    void TestSpecificTestPre(long amount, long differentObjects);
+
+    void TestSpecificTestCaseAllocate(long amount, long differentObjects);
+
+
+    void TestThreadedAllocatorCreation();
+
+	void TestAllocateMatricesForFramesSpecific(double amount, int frames);
+
+	void TestAllocateAndUseMatricesForFramesSpecific(double amount, int frames);
+
+	void TestAllocateAndDeleteMany(long amount);
+
+	void TestAllocateAndDeleteRandomly(double amount);
+
+	void TestStack();
+
+
+	void TestThreadedAllocatorCreation();
+	void MutexTestWithNoMutex();
+	void MutexTest();
+	void PrintTestIntMutex();
+	unsigned long m_mutexTestInt;
+	std::shared_ptr<std::mutex> m_mutexTest;
+	std::vector<int> randomNumbers;
+	std::vector<int> numbers;
+
+
+    std::vector<int> randomNumbers;
+    std::vector<int*> numbers;
+    std::vector<Matrix*> matrices;
+    std::vector<std::vector<ObjectOne*>> objectsWithObjects;
+    PoolAllocator* poolAllocator;
+    PoolAllocator* poolAllocatorTwo;
+};
+
 

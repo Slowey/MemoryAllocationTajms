@@ -58,8 +58,17 @@ void StackAllocatorInternal::Clear()
    m_head = m_startPointer;
 }
 
-int StackAllocatorInternal::TestMethod()
+void StackAllocatorInternal::ResetHeadTo(void* mempoint)
 {
-    return 42;
+	m_head = mempoint;
+	int t_blocksize = m_poolPark->GetMemoryBlockSize();
+	// Check if we Reset past a blocks end point. If we do reevaluate the currentstackblock
+	int t_potentialNewBlock = ceil(((reinterpret_cast<char*>(m_poolPark->GetEndPointer()) - reinterpret_cast<char*>(m_head)) / t_blocksize));
+	if (m_totalNrOfBlocks - m_currentBlock > t_potentialNewBlock)
+	{
+		m_currentBlock = t_potentialNewBlock;
+		m_poolPark->SetCurrentStackBlock(m_currentBlock);
+	}
 }
+
     

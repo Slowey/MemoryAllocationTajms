@@ -2,7 +2,6 @@
 #include <TajmsLib.h>
 #include "MemoryTests.h"
 #include "LibDefines.h"
-#include <StackAllocator.h>
 #include <string>
 #include <thread>
 #include <mutex>
@@ -26,8 +25,8 @@ int main(int numArgs, char * args[])
     MemoryManager::Startup(1024, 1000000);
     TajmsLib tajm;
 
-    int testToRun = 5;
-    int numObjects = 5;
+    int testToRun = 16;
+    int numObjects = 100;
     int seed = 33;
     
     // Parse args
@@ -69,33 +68,127 @@ int main(int numArgs, char * args[])
 
     if (testToRun == 1)
     {
-        int forLoopTimerId1 = tajm.StartTimer("ForLoopTimer1");
-        tests.TestAllocateMany(numObjects);
-        tajm.StopTimer(forLoopTimerId1);
+        int ID = tajm.StartTimer("1");
+        tests.TestGenericAllocate(numObjects);
+        tajm.StopTimer(ID);
     }
     else if (testToRun == 2)
     {
-        tests.CreateAllocator(sizeof(Matrix));
-        int forLoopTimerId1 = tajm.StartTimer("ForLoopTimer1");
-        tests.TestAllocateAndUseMatricesForFramesSpecific(numObjects, 1);
-        tajm.StopTimer(forLoopTimerId1);
+        tests.CreateRandomAccessNumbers(numObjects, seed);
+        tests.TestGenericAllocate(numObjects);
+
+        int ID = tajm.StartTimer("1");
+        tests.TestGenericUseRandomly(numObjects);
+        tajm.StopTimer(ID);
     }
     else if (testToRun == 3)
     {
-        tests.CreateAllocator(sizeof(int));
-        int forLoopTimerId1 = tajm.StartTimer("ForLoopTimer1");
-        tests.TestAllocateAndDeleteMany(numObjects);
-        tajm.StopTimer(forLoopTimerId1);
+        int ID = tajm.StartTimer("1");
+        tests.TestGenericAllocateDifferentSizes(numObjects);
+        tajm.StopTimer(ID);
     }
     else if (testToRun == 4)
     {
-        tests.CreateAllocator(sizeof(int));
-        tests.CreateRandomAccessNumbers("randomNum", numObjects, seed);
-        int forLoopTimerId1 = tajm.StartTimer("ForLoopTimer1");
-        tests.TestAllocateAndDeleteRandomly(numObjects);
-        tajm.StopTimer(forLoopTimerId1);
+        tests.TestGenericAllocate(numObjects);
+
+        int ID = tajm.StartTimer("1");
+        tests.TestGenericDelete(numObjects);
+        tajm.StopTimer(ID);
     }
-	else if (testToRun == 5)
+    else if (testToRun == 5)
+    {
+        tests.CreateRandomAccessNumbers(numObjects, seed);
+        tests.TestGenericAllocate(numObjects);
+
+        int ID = tajm.StartTimer("1");
+        tests.TestGenericDeleteRandomly(numObjects);
+        tajm.StopTimer(ID);
+    }
+    else if (testToRun == 6)
+    {
+        tests.CreateAllocator(sizeof(int));
+
+        int ID = tajm.StartTimer("1");
+        tests.TestSpecificAllocate(numObjects);
+        tajm.StopTimer(ID);
+    }
+    else if (testToRun == 7)
+    {
+        tests.CreateRandomAccessNumbers(numObjects, seed);
+        tests.CreateAllocator(sizeof(int));
+        tests.TestSpecificAllocate(numObjects);
+
+        int ID = tajm.StartTimer("1");
+        tests.TestSpecificUseRandomly(numObjects);
+        tajm.StopTimer(ID);
+    }
+    else if (testToRun == 8)
+    {
+        tests.CreateAllocator(sizeof(Matrix));
+
+        int ID = tajm.StartTimer("1");
+        tests.TestSpecificAllocateMatrices(numObjects);
+        tajm.StopTimer(ID);
+    }
+    else if (testToRun == 9)
+    {
+        tests.CreateAllocator(sizeof(Matrix));
+        tests.TestSpecificAllocateMatrices(numObjects);
+
+        int ID = tajm.StartTimer("1");
+        tests.TestSpecificUseMatrices(numObjects);
+        tajm.StopTimer(ID);
+    }
+    else if (testToRun == 10)
+    {
+        tests.CreateRandomAccessNumbers(numObjects, seed);
+        tests.CreateAllocator(sizeof(Matrix));
+        tests.TestSpecificAllocateMatrices(numObjects);
+
+        int ID = tajm.StartTimer("1");
+        tests.TestSpecificUseMatricesRandomly(numObjects);
+        tajm.StopTimer(ID);
+    }
+    else if (testToRun == 11)
+    {
+        tests.CreateAllocator(sizeof(int));
+        tests.TestSpecificAllocate(numObjects);
+
+        int ID = tajm.StartTimer("1");
+        tests.TestSpecificDelete(numObjects);
+        tajm.StopTimer(ID);
+    }
+    else if (testToRun == 12)
+    {
+        tests.CreateRandomAccessNumbers(numObjects, seed);
+        tests.CreateAllocator(sizeof(int));
+        tests.TestSpecificAllocate(numObjects);
+
+        int ID = tajm.StartTimer("1");
+        tests.TestSpecificDeleteRandomly(numObjects);
+        tajm.StopTimer(ID);
+    }
+    else if (testToRun == 13)
+    {
+        tests.CreateRandomAccessNumbers(numObjects, seed);
+        tests.CreateAllocator(sizeof(int));
+        tests.TestSpecificAllocate(numObjects);
+
+        int ID = tajm.StartTimer("1");
+        tests.TestSpecificRandomyAllocateDelete(numObjects);
+        tajm.StopTimer(ID);
+    }
+    else if (testToRun == 16)
+    {
+        // Uses numObjects as how many differnt objects and static how many 
+        tests.TestSpecificTestPre(1000, numObjects);
+        tests.TestSpecificTestCaseAllocate(1000, numObjects);
+
+        int ID = tajm.StartTimer("1");
+        tests.TestSpecificTestCaseUse(numObjects);
+        tajm.StopTimer(ID);
+    }
+	else if (testToRun == 25)
 	{
 #ifdef OURLIB
 		std::string hej;
@@ -181,26 +274,75 @@ int main(int numArgs, char * args[])
 		//std::string hej = "";
 		//std::cin >> hej;
 	}
+
+
     std::string testName = "";
 
     if (testToRun == 1)
     {
-        testName = "AllocateMany_";
+        testName = "TestGenericAllocate_";
     }
     else if (testToRun == 2)
     {
-        testName = "TestAllocateAndUseMatricesForFramesSpecific_";
+        testName = "TestGenericUseRandomly_";
     }
     else if (testToRun == 3)
     {
-        testName = "TestAllocateAndDeleteMany_";
+        testName = "TestGenericAllocateDifferentSizes_";
     }
     else if (testToRun == 4)
     {
-        testName = "TestAllocateAndDeleteRandomly_";
+        testName = "TestGenericDelete_";
     }
     else if (testToRun == 5)
     {
+        testName = "TestGenericDeleteRandomly_";
+    }
+    else if (testToRun == 6)
+    {
+        testName = "TestSpecificAllocate_";
+    }
+    else if (testToRun == 7)
+    {
+        testName = "TestSpecificUseRandomly_";
+    }
+    else if (testToRun == 8)
+    {
+        testName = "TestSpecificAllocateMatrices_";
+    }
+    else if (testToRun == 9)
+    {
+        testName = "TestSpecificUseMatrices_";
+    }
+    else if (testToRun == 10)
+    {
+        testName = "TestSpecificUseMatricesRandomly_";
+    }
+    else if (testToRun == 11)
+    {
+        testName = "TestSpecificDelete_";
+    }
+    else if (testToRun == 12)
+    {
+        testName = "TestSpecificDeleteRandomly_";
+    }
+    else if (testToRun == 13)
+    {
+        testName = "TestSpecificRandomyAllocateDelete_";
+    }
+    else if (testToRun == 14)
+    {
+        testName = "";
+    }
+    else if (testToRun == 16)
+    {
+        testName = "TestSpecificTestCaseUse_";
+    }
+    else if (testToRun == 25)
+    {
+        testName = "ThreadedSimulator";
+    }
+
         testName = "ThreadedSimulator_";
     }
 	else if (testToRun == 102)
