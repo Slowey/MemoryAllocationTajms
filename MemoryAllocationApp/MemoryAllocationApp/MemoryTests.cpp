@@ -150,83 +150,6 @@ void MemoryTests::TestSpecificDelete(long amount)
         operator delete(numbers.at(i), poolAllocator, sizeof(int));
     }
 }
-void ThreadedAllocatorCreationExtension(int p_myInt, bool* p_goTime, std::promise<int> && o_result)//, int& o_endInt)
-{
-	/// Wait for all threads to be created
-	//while (!*p_goTime)
-	//{
-	//}
-	/// Create allocator and value using allocator
-	PoolAllocator* t_poolAllocator = MemoryManager::Get()->CreatePoolAllocator(sizeof(int));
-	int* t_myInt = new (t_poolAllocator)int(p_myInt);
-	//Wait for all threads to be done allocating their ints
-	std::this_thread::sleep_for(std::chrono::milliseconds(100));
-	// Read value and put as output
-	//o_endInt = *t_myInt;
-	//std::cout << *t_myInt << std::endl;
-	o_result.set_value(*t_myInt);
-	operator delete (t_myInt, t_poolAllocator, sizeof(int));
-}
-void EmptyShit()
-{
-	std::cout << "derp";
-}
-void MemoryTests::TestThreadedAllocatorCreation()
-{
-	using namespace std;
-	//std::thread t2(task1, "Hello2");
-	bool* t_threadTest = new bool(false);
-	PoolAllocator* t_poolAllocator = MemoryManager::Get()->CreatePoolAllocator(sizeof(int));
-	//int amountOfThreads = 10;
-	int resultValue[800];
-	std::promise<int> promiseVector[800];
-	std::future<int> futureList[800];
-	std::vector<std::thread> threadVector;
-	std::string stringText = "No Error";
-	for (size_t i = 0; i < 800; i++)
-	{
-		futureList[i] = promiseVector[i].get_future();
-	}
-	for (size_t i = 0; i < 800; i++)
-	{
-		//std::thread t(EmptyShit);
-		
-		threadVector.push_back(std::thread(&ThreadedAllocatorCreationExtension, i, t_threadTest, std::move(promiseVector[i])));
-
-		//int h = f.get();
-		//resultValue[i] = h;
-		//std::future <int> ret = std::thread t_temp(ThreadedAllocatorCreationExtension, i, t_threadTest);
-		//threadVector.push_back(thread(ThreadedAllocatorCreationExtension, i, t_threadTest, resultValue[i]));
-		//threadVector.push_back(t_temp);
-		//threadVector.push_back(thread(EmptyShit));
-	}
-	std::string hej;
-	//std::cin >> hej;
-	*t_threadTest = true;
-	for (size_t i = 0; i < 800; i++)
-	{
-		threadVector[i].join();
-	}
-	for (size_t i = 0; i < 800; i++)
-	{
-		resultValue[i] = futureList[i].get();
-	}
-	for (size_t i = 0; i < 800; i++)
-	{
-		for (size_t j = 0; j < 800; j++)
-		{
-			if (i!=j && resultValue[i] == resultValue[j])
-			{
-				stringText = "Error";
-				std::cout << stringText << std::endl;
-				//std::cin >> hej;
-			}
-		}
-	}
-
-	//std::cout << stringText << std::endl;
-	//std::cin >> hej;
-}
 
 void MemoryTests::TestSpecificDeleteRandomly(long amount)
 {
@@ -260,4 +183,84 @@ void MemoryTests::TestStack()
 
 
 
+}
+
+
+
+void ThreadedAllocatorCreationExtension(int p_myInt, bool* p_goTime, std::promise<int> && o_result)//, int& o_endInt)
+{
+    /// Wait for all threads to be created
+    //while (!*p_goTime)
+    //{
+    //}
+    /// Create allocator and value using allocator
+    PoolAllocator* t_poolAllocator = MemoryManager::Get()->CreatePoolAllocator(sizeof(int));
+    int* t_myInt = new (t_poolAllocator)int(p_myInt);
+    //Wait for all threads to be done allocating their ints
+    std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    // Read value and put as output
+    //o_endInt = *t_myInt;
+    //std::cout << *t_myInt << std::endl;
+    o_result.set_value(*t_myInt);
+    operator delete (t_myInt, t_poolAllocator, sizeof(int));
+}
+void EmptyShit()
+{
+    std::cout << "derp";
+}
+void MemoryTests::TestThreadedAllocatorCreation()
+{
+    using namespace std;
+    //std::thread t2(task1, "Hello2");
+    bool* t_threadTest = new bool(false);
+    PoolAllocator* t_poolAllocator = MemoryManager::Get()->CreatePoolAllocator(sizeof(int));
+    //int amountOfThreads = 10;
+    int resultValue[800];
+    std::promise<int> promiseVector[800];
+    std::future<int> futureList[800];
+    std::vector<std::thread> threadVector;
+    std::string stringText = "No Error";
+    for (size_t i = 0; i < 800; i++)
+    {
+        futureList[i] = promiseVector[i].get_future();
+    }
+    for (size_t i = 0; i < 800; i++)
+    {
+        //std::thread t(EmptyShit);
+
+        threadVector.push_back(std::thread(&ThreadedAllocatorCreationExtension, i, t_threadTest, std::move(promiseVector[i])));
+
+        //int h = f.get();
+        //resultValue[i] = h;
+        //std::future <int> ret = std::thread t_temp(ThreadedAllocatorCreationExtension, i, t_threadTest);
+        //threadVector.push_back(thread(ThreadedAllocatorCreationExtension, i, t_threadTest, resultValue[i]));
+        //threadVector.push_back(t_temp);
+        //threadVector.push_back(thread(EmptyShit));
+    }
+    std::string hej;
+    //std::cin >> hej;
+    *t_threadTest = true;
+    for (size_t i = 0; i < 800; i++)
+    {
+        threadVector[i].join();
+    }
+    for (size_t i = 0; i < 800; i++)
+    {
+        resultValue[i] = futureList[i].get();
+    }
+    for (size_t i = 0; i < 800; i++)
+    {
+        for (size_t j = 0; j < 800; j++)
+        {
+            if (i != j && resultValue[i] == resultValue[j])
+            {
+                stringText = "Error";
+                std::cout << stringText << std::endl;
+                //std::cin >> hej;
+            }
+        }
+    }
+
+    //std::cout << stringText << std::endl;
+    //std::cin >> hej;
 }
