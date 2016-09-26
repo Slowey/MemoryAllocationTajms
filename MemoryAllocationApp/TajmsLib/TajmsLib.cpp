@@ -1,5 +1,4 @@
 #include "TajmsLib.h"
-#include <ctime>
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -19,7 +18,7 @@
 void TajmsLib::InitTajmsLib()
 {
     //start the program timer.
-    m_begin = clock();
+    m_begin = std::chrono::high_resolution_clock::now();
     _mkdir("Test timers");
 
 }
@@ -27,7 +26,6 @@ void TajmsLib::ShutdownTajmsLib(std::string &p_fileName)
 {
     // Stop the timer and write to textfiles.
     // unsigned int end = clock();
-    m_totalTimeForProgram = clock() - m_begin;
     time_t  timev = time(0);
     time(&timev);
     struct tm now;
@@ -42,8 +40,8 @@ void TajmsLib::ShutdownTajmsLib(std::string &p_fileName)
     {
         if (m_timers.size())
         {
-            double tempForOutput = (double)(m_timers[0].timerEndTime - m_timers[0].timerStartTime) / (double)CLOCKS_PER_SEC;
-            myfile << tempForOutput << std::endl;
+            std::chrono::duration<double> duration = (m_timers[0].timerEndTime - m_timers[0].timerStartTime);
+            myfile << duration.count() << std::endl;
         }
     }
 
@@ -62,12 +60,12 @@ float TajmsLib::Test()
 }
 int TajmsLib::StartTimer(std::string p_timerName)
 {
-    m_timers.push_back(TajmsTimer(clock(), nrOfTimers, p_timerName));
+    m_timers.push_back(TajmsTimer(nrOfTimers, p_timerName));
     ++nrOfTimers;
     return nrOfTimers - 1;
 }
 void TajmsLib::StopTimer(int p_id)
 {
-    m_timers[p_id].timerEndTime = clock();
+    m_timers[p_id].timerEndTime = std::chrono::high_resolution_clock::now();
 }
 
