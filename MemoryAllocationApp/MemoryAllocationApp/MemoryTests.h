@@ -153,27 +153,16 @@ public:
 
     void TestThreadedAllocatorCreation();
 
-	void TestAllocateMatricesForFramesSpecific(double amount, int frames);
-
-	void TestAllocateAndUseMatricesForFramesSpecific(double amount, int frames);
-
-	void TestAllocateAndDeleteMany(long amount);
-
 	void TestAllocateAndDeleteRandomly(double amount);
 
 	void TestStack();
 
-
-	void TestThreadedAllocatorCreation();
 	void MutexTestWithNoMutex();
 	void MutexTest();
 	void PrintTestIntMutex();
+
 	unsigned long m_mutexTestInt;
 	std::shared_ptr<std::mutex> m_mutexTest;
-	std::vector<int> randomNumbers;
-	std::vector<int> numbers;
-
-
     std::vector<int> randomNumbers;
     std::vector<int*> numbers;
     std::vector<Matrix*> matrices;

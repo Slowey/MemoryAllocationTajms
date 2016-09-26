@@ -226,25 +226,7 @@ int main(int numArgs, char * args[])
 			tests.MutexTest();
 			std::this_thread::sleep_for(std::chrono::milliseconds(1));
 		}
-		//amountOfTimes = 0;
-		//for (size_t i = 0; i < amountOfTimes; i++)
-		//{
-		//	tests.MutexTest();
-		//}
-		//amountOfTimes = 0;
-		//for (size_t i = 0; i < amountOfTimes; i++)
-		//{
-		//	tests.MutexTest();
-		//}
-		//amountOfTimes = 0;
-		//for (size_t i = 0; i < amountOfTimes; i++)
-		//{
-		//	tests.MutexTest();
-		//}
 		tajm.StopTimer(timerMutexLock);
-		//tests.PrintTestIntMutex();
-		//std::string hej = "";
-		//std::cin >> hej;
 	}
 	else if (testToRun == 103)
 	{
@@ -255,24 +237,8 @@ int main(int numArgs, char * args[])
 			tests.MutexTestWithNoMutex();
 			std::this_thread::sleep_for(std::chrono::milliseconds(1));
 		}
-		//for (unsigned long i = 0; i < amountOfTimes; i++)
-		//{
-		//	tests.MutexTestWithNoMutex();
-		//}
-		//amountOfTimes = 0;
-		//for (unsigned long i = 0; i < amountOfTimes; i++)
-		//{
-		//	tests.MutexTestWithNoMutex();
-		//}
-		//amountOfTimes = 0;
-		//for (unsigned long i = 0; i < amountOfTimes; i++)
-		//{
-		//	tests.MutexTestWithNoMutex();
-		//}
 		tajm.StopTimer(timerWithoutMutexLock);
-		//tests.PrintTestIntMutex();
-		//std::string hej = "";
-		//std::cin >> hej;
+
 	}
 
 
@@ -342,9 +308,7 @@ int main(int numArgs, char * args[])
     {
         testName = "ThreadedSimulator";
     }
-
-        testName = "ThreadedSimulator_";
-    }
+	
 	else if (testToRun == 102)
 	{
 		testName = "MutexTiming_";
