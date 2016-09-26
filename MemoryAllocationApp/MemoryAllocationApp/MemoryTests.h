@@ -23,6 +23,8 @@ public:
 
     void TestAllocateAndDeleteRandomly(double amount);
 
+	void TestStack();
+
     std::vector<int> randomNumbers;
     std::vector<int> numbers;
     PoolAllocator* poolAllocator;

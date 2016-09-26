@@ -1,5 +1,3 @@
-
-
 #include <iostream>
 #include <TajmsLib.h>
 #include "MemoryTests.h"
@@ -66,8 +64,6 @@ int main(int numArgs, char * args[])
     }
  
     MemoryTests tests = MemoryTests();
-
-#ifdef RUN_PRE_VALUES
 
     tajm.InitTajmsLib();
 

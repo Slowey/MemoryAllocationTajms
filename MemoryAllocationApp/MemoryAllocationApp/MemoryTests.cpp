@@ -160,3 +160,13 @@ void MemoryTests::TestAllocateAndDeleteRandomly(double amount)
         operator delete (numbers[randomNumbers[i]], poolAllocator, sizeof(int));
     }
 }
+
+void MemoryTests::TestStack()
+{
+
+
+
+
+
+
+}

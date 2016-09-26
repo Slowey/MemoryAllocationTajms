@@ -59,9 +59,3 @@ void PoolAllocatorSelfSustainedInternal::CreateNewPool()
     m_startOfMemoryBlocks.push_back(startOfPool);
 }
 
-bool PoolAllocatorSelfSustainedInternal::MemoryBlockFull(void * p_startOfBlock, const int & p_segment)
-{
-
-    return false;
-}
-
