@@ -26,7 +26,7 @@ int main(int numArgs, char * args[])
     TajmsLib tajm;
 
     int testToRun = 16;
-    int numObjects = 100;
+    int numObjects = 100000;
     int seed = 33;
     
     // Parse args
@@ -181,11 +181,11 @@ int main(int numArgs, char * args[])
     else if (testToRun == 16)
     {
         // Uses numObjects as how many differnt objects and static how many 
-        tests.TestSpecificTestPre(1000, numObjects);
-        tests.TestSpecificTestCaseAllocate(1000, numObjects);
+        tests.TestSpecificTestPre(100, numObjects);
+        tests.TestSpecificTestCaseAllocate(100, numObjects);
 
         int ID = tajm.StartTimer("1");
-        tests.TestSpecificTestCaseUse(numObjects);
+        tests.TestSpecificTestCaseUse(100);
         tajm.StopTimer(ID);
     }
 	else if (testToRun == 25)

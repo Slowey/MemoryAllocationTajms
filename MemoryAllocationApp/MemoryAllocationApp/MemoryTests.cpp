@@ -232,7 +232,7 @@ void MemoryTests::TestSpecificTestCaseAllocate(long amount, long differentObject
 void MemoryTests::TestSpecificTestCaseUse(long amount)
 {
     // number of frames
-    for (size_t i = 0; i < 60*10; i++)
+    for (size_t f = 0; f < 60*10000; f++)
     {
         for (size_t i = 0; i < amount; i++)
         {
