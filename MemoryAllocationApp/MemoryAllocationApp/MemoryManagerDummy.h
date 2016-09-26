@@ -2,6 +2,13 @@
 #include "LibDefines.h"
 #ifndef OURLIB
 
+enum class Stack
+{
+    LongTerm,
+    MidTerm,
+    ShortTerm,
+};
+
 class PoolAllocator
 {
 public:

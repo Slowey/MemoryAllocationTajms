@@ -26,7 +26,7 @@ int main(int numArgs, char * args[])
     TajmsLib tajm;
 
     int testToRun = 16;
-    int numObjects = 10000;
+    int numObjects = 100;
     int seed = 33;
     
     // Parse args
