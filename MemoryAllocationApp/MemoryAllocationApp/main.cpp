@@ -179,7 +179,31 @@ int main(int numArgs, char * args[])
         tests.TestSpecificRandomyAllocateDelete(numObjects);
         tajm.StopTimer(ID);
     }
+	else if (testToRun == 25)
+	{
+#ifdef OURLIB
+		int forLoopTimerId1 = tajm.StartTimer("ForLoopTimer1");
+		std::string hej;
+		int nrOfTests = 0;
+		while (true)
+		{
+			++nrOfTests;
 
+			MemoryManager::Get()->ResetTestThingy();
+			tests.TestThreadedAllocatorCreation();
+			int t_numberOFAllocators = MemoryManager::Get()->GetTestThingy();
+			if (t_numberOFAllocators > 802)
+			{
+				std::cout << t_numberOFAllocators << std::endl;
+				std::cin >> hej;
+			}
+			std::cout << "Test Nr: " << nrOfTests;
+			std::cout << " Nr of Allocs: " << t_numberOFAllocators << std::endl;
+		}
+		std::cin >> hej;
+		tajm.StopTimer(forLoopTimerId1);
+#endif
+	}
 
     std::string testName = "";
 
@@ -234,6 +258,10 @@ int main(int numArgs, char * args[])
     else if (testToRun == 13)
     {
         testName = "TestSpecificRandomyAllocateDelete_";
+    }
+    else if (testToRun == 25)
+    {
+        testName = "ThreadedSimulator";
     }
 
     testName += std::to_string(numObjects);

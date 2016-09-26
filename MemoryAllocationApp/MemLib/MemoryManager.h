@@ -54,6 +54,10 @@ public:
     p_blockSize * p_numBlocks bytes of memory*/
     static void Startup(const int & p_blockSize, const int & p_numBlocks);
 
+	static void ResetTestThingy();
+
+	static int GetTestThingy();
+
 
 
 private:

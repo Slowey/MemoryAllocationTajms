@@ -35,6 +35,16 @@ void MemoryManager::Startup(const int &p_blockSize, const int &p_numBlocks)
     new (m_singleton) MemoryManager(p_blockSize, p_numBlocks);
 }
 
+void MemoryManager::ResetTestThingy()
+{
+	AllocatorManager::Get()->ResetTestThingy();
+}
+
+int MemoryManager::GetTestThingy()
+{
+	return AllocatorManager::Get()->GetTestThingy();
+}
+
 PoolAllocator * MemoryManager::CreatePoolAllocator(const int& p_segmentSize)
 {
     return AllocatorManager::Get()->CreatePoolAllocator(p_segmentSize);
