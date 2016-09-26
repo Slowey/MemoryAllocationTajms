@@ -97,6 +97,7 @@ int main(int numArgs, char * args[])
     }
 	else if (testToRun == 5)
 	{
+#ifdef OURLIB
 		int forLoopTimerId1 = tajm.StartTimer("ForLoopTimer1");
 		std::string hej;
 		int nrOfTests = 0;
@@ -117,6 +118,7 @@ int main(int numArgs, char * args[])
 		}
 		std::cin >> hej;
 		tajm.StopTimer(forLoopTimerId1);
+#endif
 	}
 
     std::string testName = "";
