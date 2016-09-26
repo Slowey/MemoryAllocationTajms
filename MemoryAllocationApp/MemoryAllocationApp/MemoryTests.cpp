@@ -7,6 +7,7 @@
 
 MemoryTests::MemoryTests()
 {
+	m_mutexTest = std::make_shared<std::mutex>();
 }
 
 MemoryTests::~MemoryTests()
@@ -318,6 +319,48 @@ void MemoryTests::TestThreadedAllocatorCreation()
         }
     }
 
-    //std::cout << stringText << std::endl;
-    //std::cin >> hej;
+	//std::cout << stringText << std::endl;
+	//std::cin >> hej;
+}
+
+void MemoryTests::MutexTestWithNoMutex()
+{
+	m_mutexTestInt++;
+}
+
+void MemoryTests::MutexTest()
+{
+	m_mutexTest->lock();
+	m_mutexTestInt++;
+	m_mutexTest->unlock();
+}
+void MemoryTests::PrintTestIntMutex()
+{
+	std::cout << m_mutexTestInt;
+}
+
+void MemoryTests::TestAllocateAndDeleteRandomly(double amount)
+{
+    std::vector<int*> numbers;
+    numbers.resize(amount);
+    for (size_t i = 0; i < amount; i++)
+    {
+        int* newInt = new (poolAllocator)int();
+        numbers.push_back(newInt);
+    }
+
+    for (size_t i = 0; i < amount; i++)
+    {
+        operator delete (numbers[randomNumbers[i]], poolAllocator, sizeof(int));
+    }
+}
+
+void MemoryTests::TestStack()
+{
+
+
+
+
+
+
 }

@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include "LibDefines.h"
+#include <mutex>
 
 
 struct Matrix
@@ -152,6 +153,16 @@ public:
 
     void TestThreadedAllocatorCreation();
 
+	void TestAllocateAndDeleteRandomly(double amount);
+
+	void TestStack();
+
+	void MutexTestWithNoMutex();
+	void MutexTest();
+	void PrintTestIntMutex();
+
+	unsigned long m_mutexTestInt;
+	std::shared_ptr<std::mutex> m_mutexTest;
     std::vector<int> randomNumbers;
     std::vector<int*> numbers;
     std::vector<Matrix*> matrices;

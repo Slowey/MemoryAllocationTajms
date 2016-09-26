@@ -191,27 +191,54 @@ int main(int numArgs, char * args[])
 	else if (testToRun == 25)
 	{
 #ifdef OURLIB
-		int forLoopTimerId1 = tajm.StartTimer("ForLoopTimer1");
 		std::string hej;
 		int nrOfTests = 0;
-		while (true)
-		{
-			++nrOfTests;
-
-			MemoryManager::Get()->ResetTestThingy();
-			tests.TestThreadedAllocatorCreation();
-			int t_numberOFAllocators = MemoryManager::Get()->GetTestThingy();
-			if (t_numberOFAllocators > 802)
+		int forLoopTimerId1 = tajm.StartTimer("ForLoopTimer1");
+		//while (nrOfTests)
+		//{
+		//	++nrOfTests;
+			for (size_t i = 0; i < 10; i++)
 			{
-				std::cout << t_numberOFAllocators << std::endl;
-				std::cin >> hej;
+
+			//MemoryManager::Get()->ResetTestThingy();
+			tests.TestThreadedAllocatorCreation();
+			//int t_numberOFAllocators = MemoryManager::Get()->GetTestThingy();
+			//if (t_numberOFAllocators > 802)
+			//{
+			//	std::cout << t_numberOFAllocators << std::endl;
+			//	std::cin >> hej;
+			//}
+			//std::cout << "Test Nr: " << nrOfTests;
+			//std::cout << " Nr of Allocs: " << t_numberOFAllocators << std::endl;
 			}
-			std::cout << "Test Nr: " << nrOfTests;
-			std::cout << " Nr of Allocs: " << t_numberOFAllocators << std::endl;
-		}
-		std::cin >> hej;
+		//}
+		//std::cin >> hej;
 		tajm.StopTimer(forLoopTimerId1);
 #endif
+	}
+	else if (testToRun == 102)
+	{
+		std::mutex mLock;
+		int amountOfTimes = 5000;
+		int timerMutexLock = tajm.StartTimer("MutexLock");
+		for (size_t i = 0; i < amountOfTimes; i++)
+		{
+			tests.MutexTest();
+			std::this_thread::sleep_for(std::chrono::milliseconds(1));
+		}
+		tajm.StopTimer(timerMutexLock);
+	}
+	else if (testToRun == 103)
+	{
+		unsigned long amountOfTimes = 5000;
+		int timerWithoutMutexLock = tajm.StartTimer("WithoutMutexLock");
+		for (unsigned long i = 0; i < amountOfTimes; i++)
+		{
+			tests.MutexTestWithNoMutex();
+			std::this_thread::sleep_for(std::chrono::milliseconds(1));
+		}
+		tajm.StopTimer(timerWithoutMutexLock);
+
 	}
 
 
@@ -281,7 +308,15 @@ int main(int numArgs, char * args[])
     {
         testName = "ThreadedSimulator";
     }
-
+	
+	else if (testToRun == 102)
+	{
+		testName = "MutexTiming_";
+	}
+	else if (testToRun == 103)
+	{
+		testName = "MutexTimingWithNoMutex_";
+	}
     testName += std::to_string(numObjects);
 
     tajm.ShutdownTajmsLib(testName);
