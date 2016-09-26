@@ -70,3 +70,12 @@ PoolAllocator * AllocatorManager::CreatePoolAllocator(const int& p_segmentSize)
 
     return internalPool;
 }
+
+int AllocatorManager::GetTestThingy()
+{
+	return m_poolPark.GetTestThreadNr();
+}
+void AllocatorManager::ResetTestThingy()
+{
+	m_poolPark.ResetTestNumber();
+}

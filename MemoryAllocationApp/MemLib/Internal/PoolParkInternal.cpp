@@ -1,6 +1,7 @@
 #include "PoolParkInternal.h"
 #include <assert.h>
 #include <malloc.h>
+#include <iostream>
 
 PoolParkInternal::PoolParkInternal()
 {
@@ -13,6 +14,7 @@ PoolParkInternal::PoolParkInternal(const int & p_memoryBlockSize, const int & p_
 	m_currentStackBlock = p_numberOfMemoryBlocks;
 	m_mutexLockCreateNew = std::make_shared<std::mutex>();
 	m_mutexLockFree = std::make_shared<std::mutex>();
+	m_threadTest = 0;
 }
 
 PoolParkInternal::~PoolParkInternal()
@@ -48,10 +50,20 @@ void* PoolParkInternal::GetNewMemoryBlockEndPoint()
 	// Return the address
 	return returnAddress;
 }
+void PoolParkInternal::ResetTestNumber()
+{
+	m_threadTest = 0;
+}
+
+int PoolParkInternal::GetTestThreadNr()
+{
+	return m_threadTest;
+}
 
 void * PoolParkInternal::GetNewMemoryBlockStartPoint() 
 {
 	m_mutexLockCreateNew->lock();
+	m_threadTest++;
     void* returnAddress;
     
     // Check if we have any free block in queue. If true, use that block and remove it from list

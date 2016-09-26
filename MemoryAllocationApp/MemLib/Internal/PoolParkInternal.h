@@ -31,6 +31,8 @@ public:
 	@throw - 1337 error (int) tried to allocated memory where heap is operating. (Out of memory)
 	*/
 	void* GetNewMemoryBlockEndPoint();
+	void ResetTestNumber();
+	int GetTestThreadNr();
     void FreeMemoryBlock(void* p_blockStartPointer);
 
 	/**
@@ -54,4 +56,5 @@ private:
     int m_numberOfMemoryBlocks;
 	//StackSpecific
 	int m_currentStackBlock;
+	int m_threadTest;
 };
