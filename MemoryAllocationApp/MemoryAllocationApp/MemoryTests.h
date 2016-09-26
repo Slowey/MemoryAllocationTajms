@@ -86,33 +86,60 @@ struct Matrix
     float w[4];
 };
 
-struct BaseObject
+#define NUM_INTS 5
+struct ObjectOne  
 {
+    int value[NUM_INTS];
 
-};
-
-struct ObjectOne
-    :BaseObject
-{
+    void Function()
+    {
+        for (size_t i = 0; i < NUM_INTS; i++)
+        {
+            value[i]++;
+        }
+    }
 
 };
 
 struct ObjectTwo
-    :BaseObject
 {
+    int value[NUM_INTS];
+
+    void Function()
+    {
+        for (size_t i = 0; i < NUM_INTS; i++)
+        {
+            value[i]++;
+        }
+    }
 
 };
 
 struct ObjectThree
-    :BaseObject
 {
+    int value[NUM_INTS];
+
+    void Function()
+    {
+        for (size_t i = 0; i < NUM_INTS; i++)
+        {
+            value[i]++;
+        }
+    }
 
 };
 
 struct ObjectFour
-    :BaseObject
 {
+    int value[NUM_INTS];
 
+    void Function()
+    {
+        for (size_t i = 0; i < NUM_INTS; i++)
+        {
+            value[i]++;
+        }
+    }
 };
 
 
@@ -152,7 +179,10 @@ public:
 
     void TestSpecificTestPre(long amount);
 
-    void TestSpecificTestCaseOne(long amount);
+    void TestSpecificTestCaseAllocate(long amount);
+
+    void TestSpecificTestCaseUse(long amount);
+
 
 
 	void TestStackOurLib(int p_count);
@@ -165,7 +195,10 @@ public:
     std::vector<int> randomNumbers;
     std::vector<int*> numbers;
     std::vector<Matrix*> matrices;
-    std::vector<BaseObject*> objects;
+    std::vector<ObjectOne*> objectsOne;
+    std::vector<ObjectTwo*> objectsTwo;
+    std::vector<ObjectThree*> objectsThree;
+    std::vector<ObjectFour*> objectsFour;
     PoolAllocator* poolAllocator;
     PoolAllocator* poolAllocatorTwo;
     PoolAllocator* poolAllocatorThree;

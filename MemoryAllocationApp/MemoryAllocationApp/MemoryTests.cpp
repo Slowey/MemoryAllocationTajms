@@ -198,14 +198,18 @@ void MemoryTests::TestStackOS(int p_count)
 
 void MemoryTests::TestSpecificTestPre(long amount)
 {
-    objects.resize(amount * 3);
+    objectsOne.resize(amount);
+    objectsTwo.resize(amount);
+    objectsThree.resize(amount);
+    objectsFour.resize(amount);
+
     poolAllocator = MemoryManager::Get()->CreatePoolAllocator(sizeof(ObjectOne));
     poolAllocatorTwo = MemoryManager::Get()->CreatePoolAllocator(sizeof(ObjectTwo));
     poolAllocatorThree = MemoryManager::Get()->CreatePoolAllocator(sizeof(ObjectThree));
     poolAllocatorFour = MemoryManager::Get()->CreatePoolAllocator(sizeof(ObjectFour));
 }
 
-void MemoryTests::TestSpecificTestCaseOne(long amount)
+void MemoryTests::TestSpecificTestCaseAllocate(long amount)
 {
     /**
     Test
@@ -217,13 +221,38 @@ void MemoryTests::TestSpecificTestCaseOne(long amount)
     //Allocate
     for (size_t i = 0; i < amount; i++)
     {
-        objects[i] = new (poolAllocator) ObjectOne();
-        objects[i] = new (poolAllocator) ObjectTwo();
-        objects[i] = new (poolAllocator) ObjectThree();
-        objects[i] = new (poolAllocator) ObjectFour();
-
+        objectsOne[i] = new (poolAllocator) ObjectOne();
+        objectsTwo[i] = new (poolAllocator) ObjectTwo();
+        objectsThree[i] = new (poolAllocator) ObjectThree();
+        objectsFour[i] = new (poolAllocator) ObjectFour();
     }
-    
+}
+
+void MemoryTests::TestSpecificTestCaseUse(long amount)
+{
+    // number of frames
+    for (size_t i = 0; i < 60*10; i++)
+    {
+        for (size_t i = 0; i < amount; i++)
+        {
+            objectsOne[i]->Function();
+        }
+
+        for (size_t i = 0; i < amount; i++)
+        {
+            objectsOne[i]->Function();
+        }
+
+        for (size_t i = 0; i < amount; i++)
+        {
+            objectsOne[i]->Function();
+        }
+
+        for (size_t i = 0; i < amount; i++)
+        {
+            objectsOne[i]->Function();
+        }
+    }
 }
 
 

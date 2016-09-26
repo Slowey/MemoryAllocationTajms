@@ -25,8 +25,8 @@ int main(int numArgs, char * args[])
     MemoryManager::Startup(1024, 1000000);
     TajmsLib tajm;
 
-    int testToRun = 1;
-    int numObjects = 1;
+    int testToRun = 16;
+    int numObjects = 10000;
     int seed = 33;
     
     // Parse args
@@ -178,6 +178,15 @@ int main(int numArgs, char * args[])
         tests.TestSpecificRandomyAllocateDelete(numObjects);
         tajm.StopTimer(ID);
     }
+    else if (testToRun == 16)
+    {
+        tests.TestSpecificTestPre(numObjects);
+        tests.TestSpecificTestCaseAllocate(numObjects);
+
+        int ID = tajm.StartTimer("1");
+        tests.TestSpecificTestCaseUse(numObjects);
+        tajm.StopTimer(ID);
+    }
 	else if (testToRun == 25)
 	{
 #ifdef OURLIB
@@ -262,6 +271,10 @@ int main(int numArgs, char * args[])
     else if (testToRun == 14)
     {
         testName = "";
+    }
+    else if (testToRun == 16)
+    {
+        testName = "TestSpecificTestCaseUse_";
     }
     else if (testToRun == 25)
     {
