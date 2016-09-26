@@ -8,7 +8,7 @@ class TajmsLib
 {
 public:
     void InitTajmsLib();
-    void ShutdownTajmsLib(std::string p_fileName);
+    void ShutdownTajmsLib(std::string &p_fileName);
     void UpdateTimer();
     float Test();
     int StartTimer(std::string p_timerName);// Saves the start time of the timer and returns an id for the timer.

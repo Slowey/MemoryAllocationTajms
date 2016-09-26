@@ -175,6 +175,36 @@ void MemoryTests::TestSpecificRandomyAllocateDelete(long amount)
     }
 }
 
+void MemoryTests::TestSpecificTestPre(long amount)
+{
+    objects.resize(amount * 3);
+    poolAllocator = MemoryManager::Get()->CreatePoolAllocator(sizeof(ObjectOne));
+    poolAllocatorTwo = MemoryManager::Get()->CreatePoolAllocator(sizeof(ObjectTwo));
+    poolAllocatorThree = MemoryManager::Get()->CreatePoolAllocator(sizeof(ObjectThree));
+    poolAllocatorFour = MemoryManager::Get()->CreatePoolAllocator(sizeof(ObjectFour));
+}
+
+void MemoryTests::TestSpecificTestCaseOne(long amount)
+{
+    /**
+    Test
+    Create different data types after each other
+
+    Use type A sequentionally from array
+    */
+
+    //Allocate
+    for (size_t i = 0; i < amount; i++)
+    {
+        objects[i] = new (poolAllocator) ObjectOne();
+        objects[i] = new (poolAllocator) ObjectTwo();
+        objects[i] = new (poolAllocator) ObjectThree();
+        objects[i] = new (poolAllocator) ObjectFour();
+
+    }
+    
+}
+
 void MemoryTests::TestStack()
 {
 

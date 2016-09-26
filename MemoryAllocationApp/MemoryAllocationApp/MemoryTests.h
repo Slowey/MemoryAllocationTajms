@@ -86,6 +86,34 @@ struct Matrix
     float w[4];
 };
 
+struct BaseObject
+{
+
+};
+
+struct ObjectOne
+    :BaseObject
+{
+
+};
+
+struct ObjectTwo
+    :BaseObject
+{
+
+};
+
+struct ObjectThree
+    :BaseObject
+{
+
+};
+
+struct ObjectFour
+    :BaseObject
+{
+
+};
 
 
 class MemoryTests
@@ -122,6 +150,10 @@ public:
 
     void TestSpecificRandomyAllocateDelete(long amount);
 
+    void TestSpecificTestPre(long amount);
+
+    void TestSpecificTestCaseOne(long amount);
+
 
    
 
@@ -132,7 +164,11 @@ public:
     std::vector<int> randomNumbers;
     std::vector<int*> numbers;
     std::vector<Matrix*> matrices;
+    std::vector<BaseObject*> objects;
     PoolAllocator* poolAllocator;
+    PoolAllocator* poolAllocatorTwo;
+    PoolAllocator* poolAllocatorThree;
+    PoolAllocator* poolAllocatorFour;
 };
 
 

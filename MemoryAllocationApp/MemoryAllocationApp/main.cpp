@@ -27,7 +27,7 @@ int main(int numArgs, char * args[])
     TajmsLib tajm;
 
     int testToRun = 1;
-    int numObjects = 5;
+    int numObjects = 1;
     int seed = 33;
     
     // Parse args
@@ -258,6 +258,10 @@ int main(int numArgs, char * args[])
     else if (testToRun == 13)
     {
         testName = "TestSpecificRandomyAllocateDelete_";
+    }
+    else if (testToRun == 14)
+    {
+        testName = "";
     }
     else if (testToRun == 25)
     {
