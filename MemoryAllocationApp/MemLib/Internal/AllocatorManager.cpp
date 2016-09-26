@@ -26,8 +26,6 @@ AllocatorManager::AllocatorManager(const int &p_blockSize, const int &p_numBlock
     m_poolPark = PoolParkInternal(p_blockSize, p_numBlocks);
 	StackAllocatorInternal::Initialize(m_poolPark.GetEndPointer(), &m_poolPark);
 
-    PoolAllocatorInternal hej;
-
 #ifdef SELF_SUSTAINED_POOL_ALLOCATOR
     m_default4BytePool = PoolAllocatorSelfSustainedInternal(&m_poolPark, 4);
     m_default8BytePool = PoolAllocatorSelfSustainedInternal(&m_poolPark, 8);
@@ -59,10 +57,16 @@ PoolAllocator * AllocatorManager::GetDefault16BytePool()
     return &m_default16BytePool;
 }
 
+
 PoolAllocator * AllocatorManager::CreatePoolAllocator(const int& p_segmentSize)
 {
+#ifdef SELF_SUSTAINED_POOL_ALLOCATOR
+    PoolAllocatorSelfSustainedInternal* internalPool = (PoolAllocatorSelfSustainedInternal*)malloc(sizeof(PoolAllocatorSelfSustainedInternal));
+    new (internalPool) PoolAllocatorSelfSustainedInternal(&m_poolPark, p_segmentSize);
+#else
     PoolAllocatorInternal* internalPool = (PoolAllocatorInternal*)malloc(sizeof(PoolAllocatorInternal));
     new (internalPool) PoolAllocatorInternal(&m_poolPark, p_segmentSize);
+#endif
 
     return internalPool;
 }

@@ -9,11 +9,10 @@ public:
     MemoryTests();
     ~MemoryTests();
     void CreateAllocator(size_t p_size);
-    void CreateRandomAccessNumbers(std::string fileName, double amount);
+    void CreateRandomAccessNumbers(std::string fileName, double amount, int seed);
     void LoadRandomAccessNumbers(std::string fileName, double amount);
     void TestAllocateMany(double amount);
     void TestAllocateListAndUseRandomly(double amount);
-    void TestAllocateThenDeleteRandomly(double amount);
     void TestAllocateManyDifferent(double amount);
 
     void TestAllocateMatricesForFramesSpecific(double amount, int frames);
@@ -21,6 +20,10 @@ public:
     void TestAllocateAndUseMatricesForFramesSpecific(double amount, int frames);
 
     void TestAllocateAndDeleteMany(long amount);
+
+    void TestAllocateAndDeleteRandomly(double amount);
+
+	void TestStack();
 
 
 	void TestThreadedAllocatorCreation();

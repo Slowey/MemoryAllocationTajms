@@ -1,6 +1,6 @@
 #include "MemoryManager.h"
 #include "Internal/AllocatorManager.h"
-#include "Internal\StackAllocatorInternal.h"
+#include "Internal/StackAllocatorInternal.h"
 #include <iostream>
 
 
@@ -18,6 +18,11 @@ MemoryManager::~MemoryManager()
 MemoryManager * MemoryManager::Get()
 {
     return m_singleton;
+}
+
+void MemoryManager::ClearStack()
+{
+   StackAllocatorInternal::Get()->Clear();
 }
 
 void MemoryManager::Startup(const int &p_blockSize, const int &p_numBlocks)

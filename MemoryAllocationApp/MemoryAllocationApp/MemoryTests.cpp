@@ -19,21 +19,19 @@ void MemoryTests::CreateAllocator(size_t p_size)
     poolAllocator = MemoryManager::Get()->CreatePoolAllocator(p_size);
 }
 
-void MemoryTests::CreateRandomAccessNumbers(std::string fileName, double amount)
+int randomFunc(int max) { return std::rand() % max; }
+
+void MemoryTests::CreateRandomAccessNumbers(std::string fileName, double amount, int seed)
 {
+    std::srand(seed);
+
+    randomNumbers.resize(amount);
     for (size_t i = 0; i < amount; i++)
     {
-        randomNumbers.push_back(i);
+        randomNumbers.at(i) = i;
     }
 
-    std::random_shuffle(randomNumbers.begin(), randomNumbers.end());
-
-    FILE* newFile;
-    fopen_s(&newFile, fileName.c_str(), "wb");
-    
-    fwrite(&randomNumbers[0], sizeof(int), amount, newFile);
-
-    fclose(newFile);
+    std::random_shuffle(randomNumbers.begin(), randomNumbers.end(), randomFunc);
 }
 
 void MemoryTests::LoadRandomAccessNumbers(std::string fileName, double amount)
@@ -72,20 +70,7 @@ void MemoryTests::TestAllocateListAndUseRandomly(double amount)
     }
 }
 
-void MemoryTests::TestAllocateThenDeleteRandomly(double amount)
-{
-    std::vector<int*> myVector;
-    for (size_t i = 0; i < amount; i++)
-    {
-        int* newInt = new int();
-        myVector.push_back(newInt);
-    }
 
-    for (size_t i = 0; i < amount; i++)
-    {
-        delete myVector[randomNumbers[i]];
-    }
-}
 
 void MemoryTests::TestAllocateManyDifferent(double amount)
 {
@@ -236,4 +221,30 @@ void MemoryTests::TestThreadedAllocatorCreation()
 
 	//std::cout << stringText << std::endl;
 	//std::cin >> hej;
+}
+
+void MemoryTests::TestAllocateAndDeleteRandomly(double amount)
+{
+    std::vector<int*> numbers;
+    numbers.resize(amount);
+    for (size_t i = 0; i < amount; i++)
+    {
+        int* newInt = new (poolAllocator)int();
+        numbers.push_back(newInt);
+    }
+
+    for (size_t i = 0; i < amount; i++)
+    {
+        operator delete (numbers[randomNumbers[i]], poolAllocator, sizeof(int));
+    }
+}
+
+void MemoryTests::TestStack()
+{
+
+
+
+
+
+
 }
