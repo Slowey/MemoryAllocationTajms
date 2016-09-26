@@ -26,6 +26,10 @@ public:
 
     PoolAllocator* CreatePoolAllocator(const int& p_segmentSize);
 
+	int GetTestThingy();
+
+	void ResetTestThingy();
+
 private:
     static AllocatorManager* m_singleton;
 

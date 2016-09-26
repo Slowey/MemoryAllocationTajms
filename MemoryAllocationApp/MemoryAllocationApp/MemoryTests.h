@@ -22,6 +22,9 @@ public:
 
     void TestAllocateAndDeleteMany(long amount);
 
+
+	void TestThreadedAllocatorCreation();
+
     std::vector<int> randomNumbers;
     std::vector<int> numbers;
     PoolAllocator* poolAllocator;

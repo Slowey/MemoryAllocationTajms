@@ -24,7 +24,7 @@ public:
 
 //#define RUN_PRE_VALUES 1
 #define RUN_NORMAL 2
-#define TEST_TO_RUN 2
+#define TEST_TO_RUN 3
 //std::shared_ptr <std::mutex> m;
 //void task1(std::string msg)
 //{
@@ -93,7 +93,29 @@ int main(int args[])
         tests.TestAllocateAndUseMatricesForFramesSpecific(numObjects, 1);
         tajm.StopTimer(forLoopTimerId1);
     }
+	else if (TEST_TO_RUN == 3)
+	{
+		int forLoopTimerId1 = tajm.StartTimer("ForLoopTimer1");
+		std::string hej;
+		int nrOfTests = 0;
+		while (true)
+		{
+			++nrOfTests;
 
+			MemoryManager::Get()->ResetTestThingy();
+			tests.TestThreadedAllocatorCreation();
+			int t_numberOFAllocators = MemoryManager::Get()->GetTestThingy();
+			if (t_numberOFAllocators > 802)
+			{
+				std::cout << t_numberOFAllocators << std::endl;
+				std::cin >> hej;
+			}
+			std::cout << "Test Nr: " << nrOfTests;
+			std::cout << " Nr of Allocs: " << t_numberOFAllocators << std::endl;
+		}
+		std::cin >> hej;
+		tajm.StopTimer(forLoopTimerId1);
+	}
 
     std::string testName = "";
 
@@ -107,7 +129,7 @@ int main(int args[])
     }
     else if (TEST_TO_RUN == 3)
     {
-        testName = "test3";
+        testName = "ThreadedSimulator";
     }
     else if (TEST_TO_RUN == 4)
     {

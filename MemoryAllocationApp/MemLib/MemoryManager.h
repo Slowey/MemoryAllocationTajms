@@ -14,6 +14,10 @@ public:
 
     static void Startup(const int & p_blockSize, const int & p_numBlocks);
 
+	void ResetTestThingy();
+
+	int GetTestThingy();
+
 
 
 private:
