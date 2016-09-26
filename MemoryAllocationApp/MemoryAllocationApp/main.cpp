@@ -26,7 +26,7 @@ int main(int numArgs, char * args[])
     MemoryManager::Startup(1024, 1000000);
     TajmsLib tajm;
 
-    int testToRun = 3;
+    int testToRun = 5;
     int numObjects = 5;
     int seed = 33;
     
@@ -98,29 +98,89 @@ int main(int numArgs, char * args[])
 	else if (testToRun == 5)
 	{
 #ifdef OURLIB
-		int forLoopTimerId1 = tajm.StartTimer("ForLoopTimer1");
 		std::string hej;
 		int nrOfTests = 0;
-		while (true)
-		{
-			++nrOfTests;
-
-			MemoryManager::Get()->ResetTestThingy();
-			tests.TestThreadedAllocatorCreation();
-			int t_numberOFAllocators = MemoryManager::Get()->GetTestThingy();
-			if (t_numberOFAllocators > 802)
+		int forLoopTimerId1 = tajm.StartTimer("ForLoopTimer1");
+		//while (nrOfTests)
+		//{
+		//	++nrOfTests;
+			for (size_t i = 0; i < 10; i++)
 			{
-				std::cout << t_numberOFAllocators << std::endl;
-				std::cin >> hej;
+
+			//MemoryManager::Get()->ResetTestThingy();
+			tests.TestThreadedAllocatorCreation();
+			//int t_numberOFAllocators = MemoryManager::Get()->GetTestThingy();
+			//if (t_numberOFAllocators > 802)
+			//{
+			//	std::cout << t_numberOFAllocators << std::endl;
+			//	std::cin >> hej;
+			//}
+			//std::cout << "Test Nr: " << nrOfTests;
+			//std::cout << " Nr of Allocs: " << t_numberOFAllocators << std::endl;
 			}
-			std::cout << "Test Nr: " << nrOfTests;
-			std::cout << " Nr of Allocs: " << t_numberOFAllocators << std::endl;
-		}
-		std::cin >> hej;
+		//}
+		//std::cin >> hej;
 		tajm.StopTimer(forLoopTimerId1);
 #endif
 	}
-
+	else if (testToRun == 102)
+	{
+		std::mutex mLock;
+		int amountOfTimes = 5000;
+		int timerMutexLock = tajm.StartTimer("MutexLock");
+		for (size_t i = 0; i < amountOfTimes; i++)
+		{
+			tests.MutexTest();
+			std::this_thread::sleep_for(std::chrono::milliseconds(1));
+		}
+		//amountOfTimes = 0;
+		//for (size_t i = 0; i < amountOfTimes; i++)
+		//{
+		//	tests.MutexTest();
+		//}
+		//amountOfTimes = 0;
+		//for (size_t i = 0; i < amountOfTimes; i++)
+		//{
+		//	tests.MutexTest();
+		//}
+		//amountOfTimes = 0;
+		//for (size_t i = 0; i < amountOfTimes; i++)
+		//{
+		//	tests.MutexTest();
+		//}
+		tajm.StopTimer(timerMutexLock);
+		//tests.PrintTestIntMutex();
+		//std::string hej = "";
+		//std::cin >> hej;
+	}
+	else if (testToRun == 103)
+	{
+		unsigned long amountOfTimes = 5000;
+		int timerWithoutMutexLock = tajm.StartTimer("WithoutMutexLock");
+		for (unsigned long i = 0; i < amountOfTimes; i++)
+		{
+			tests.MutexTestWithNoMutex();
+			std::this_thread::sleep_for(std::chrono::milliseconds(1));
+		}
+		//for (unsigned long i = 0; i < amountOfTimes; i++)
+		//{
+		//	tests.MutexTestWithNoMutex();
+		//}
+		//amountOfTimes = 0;
+		//for (unsigned long i = 0; i < amountOfTimes; i++)
+		//{
+		//	tests.MutexTestWithNoMutex();
+		//}
+		//amountOfTimes = 0;
+		//for (unsigned long i = 0; i < amountOfTimes; i++)
+		//{
+		//	tests.MutexTestWithNoMutex();
+		//}
+		tajm.StopTimer(timerWithoutMutexLock);
+		//tests.PrintTestIntMutex();
+		//std::string hej = "";
+		//std::cin >> hej;
+	}
     std::string testName = "";
 
     if (testToRun == 1)
@@ -141,9 +201,16 @@ int main(int numArgs, char * args[])
     }
     else if (testToRun == 5)
     {
-        testName = "ThreadedSimulator";
+        testName = "ThreadedSimulator_";
     }
-
+	else if (testToRun == 102)
+	{
+		testName = "MutexTiming_";
+	}
+	else if (testToRun == 103)
+	{
+		testName = "MutexTimingWithNoMutex_";
+	}
     testName += std::to_string(numObjects);
 
     tajm.ShutdownTajmsLib(testName);

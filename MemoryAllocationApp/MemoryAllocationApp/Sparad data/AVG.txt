@@ -1,0 +1,6 @@
+Average utan lås	8.1544
+Average med lås		8.1852
+5000 körda tests.
+Data tagen från MutexTiming_5 och MutexTimingWithNoMutex_5
+
+(8.1852-8.1544)/5000=0.00000616 per mutexlås

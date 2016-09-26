@@ -8,6 +8,7 @@
 
 MemoryTests::MemoryTests()
 {
+	m_mutexTest = std::make_shared<std::mutex>();
 }
 
 MemoryTests::~MemoryTests()
@@ -221,6 +222,22 @@ void MemoryTests::TestThreadedAllocatorCreation()
 
 	//std::cout << stringText << std::endl;
 	//std::cin >> hej;
+}
+
+void MemoryTests::MutexTestWithNoMutex()
+{
+	m_mutexTestInt++;
+}
+
+void MemoryTests::MutexTest()
+{
+	m_mutexTest->lock();
+	m_mutexTestInt++;
+	m_mutexTest->unlock();
+}
+void MemoryTests::PrintTestIntMutex()
+{
+	std::cout << m_mutexTestInt;
 }
 
 void MemoryTests::TestAllocateAndDeleteRandomly(double amount)

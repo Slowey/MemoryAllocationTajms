@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include "LibDefines.h"
+#include <mutex>
 
 class MemoryTests
 {
@@ -27,8 +28,12 @@ public:
 
 
 	void TestThreadedAllocatorCreation();
-
-    std::vector<int> randomNumbers;
+	void MutexTestWithNoMutex();
+	void MutexTest();
+	void PrintTestIntMutex();
+	unsigned long m_mutexTestInt;
+	std::shared_ptr<std::mutex> m_mutexTest;
+	std::vector<int> randomNumbers;
     std::vector<int> numbers;
     PoolAllocator* poolAllocator;
 };
