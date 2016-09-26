@@ -51,23 +51,30 @@ void TajmsLib::ShutdownTajmsLib(std::string p_fileName)
     std::string secondString = std::to_string(timeSecond);
 
     std::ofstream myfile;
-    myfile.open("Test timers/" + p_fileName + "_" + yearString + "_" + monthString + "_" + dayString + "_" + hourString + "_" + minuteString + "_" + secondString + ".txt");
+    myfile.open("Test timers/" + p_fileName + ".txt", std::ios::app);
+
 
     double totalTimeForOutput = (double)m_totalTimeForProgram / (double)CLOCKS_PER_SEC;
-    myfile << "Total runtime: " << totalTimeForOutput << std::endl; // den här fungerar ju klart ej!
-    for (size_t i = 0; i < nrOfTimers; ++i)
+    //myfile << "Total runtime: " << totalTimeForOutput << std::endl; // den här fungerar ju klart ej!
+    //for (size_t i = 0; i < nrOfTimers; ++i)
+    //{
+    //    myfile << m_timers[i].timerName + ": ";
+    //    if (m_timers[i].timerEndTime == 0)
+    //    {
+    //        myfile << "No end time recorded" << std::endl;
+    //    }
+    //    else
+    //    {
+    //        //double tempForOutput = (double)(m_timers[i].timerEndTime - m_timers[i].timerStartTime) / (double)CLOCKS_PER_SEC;
+    //        //myfile << tempForOutput;
+    //        //myfile << " It was " << (double)tempForOutput / totalTimeForOutput << " of the total run time" << std::endl;
+    //    }
+    //}
+
+    if (m_timers.size())
     {
-        myfile << m_timers[i].timerName + ": ";
-        if (m_timers[i].timerEndTime == 0)
-        {
-            myfile << "No end time recorded" << std::endl;
-        }
-        else
-        {
-            double tempForOutput = (double)(m_timers[i].timerEndTime - m_timers[i].timerStartTime) / (double)CLOCKS_PER_SEC;
-            myfile << tempForOutput;
-            myfile << " It was " << (double)tempForOutput / totalTimeForOutput << " of the total run time" << std::endl;
-        }
+        double tempForOutput = (double)(m_timers[0].timerEndTime - m_timers[0].timerStartTime) / (double)CLOCKS_PER_SEC;
+        myfile << tempForOutput << std::endl;
     }
 
     // myfile << timeSecond + timeMinute + timeHour + timeDay + timeMonth + timeYear;

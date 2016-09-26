@@ -11,6 +11,8 @@ PoolParkInternal::PoolParkInternal(const int & p_memoryBlockSize, const int & p_
 {
     m_startOfMemory = malloc(p_memoryBlockSize * p_numberOfMemoryBlocks);
 	m_currentStackBlock = p_numberOfMemoryBlocks;
+	m_mutexLockCreateNew = std::make_shared<std::mutex>();
+	m_mutexLockFree = std::make_shared<std::mutex>();
 }
 
 PoolParkInternal::~PoolParkInternal()
@@ -43,8 +45,9 @@ void* PoolParkInternal::GetNewMemoryBlockEndPoint()
 	return returnAddress;
 }
 
-void * PoolParkInternal::GetNewMemoryBlockStartPoint()
+void * PoolParkInternal::GetNewMemoryBlockStartPoint() 
 {
+	m_mutexLockCreateNew->lock();
     void* returnAddress;
     
     // Check if we have any free block in queue. If true, use that block and remove it from list
@@ -69,12 +72,15 @@ void * PoolParkInternal::GetNewMemoryBlockStartPoint()
     }
 
     // Return the address
+	m_mutexLockCreateNew->unlock();
     return returnAddress;
 }
 
-void PoolParkInternal::FreeMemoryBlock(void * p_blockStartPointer)
+void PoolParkInternal::FreeMemoryBlock(void * p_blockStartPointer) 
 {
-    m_freedBlocks.push_back(p_blockStartPointer);
+	m_mutexLockFree->lock();
+    m_freedBlocks.push_back(p_blockStartPointer); 
+	m_mutexLockFree->unlock();
 }
 
 void * PoolParkInternal::GetEndPointer()

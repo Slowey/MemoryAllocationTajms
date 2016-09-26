@@ -4,6 +4,11 @@
 
 namespace MemLib
 {
+   /**
+   Class intended to work similar to std::vector.
+   Using the standard library inside the memory
+   library proved difficult so we implemented
+   our own. Syntax is the same.*/
     template <class T>
     class OwnVector
     {
@@ -63,7 +68,7 @@ namespace MemLib
         memcpy(newVectorData, vectorData, size * sizeof(T));
 
         // Delete old data and set it to copy
-        delete[] vectorData;
+        free(vectorData);
         vectorData = newVectorData;
     }
 

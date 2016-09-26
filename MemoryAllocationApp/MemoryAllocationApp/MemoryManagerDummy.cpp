@@ -15,12 +15,17 @@ MemoryManager::~MemoryManager()
 
 MemoryManager * MemoryManager::Get()
 {
-	if (m_singleton == nullptr)
-	{
-		m_singleton = (MemoryManager*)malloc(sizeof(MemoryManager));
-		new (m_singleton) MemoryManager();
-	}
 	return m_singleton;
+}
+
+void MemoryManager::Startup(const int & p_blockSize, const int & p_numBlocks)
+{
+    if (m_singleton != nullptr)
+    {
+        return;
+    }
+    m_singleton = (MemoryManager*)malloc(sizeof(MemoryManager));
+    new (m_singleton) MemoryManager();
 }
 
 
@@ -49,9 +54,9 @@ void* operator new[](size_t size, Stack p_stackDuration)
 	void* outPointer = malloc(size);
 	return outPointer;
 }
-void operator delete (void* memBlock, size_t size, PoolAllocator* allocator)
+void operator delete(void* memBlock, PoolAllocator* allocator, size_t size)
 {
-    free(memBlock);
+    delete memBlock;
 }
 
 #endif

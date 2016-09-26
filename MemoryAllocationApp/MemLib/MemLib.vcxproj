@@ -31,20 +31,20 @@
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -114,6 +114,7 @@
     <ClInclude Include="Internal\Defines.h" />
     <ClInclude Include="Internal\DynamicList.h" />
     <ClInclude Include="Internal\PoolAllocatorInternal.h" />
+    <ClInclude Include="Internal\PoolAllocatorSelfSustainedInternal.h" />
     <ClInclude Include="Internal\PoolParkInternal.h" />
     <ClInclude Include="Internal\PoolInternal.h" />
     <ClInclude Include="Internal\StackAllocatorInternal.h" />
@@ -124,6 +125,7 @@
   <ItemGroup>
     <ClCompile Include="Internal\AllocatorManager.cpp" />
     <ClCompile Include="Internal\PoolAllocatorInternal.cpp" />
+    <ClCompile Include="Internal\PoolAllocatorSelfSustainedInternal.cpp" />
     <ClCompile Include="Internal\PoolParkInternal.cpp" />
     <ClCompile Include="Internal\PoolInternal.cpp" />
     <ClCompile Include="Internal\StackAllocatorInternal.cpp" />

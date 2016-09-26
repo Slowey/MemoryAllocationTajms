@@ -1,5 +1,8 @@
 #pragma once
-
+/**
+Store a pointer to a pool allocator to use when explicitly calling
+new overload with a pool allocator. The method is called from the
+memory manager.*/
 class PoolAllocator
 {
 public:

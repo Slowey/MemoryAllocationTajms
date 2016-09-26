@@ -59,6 +59,7 @@ bool PoolInternal::FreeMemory(void * p_memoryPointer, const int & p_size)
     {
         // Need to see if the freed memory recides over more segments...
         m_emptySegments.push_back(p_memoryPointer);
+        m_full = false;
     }
     return memoryWasInPool;
 }
