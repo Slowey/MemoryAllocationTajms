@@ -30,7 +30,6 @@ int main()
     TajmsLib tajm;
 
     // Create big ass memory manager (this should be a singleton)
-
     //MemoryManager memManager;
     // Create an allocator pointer
     PoolAllocator* poolAllocator;
@@ -48,7 +47,6 @@ int main()
 
 
     MemoryTests tests = MemoryTests();
-
 #ifdef RUN_PRE_VALUES
 
     tests.CreateRandomAccessNumbers("randomNum", numObjects);
