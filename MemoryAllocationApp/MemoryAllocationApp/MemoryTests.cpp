@@ -20,7 +20,7 @@ void MemoryTests::CreateAllocator(size_t p_size)
 
 int randomFunc(int max) { return std::rand() % max; }
 
-void MemoryTests::CreateRandomAccessNumbers(std::string fileName, double amount, int seed)
+void MemoryTests::CreateRandomAccessNumbers(std::string fileName, long amount, int seed)
 {
     std::srand(seed);
 
@@ -35,7 +35,7 @@ void MemoryTests::CreateRandomAccessNumbers(std::string fileName, double amount,
 
 // Test functions for generic
 
-void MemoryTests::TestGenericAllocate(double amount)
+void MemoryTests::TestGenericAllocate(long amount)
 {
     for (size_t i = 0; i < amount; i++)
     {
@@ -43,7 +43,7 @@ void MemoryTests::TestGenericAllocate(double amount)
     }
 }
 
-void MemoryTests::TestGenericAllocateAndUseRandomly(double amount)
+void MemoryTests::TestGenericAllocateAndUseRandomly(long amount)
 {
     std::vector<int*> myVector;
     for (size_t i = 0; i < amount; i++)
@@ -60,7 +60,7 @@ void MemoryTests::TestGenericAllocateAndUseRandomly(double amount)
 
 
 
-void MemoryTests::TestGenericAllocateDifferentSizes(double amount)
+void MemoryTests::TestGenericAllocateDifferentSizes(long amount)
 {
     for (size_t i = 0; i < amount; i++)
     {
@@ -83,10 +83,25 @@ void MemoryTests::TestGenericAllocateDifferentSizes(double amount)
     }
 }
 
+void MemoryTests::TestGenericDelete(long amount)
+{
+    for (size_t i = 0; i < amount; i++)
+    {
+        delete numbers[randomNumbers[i]];
+    }
+}
+
+void MemoryTests::TestGenericDeleteRandomly(long amount)
+{
+    for (size_t i = 0; i < amount; i++)
+    {
+        delete numbers[randomNumbers[i]];
+    }
+}
 
 // Test for specific
 
-void MemoryTests::TestSpecificAllocate(double amount)
+void MemoryTests::TestSpecificAllocate(long amount)
 {
     numbers.resize(amount);
     for (size_t i = 0; i < amount; i++)
@@ -96,7 +111,15 @@ void MemoryTests::TestSpecificAllocate(double amount)
     }
 }
 
-void MemoryTests::TestSpecificAllocateMatrices(double amount)
+void MemoryTests::TestSpecificUseRandomly(long amount)
+{
+    for (size_t i = 0; i < amount - 1; i++)
+    {
+        *numbers[randomNumbers[i + 1]] += *numbers[randomNumbers[i]];
+    }
+}
+
+void MemoryTests::TestSpecificAllocateMatrices(long amount)
 {
     std::vector<Matrix*> matrices;
     for (size_t i = 0; i < amount; i++)
@@ -106,7 +129,7 @@ void MemoryTests::TestSpecificAllocateMatrices(double amount)
     }
 }
 
-void MemoryTests::TestSpecificAllocateAndUseMatrices(double amount)
+void MemoryTests::TestSpecificAllocateAndUseMatrices(long amount)
 {
     std::vector<Matrix*> matrices;
     for (size_t i = 0; i < amount; i++)
@@ -123,7 +146,7 @@ void MemoryTests::TestSpecificAllocateAndUseMatrices(double amount)
     }
 }
 
-void MemoryTests::TestSpecificAllocateAndUseMatricesRandomly(double amount)
+void MemoryTests::TestSpecificAllocateAndUseMatricesRandomly(long amount)
 {
     std::vector<Matrix*> matrices;
     for (size_t i = 0; i < amount; i++)
@@ -153,5 +176,21 @@ void MemoryTests::TestSpecificDeleteRandomly(long amount)
     for (size_t i = 0; i < amount; i++)
     {
         operator delete (numbers[randomNumbers[i]], poolAllocator, sizeof(int));
+    }
+}
+
+void MemoryTests::TestSpecificRandomyAllocateDelete(long amount)
+{
+    TestSpecificAllocate(amount);
+    
+    int count = amount / 2;
+    for (size_t i = 0; i < count; i++)
+    {
+        operator delete (numbers[randomNumbers[i]], poolAllocator, sizeof(int));
+    }
+
+    for (size_t i = 0; i < count; i++)
+    {
+        int* newInt = new int();
     }
 }

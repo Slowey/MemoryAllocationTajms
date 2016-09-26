@@ -9,25 +9,33 @@ public:
     MemoryTests();
     ~MemoryTests();
     void CreateAllocator(size_t p_size);
-    void CreateRandomAccessNumbers(std::string fileName, double amount, int seed);
+    void CreateRandomAccessNumbers(std::string fileName, long amount, int seed);
 
-    void TestGenericAllocate(double amount);
+    void TestGenericAllocate(long amount);
 
-    void TestGenericAllocateAndUseRandomly(double amount);
+    void TestGenericAllocateAndUseRandomly(long amount);
 
-    void TestGenericAllocateDifferentSizes(double amount);
+    void TestGenericAllocateDifferentSizes(long amount);
 
-    void TestSpecificAllocate(double amount);
+    void TestGenericDelete(long amount);
 
-    void TestSpecificAllocateMatrices(double amount);
+    void TestGenericDeleteRandomly(long amount);
 
-    void TestSpecificAllocateAndUseMatrices(double amount);
+    void TestSpecificAllocate(long amount);
 
-    void TestSpecificAllocateAndUseMatricesRandomly(double amount);
+    void TestSpecificUseRandomly(long amount);
+
+    void TestSpecificAllocateMatrices(long amount);
+
+    void TestSpecificAllocateAndUseMatrices(long amount);
+
+    void TestSpecificAllocateAndUseMatricesRandomly(long amount);
 
     void TestSpecificDelete(long amount);
 
     void TestSpecificDeleteRandomly(long amount);
+
+    void TestSpecificRandomyAllocateDelete(long amount);
 
 
    
