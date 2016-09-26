@@ -196,20 +196,19 @@ void MemoryTests::TestStackOS(int p_count)
     }
 }
 
-void MemoryTests::TestSpecificTestPre(long amount)
+void MemoryTests::TestSpecificTestPre(long amount, long differentObjects)
 {
-    objectsOne.resize(amount);
-    objectsTwo.resize(amount);
-    objectsThree.resize(amount);
-    objectsFour.resize(amount);
+    objectsWithObjects.resize(differentObjects);
+    for (size_t i = 0; i < differentObjects; i++)
+    {
+        objectsWithObjects[i].resize(amount);
+    }
 
     poolAllocator = MemoryManager::Get()->CreatePoolAllocator(sizeof(ObjectOne));
-    poolAllocatorTwo = MemoryManager::Get()->CreatePoolAllocator(sizeof(ObjectTwo));
-    poolAllocatorThree = MemoryManager::Get()->CreatePoolAllocator(sizeof(ObjectThree));
-    poolAllocatorFour = MemoryManager::Get()->CreatePoolAllocator(sizeof(ObjectFour));
+    poolAllocatorTwo = MemoryManager::Get()->CreatePoolAllocator(sizeof(ObjectOne));
 }
 
-void MemoryTests::TestSpecificTestCaseAllocate(long amount)
+void MemoryTests::TestSpecificTestCaseAllocate(long amount, long differentObjects)
 {
     /**
     Test
@@ -221,10 +220,12 @@ void MemoryTests::TestSpecificTestCaseAllocate(long amount)
     //Allocate
     for (size_t i = 0; i < amount; i++)
     {
-        objectsOne[i] = new (poolAllocator) ObjectOne();
-        objectsTwo[i] = new (poolAllocator) ObjectTwo();
-        objectsThree[i] = new (poolAllocator) ObjectThree();
-        objectsFour[i] = new (poolAllocator) ObjectFour();
+        objectsWithObjects[0][i] = new (poolAllocator) ObjectOne();
+
+        for (size_t j = 1; j < differentObjects; j++)
+        {
+            objectsWithObjects[j][i] = new (poolAllocatorTwo) ObjectOne();
+        }
     }
 }
 
@@ -235,22 +236,7 @@ void MemoryTests::TestSpecificTestCaseUse(long amount)
     {
         for (size_t i = 0; i < amount; i++)
         {
-            objectsOne[i]->Function();
-        }
-
-        for (size_t i = 0; i < amount; i++)
-        {
-            objectsOne[i]->Function();
-        }
-
-        for (size_t i = 0; i < amount; i++)
-        {
-            objectsOne[i]->Function();
-        }
-
-        for (size_t i = 0; i < amount; i++)
-        {
-            objectsOne[i]->Function();
+            objectsWithObjects[0][i]->Function();
         }
     }
 }

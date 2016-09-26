@@ -180,8 +180,9 @@ int main(int numArgs, char * args[])
     }
     else if (testToRun == 16)
     {
-        tests.TestSpecificTestPre(numObjects);
-        tests.TestSpecificTestCaseAllocate(numObjects);
+        // Uses numObjects as how many differnt objects and static how many 
+        tests.TestSpecificTestPre(1000, numObjects);
+        tests.TestSpecificTestCaseAllocate(1000, numObjects);
 
         int ID = tajm.StartTimer("1");
         tests.TestSpecificTestCaseUse(numObjects);

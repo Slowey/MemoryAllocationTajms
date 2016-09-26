@@ -101,47 +101,6 @@ struct ObjectOne
 
 };
 
-struct ObjectTwo
-{
-    int value[NUM_INTS];
-
-    void Function()
-    {
-        for (size_t i = 0; i < NUM_INTS; i++)
-        {
-            value[i]++;
-        }
-    }
-
-};
-
-struct ObjectThree
-{
-    int value[NUM_INTS];
-
-    void Function()
-    {
-        for (size_t i = 0; i < NUM_INTS; i++)
-        {
-            value[i]++;
-        }
-    }
-
-};
-
-struct ObjectFour
-{
-    int value[NUM_INTS];
-
-    void Function()
-    {
-        for (size_t i = 0; i < NUM_INTS; i++)
-        {
-            value[i]++;
-        }
-    }
-};
-
 
 class MemoryTests
 {
@@ -177,9 +136,6 @@ public:
 
     void TestSpecificRandomyAllocateDelete(long amount);
 
-    void TestSpecificTestPre(long amount);
-
-    void TestSpecificTestCaseAllocate(long amount);
 
     void TestSpecificTestCaseUse(long amount);
 
@@ -189,20 +145,19 @@ public:
 
 	void TestStackOS(int p_count);
 
+    void TestSpecificTestPre(long amount, long differentObjects);
+
+    void TestSpecificTestCaseAllocate(long amount, long differentObjects);
+
 
     void TestThreadedAllocatorCreation();
 
     std::vector<int> randomNumbers;
     std::vector<int*> numbers;
     std::vector<Matrix*> matrices;
-    std::vector<ObjectOne*> objectsOne;
-    std::vector<ObjectTwo*> objectsTwo;
-    std::vector<ObjectThree*> objectsThree;
-    std::vector<ObjectFour*> objectsFour;
+    std::vector<std::vector<ObjectOne*>> objectsWithObjects;
     PoolAllocator* poolAllocator;
     PoolAllocator* poolAllocatorTwo;
-    PoolAllocator* poolAllocatorThree;
-    PoolAllocator* poolAllocatorFour;
 };
 
 
