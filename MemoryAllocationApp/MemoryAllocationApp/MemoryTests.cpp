@@ -33,20 +33,9 @@ void MemoryTests::CreateRandomAccessNumbers(std::string fileName, double amount,
     std::random_shuffle(randomNumbers.begin(), randomNumbers.end(), randomFunc);
 }
 
-void MemoryTests::LoadRandomAccessNumbers(std::string fileName, double amount)
-{
-    FILE* openFile;
-    fopen_s(&openFile, fileName.c_str(), "rb");
+// Test functions for generic
 
-    randomNumbers.resize(amount);
-    fread(&randomNumbers[0], sizeof(int), amount, openFile);
-
-    fclose(openFile);
-}
-
-// Test functions
-
-void MemoryTests::TestAllocateMany(double amount)
+void MemoryTests::TestGenericAllocate(double amount)
 {
     for (size_t i = 0; i < amount; i++)
     {
@@ -54,7 +43,7 @@ void MemoryTests::TestAllocateMany(double amount)
     }
 }
 
-void MemoryTests::TestAllocateListAndUseRandomly(double amount)
+void MemoryTests::TestGenericAllocateAndUseRandomly(double amount)
 {
     std::vector<int*> myVector;
     for (size_t i = 0; i < amount; i++)
@@ -71,7 +60,7 @@ void MemoryTests::TestAllocateListAndUseRandomly(double amount)
 
 
 
-void MemoryTests::TestAllocateManyDifferent(double amount)
+void MemoryTests::TestGenericAllocateDifferentSizes(double amount)
 {
     for (size_t i = 0; i < amount; i++)
     {
@@ -94,67 +83,73 @@ void MemoryTests::TestAllocateManyDifferent(double amount)
     }
 }
 
+
 // Test for specific
 
-void MemoryTests::TestAllocateMatricesForFramesSpecific(double amount, int frames)
+void MemoryTests::TestSpecificAllocate(double amount)
 {
-    for (size_t i = 0; i < frames; i++)
-    {
-        std::vector<Matrix*> matrices;
-        for (size_t i = 0; i < amount; i++)
-        {
-            Matrix* newMat = new (poolAllocator) Matrix();
-            matrices.push_back(newMat);
-        }
-    }
-}
-
-void MemoryTests::TestAllocateAndUseMatricesForFramesSpecific(double amount, int frames)
-{
-    for (size_t i = 0; i < frames; i++)
-    {
-        std::vector<Matrix*> matrices;
-        for (size_t i = 0; i < amount; i++)
-        {
-            Matrix* newMat = new (poolAllocator) Matrix();
-            matrices.push_back(newMat);
-        }
-
-        Matrix view = Matrix();
-        
-
-        for (size_t i = 0; i < amount; i++)
-        {
-            *matrices[i]*view;
-        }
-    }
-}
-
-void MemoryTests::TestAllocateAndDeleteMany(long amount)
-{
-    std::vector<int*> numbers;
     numbers.resize(amount);
     for (size_t i = 0; i < amount; i++)
     {
-        int* newInt = new (poolAllocator)int(i);
-        numbers[i] = newInt;
+        int* newInt = new int();
+        numbers.push_back(newInt);
     }
+}
+
+void MemoryTests::TestSpecificAllocateMatrices(double amount)
+{
+    std::vector<Matrix*> matrices;
+    for (size_t i = 0; i < amount; i++)
+    {
+        Matrix* newMat = new (poolAllocator) Matrix();
+        matrices.push_back(newMat);
+    }
+}
+
+void MemoryTests::TestSpecificAllocateAndUseMatrices(double amount)
+{
+    std::vector<Matrix*> matrices;
+    for (size_t i = 0; i < amount; i++)
+    {
+        Matrix* newMat = new (poolAllocator) Matrix();
+        matrices.push_back(newMat);
+    }
+
+    Matrix view = Matrix();
+
+    for (size_t i = 0; i < amount; i++)
+    {
+        *matrices[i]*view;
+    }
+}
+
+void MemoryTests::TestSpecificAllocateAndUseMatricesRandomly(double amount)
+{
+    std::vector<Matrix*> matrices;
+    for (size_t i = 0; i < amount; i++)
+    {
+        Matrix* newMat = new (poolAllocator) Matrix();
+        matrices.push_back(newMat);
+    }
+
+    Matrix view = Matrix();
+
+    for (size_t i = 0; i < amount; i++)
+    {
+        *matrices[randomNumbers[i]] * view;
+    }
+}
+
+void MemoryTests::TestSpecificDelete(long amount)
+{
     for (size_t i = 0; i < amount; i++)
     {
         operator delete(numbers.at(i), poolAllocator, sizeof(int));
     }
 }
 
-void MemoryTests::TestAllocateAndDeleteRandomly(double amount)
+void MemoryTests::TestSpecificDeleteRandomly(long amount)
 {
-    std::vector<int*> numbers;
-    numbers.resize(amount);
-    for (size_t i = 0; i < amount; i++)
-    {
-        int* newInt = new (poolAllocator)int();
-        numbers.push_back(newInt);
-    }
-
     for (size_t i = 0; i < amount; i++)
     {
         operator delete (numbers[randomNumbers[i]], poolAllocator, sizeof(int));

@@ -10,21 +10,30 @@ public:
     ~MemoryTests();
     void CreateAllocator(size_t p_size);
     void CreateRandomAccessNumbers(std::string fileName, double amount, int seed);
-    void LoadRandomAccessNumbers(std::string fileName, double amount);
-    void TestAllocateMany(double amount);
-    void TestAllocateListAndUseRandomly(double amount);
-    void TestAllocateManyDifferent(double amount);
 
-    void TestAllocateMatricesForFramesSpecific(double amount, int frames);
+    void TestGenericAllocate(double amount);
 
-    void TestAllocateAndUseMatricesForFramesSpecific(double amount, int frames);
+    void TestGenericAllocateAndUseRandomly(double amount);
 
-    void TestAllocateAndDeleteMany(long amount);
+    void TestGenericAllocateDifferentSizes(double amount);
 
-    void TestAllocateAndDeleteRandomly(double amount);
+    void TestSpecificAllocate(double amount);
+
+    void TestSpecificAllocateMatrices(double amount);
+
+    void TestSpecificAllocateAndUseMatrices(double amount);
+
+    void TestSpecificAllocateAndUseMatricesRandomly(double amount);
+
+    void TestSpecificDelete(long amount);
+
+    void TestSpecificDeleteRandomly(long amount);
+
+
+   
 
     std::vector<int> randomNumbers;
-    std::vector<int> numbers;
+    std::vector<int*> numbers;
     PoolAllocator* poolAllocator;
 };
 
@@ -33,7 +42,25 @@ struct Matrix
 {
     Matrix()
     {
-
+        x[0] = 1;
+        x[1] = 2;
+        x[2] = 3;
+        x[3] = 4;
+              
+        y[0] = 5;
+        y[1] = 6;
+        y[2] = 7;
+        y[3] = 8;
+              
+        z[0] = 9;
+        z[1] = 10;
+        z[2] = 11;
+        z[3] = 12;
+               
+        w[0] = 13;
+        w[1] = 14;
+        w[2] = 15;
+        w[3] = 16;
     }
     Matrix(float x1, float x2, float x3, float x4,
         float y1, float y2, float y3, float y4,
