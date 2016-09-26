@@ -3,51 +3,6 @@
 #include <vector>
 #include "LibDefines.h"
 
-class MemoryTests
-{
-public:
-    MemoryTests();
-    ~MemoryTests();
-    void CreateAllocator(size_t p_size);
-    void CreateRandomAccessNumbers(std::string fileName, long amount, int seed);
-
-    void TestGenericAllocate(long amount);
-
-    void TestGenericAllocateAndUseRandomly(long amount);
-
-    void TestGenericAllocateDifferentSizes(long amount);
-
-    void TestGenericDelete(long amount);
-
-    void TestGenericDeleteRandomly(long amount);
-
-    void TestSpecificAllocate(long amount);
-
-    void TestSpecificUseRandomly(long amount);
-
-    void TestSpecificAllocateMatrices(long amount);
-
-    void TestSpecificAllocateAndUseMatrices(long amount);
-
-    void TestSpecificAllocateAndUseMatricesRandomly(long amount);
-
-    void TestSpecificDelete(long amount);
-
-    void TestSpecificDeleteRandomly(long amount);
-
-    void TestSpecificRandomyAllocateDelete(long amount);
-
-
-   
-
-	void TestStack();
-
-    std::vector<int> randomNumbers;
-    std::vector<int*> numbers;
-    PoolAllocator* poolAllocator;
-};
-
-
 struct Matrix
 {
     Matrix()
@@ -56,17 +11,17 @@ struct Matrix
         x[1] = 2;
         x[2] = 3;
         x[3] = 4;
-              
+
         y[0] = 5;
         y[1] = 6;
         y[2] = 7;
         y[3] = 8;
-              
+
         z[0] = 9;
         z[1] = 10;
         z[2] = 11;
         z[3] = 12;
-               
+
         w[0] = 13;
         w[1] = 14;
         w[2] = 15;
@@ -129,4 +84,52 @@ struct Matrix
     float z[4];
     float w[4];
 };
+
+
+
+class MemoryTests
+{
+public:
+    MemoryTests();
+    ~MemoryTests();
+    void CreateAllocator(size_t p_size);
+    void CreateRandomAccessNumbers(long amount, int seed);
+
+    void TestGenericAllocate(long amount);
+
+    void TestGenericUseRandomly(long amount);
+
+    void TestGenericAllocateDifferentSizes(long amount);
+
+    void TestGenericDelete(long amount);
+
+    void TestGenericDeleteRandomly(long amount);
+
+    void TestSpecificAllocate(long amount);
+
+    void TestSpecificUseRandomly(long amount);
+
+    void TestSpecificAllocateMatrices(long amount);
+
+    void TestSpecificUseMatrices(long amount);
+
+    void TestSpecificUseMatricesRandomly(long amount);
+
+    void TestSpecificDelete(long amount);
+
+    void TestSpecificDeleteRandomly(long amount);
+
+    void TestSpecificRandomyAllocateDelete(long amount);
+
+
+   
+
+	void TestStack();
+
+    std::vector<int> randomNumbers;
+    std::vector<int*> numbers;
+    std::vector<Matrix*> matrices;
+    PoolAllocator* poolAllocator;
+};
+
 
