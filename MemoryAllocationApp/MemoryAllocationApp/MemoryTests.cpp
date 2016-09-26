@@ -120,37 +120,37 @@ void MemoryTests::TestSpecificUseRandomly(long amount)
 }
 
 void MemoryTests::TestSpecificAllocateMatrices(long amount)
-{
-    std::vector<Matrix*> matrices;
-    for (size_t i = 0; i < amount; i++)
     {
-        Matrix* newMat = new (poolAllocator) Matrix();
-        matrices.push_back(newMat);
+        std::vector<Matrix*> matrices;
+        for (size_t i = 0; i < amount; i++)
+        {
+            Matrix* newMat = new (poolAllocator) Matrix();
+            matrices.push_back(newMat);
+        }
     }
-}
 
 void MemoryTests::TestSpecificAllocateAndUseMatrices(long amount)
-{
-    std::vector<Matrix*> matrices;
-    for (size_t i = 0; i < amount; i++)
     {
-        Matrix* newMat = new (poolAllocator) Matrix();
-        matrices.push_back(newMat);
-    }
+        std::vector<Matrix*> matrices;
+        for (size_t i = 0; i < amount; i++)
+        {
+            Matrix* newMat = new (poolAllocator) Matrix();
+            matrices.push_back(newMat);
+        }
 
-    Matrix view = Matrix();
-
-    for (size_t i = 0; i < amount; i++)
-    {
-        *matrices[i]*view;
+        Matrix view = Matrix();
+        
+        for (size_t i = 0; i < amount; i++)
+        {
+            *matrices[i]*view;
+        }
     }
-}
 
 void MemoryTests::TestSpecificAllocateAndUseMatricesRandomly(long amount)
 {
     std::vector<Matrix*> matrices;
     for (size_t i = 0; i < amount; i++)
-    {
+{
         Matrix* newMat = new (poolAllocator) Matrix();
         matrices.push_back(newMat);
     }
@@ -161,7 +161,7 @@ void MemoryTests::TestSpecificAllocateAndUseMatricesRandomly(long amount)
     {
         *matrices[randomNumbers[i]] * view;
     }
-}
+    }
 
 void MemoryTests::TestSpecificDelete(long amount)
 {
@@ -177,7 +177,7 @@ void MemoryTests::TestSpecificDeleteRandomly(long amount)
     {
         operator delete (numbers[randomNumbers[i]], poolAllocator, sizeof(int));
     }
-}
+    }
 
 void MemoryTests::TestSpecificRandomyAllocateDelete(long amount)
 {
@@ -193,4 +193,14 @@ void MemoryTests::TestSpecificRandomyAllocateDelete(long amount)
     {
         int* newInt = new int();
     }
+}
+
+void MemoryTests::TestStack()
+{
+
+
+
+
+
+
 }

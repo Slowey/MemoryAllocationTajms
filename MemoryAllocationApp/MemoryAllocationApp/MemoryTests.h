@@ -40,6 +40,8 @@ public:
 
    
 
+	void TestStack();
+
     std::vector<int> randomNumbers;
     std::vector<int*> numbers;
     PoolAllocator* poolAllocator;
