@@ -1,6 +1,5 @@
 #pragma once
 #include "LibDefines.h"
-#include <StackAllocator.h>
 #ifndef OURLIB
 
 class PoolAllocator

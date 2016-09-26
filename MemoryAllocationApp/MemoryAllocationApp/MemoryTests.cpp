@@ -1,5 +1,4 @@
 #include "MemoryTests.h"
-#include "../MemLib/StackAllocator.h"
 #include <iostream>
 #include <algorithm>
 #include <thread>
