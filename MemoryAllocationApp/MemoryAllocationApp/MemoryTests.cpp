@@ -191,14 +191,16 @@ void MemoryTests::TestStackRecursiveOurLib(int p_count)
 	operator delete (t_temp, Stack::LongTerm, sizeof(int));
 }
 
-void MemoryTests::TestStackOS(int p_count)
-{
-	int t_temp = p_count;
-	if (t_temp < 100)
-	{
-		int t_nextInt = t_temp + 1;
-		TestStackOS(t_nextInt);
-	}
+// This method disappeared from header in a merge. Possibly not needed
+//void MemoryTests::TestStackOS(int p_count)
+//{
+//	int t_temp = p_count;
+//	if (t_temp < 100)
+//	{
+//		int t_nextInt = t_temp + 1;
+//		TestStackOS(t_nextInt);
+//	}
+//}
 
 void MemoryTests::TestStackRecursiveOS(int p_count)
 {
