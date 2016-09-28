@@ -1,5 +1,4 @@
 #pragma once
-#include "../StackAllocator.h"
 #include "PoolParkInternal.h"
 
 /**
@@ -7,7 +6,6 @@ Stack used for the entire program. Operates as a stack
 filling up memory from the end of the total memory allocated
 with the initialization of the memory manager.*/
 class StackAllocatorInternal
-    :StackAllocator
 {
 public:
    // Singleton-get
@@ -20,7 +18,6 @@ public:
    void Clear();
    void ResetHeadTo(void* mempoint);
 
-    int TestMethod() override;
 
 private:
 	StackAllocatorInternal(void* p_start, PoolParkInternal* p_poolPark);

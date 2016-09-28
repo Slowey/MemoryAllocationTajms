@@ -1,6 +1,5 @@
 #pragma once
 #include "PoolAllocator.h"
-#include "StackAllocator.h"
 
 #define USE_LIBRARY
 
@@ -66,6 +65,13 @@ private:
     ~MemoryManager();
     static MemoryManager* m_singleton;
 
+};
+
+enum class Stack
+{
+   LongTerm,
+   MidTerm,
+   ShortTerm,
 };
 
 #ifdef USE_LIBRARY

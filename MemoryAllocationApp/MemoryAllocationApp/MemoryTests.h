@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include "LibDefines.h"
+#include <mutex>
 
 
 struct Matrix
@@ -86,6 +87,20 @@ struct Matrix
     float w[4];
 };
 
+#define NUM_INTS 5
+struct ObjectOne  
+{
+    int value[NUM_INTS];
+
+    void Function()
+    {
+        for (size_t i = 0; i < NUM_INTS; i++)
+        {
+            value[i]++;
+        }
+    }
+
+};
 
 
 class MemoryTests
@@ -133,16 +148,37 @@ public:
 	void TestAllocateArrayStackOs(long p_amount);
 
 	void TestAllocateArrayChunkStackOurLib(long p_amount);
+    void TestSpecificTestCaseUse(long amount);
+
+
+
+	void TestStackOurLib(int p_count);
 
 	void TestAllocateArrayChunkStackOs(long p_amount);
+
+    void TestSpecificTestPre(long amount, long differentObjects);
+
+    void TestSpecificTestCaseAllocate(long amount, long differentObjects);
 
 
     void TestThreadedAllocatorCreation();
 
+	void TestAllocateAndDeleteRandomly(double amount);
+
+	void TestStack();
+
+	void MutexTestWithNoMutex();
+	void MutexTest();
+	void PrintTestIntMutex();
+
+	unsigned long m_mutexTestInt;
+	std::shared_ptr<std::mutex> m_mutexTest;
     std::vector<int> randomNumbers;
     std::vector<int*> numbers;
     std::vector<Matrix*> matrices;
+    std::vector<std::vector<ObjectOne*>> objectsWithObjects;
     PoolAllocator* poolAllocator;
+    PoolAllocator* poolAllocatorTwo;
 	int m_stackRecursions;
 };
 

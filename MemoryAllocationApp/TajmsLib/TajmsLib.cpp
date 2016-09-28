@@ -1,5 +1,4 @@
 #include "TajmsLib.h"
-#include <ctime>
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -19,15 +18,14 @@
 void TajmsLib::InitTajmsLib()
 {
     //start the program timer.
-    m_begin = clock();
+    m_begin = std::chrono::high_resolution_clock::now();
     _mkdir("Test timers");
 
 }
-void TajmsLib::ShutdownTajmsLib(std::string p_fileName)
+void TajmsLib::ShutdownTajmsLib(std::string &p_fileName)
 {
     // Stop the timer and write to textfiles.
     // unsigned int end = clock();
-    m_totalTimeForProgram = clock() - m_begin;
     time_t  timev = time(0);
     time(&timev);
     struct tm now;
@@ -35,50 +33,17 @@ void TajmsLib::ShutdownTajmsLib(std::string p_fileName)
     int timeYear = now.tm_year + 1900;
     std::string yearString = std::to_string(timeYear);
 
-    int timeMonth = now.tm_mon + 1;
-    std::string monthString = std::to_string(timeMonth);
-
-    int timeDay = now.tm_mday;
-    std::string dayString = std::to_string(timeDay);
-
-    int timeHour = now.tm_hour;
-    std::string hourString = std::to_string(timeHour);
-
-    int timeMinute = now.tm_min;
-    std::string minuteString = std::to_string(timeMinute);
-
-    int timeSecond = now.tm_sec;
-    std::string secondString = std::to_string(timeSecond);
-
     std::ofstream myfile;
     myfile.open("Test timers/" + p_fileName + ".txt", std::ios::app);
 
-
-    double totalTimeForOutput = (double)m_totalTimeForProgram / (double)CLOCKS_PER_SEC;
-    //myfile << "Total runtime: " << totalTimeForOutput << std::endl; // den här fungerar ju klart ej!
-    //for (size_t i = 0; i < nrOfTimers; ++i)
-    //{
-    //    myfile << m_timers[i].timerName + ": ";
-    //    if (m_timers[i].timerEndTime == 0)
-    //    {
-    //        myfile << "No end time recorded" << std::endl;
-    //    }
-    //    else
-    //    {
-    //        //double tempForOutput = (double)(m_timers[i].timerEndTime - m_timers[i].timerStartTime) / (double)CLOCKS_PER_SEC;
-    //        //myfile << tempForOutput;
-    //        //myfile << " It was " << (double)tempForOutput / totalTimeForOutput << " of the total run time" << std::endl;
-    //    }
-    //}
-
-    if (m_timers.size())
+    if (myfile.is_open())
     {
-        double tempForOutput = (double)(m_timers[0].timerEndTime - m_timers[0].timerStartTime) / (double)CLOCKS_PER_SEC;
-        myfile << tempForOutput << std::endl;
+        if (m_timers.size())
+        {
+            std::chrono::duration<double> duration = (m_timers[0].timerEndTime - m_timers[0].timerStartTime);
+            myfile << duration.count() << std::endl;
+        }
     }
-
-    // myfile << timeSecond + timeMinute + timeHour + timeDay + timeMonth + timeYear;
-
 
     myfile.close();
 }
@@ -95,12 +60,12 @@ float TajmsLib::Test()
 }
 int TajmsLib::StartTimer(std::string p_timerName)
 {
-    m_timers.push_back(TajmsTimer(clock(), nrOfTimers, p_timerName));
+    m_timers.push_back(TajmsTimer(nrOfTimers, p_timerName));
     ++nrOfTimers;
     return nrOfTimers - 1;
 }
 void TajmsLib::StopTimer(int p_id)
 {
-    m_timers[p_id].timerEndTime = clock();
+    m_timers[p_id].timerEndTime = std::chrono::high_resolution_clock::now();
 }
 

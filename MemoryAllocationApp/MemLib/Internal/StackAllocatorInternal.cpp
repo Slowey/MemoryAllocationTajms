@@ -72,8 +72,4 @@ void StackAllocatorInternal::ResetHeadTo(void* mempoint)
 	}
 }
 
-int StackAllocatorInternal::TestMethod()
-{
-    return 42;
-}
     

@@ -1,7 +1,13 @@
 #pragma once
 #include "LibDefines.h"
-#include <StackAllocator.h>
 #ifndef OURLIB
+
+enum class Stack
+{
+    LongTerm,
+    MidTerm,
+    ShortTerm,
+};
 
 class PoolAllocator
 {

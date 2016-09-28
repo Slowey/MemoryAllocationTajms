@@ -1,5 +1,4 @@
 #include "MemoryTests.h"
-#include "../MemLib/StackAllocator.h"
 #include <iostream>
 #include <algorithm>
 #include <thread>
@@ -8,6 +7,7 @@
 
 MemoryTests::MemoryTests()
 {
+	m_mutexTest = std::make_shared<std::mutex>();
 }
 
 MemoryTests::~MemoryTests()
@@ -191,6 +191,15 @@ void MemoryTests::TestStackRecursiveOurLib(int p_count)
 	operator delete (t_temp, Stack::LongTerm, sizeof(int));
 }
 
+void MemoryTests::TestStackOS(int p_count)
+{
+	int t_temp = p_count;
+	if (t_temp < 100)
+	{
+		int t_nextInt = t_temp + 1;
+		TestStackOS(t_nextInt);
+	}
+
 void MemoryTests::TestStackRecursiveOS(int p_count)
 {
 	int t_temp = p_count;
@@ -230,6 +239,52 @@ void MemoryTests::TestAllocateArrayChunkStackOs(long p_amount)
 {
 	int* t_ints = reinterpret_cast<int*>(_malloca(sizeof(int) * p_amount));
 }
+
+void MemoryTests::TestSpecificTestPre(long amount, long differentObjects)
+{
+    objectsWithObjects.resize(differentObjects);
+    for (size_t i = 0; i < differentObjects; i++)
+    {
+        objectsWithObjects[i].resize(amount);
+    }
+
+    poolAllocator = MemoryManager::Get()->CreatePoolAllocator(sizeof(ObjectOne));
+    poolAllocatorTwo = MemoryManager::Get()->CreatePoolAllocator(sizeof(ObjectOne));
+}
+
+void MemoryTests::TestSpecificTestCaseAllocate(long amount, long differentObjects)
+{
+    /**
+    Test
+    Create different data types after each other
+
+    Use type A sequentionally from array
+    */
+
+    //Allocate
+    for (size_t i = 0; i < amount; i++)
+    {
+        objectsWithObjects[0][i] = new (poolAllocator) ObjectOne();
+
+        for (size_t j = 1; j < differentObjects; j++)
+        {
+            objectsWithObjects[j][i] = new (poolAllocatorTwo) ObjectOne();
+        }
+    }
+}
+
+void MemoryTests::TestSpecificTestCaseUse(long amount)
+{
+    // number of frames
+    for (size_t f = 0; f < 60*10000; f++)
+    {
+        for (size_t i = 0; i < amount; i++)
+        {
+            objectsWithObjects[0][i]->Function();
+        }
+    }
+}
+
 
 
 
@@ -307,6 +362,48 @@ void MemoryTests::TestThreadedAllocatorCreation()
         }
     }
 
-    //std::cout << stringText << std::endl;
-    //std::cin >> hej;
+	//std::cout << stringText << std::endl;
+	//std::cin >> hej;
+}
+
+void MemoryTests::MutexTestWithNoMutex()
+{
+	m_mutexTestInt++;
+}
+
+void MemoryTests::MutexTest()
+{
+	m_mutexTest->lock();
+	m_mutexTestInt++;
+	m_mutexTest->unlock();
+}
+void MemoryTests::PrintTestIntMutex()
+{
+	std::cout << m_mutexTestInt;
+}
+
+void MemoryTests::TestAllocateAndDeleteRandomly(double amount)
+{
+    std::vector<int*> numbers;
+    numbers.resize(amount);
+    for (size_t i = 0; i < amount; i++)
+    {
+        int* newInt = new (poolAllocator)int();
+        numbers.push_back(newInt);
+    }
+
+    for (size_t i = 0; i < amount; i++)
+    {
+        operator delete (numbers[randomNumbers[i]], poolAllocator, sizeof(int));
+    }
+}
+
+void MemoryTests::TestStack()
+{
+
+
+
+
+
+
 }
