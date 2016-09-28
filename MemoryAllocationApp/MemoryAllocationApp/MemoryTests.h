@@ -122,10 +122,19 @@ public:
 
     void TestSpecificRandomyAllocateDelete(long amount);
 
+	void SetStackRecursions(int nr_recursions);
 
-	void TestStackOurLib(int p_count);
+	void TestStackRecursiveOurLib(int p_count);
 
-	void TestStackOS(int p_count);
+	void TestStackRecursiveOS(int p_count);
+
+	void TestAllocateArrayStackOurLib(long p_amount);
+
+	void TestAllocateArrayStackOs(long p_amount);
+
+	void TestAllocateArrayChunkStackOurLib(long p_amount);
+
+	void TestAllocateArrayChunkStackOs(long p_amount);
 
 
     void TestThreadedAllocatorCreation();
@@ -134,6 +143,7 @@ public:
     std::vector<int*> numbers;
     std::vector<Matrix*> matrices;
     PoolAllocator* poolAllocator;
+	int m_stackRecursions;
 };
 
 

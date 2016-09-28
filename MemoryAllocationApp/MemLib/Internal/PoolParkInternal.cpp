@@ -37,16 +37,16 @@ void* PoolParkInternal::GetNewMemoryBlockEndPoint()
 	void* returnAddress;
 
 	// If return block number is smaller than allocated blocks its OK
-	if (m_currentStackBlock - 1 > m_currentBlock)
+	if (m_currentStackBlock - 1 < m_currentBlock)
 	{
 		throw 1337;
 	}
-	// assert(m_currentStackBlock-1 > m_currentBlock);
+
+	m_currentStackBlock--;
 
 	//Grab last memory bit in the poolpark. Move the pointer back using currentstackblock - total memoryblocks. Multiply the sum by memoryblocksize
 	returnAddress = reinterpret_cast<char*>(GetEndPointer()) + (m_currentStackBlock - m_numberOfMemoryBlocks) * m_memoryBlockSize;
 
-	m_currentStackBlock--;
 	// Return the address
 	return returnAddress;
 }

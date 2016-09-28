@@ -26,8 +26,8 @@ int main(int numArgs, char * args[])
     MemoryManager::Startup(1024, 1000000);
     TajmsLib tajm;
 
-    int testToRun = 1;
-    int numObjects = 5;
+    int testToRun = 14;
+    int numObjects = 100000;
     int seed = 33;
     
     // Parse args
@@ -179,6 +179,19 @@ int main(int numArgs, char * args[])
         tests.TestSpecificRandomyAllocateDelete(numObjects);
         tajm.StopTimer(ID);
     }
+	else if (testToRun == 14)
+	{
+		tests.SetStackRecursions(numObjects);
+		int ID = tajm.StartTimer("1");
+#ifdef OURLIB
+		//tests.TestStackRecursiveOurLib(0);
+		tests.TestAllocateArrayChunkStackOurLib(numObjects);
+#else
+		//tests.TestStackRecursiveOS(0);
+		tests.TestAllocateArrayChunkStackOs(numObjects);
+#endif
+		tajm.StopTimer(ID);
+	}
 	else if (testToRun == 25)
 	{
 #ifdef OURLIB
@@ -204,6 +217,7 @@ int main(int numArgs, char * args[])
 		tajm.StopTimer(forLoopTimerId1);
 #endif
 	}
+
 
 
     std::string testName = "";
@@ -260,6 +274,10 @@ int main(int numArgs, char * args[])
     {
         testName = "TestSpecificRandomyAllocateDelete_";
     }
+	else if (testToRun == 14)
+	{
+		testName = "TestAllocateArrayChunkStackOurLib_";
+	}
     else if (testToRun == 25)
     {
         testName = "ThreadedSimulator";

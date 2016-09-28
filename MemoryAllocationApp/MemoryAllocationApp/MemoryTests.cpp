@@ -174,26 +174,61 @@ void MemoryTests::TestSpecificRandomyAllocateDelete(long amount)
         int* newInt = new int();
     }
 }
+void MemoryTests::SetStackRecursions(int nr_recursions)
+{
+	m_stackRecursions = nr_recursions;
+
+}
 // TEsta att inte deleta i funktionen utan att istället resetta hela stacken efter helka skiten är klar
-void MemoryTests::TestStackOurLib(int p_count)
+void MemoryTests::TestStackRecursiveOurLib(int p_count)
 {
 	int* t_temp = new (Stack::ShortTerm)int(p_count);
-	if(*t_temp < 100)
+	if(*t_temp < m_stackRecursions)
 	{
 		int* t_nextInt = new (Stack::ShortTerm)int(*t_temp+1);
-		TestStackOurLib(*t_nextInt);
+		TestStackRecursiveOurLib(*t_nextInt);
 	}
 	operator delete (t_temp, Stack::LongTerm, sizeof(int));
 }
 
-void MemoryTests::TestStackOS(int p_count)
+void MemoryTests::TestStackRecursiveOS(int p_count)
 {
 	int t_temp = p_count;
-	if (t_temp < 100)
+	if (t_temp < m_stackRecursions)
 	{
 		int t_nextInt = t_temp + 1;
-		TestStackOS(t_nextInt);
+		TestStackRecursiveOS(t_nextInt);
 	}
+}
+
+void MemoryTests::TestAllocateArrayStackOurLib(long p_amount)
+{
+	int* t_firstInt = new (Stack::ShortTerm)int(0);
+	for (size_t i = 1; i < p_amount; i++)
+	{
+		int* t_ints = new (Stack::ShortTerm)int(i);
+
+	}
+	operator delete (t_firstInt, Stack::LongTerm, sizeof(int) * p_amount);
+}
+
+void MemoryTests::TestAllocateArrayStackOs(long p_amount)
+{
+	for (size_t i = 0; i < p_amount; i++)
+	{
+		int* t_ints = reinterpret_cast<int*>(_malloca(sizeof(int)));
+	}
+}
+
+void MemoryTests::TestAllocateArrayChunkStackOurLib(long p_amount)
+{
+	int* t_ints = new (Stack::ShortTerm)int[p_amount];
+	operator delete (t_ints, Stack::LongTerm, sizeof(int) * (p_amount));
+}
+
+void MemoryTests::TestAllocateArrayChunkStackOs(long p_amount)
+{
+	int* t_ints = reinterpret_cast<int*>(_malloca(sizeof(int) * p_amount));
 }
 
 
