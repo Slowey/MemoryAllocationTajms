@@ -178,16 +178,6 @@ int main(int numArgs, char * args[])
         tests.TestSpecificRandomyAllocateDelete(numObjects);
         tajm.StopTimer(ID);
     }
-    else if (testToRun == 16)
-    {
-        // Uses numObjects as how many differnt objects and static how many 
-        tests.TestSpecificTestPre(100, numObjects);
-        tests.TestSpecificTestCaseAllocate(100, numObjects);
-
-        int ID = tajm.StartTimer("1");
-        tests.TestSpecificTestCaseUse(100);
-        tajm.StopTimer(ID);
-    }
 	else if (testToRun == 14)
 	{
 		tests.SetStackRecursions(numObjects);
@@ -201,6 +191,16 @@ int main(int numArgs, char * args[])
 #endif
 		tajm.StopTimer(ID);
 	}
+    else if (testToRun == 15)
+    {
+        // Uses numObjects as how many differnt objects and static how many 
+        tests.TestSpecificTestPre(100, numObjects);
+        tests.TestSpecificTestCaseAllocate(100, numObjects);
+
+        int ID = tajm.StartTimer("1");
+        tests.TestSpecificTestCaseUse(100);
+        tajm.StopTimer(ID);
+    }
 	else if (testToRun == 25)
 	{
 #ifdef OURLIB
@@ -252,7 +252,7 @@ int main(int numArgs, char * args[])
 		}
 		tajm.StopTimer(timerWithoutMutexLock);
 
-	}
+}
 
 
 
@@ -310,14 +310,14 @@ int main(int numArgs, char * args[])
     {
         testName = "TestSpecificRandomyAllocateDelete_";
     }
-    else if (testToRun == 16)
+    else if (testToRun == 14)
+    {
+        testName = "TestAllocateArrayChunkStackOurLib_";
+    }
+    else if (testToRun == 15)
     {
         testName = "TestSpecificTestCaseUse_";
     }
-	else if (testToRun == 14)
-	{
-		testName = "TestAllocateArrayChunkStackOurLib_";
-	}
     else if (testToRun == 25)
     {
         testName = "ThreadedSimulator";
