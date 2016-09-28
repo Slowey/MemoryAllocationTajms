@@ -26,7 +26,7 @@ int main(int numArgs, char * args[])
     TajmsLib tajm;
 
     int testToRun = 16;
-    int numObjects = 100000;
+    int numObjects = 16384;
     int seed = 33;
     
     // Parse args
@@ -201,6 +201,20 @@ int main(int numArgs, char * args[])
         tests.TestSpecificTestCaseUse(100);
         tajm.StopTimer(ID);
     }
+	else if (testToRun == 16)
+	{
+		if (numObjects > 16384)
+		{
+			exit(0);
+	}
+		int ID = tajm.StartTimer("1");
+#ifdef OURLIB
+		tests.TestAllocateArrayStackOurLib(numObjects);
+#else
+		tests.TestAllocateArrayStackOs(numObjects);
+#endif
+			tajm.StopTimer(ID);
+	}
 	else if (testToRun == 25)
 	{
 #ifdef OURLIB
@@ -318,6 +332,10 @@ int main(int numArgs, char * args[])
     {
         testName = "TestSpecificTestCaseUse_";
     }
+	else if (testToRun == 16)
+	{
+		testName = "TestAllocateArrayStackOurLib_";
+	}
     else if (testToRun == 25)
     {
         testName = "ThreadedSimulator";

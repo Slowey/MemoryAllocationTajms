@@ -227,6 +227,7 @@ void MemoryTests::TestAllocateArrayStackOs(long p_amount)
 {
 	for (size_t i = 0; i < p_amount; i++)
 	{
+		int j = i;
 		int* t_ints = reinterpret_cast<int*>(_malloca(sizeof(int)));
 	}
 }
