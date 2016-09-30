@@ -278,14 +278,12 @@ void MemoryTests::TestSpecificTestCaseAllocate(long amount, long differentObject
 
 void MemoryTests::TestSpecificTestCaseUse(long amount)
 {
-    // number of frames
-    for (size_t f = 0; f < 60*10000; f++)
+
+    for (size_t i = 0; i < amount; i++)
     {
-        for (size_t i = 0; i < amount; i++)
-        {
-            objectsWithObjects[0][i]->Function();
-        }
+        objectsWithObjects[0][i]->Function();
     }
+
 }
 
 
@@ -409,4 +407,48 @@ void MemoryTests::TestStack()
 
 
 
+}
+
+
+
+void MemoryTests::AllocateMatricesOnOsHeap(long p_amount)
+{
+	// create matrices
+	std::vector<Matrix*> matrices;
+	matrices.resize(p_amount);
+	for (size_t i = 0; i < p_amount; i++)
+	{
+		matrices.at(i) = new Matrix();
+	}
+
+	// Use matrices
+	for (size_t i = 0; i < p_amount; i+=2)
+	{
+		*matrices.at(i) * *matrices.at(i + 1);
+	}
+
+	// Delete matrices
+	for (size_t i = 0; i < p_amount; i++)
+	{
+		delete matrices.at(i);
+	}
+}
+
+void MemoryTests::AllocateMatricesOnOurStack(long p_amount)
+{
+	// create matrices
+	std::vector<Matrix*> matrices;
+	matrices.resize(p_amount);
+	for (size_t i = 0; i < p_amount; i++)
+	{
+		matrices.at(i) = new (Stack::LongTerm)Matrix();
+	}
+
+	// use matrices
+	for (size_t i = 0; i < p_amount; i+=2)
+	{
+		*matrices.at(i) * *matrices.at(i + 1);
+	}
+
+	operator delete (matrices.at(0), Stack::LongTerm, sizeof(matrices));	
 }

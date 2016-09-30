@@ -167,6 +167,10 @@ public:
 
 	void TestStack();
 
+	void AllocateMatricesOnOsHeap(long p_amount);
+
+	void AllocateMatricesOnOurStack(long p_amount);
+
 	void MutexTestWithNoMutex();
 	void MutexTest();
 	void PrintTestIntMutex();

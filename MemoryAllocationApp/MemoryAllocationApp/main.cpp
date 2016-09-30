@@ -22,11 +22,11 @@ public:
 
 int main(int numArgs, char * args[])
 {
-    MemoryManager::Startup(1024, 1000000);
+    MemoryManager::Startup(1024, 2000000);
     TajmsLib tajm;
 
-    int testToRun = 16;
-    int numObjects = 16384;
+    int testToRun = 15;
+    int numObjects = 524288;
     int seed = 33;
     
     // Parse args
@@ -194,11 +194,11 @@ int main(int numArgs, char * args[])
     else if (testToRun == 15)
     {
         // Uses numObjects as how many differnt objects and static how many 
-        tests.TestSpecificTestPre(100, numObjects);
-        tests.TestSpecificTestCaseAllocate(100, numObjects);
+        tests.TestSpecificTestPre(numObjects, 100);
+        tests.TestSpecificTestCaseAllocate(numObjects, 100);
 
         int ID = tajm.StartTimer("1");
-        tests.TestSpecificTestCaseUse(100);
+        tests.TestSpecificTestCaseUse(numObjects);
         tajm.StopTimer(ID);
     }
 	else if (testToRun == 16)
@@ -206,7 +206,7 @@ int main(int numArgs, char * args[])
 		if (numObjects > 16384)
 		{
 			exit(0);
-	}
+		}
 		int ID = tajm.StartTimer("1");
 #ifdef OURLIB
 		tests.TestAllocateArrayStackOurLib(numObjects);
@@ -214,6 +214,16 @@ int main(int numArgs, char * args[])
 		tests.TestAllocateArrayStackOs(numObjects);
 #endif
 			tajm.StopTimer(ID);
+	}
+	else if (testToRun == 17)
+	{	
+		int ID = tajm.StartTimer("1");
+#ifdef OURLIB
+		tests.AllocateMatricesOnOurStack(numObjects);
+#else
+		tests.AllocateMatricesOnOsHeap(numObjects);
+#endif
+		tajm.StopTimer(ID);
 	}
 	else if (testToRun == 25)
 	{
@@ -336,6 +346,11 @@ int main(int numArgs, char * args[])
 	{
 		testName = "TestAllocateArrayStackOurLib_";
 	}
+	else if (testToRun == 17)
+	{
+		testName = "TestAllocateMatricesAndUseThemOnStack_";
+	}
+
     else if (testToRun == 25)
     {
         testName = "ThreadedSimulator";

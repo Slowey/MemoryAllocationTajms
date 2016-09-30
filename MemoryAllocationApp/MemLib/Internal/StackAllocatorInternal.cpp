@@ -39,10 +39,10 @@ void* StackAllocatorInternal::Allocate(size_t p_numBytes)
 	int t_blockSize = m_poolPark->GetMemoryBlockSize();
 	//if ((reinterpret_cast<char*>(m_head) - p_numBytes) < ((reinterpret_cast<char*>(m_poolPark->GetEndPointer()) + ((m_currentBlock-1) - m_totalNrOfBlocks) * t_blockSize)))
 	//{
-		int bytesLeft = ((m_totalNrOfBlocks - m_currentBlock + 1) * t_blockSize) - (reinterpret_cast<char*>(m_head) - reinterpret_cast<char*>(m_poolPark->GetEndPointer()));
-		bytesLeft = p_numBytes - bytesLeft;
+		int bytesLeft = ((m_totalNrOfBlocks - m_currentBlock + 1) * t_blockSize) - (reinterpret_cast<char*>(m_poolPark->GetEndPointer())- reinterpret_cast<char*>(m_head));
+		bytesLeft = p_numBytes - bytesLeft; // can be negative in which case we never should go in to the for loop...
 		int neededBlocks = ceil((float)bytesLeft / (float)t_blockSize);
-		for (size_t i = 0; i < neededBlocks; i++)
+		for (int i = 0; i < neededBlocks; i++)
 		{
 			m_poolPark->GetNewMemoryBlockEndPoint();
 			m_currentBlock--;
