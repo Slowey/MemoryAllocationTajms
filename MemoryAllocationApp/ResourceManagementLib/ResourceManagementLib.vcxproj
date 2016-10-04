@@ -110,9 +110,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Internal\DataManager.h" />
+    <ClInclude Include="Internal\FileLoader.h" />
+    <ClInclude Include="Internal\PrioritizationManager.h" />
     <ClInclude Include="ResourceManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Internal\DataManager.cpp" />
+    <ClCompile Include="Internal\FileLoader.cpp" />
+    <ClCompile Include="Internal\PrioritizationManager.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
