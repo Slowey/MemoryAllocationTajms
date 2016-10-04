@@ -78,7 +78,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>../GraphicsLib;../TajmsLib/;../MemLib/;$(IncludePath)</IncludePath>
-    <LibraryPath>../x64/Debug/;$(LibraryPath)</LibraryPath>
+    <LibraryPath>../GraphicsLib/3rd Party/lib;../x64/Debug/;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>../GraphicsLib/;../TajmsLib/;../MemLib/;$(IncludePath)</IncludePath>
@@ -101,7 +101,7 @@
       <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>TajmsLib.lib;GraphicsLib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>TajmsLib.lib;GraphicsLib.lib;freeglut.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <CustomBuildStep>
       <Command>

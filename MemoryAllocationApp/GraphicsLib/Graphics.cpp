@@ -1,5 +1,8 @@
 #include "Graphics.h"
 
+#include <GL\glew.h>
+#include <GL\freeglut.h>
+
 Graphics* Graphics::m_singleton = nullptr;
 
 Graphics * Graphics::Get()
@@ -11,6 +14,9 @@ Graphics * Graphics::Get()
 
 Graphics::Graphics()
 {
+   int argc;
+   char* argv;
+   //glutInit(&argc, &argv);
 }
 
 
