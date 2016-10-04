@@ -1,13 +1,13 @@
 #pragma once
+
 class Graphics
 {
 public:
    static Graphics* Get();
 
-private:
+protected:
+   static Graphics* m_singleton;
    Graphics();
    ~Graphics();
-
-   static Graphics* m_singleton;
 };
 
