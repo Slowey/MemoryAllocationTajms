@@ -23,6 +23,7 @@ public:
 int main(int numArgs, char * args[])
 {
     MemoryManager::Startup(1024, 2000000);
+    
     TajmsLib tajm;
 
     int testToRun = 15;
