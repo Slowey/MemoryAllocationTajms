@@ -37,3 +37,11 @@ ResourceManager * ResourceManager::Get()
 	return m_singleton;
 }
 
+#include "Internal/ZZIPLoader.h"
+void ResourceManager::LoadChunk(std::string &p_fileName)
+{
+    ZZIPLoader* loader = new ZZIPLoader("test");
+
+    loader->LoadFile(p_fileName);
+}
+
