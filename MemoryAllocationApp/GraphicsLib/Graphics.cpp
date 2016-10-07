@@ -1,4 +1,5 @@
 #include "Graphics.h"
+#include "Internal\SDLManager.h"
 #include <SDL\SDL.h>
 #include <GL2\glew.h>
 
@@ -14,6 +15,8 @@ Graphics * Graphics::Get()
 void Graphics::Startup()
 {
     m_singleton = new Graphics();
+    SDLManager::Get()->Startup();
+    
 }
 
 Graphics::Graphics()

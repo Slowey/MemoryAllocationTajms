@@ -1,6 +1,5 @@
 #pragma once
 
-
 struct WindowParams
 {
     int argc;
