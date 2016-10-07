@@ -6,3 +6,5 @@ enum PrioritizationAlgorithm
 	FIFO,
 	EXPLICIT
 };
+
+typedef int GUID;

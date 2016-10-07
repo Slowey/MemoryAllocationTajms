@@ -4,7 +4,7 @@
 class FileLoader
 {
 public:
-    FileLoader();
+    FileLoader(std::string &p_fileEnding);
     ~FileLoader();
 
     virtual void LoadFile(std::string p_fileName) = 0;
@@ -12,6 +12,6 @@ public:
 
 
 private:
-    std::string m_fileEnding;
+    const std::string m_fileEnding;
 };
 

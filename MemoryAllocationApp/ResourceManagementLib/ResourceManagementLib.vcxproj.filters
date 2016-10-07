@@ -33,6 +33,12 @@
     <ClInclude Include="Internal\DataManager.h">
       <Filter>Header Files\Internal</Filter>
     </ClInclude>
+    <ClInclude Include="EnumsAndDefines.h">
+      <Filter>Header Files\Internal</Filter>
+    </ClInclude>
+    <ClInclude Include="Internal\Prioritization.h">
+      <Filter>Header Files\Internal</Filter>
+    </ClInclude>
     <ClInclude Include="LRUPriority.h">
       <Filter>Header Files</Filter>
     </ClInclude>

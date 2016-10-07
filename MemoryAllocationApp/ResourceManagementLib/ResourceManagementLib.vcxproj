@@ -120,6 +120,7 @@
     <ClInclude Include="EnumsAndDefines.h" />
     <ClInclude Include="Internal\DataManager.h" />
     <ClInclude Include="Internal\FileLoader.h" />
+    <ClInclude Include="Internal\Prioritization.h" />
     <ClInclude Include="Internal\PrioritizationManager.h" />
     <ClInclude Include="Internal\ZZIPLoader.h" />
     <ClInclude Include="LRUPriority.h" />
