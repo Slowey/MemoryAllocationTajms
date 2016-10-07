@@ -1,4 +1,9 @@
 #pragma once
+// Third party
+#include <SDL\SDL.h>
+
+// Own stuff
+#include "../WindowParams.h"
 
 /**
 Singleton to handle all SDL thingies, such as
@@ -17,9 +22,15 @@ public:
     using the singleton in any way.*/
     static void Startup();
 
+    /**
+    Creates a window with the parameters specified*/
+    void CreateWindow(WindowParams p_parameters);
+
 private:
     static SDLManager* m_singleton;
     SDLManager();
     ~SDLManager();
-
+    
+    SDL_Window* m_window;
+    SDL_GLContext m_glContext;
 };
