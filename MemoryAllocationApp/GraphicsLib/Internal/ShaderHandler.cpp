@@ -15,9 +15,14 @@ ShaderHandler::~ShaderHandler()
 {
 }
 
+GLuint ShaderHandler::GetShaderProgram(ShaderProgram p_shaderProgram)
+{
+    return m_shaderPrograms[p_shaderProgram]; // Somewhat unsafe but cba
+}
+
 std::string ShaderHandler::ReadShader(string p_fileName)
 {
-    ifstream t_infile{ p_fileName };
+    ifstream t_infile{ p_fileName.c_str() };
     string r_fileString{ istreambuf_iterator<char>(t_infile), istreambuf_iterator<char>() };
     return r_fileString;
 }
@@ -83,8 +88,8 @@ void ShaderHandler::CreateAllShaderPrograms()
 {
     // Create default shader
     vector<ShaderInfo> t_shaderProgramInfo;
-    t_shaderProgramInfo.push_back(ShaderInfo(GL_VERTEX_SHADER, "Shaders/simpleVertexShader.glsl"));
-    t_shaderProgramInfo.push_back(ShaderInfo(GL_FRAGMENT_SHADER, "Shaders/simpleFragmentShader.glsl"));
+    t_shaderProgramInfo.push_back(ShaderInfo(GL_VERTEX_SHADER, "../GraphicsLib/shaders/simpleVertexShader.glsl"));
+    t_shaderProgramInfo.push_back(ShaderInfo(GL_FRAGMENT_SHADER, "../GraphicsLib/shaders/simpleFragmentShader.glsl"));
     GLuint t_shaderProgram = CreateShaderProgram(t_shaderProgramInfo);
     m_shaderPrograms[ShaderProgram::DefaultShader] = t_shaderProgram;
 }

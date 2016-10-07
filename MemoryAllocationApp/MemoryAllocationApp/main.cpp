@@ -7,6 +7,8 @@
 #include <thread>
 #include <mutex>
 
+
+
 class TestClass
 {
 public:
@@ -36,8 +38,11 @@ void CreateWindow()
 int main(int numArgs, char * args[])
 {
     MemoryManager::Startup(1024, 2000000);
+
     Graphics::Startup();
     CreateWindow();
+    while(true)
+        Graphics::Get()->Update();
     TajmsLib tajm;
 
     int testToRun = 15;

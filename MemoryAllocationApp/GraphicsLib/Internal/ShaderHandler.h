@@ -36,6 +36,7 @@ class ShaderHandler
 public:
     ShaderHandler();
     ~ShaderHandler();
+    GLuint GetShaderProgram(ShaderProgram p_shaderProgram);
 
 private:
     // Help methods to get a shader program up and running
