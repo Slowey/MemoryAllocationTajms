@@ -77,11 +77,11 @@
     <LibraryPath>../Release/;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>../TajmsLib/;../MemLib/;$(IncludePath)</IncludePath>
-    <LibraryPath>../x64/Debug/;$(LibraryPath)</LibraryPath>
+    <IncludePath>../GraphicsLib;../TajmsLib/;../MemLib/;$(IncludePath)</IncludePath>
+    <LibraryPath>../GraphicsLib/3rd Party/lib;../x64/Debug/;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>../TajmsLib/;../MemLib/;$(IncludePath)</IncludePath>
+    <IncludePath>../GraphicsLib/;../TajmsLib/;../MemLib/;$(IncludePath)</IncludePath>
     <LibraryPath>../x64/Release/;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -101,7 +101,7 @@
       <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>TajmsLib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>TajmsLib.lib;SDL2.lib;SDL2main.lib;glew32.lib;GraphicsLib.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <CustomBuildStep>
       <Command>

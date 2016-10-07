@@ -1,5 +1,6 @@
 #include <iostream>
 #include <TajmsLib.h>
+#include <Graphics.h>
 #include "MemoryTests.h"
 #include "LibDefines.h"
 #include <string>
@@ -23,7 +24,7 @@ public:
 int main(int numArgs, char * args[])
 {
     MemoryManager::Startup(1024, 2000000);
-    
+    Graphics::Startup();
     TajmsLib tajm;
 
     int testToRun = 15;
