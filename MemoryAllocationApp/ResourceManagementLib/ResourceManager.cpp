@@ -1,5 +1,8 @@
 #include "ResourceManager.h"
 #include "Internal/DataManager.h"
+#include <MemoryManager.h>
+#include <PoolAllocator.h>
+#pragma comment (lib, "MemLib.lib")
 
 ResourceManager* ResourceManager::m_singleton = nullptr;
 
@@ -18,6 +21,10 @@ void ResourceManager::Startup()
 		return;
 	}
 	m_singleton = new ResourceManager();
+}
+void ResourceManager::ReferencePing()
+{
+	
 }
 void ResourceManager::FreeResource(std::string p_resource, const size_t& p_size)
 {

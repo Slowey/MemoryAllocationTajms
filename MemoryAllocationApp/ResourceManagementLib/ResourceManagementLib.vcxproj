@@ -68,7 +68,14 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>../TajmsLib;../MemLib;$(IncludePath)</IncludePath>
+    <LibraryPath>../x64/Debug/;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>../TajmsLib;../MemLib;$(IncludePath)</IncludePath>
+    <LibraryPath>../x64/Release;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -110,15 +117,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="EnumsAndDefines.h" />
     <ClInclude Include="Internal\DataManager.h" />
     <ClInclude Include="Internal\FileLoader.h" />
     <ClInclude Include="Internal\PrioritizationManager.h" />
+    <ClInclude Include="LRUPriority.h" />
     <ClInclude Include="ResourceManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Internal\DataManager.cpp" />
     <ClCompile Include="Internal\FileLoader.cpp" />
     <ClCompile Include="Internal\PrioritizationManager.cpp" />
+    <ClCompile Include="LRUPriority.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

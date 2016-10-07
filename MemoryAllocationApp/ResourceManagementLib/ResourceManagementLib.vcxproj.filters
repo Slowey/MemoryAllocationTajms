@@ -33,6 +33,12 @@
     <ClInclude Include="Internal\DataManager.h">
       <Filter>Header Files\Internal</Filter>
     </ClInclude>
+    <ClInclude Include="LRUPriority.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EnumsAndDefines.h">
+      <Filter>Header Files\Internal</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ResourceManager.cpp">
@@ -46,6 +52,9 @@
     </ClCompile>
     <ClCompile Include="Internal\DataManager.cpp">
       <Filter>Source Files\Internal</Filter>
+    </ClCompile>
+    <ClCompile Include="LRUPriority.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
