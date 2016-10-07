@@ -33,6 +33,9 @@
     <ClInclude Include="Internal\DataManager.h">
       <Filter>Header Files\Internal</Filter>
     </ClInclude>
+    <ClInclude Include="Internal\ZZIPLoader.h">
+      <Filter>Header Files\Internal</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ResourceManager.cpp">
@@ -45,6 +48,9 @@
       <Filter>Source Files\Internal</Filter>
     </ClCompile>
     <ClCompile Include="Internal\DataManager.cpp">
+      <Filter>Source Files\Internal</Filter>
+    </ClCompile>
+    <ClCompile Include="Internal\ZZIPLoader.cpp">
       <Filter>Source Files\Internal</Filter>
     </ClCompile>
   </ItemGroup>
