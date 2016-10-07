@@ -1,4 +1,5 @@
 #pragma once
+#include "ShaderHandler.h"
 
 /**
 Singleton to handle all mannger of rendering.
@@ -13,4 +14,6 @@ private:
     static RenderManager* m_singleton;
     RenderManager();
     ~RenderManager();
+
+    static ShaderHandler* m_shaderHandler;
 };

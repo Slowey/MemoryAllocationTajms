@@ -8,6 +8,7 @@
 using namespace std;
 ShaderHandler::ShaderHandler()
 {
+    CreateAllShaderPrograms();
 }
 
 ShaderHandler::~ShaderHandler()
@@ -76,4 +77,14 @@ GLuint ShaderHandler::CreateShaderProgram(std::vector<ShaderInfo> p_programShade
 
 
     return r_programHandle;
+}
+
+void ShaderHandler::CreateAllShaderPrograms()
+{
+    // Create default shader
+    vector<ShaderInfo> t_shaderProgramInfo;
+    t_shaderProgramInfo.push_back(ShaderInfo(GL_VERTEX_SHADER, "Shaders/simpleVertexShader.glsl"));
+    t_shaderProgramInfo.push_back(ShaderInfo(GL_FRAGMENT_SHADER, "Shaders/simpleFragmentShader.glsl"));
+    GLuint t_shaderProgram = CreateShaderProgram(t_shaderProgramInfo);
+    m_shaderPrograms[ShaderProgram::DefaultShader] = t_shaderProgram;
 }
