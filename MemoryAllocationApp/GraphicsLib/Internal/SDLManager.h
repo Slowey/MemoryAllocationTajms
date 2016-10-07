@@ -26,6 +26,10 @@ public:
     Creates a window with the parameters specified*/
     void CreateWindow(WindowParams p_parameters);
 
+    /**
+    Swaps backbuffer and updates all inputs.*/
+    void Update();
+
 private:
     static SDLManager* m_singleton;
     SDLManager();
