@@ -42,6 +42,13 @@ void SDLManager::CreateWindow(WindowParams p_parameters)
 
 }
 
+void SDLManager::Update()
+{
+    // Swap backbuffer
+    SDL_GL_SwapWindow(m_window);
+    // Update input (TODO)
+}
+
 
 SDLManager * SDLManager::Get()
 {

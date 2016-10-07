@@ -16,6 +16,10 @@ public:
    Creates a window with the parameters specified*/
    void CreateWindow(WindowParams p_parameters);
 
+   /**
+   Performs a graphics update with all that it includes*/
+   void Update();
+
 private:
    static Graphics* m_singleton;
    Graphics();

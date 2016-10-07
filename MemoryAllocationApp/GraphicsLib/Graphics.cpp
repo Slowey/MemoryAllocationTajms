@@ -31,3 +31,8 @@ void Graphics::CreateWindow(WindowParams p_parameters)
     SDLManager::Get()->CreateWindow(p_parameters);
 
 }
+
+void Graphics::Update()
+{
+    SDLManager::Get()->Update();
+}
