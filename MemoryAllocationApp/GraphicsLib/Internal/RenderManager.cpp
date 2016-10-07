@@ -23,5 +23,6 @@ RenderManager * RenderManager::Get()
 void RenderManager::Startup()
 {
     m_singleton = new RenderManager();
+    m_shaderHandler = new ShaderHandler();
 }
 

@@ -3,6 +3,7 @@
 // Standard libraries
 #include <string>
 #include <vector>
+#include <unordered_map>
 
 // Third party
 #include <GL2\glew.h>
@@ -41,4 +42,8 @@ private:
     std::string ReadShader(std::string);
     GLuint LoadShader(ShaderInfo p_info);
     GLuint CreateShaderProgram(std::vector<ShaderInfo> p_programShaders);
+    void CreateAllShaderPrograms();
+
+    // Map of all shader program handles to each enum
+    std::unordered_map<ShaderProgram, GLuint> m_shaderPrograms;
 };
