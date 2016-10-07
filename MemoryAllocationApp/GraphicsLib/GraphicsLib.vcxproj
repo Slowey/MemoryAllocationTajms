@@ -121,6 +121,7 @@
   <ItemGroup>
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="Internal\SDLManager.h" />
+    <ClInclude Include="WindowParams.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Graphics.cpp" />
