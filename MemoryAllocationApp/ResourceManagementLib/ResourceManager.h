@@ -18,6 +18,9 @@ public:
 
 	void ReferencePing(/*GUID p_id*/);
 
+    // Temporary placeholder to test Loaders
+    void LoadChunk(std::string &p_fileName);
+
 private:
 	ResourceManager();
 	~ResourceManager();
