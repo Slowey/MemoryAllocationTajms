@@ -42,6 +42,15 @@
     <ClInclude Include="Internal\ZZIPLoader.h">
       <Filter>Header Files\Internal</Filter>
     </ClInclude>
+    <ClInclude Include="ParserAndContainer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ParserAndContainerManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WavManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ResourceManager.cpp">
@@ -61,6 +70,15 @@
     </ClCompile>
     <ClCompile Include="Internal\ZZIPLoader.cpp">
       <Filter>Source Files\Internal</Filter>
+    </ClCompile>
+    <ClCompile Include="ParserAndContainer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ParserAndContainerManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WavManager.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

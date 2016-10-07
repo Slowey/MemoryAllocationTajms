@@ -123,7 +123,10 @@
     <ClInclude Include="Internal\PrioritizationManager.h" />
     <ClInclude Include="Internal\ZZIPLoader.h" />
     <ClInclude Include="LRUPriority.h" />
+    <ClInclude Include="ParserAndContainer.h" />
+    <ClInclude Include="ParserAndContainerManager.h" />
     <ClInclude Include="ResourceManager.h" />
+    <ClInclude Include="WavManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Internal\DataManager.cpp" />
@@ -131,7 +134,10 @@
     <ClCompile Include="Internal\PrioritizationManager.cpp" />
     <ClCompile Include="Internal\ZZIPLoader.cpp" />
     <ClCompile Include="LRUPriority.cpp" />
+    <ClCompile Include="ParserAndContainer.cpp" />
+    <ClCompile Include="ParserAndContainerManager.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
+    <ClCompile Include="WavManager.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
