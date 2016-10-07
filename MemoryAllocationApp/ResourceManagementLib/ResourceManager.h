@@ -16,6 +16,8 @@ public:
 	*/
 	static void Startup();
 
+	void ReferencePing(/*GUID p_id*/);
+
 private:
 	ResourceManager();
 	~ResourceManager();

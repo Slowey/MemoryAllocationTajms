@@ -22,6 +22,7 @@ void DataManager::Startup()
 void DataManager::FreeResource(std::string p_resource, const size_t & p_size)
 {
 	//Leta mapp Hitta resource ta bort från mappen (fria upp minne här?)
+
 }
 void DataManager::AddResource(std::string p_resourceLocation, void* p_data)
 {
