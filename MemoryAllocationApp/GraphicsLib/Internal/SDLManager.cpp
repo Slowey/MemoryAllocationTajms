@@ -26,6 +26,15 @@ void SDLManager::Startup()
 void SDLManager::CreateWindow(WindowParams p_parameters)
 {
     SDL_Init(SDL_INIT_EVERYTHING);
+    
+    // Not sure if these are necessary
+    SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 8);
+    SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 8);
+    SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 8);
+    SDL_GL_SetAttribute(SDL_GL_ALPHA_SIZE, 8);
+    SDL_GL_SetAttribute(SDL_GL_BUFFER_SIZE, 32);
+    SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 16);
+    SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 
     m_window = SDL_CreateWindow(
         p_parameters.windowName,
@@ -37,6 +46,7 @@ void SDLManager::CreateWindow(WindowParams p_parameters)
 
     m_glContext = SDL_GL_CreateContext(m_window);
     GLenum status = glewInit();
+    glEnable(GL_DEPTH_TEST);
     if (status != GLEW_OK)
         int derp = 5; // Just for debug purpose. Should be done properly somewhere
 

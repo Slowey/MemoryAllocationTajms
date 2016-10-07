@@ -23,7 +23,8 @@ public:
     static void Startup();
 
     /**
-    Creates a window with the parameters specified*/
+    Creates a window with the parameters specified.
+    This also initializes openGL (yes, that's how we're doing it)*/
     void CreateWindow(WindowParams p_parameters);
 
     /**

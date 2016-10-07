@@ -9,11 +9,16 @@ class RenderManager
 public:
     static RenderManager* Get();
     static void Startup();
+    void Render();
+    ShaderHandler* m_shaderHandler;
 
 private:
     static RenderManager* m_singleton;
     RenderManager();
     ~RenderManager();
 
-    static ShaderHandler* m_shaderHandler;
+    
+
+    // Debug stuff
+    void DEBUGTriangleCreation();
 };
