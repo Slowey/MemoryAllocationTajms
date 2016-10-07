@@ -1,48 +1,46 @@
 #include "LRUPriority.h"
 
 
-LRUPriority* LRUPriority::m_singleton = nullptr;
-
-LRUPriority * LRUPriority::Get()
+LRUPriority::LRUPriority(std::vector<std::map<GUID, size_t>>& p_list):
+	m_parserList(p_list)
 {
-	return m_singleton;
+	
 }
-
-LRUPriority::LRUPriority()
-{
-}
-
-
 LRUPriority::~LRUPriority()
 {
 }
-
-void LRUPriority::Startup(const int &p_blockSize, const int &p_numBlocks)
+void LRUPriority::UpdateMap(GUID p_id, int& o_parserHandle)
 {
-	if (m_singleton != nullptr)
+	if (o_parserHandle < 0)
 	{
-		return;
+		std::map<GUID, size_t>t_newMap;
+		m_parserList.push_back(t_newMap);
+		o_parserHandle = m_parserList.size() - 1;
 	}
-	m_singleton = (LRUPriority*)malloc(sizeof(LRUPriority));
-	new (m_singleton) LRUPriority();
+	size_t t_loopLength = m_parserList.size() - 1;
+	for (size_t i = 0; i < t_loopLength; i++)
+	{
+		for (auto iterator = m_parserList[i].begin(); iterator != m_parserList[i].end(); iterator++) {
+			iterator->second += 1;
+		}
+	}
+	m_parserList[o_parserHandle][p_id] = 0;
 }
 
-void LRUPriority::UpdateMap(std::string)
-{
-}
-
-void LRUPriority::AddToMap(std::string)
-{
-}
-
-std::string LRUPriority::PopLeastRecentlyUsed()
+GUID LRUPriority::GetRemovable()
 {
 	size_t t_leastRecentUsedValue = 0;
-	std::string t_leastRecentlyUsedGUID = ""; //Ska vara en guid.
-	for (auto iterator = m_priorityMap.begin(); iterator != m_priorityMap.end(); iterator++) {
-
+	GUID t_leastRecentlyUsedGUID = -1;
+	size_t t_loopLength = m_parserList.size() - 1;
+	for (size_t i = 0; i < t_loopLength; i++)
+	{
+		for (auto iterator = m_parserList[i].begin(); iterator != m_parserList[i].end(); iterator++) {
+			if (iterator->second >= t_leastRecentUsedValue)
+			{
+				t_leastRecentlyUsedGUID = iterator->first;
+				t_leastRecentUsedValue = iterator->second;
+			}
+		}
 	}
-
-
-	return std::string();
+	return t_leastRecentlyUsedGUID;
 }
