@@ -27,6 +27,9 @@
     <ClInclude Include="Internal\SDLManager.h">
       <Filter>Header Files\Internal</Filter>
     </ClInclude>
+    <ClInclude Include="WindowParams.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Graphics.cpp">

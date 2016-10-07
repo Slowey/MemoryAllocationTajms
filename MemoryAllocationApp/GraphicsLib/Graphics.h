@@ -1,15 +1,5 @@
 #pragma once
-
-struct WindowParams
-{
-    int argc;
-    char* argv;
-    const char* windowName;
-    float winSizeX;
-    float winSizeY;
-    float winPosX;
-    float winPosY;
-};
+#include "WindowParams.h"
 
 class Graphics
 {
