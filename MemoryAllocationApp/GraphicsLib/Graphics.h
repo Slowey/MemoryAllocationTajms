@@ -22,7 +22,7 @@ public:
    /**
    Creates the graphics manager. Call this before
    using the graphics singleton in any way.*/
-   void Startup();
+   static void Startup();
    /** 
    Creates a window with the parameters specified*/
    void CreateWindow(WindowParams p_parameters);
