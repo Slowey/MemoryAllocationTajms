@@ -17,7 +17,7 @@ LRUPriority::~LRUPriority()
 {
 }
 
-void LRUPriority::Startup(const int &p_blockSize, const int &p_numBlocks)
+void LRUPriority::Startup()
 {
 	if (m_singleton != nullptr)
 	{
