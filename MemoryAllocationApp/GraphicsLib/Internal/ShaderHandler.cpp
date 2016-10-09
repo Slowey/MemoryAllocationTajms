@@ -43,7 +43,7 @@ GLuint ShaderHandler::LoadShader(ShaderInfo p_info)
     if (!t_compiled)
     {
         GLsizei t_len;
-        glGetShaderiv(r_shader, GL_INFO_LOG_LENGTH, &t_len);
+        glGetShaderiv(r_shader, GL_INFO_LOG_LENGTH, &t_len);d
 
         GLchar* t_log = new GLchar[t_len + 1];
         glGetShaderInfoLog(r_shader, t_len, &t_len, t_log);
