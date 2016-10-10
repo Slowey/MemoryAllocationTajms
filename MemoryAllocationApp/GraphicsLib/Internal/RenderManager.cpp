@@ -41,6 +41,20 @@ GLuint RenderManager::CreateMesh(std::vector<glm::vec3>& p_positions)
    return r_positionBuffer;
 }
 
+GLuint RenderManager::CreateTexture(void * p_textureData, int p_texWidth, int p_texHeight)
+{
+   GLuint r_textureHandle;
+   glGenTextures(1, &r_textureHandle);
+   //glActiveTexture(GL_TEXTURE0); // Might be necessary
+   glBindTexture(GL_TEXTURE_2D, r_textureHandle);
+   //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); // Might be needed
+   //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR); // Might be needed
+   glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA32F, p_texWidth, p_texHeight, 0, GL_RGBA, GL_FLOAT, NULL);
+
+   //glBindImageTexture(0, r_textureHandle, 0, GL_FALSE, 0, GL_WRITE_ONLY, GL_RGBA32F); // Might be needed
+   return r_textureHandle;
+}
+
 void RenderManager::DEBUGTriangleCreation()
 {
       vector<vec3> t_positions;

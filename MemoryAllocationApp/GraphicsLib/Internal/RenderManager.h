@@ -26,6 +26,11 @@ public:
     GLuint CreateMesh(std::vector<glm::vec3>& p_positions);
 
     /**
+    Takes the provided data and turns it into a
+    texture on the GPU. Returns GLuint handle*/
+    GLuint CreateTexture(void* p_textureData, int p_texWidth, int p_texHeight);
+
+    /**
     Adds the matrix to draw list for given ID.
     If mesh with the ID doesn't exist, it does nothing.*/
     void AddMatrixToMeshDrawList(unsigned int p_meshID, glm::mat4x4 p_worldMatrix);
