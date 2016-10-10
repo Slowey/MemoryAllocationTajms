@@ -40,7 +40,17 @@ void PrioritizationManager::UpdatePriority(GUID p_id, int & o_parserHandle)
 	m_prioritization->UpdateMap(p_id, o_parserHandle);
 }
 
-void PrioritizationManager::GetRemovableResource()
+bool PrioritizationManager::GetRemovableResource()
 {
-    //ParserAndContainerManager::Get()->RemoveResource(m_prioritization->GetRemovable());
+    ParserUID t_parserUID = m_prioritization->FindAndForwardRemovable();
+    if (t_parserUID.guid != -1)
+    {
+        //forward this parserUID to parserandcontainermanager       
+    }
+    else 
+    {
+        //We are using explicit prio.
+        return false;
+    }
+    return true;
 }

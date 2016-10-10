@@ -9,7 +9,7 @@ public:
     FIFOPriority(std::vector<std::map<GUID, size_t>>& p_parserList);
     ~FIFOPriority();
     void UpdateMap(GUID p_id, int& o_parserHandle);
-    GUID GetRemovable();
+    ParserUID FindAndForwardRemovable();
 
 
 private:
