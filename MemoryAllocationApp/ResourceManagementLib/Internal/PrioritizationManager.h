@@ -16,7 +16,7 @@ public:
 	in our constructor. 
 	*/
 	void UpdatePriority(GUID p_id, int& o_parserHandle);
-    void GetRemovableResource();
+    bool GetRemovableResource();
 
 private:
 	PrioritizationManager(PrioritizationAlgorithm p_algo);

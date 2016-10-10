@@ -11,7 +11,7 @@ public:
 	LRUPriority(std::vector<std::map<GUID, size_t>>& p_parserList);
 	~LRUPriority();
 	void UpdateMap(GUID p_id, int& o_parserHandle);
-	GUID GetRemovable();
+	ParserUID FindAndForwardRemovable();
 
 private:
 	std::vector<std::map<GUID, size_t>>& m_parserList;

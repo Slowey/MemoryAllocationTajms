@@ -8,7 +8,8 @@ int main()
     ResourceManager* resMan = ResourceManager::Get();
     ParserAndContainerManager::Initialize();
     ObjManager::Initialize();
-    std::string fileNAme = "test";
+
+    std::string fileNAme = "test.zip";
     resMan->LoadChunk(fileNAme);
 
     int a = 3;
