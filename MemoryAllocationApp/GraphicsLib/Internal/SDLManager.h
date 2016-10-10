@@ -31,11 +31,32 @@ public:
     Swaps backbuffer and updates all inputs.*/
     void Update();
 
+    /**
+    Returns whether the mask provided is pressed
+    down. Build bit mask from enum class InputKey*/
+    bool KeysDown(int p_keys);
+
 private:
     static SDLManager* m_singleton;
     SDLManager();
     ~SDLManager();
+
+    void UpdateInput();
+
+
+    int m_keysPressed;
+    
     
     SDL_Window* m_window;
     SDL_GLContext m_glContext;
+
+};
+enum class InputKey
+{
+   W = 0x01,
+   S = 0x02,
+   A = 0x04,
+   D = 0x08,
+   Up = 0x10,
+   Down = 0x20,
 };
