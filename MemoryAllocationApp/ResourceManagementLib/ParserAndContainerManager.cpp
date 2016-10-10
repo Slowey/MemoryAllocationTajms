@@ -37,3 +37,12 @@ void ParserAndContainerManager::InsertNewParserToList(ParserAndContainer* p_newP
     m_fileEndingToParser[p_fileEndingToParse].push_back(p_newParser);
 }
 
+void ParserAndContainerManager::ParseByEnding(void * p_fileBuffer, size_t p_sizeOfBuffer, char * p_fileName)
+{
+    std::string t_fileNameString(p_fileName);
+    size_t t_lastDot = t_fileNameString.find_last_of(".");
+    std::string t_ending = t_fileNameString.substr(t_lastDot);
+    std::string t_name = t_fileNameString.substr(0, t_lastDot);
+
+    int a = 3;
+}

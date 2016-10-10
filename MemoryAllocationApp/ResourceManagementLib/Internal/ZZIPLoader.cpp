@@ -35,13 +35,12 @@ void ZZIPLoader::LoadFile(std::string p_fileName)
 
                 if (len) {
                     // Parse for specific
-                    parAndContMan.ParseByEnding(temporaryBuffer, dirent.d_name);
+                    parAndContMan.ParseByEnding(temporaryBuffer, dirent.st_size, dirent.d_name);
 
                 }
                 zzip_file_close(fp);
             }
         }
-
         zzip_dir_close(dir);
     }
 }
