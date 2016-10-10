@@ -4,6 +4,7 @@
 class ParserAndContainer
 {
 public:
+    // The file ending this parser wants to parse, should be without the '.'. for example "png"
     ParserAndContainer(std::string p_fileEndingToParse);
     ~ParserAndContainer();
 

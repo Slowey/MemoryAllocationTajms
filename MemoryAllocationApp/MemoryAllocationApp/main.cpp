@@ -7,6 +7,8 @@
 #include <thread>
 #include <mutex>
 
+
+
 class TestClass
 {
 public:
@@ -20,11 +22,27 @@ public:
 
 };
 
+void CreateWindow()
+{
+    WindowParams params;
+    params.argc = 0;
+    params.argv = "";
+    params.windowName = "Window Name";
+    params.winPosX = 100;
+    params.winPosY = 100;
+    params.winSizeX = 1024;
+    params.winSizeY = 768;
+    //Graphics::Get()->CreateWindow(params);
+}
 
 int main(int numArgs, char * args[])
 {
     MemoryManager::Startup(1024, 2000000);
-    Graphics::Startup();
+
+    //Graphics::Startup();
+    //CreateWindow();
+   // while(true)
+        //Graphics::Get()->Update();
     TajmsLib tajm;
 
     int testToRun = 15;
