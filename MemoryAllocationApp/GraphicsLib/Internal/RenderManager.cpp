@@ -1,6 +1,9 @@
 // This class
 #include "RenderManager.h"
 
+// Third party
+#include <SOIL\SOIL.h>
+
 // Our stuff
 #include "CameraManager.h"
 
@@ -41,17 +44,22 @@ GLuint RenderManager::CreateMesh(std::vector<glm::vec3>& p_positions)
    return r_positionBuffer;
 }
 
-GLuint RenderManager::CreateTexture(void * p_textureData, int p_texWidth, int p_texHeight)
+GLuint RenderManager::CreateTexture(void * p_textureData, int p_numBytes)
 {
-   GLuint r_textureHandle;
-   glGenTextures(1, &r_textureHandle);
-   //glActiveTexture(GL_TEXTURE0); // Might be necessary
-   glBindTexture(GL_TEXTURE_2D, r_textureHandle);
-   //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); // Might be needed
-   //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR); // Might be needed
-   glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA32F, p_texWidth, p_texHeight, 0, GL_RGBA, GL_FLOAT, NULL);
-
-   //glBindImageTexture(0, r_textureHandle, 0, GL_FALSE, 0, GL_WRITE_ONLY, GL_RGBA32F); // Might be needed
+   // Magic soil thing that's really untested
+   GLuint r_textureHandle = SOIL_load_OGL_texture_from_memory(
+      reinterpret_cast<unsigned char*>(p_textureData),
+      p_numBytes,
+      SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS | SOIL_FLAG_INVERT_Y | SOIL_FLAG_COMPRESS_TO_DXT);
+   //// Code to manually create an empty texture. Dumping this here sounds like a bood idea
+   //glGenTextures(1, &r_textureHandle);
+   ////glActiveTexture(GL_TEXTURE0); // Might be necessary
+   //glBindTexture(GL_TEXTURE_2D, r_textureHandle);
+   ////glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); // Might be needed
+   ////glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR); // Might be needed
+   //glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA32F, p_texWidth, p_texHeight, 0, GL_RGBA, GL_FLOAT, NULL); // Last parameter is the data
+   //
+   ////glBindImageTexture(0, r_textureHandle, 0, GL_FALSE, 0, GL_WRITE_ONLY, GL_RGBA32F); // Might be needed
    return r_textureHandle;
 }
 
