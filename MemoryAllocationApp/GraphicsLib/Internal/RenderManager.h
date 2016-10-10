@@ -8,6 +8,7 @@
 
 // Our stuff
 #include "ShaderHandler.h"
+#include "../Vertex.h"
 
 /**
 Singleton to handle all mannger of rendering.
@@ -24,6 +25,11 @@ public:
     /**
     Creates a mesh and returns the GLuint.*/
     GLuint CreateMesh(std::vector<glm::vec3>& p_positions);
+
+    /**
+    Creates a mesh from a set of vertices and 
+    returns the handle to the buffer.*/
+    GLuint CreateMesh(std::vector<Vertex> p_vertices);
 
     /**
     Takes the provided data and turns it into a

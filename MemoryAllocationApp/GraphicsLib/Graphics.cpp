@@ -52,3 +52,8 @@ unsigned int Graphics::CreateMesh(std::vector<glm::vec3>& p_positions)
 {
    return RenderManager::Get()->CreateMesh(p_positions);
 }
+
+unsigned int Graphics::CreateMesh(std::vector<Vertex>& p_vertices)
+{
+   return RenderManager::Get()->CreateMesh(p_vertices);
+}

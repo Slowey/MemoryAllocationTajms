@@ -44,6 +44,17 @@ GLuint RenderManager::CreateMesh(std::vector<glm::vec3>& p_positions)
    return r_positionBuffer;
 }
 
+GLuint RenderManager::CreateMesh(std::vector<Vertex> p_vertices)
+{
+   GLuint r_positionBuffer;
+   glGenBuffers(1, &r_positionBuffer);
+   glBindBuffer(GL_ARRAY_BUFFER, r_positionBuffer);
+   glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * p_vertices.size(), &p_vertices[0], GL_STATIC_DRAW);
+   // Create empty draw list for new mesh
+   m_meshDrawLists[r_positionBuffer] = vector<mat4x4>();
+   return r_positionBuffer;
+}
+
 GLuint RenderManager::CreateTexture(void * p_textureData, int p_numBytes)
 {
    // Magic soil thing that's really untested
