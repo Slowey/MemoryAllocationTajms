@@ -8,10 +8,45 @@
 ObjManager* ObjManager::m_singleton = nullptr;
 
 ObjManager::ObjManager(): ParserAndContainer("obj")
-{
-    void* vp = static_cast<void*>(new std::string("f 1/2/3 4/5/6 7/8/9\nf 2/3/4 5/6/8 1/2/3"));
-    // ParseAndSaveParsedData(vp, 1, 1);
-    delete vp;
+{ 
+    //std::stringstream myBasicOBJStream;
+    //myBasicOBJStream << "v -0.500000 -0.500000 0.500000\n";
+    //myBasicOBJStream << "v 0.500000 -0.500000 0.500000\n";
+    //myBasicOBJStream << "v -0.500000 0.500000 0.500000\n";
+    //myBasicOBJStream << "v 0.500000 0.500000 0.500000\n";
+    //myBasicOBJStream << "v -0.500000 0.500000 -0.500000\n";
+    //myBasicOBJStream << "v 0.500000 0.500000 -0.500000\n";
+    //myBasicOBJStream << "v -0.500000 -0.500000 -0.500000\n";
+    //myBasicOBJStream << "v 0.500000 -0.500000 -0.500000\n";
+    //
+    //myBasicOBJStream << "vt 0.000000 0.000000\n";
+    //myBasicOBJStream << "vt 1.000000 0.000000\n";
+    //myBasicOBJStream << "vt 0.000000 1.000000\n";
+    //myBasicOBJStream << "vt 1.000000 1.000000\n";
+
+    //myBasicOBJStream << "vn 0.000000 0.000000 1.000000\n";
+    //myBasicOBJStream << "vn 0.000000 1.000000 0.000000\n";
+    //myBasicOBJStream << "vn 0.000000 0.000000 -1.000000\n";
+    //myBasicOBJStream << "vn 0.000000 -1.000000 0.000000\n";
+    //myBasicOBJStream << "vn 1.000000 0.000000 0.000000\n";
+    //myBasicOBJStream << "vn -1.000000 0.000000 0.000000\n";
+
+    //myBasicOBJStream << "f 1/1/1 2/2/1 3/3/1\n";
+    //myBasicOBJStream << "f 3/3/1 2/2/1 4/4/1\n";
+    //myBasicOBJStream << "f 3/1/2 4/2/2 5/3/2\n";
+    //myBasicOBJStream << "f 5/3/2 4/2/2 6/4/2\n";
+    //myBasicOBJStream << "f 5/4/3 6/3/3 7/2/3\n";
+    //myBasicOBJStream << "f 7/2/3 6/3/3 8/1/3\n";
+    //myBasicOBJStream << "f 7/1/4 8/2/4 1/3/4\n";
+    //myBasicOBJStream << "f 1/3/4 8/2/4 2/4/4\n";
+    //myBasicOBJStream << "f 2/1/5 8/2/5 4/3/5\n";
+    //myBasicOBJStream << "f 4/3/5 8/2/5 6/4/5\n";
+    //myBasicOBJStream << "f 7/1/6 1/2/6 5/3/6\n";
+    //myBasicOBJStream << "f 5/3/6 1/2/6 3/4/6\n";
+    //std::string myBasicOBJ = myBasicOBJStream.str();      
+    //void* vp = static_cast<void*>(&myBasicOBJ);
+    //ParseAndSaveParsedData(vp, 1, 1);
+    //delete vp;
 }
 
 
