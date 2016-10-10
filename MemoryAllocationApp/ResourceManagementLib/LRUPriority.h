@@ -8,12 +8,12 @@
 class LRUPriority : public Prioritization
 {
 public:
-	LRUPriority(std::vector<std::map<GUID, size_t>>& p_parserList);
+	LRUPriority();
 	~LRUPriority();
-	void UpdateMap(GUID p_id, int& o_parserHandle);
+	void UpdateMap(GUID p_id, size_t p_parserHandle);
 	ParserUID FindAndForwardRemovable();
 
 private:
-	std::vector<std::map<GUID, size_t>>& m_parserList;
+	std::map<size_t, std::map<GUID, size_t>>m_parserList;
 };
 

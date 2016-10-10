@@ -1,9 +1,8 @@
 #include "FIFOPriority.h"
 
-FIFOPriority::FIFOPriority(std::vector<std::map<GUID, size_t>>& p_parserList)
-    :m_parserList(p_parserList), m_increment(0)
+FIFOPriority::FIFOPriority()
 {
-    
+    m_increment = 0;
 }
 
 FIFOPriority::~FIFOPriority()
@@ -11,17 +10,17 @@ FIFOPriority::~FIFOPriority()
 
 }
 
-void FIFOPriority::UpdateMap(GUID p_id, int & o_parserHandle)
+void FIFOPriority::UpdateMap(GUID p_id, size_t p_parserHandle)
 {
-    // Find out if this handle is assigned. If not add the parser to the list of parser
-    if (o_parserHandle < 0)
+    //Check to see if handle is legit. If not add to the list.
+    if (m_parserList.find(p_parserHandle) == m_parserList.end())
     {
-        std::map<GUID, size_t>t_newMap;
-        m_parserList.push_back(t_newMap);
-        o_parserHandle = m_parserList.size() - 1;
+        std::map<GUID, size_t>t_map;
+        m_parserList.insert(std::pair<size_t, std::map<GUID, size_t>>(p_parserHandle, t_map));
+        //m_parserList[p_parserHandle]; Testa TODO
     }
     // Check if the guid is already in the map. If not add it to the map and increment the variable.
-    if (m_parserList[o_parserHandle].insert(std::pair<GUID, size_t>(p_id, m_increment)).second)
+    if (m_parserList[p_parserHandle].insert(std::pair<GUID, size_t>(p_id, m_increment)).second)
     {
         // WARNING TODO If program runs very long this variable might reach its max and that will bork this algorithm. 
         m_increment++;
@@ -36,14 +35,15 @@ ParserUID FIFOPriority::FindAndForwardRemovable()
     t_parserUID.parserHandle = -1;
     int t_lowestIterator = INT_MAX;
     //Iterate over the list containing the different parsers maps. (We dont want to remove memory that a different parser is using. Two parsers can use the same memory and GUID but it is handled as two different objects
-    for (size_t i = 0; i < t_length; i++)
+    for (auto iterator1 = m_parserList.begin(); iterator1 != m_parserList.end(); iterator1++)
     {
         //Iterate over the parser map. Find the lowest iteratornumber (FIFO) and save the handles to it (List and GUID)
-        for (auto iterator = m_parserList[i].begin(); iterator != m_parserList[i].end(); iterator++) {
-            if (iterator->second < t_lowestIterator)
+        for (auto iterator2 = m_parserList[iterator1->first].begin(); iterator2 != m_parserList[iterator1->first].end(); iterator2++) {
+            if (iterator2->second < t_lowestIterator)
             {
-                t_parserUID.guid = iterator->first;
-                t_parserUID.parserHandle = i;
+                t_parserUID.guid = iterator2->first;
+                t_parserUID.parserHandle = iterator1->first;
+                t_lowestIterator = iterator2->second;
             }
         }
     }
