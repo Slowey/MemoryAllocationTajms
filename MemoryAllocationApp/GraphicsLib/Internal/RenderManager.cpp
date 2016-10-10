@@ -32,9 +32,9 @@ GLuint RenderManager::CreateMesh(std::vector<glm::vec3>& p_positions)
 void RenderManager::DEBUGTriangleCreation()
 {
       vector<vec3> t_positions;
-      t_positions.push_back(vec3(-0.5, -0.5, 0));
-      t_positions.push_back(vec3(0.5, -0.5, 0));
-      t_positions.push_back(vec3(0, 0.5, 0));
+      t_positions.push_back(vec3(-0.5, -0.5, 1));
+      t_positions.push_back(vec3(0.5, -0.5, 1));
+      t_positions.push_back(vec3(0, 0.5, 1));
       GLuint meshVBO = RenderManager::Get()->CreateMesh(t_positions);
 }
 
@@ -63,12 +63,10 @@ void RenderManager::Render()
     glUseProgram(m_shaderHandler->GetShaderProgram(ShaderProgram::DefaultShader));
 
     // This treats the camera matrix as the world matrix. ONLY FOR TESTING PURPOSES!
-    mat4x4 world = CameraManager::Get()->GetCameraMatrix();
-    //mat4x4 world = mat4x4();
-    glUniformMatrix4fv(
-       glGetUniformLocation(m_shaderHandler->GetShaderProgram(ShaderProgram::DefaultShader),
-          "world"), 1, GL_FALSE, 
-       &world[0][0]);
+    mat4x4 mvp = CameraManager::Get()->GetCameraMatrix();
+    GLuint mvpHandle = glGetUniformLocation(m_shaderHandler->GetShaderProgram(ShaderProgram::DefaultShader), "MVP");
+    glUniformMatrix4fv(mvpHandle, 1, GL_FALSE, &mvp[0][0]);
+
     glEnableVertexAttribArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, 1); // Really hard coded.
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);

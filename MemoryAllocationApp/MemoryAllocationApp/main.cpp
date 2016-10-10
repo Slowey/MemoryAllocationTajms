@@ -30,8 +30,8 @@ void CreateWindow()
     params.windowName = "Window Name";
     params.winPosX = 100;
     params.winPosY = 100;
-    params.winSizeX = 1024;
-    params.winSizeY = 768;
+    params.winSizeX = 1280;
+    params.winSizeY = 720;
     Graphics::Get()->CreateWindow(params);
 }
 
