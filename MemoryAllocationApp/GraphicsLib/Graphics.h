@@ -1,4 +1,12 @@
 #pragma once
+// Third party
+#include <glm\glm.hpp>
+
+// Standard library
+#include <vector>
+#include <unordered_map>
+
+// Our stuff
 #include "WindowParams.h"
 
 class Graphics
@@ -21,10 +29,22 @@ public:
    Performs a graphics update with all that it includes*/
    void Update();
 
+   /**
+   Loads a mesh into a vertex buffer and returns the ID*/
+   unsigned int CreateMesh(std::vector<glm::vec3>& p_positions);
+
+   /**
+   Draws desired mesh at world position and rotation
+   specified in the provided world matrix parameter.
+   If the mesh ID does not exist, nothing will happen.*/
+   void DrawObject(unsigned int p_meshID, glm::mat4x4 p_worldMatrix);
+
 private:
    static Graphics* m_singleton;
    Graphics();
    ~Graphics();
+   
+   
    
 };
 

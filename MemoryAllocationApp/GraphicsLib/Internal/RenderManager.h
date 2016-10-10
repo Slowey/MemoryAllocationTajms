@@ -21,12 +21,21 @@ public:
     // Public pointers. This was easiest
     ShaderHandler* m_shaderHandler;
 
+    /**
+    Creates a mesh and returns the GLuint.*/
+    GLuint CreateMesh(std::vector<glm::vec3>& p_positions);
+
+    /**
+    Adds the matrix to draw list for given ID.
+    If mesh with the ID doesn't exist, it does nothing.*/
+    void AddMatrixToMeshDrawList(unsigned int p_meshID, glm::mat4x4 p_worldMatrix);
+
 private:
     static RenderManager* m_singleton;
     RenderManager();
     ~RenderManager();
 
-    GLuint CreateMesh(std::vector<glm::vec3>& p_positions);
+    std::unordered_map<unsigned int, std::vector<glm::mat4x4>> m_meshDrawLists;
 
     // Debug stuff
     void DEBUGTriangleCreation();

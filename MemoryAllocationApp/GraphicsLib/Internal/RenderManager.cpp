@@ -1,7 +1,8 @@
 // This class
 #include "RenderManager.h"
 
-
+// Our stuff
+#include "CameraManager.h"
 
 
 // debug
@@ -10,6 +11,16 @@
 using namespace std;
 
 RenderManager* RenderManager::m_singleton = nullptr;
+
+void RenderManager::AddMatrixToMeshDrawList(unsigned int p_meshID, glm::mat4x4 p_worldMatrix)
+{
+   if (m_meshDrawLists.find(p_meshID) == m_meshDrawLists.end())
+   {
+      // Mesh didn't exist! We do nothing. This could be changed for debug assistance
+      return;
+   }
+   m_meshDrawLists[p_meshID].push_back(p_worldMatrix);
+}
 
 RenderManager::RenderManager()
 {
@@ -24,27 +35,19 @@ GLuint RenderManager::CreateMesh(std::vector<glm::vec3>& p_positions)
    GLuint r_positionBuffer;
    glGenBuffers(1, &r_positionBuffer);
    glBindBuffer(GL_ARRAY_BUFFER, r_positionBuffer);
-   glBufferData(GL_ARRAY_BUFFER, sizeof(float) * p_positions.size(), &p_positions[0].x, GL_STATIC_DRAW);
-   return GLuint();
+   glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 3 * p_positions.size(), &p_positions[0], GL_STATIC_DRAW);
+   // Create empty draw list for new mesh
+   m_meshDrawLists[r_positionBuffer] = vector<mat4x4>();
+   return r_positionBuffer;
 }
 
 void RenderManager::DEBUGTriangleCreation()
 {
-    GLuint t_positionBuffer;
-    glGenBuffers(1, &t_positionBuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, t_positionBuffer);
-    // Hardcoded square
-    float t_data[] = {
-        -0.5f, -0.5f,
-        -0.5f, 0.5f,
-        0.5f, -0.5f,
-        0.5f, 0.5f
-    };
-    glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 8, t_data, GL_STREAM_DRAW);
-    GLuint programHandle = m_shaderHandler->GetShaderProgram(ShaderProgram::DefaultShader);
-    GLint t_positionUniformHandle = glGetAttribLocation(programHandle, "pos");
-    glVertexAttribPointer(t_positionUniformHandle, 2, GL_FLOAT, GL_FALSE, 0, 0);
-    glEnableVertexAttribArray(t_positionUniformHandle);
+      vector<vec3> t_positions;
+      t_positions.push_back(vec3(-0.5, -0.5, 1));
+      t_positions.push_back(vec3(0.5, -0.5, 1));
+      t_positions.push_back(vec3(0, 0.5, 1));
+      GLuint meshVBO = RenderManager::Get()->CreateMesh(t_positions);
 }
 
 
@@ -68,10 +71,37 @@ void RenderManager::Render()
     // Set background color. Probably should be done here
     glClearColor(0, 0, 1, 0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    // Get camera matrix
+    mat4x4 vp = CameraManager::Get()->GetCameraMatrix();
+
     // Start render with default shader
     glUseProgram(m_shaderHandler->GetShaderProgram(ShaderProgram::DefaultShader));
-    
-    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+
+    // Iterate over all meshes to draw them
+    for (auto it = m_meshDrawLists.begin(); it != m_meshDrawLists.end(); ++it)
+    {
+       // Iterate over all matrices for current mesh
+       size_t t_numMatrices = it->second.size();
+       for (size_t i = 0; i < t_numMatrices; i++)
+       {
+          mat4x4 mvp = vp * it->second.at(i);
+          GLuint mvpHandle = glGetUniformLocation(m_shaderHandler->GetShaderProgram(ShaderProgram::DefaultShader), "MVP");
+          glUniformMatrix4fv(mvpHandle, 1, GL_FALSE, &mvp[0][0]);
+
+          glEnableVertexAttribArray(0);
+          // Bind current buffer
+          glBindBuffer(GL_ARRAY_BUFFER, it->first); 
+          glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+
+          glDrawArrays(GL_TRIANGLES, 0, 3);
+          glDisableVertexAttribArray(0);
+       }
+       
+    }
+
+
+
     
 }
 
