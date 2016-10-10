@@ -2,12 +2,16 @@
 #include "Internal/DataManager.h"
 #include <MemoryManager.h>
 #include <PoolAllocator.h>
+#include "Internal/PrioritizationManager.h"
+#include "EnumsAndDefines.h"
 #pragma comment (lib, "MemLib.lib")
 
 ResourceManager* ResourceManager::m_singleton = nullptr;
 
 ResourceManager::ResourceManager()
 {
+    PrioritizationManager::Startup(PrioritizationAlgorithm::LRU);
+    m_prioritizationManager = PrioritizationManager::Get();
 }
 
 
@@ -22,14 +26,15 @@ void ResourceManager::Startup()
 	}
 	m_singleton = new ResourceManager();
 }
-void ResourceManager::ReferencePing()
+
+void ResourceManager::FreeResource(GUID p_guid)
 {
-	
+	//Skicka vidare till parser and container
 }
-void ResourceManager::FreeResource(std::string p_resource, const size_t& p_size)
+void ResourceManager::FreeResource()
 {
-	//Skicka vidare till Datamanager
-	// Ska minnet frias upp här eller datamanager eller någon annan stans?
+    GUID t_guidOfRemovableResource = m_prioritizationManager->GetRemovableResource();
+    //SKicka guidet till parser and container för removal.
 }
 
 ResourceManager * ResourceManager::Get()
