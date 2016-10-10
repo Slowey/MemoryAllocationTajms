@@ -13,7 +13,10 @@ Struct used internally by the camera manager*/
 struct Camera
 {
    Camera(vec3 p_pos, vec3 p_tar, vec3 p_up, mat4x4 p_perspective)
-      :position(p_pos), target(p_tar), up(p_up), perspective(p_perspective) {}
+      :position(p_pos), target(p_tar), up(p_up), perspective(p_perspective) 
+   {
+      world = lookAt(p_pos, p_pos + p_tar, p_up);
+   }
    vec3 position;
    vec3 target;
    vec3 up;
@@ -32,12 +35,14 @@ public:
    static CameraManager* Get();
    static void Startup();
    void Update();
+
+   mat4x4 GetCameraMatrix();
    Camera* m_camera;
 
 private:
    static CameraManager* m_singleton;
    CameraManager();
    ~CameraManager();
-   static float m_movementSpeed;
+   float m_movementSpeed;
 };
 

@@ -1,8 +1,9 @@
 #version 430
-in vec3 pos;
+layout (location = 0) in vec3 position;
+uniform mat4 world;
 out vec4 posF;
 void main() 
 {
-	posF = vec4(pos.xyz,1.0);
+	posF = world * vec4(position, 1.0);
 	gl_Position = posF;
 }

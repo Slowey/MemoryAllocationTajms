@@ -1,7 +1,8 @@
 // This class
 #include "RenderManager.h"
 
-
+// Our stuff
+#include "CameraManager.h"
 
 
 // debug
@@ -24,27 +25,17 @@ GLuint RenderManager::CreateMesh(std::vector<glm::vec3>& p_positions)
    GLuint r_positionBuffer;
    glGenBuffers(1, &r_positionBuffer);
    glBindBuffer(GL_ARRAY_BUFFER, r_positionBuffer);
-   glBufferData(GL_ARRAY_BUFFER, sizeof(float) * p_positions.size(), &p_positions[0].x, GL_STATIC_DRAW);
-   return GLuint();
+   glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 3 * p_positions.size(), &p_positions[0], GL_STATIC_DRAW);
+   return r_positionBuffer;
 }
 
 void RenderManager::DEBUGTriangleCreation()
 {
-    GLuint t_positionBuffer;
-    glGenBuffers(1, &t_positionBuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, t_positionBuffer);
-    // Hardcoded square
-    float t_data[] = {
-        -0.5f, -0.5f,
-        -0.5f, 0.5f,
-        0.5f, -0.5f,
-        0.5f, 0.5f
-    };
-    glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 8, t_data, GL_STREAM_DRAW);
-    GLuint programHandle = m_shaderHandler->GetShaderProgram(ShaderProgram::DefaultShader);
-    GLint t_positionUniformHandle = glGetAttribLocation(programHandle, "pos");
-    glVertexAttribPointer(t_positionUniformHandle, 2, GL_FLOAT, GL_FALSE, 0, 0);
-    glEnableVertexAttribArray(t_positionUniformHandle);
+      vector<vec3> t_positions;
+      t_positions.push_back(vec3(-0.5, -0.5, 0));
+      t_positions.push_back(vec3(0.5, -0.5, 0));
+      t_positions.push_back(vec3(0, 0.5, 0));
+      GLuint meshVBO = RenderManager::Get()->CreateMesh(t_positions);
 }
 
 
@@ -70,8 +61,20 @@ void RenderManager::Render()
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     // Start render with default shader
     glUseProgram(m_shaderHandler->GetShaderProgram(ShaderProgram::DefaultShader));
-    
-    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+
+    // This treats the camera matrix as the world matrix. ONLY FOR TESTING PURPOSES!
+    mat4x4 world = CameraManager::Get()->GetCameraMatrix();
+    //mat4x4 world = mat4x4();
+    glUniformMatrix4fv(
+       glGetUniformLocation(m_shaderHandler->GetShaderProgram(ShaderProgram::DefaultShader),
+          "world"), 1, GL_FALSE, 
+       &world[0][0]);
+    glEnableVertexAttribArray(0);
+    glBindBuffer(GL_ARRAY_BUFFER, 1); // Really hard coded.
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+
+    glDrawArrays(GL_TRIANGLES, 0, 3);
+    glDisableVertexAttribArray(0);
     
 }
 

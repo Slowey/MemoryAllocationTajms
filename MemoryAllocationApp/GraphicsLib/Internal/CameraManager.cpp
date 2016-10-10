@@ -43,13 +43,21 @@ void CameraManager::Update()
 
    m_camera->position += t_movement;
 
+   // Create world matrix
+   m_camera->world = lookAt(m_camera->position, m_camera->position + m_camera->target, m_camera->up);
+
+}
+
+mat4x4 CameraManager::GetCameraMatrix()
+{
+   return m_camera->world; // Add perspective?
 }
 
 CameraManager::CameraManager()
 {
    // Create camera
    mat4x4 t_perspective = perspectiveFov(90, 1920, 1080, 1, 1000);
-   CameraManager::Get()->m_camera = new Camera(vec3(0, 0, 0), vec3(0, 0, 1), vec3(0, 1, 0), t_perspective);
+   m_camera = new Camera(vec3(0, 0, 0), vec3(0, 0, 1), vec3(0, 1, 0), t_perspective);
 
    // Set some variables
    m_movementSpeed = 0.01f;
