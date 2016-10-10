@@ -1,4 +1,12 @@
 #pragma once
+// Third Party
+#include <glm/glm.hpp>
+#include <GL2\glew.h>
+
+// Standard libraries
+#include <vector>
+
+// Our stuff
 #include "ShaderHandler.h"
 
 /**
@@ -17,7 +25,7 @@ private:
     RenderManager();
     ~RenderManager();
 
-    
+    GLuint CreateMesh(std::vector<glm::vec3>& p_positions);
 
     // Debug stuff
     void DEBUGTriangleCreation();
