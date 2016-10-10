@@ -77,12 +77,12 @@
     <LibraryPath>../x64/Release/;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>../ResourceManagementLib/;../GraphicsLib/3rd Party/include/;$(IncludePath)</IncludePath>
-    <LibraryPath>../x64/Debug/;$(LibraryPath)</LibraryPath>
+    <IncludePath>../ResourceManagementLib/;../GraphicsLib/;../GraphicsLib/3rd Party/include/;$(IncludePath)</IncludePath>
+    <LibraryPath>../GraphicsLib/3rd Party/lib;../x64/Debug/;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>../ResourceManagementLib/;../GraphicsLib/3rd Party/include/glm;$(IncludePath)</IncludePath>
-    <LibraryPath>../x64/Release/;$(LibraryPath)</LibraryPath>
+    <IncludePath>../ResourceManagementLib/;../GraphicsLib/;../GraphicsLib/3rd Party/include/;$(IncludePath)</IncludePath>
+    <LibraryPath>../x64/Release/;../GraphicsLib/3rd Party/lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -102,7 +102,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>ResourceManagementLib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>ResourceManagementLib.lib;TajmsLib.lib;SDL2.lib;SDL2main.lib;glew32.lib;OpenGL32.lib;GraphicsLib.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
