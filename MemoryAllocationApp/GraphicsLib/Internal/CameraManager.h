@@ -9,24 +9,6 @@
 
 using namespace glm;
 /**
-Internal singleton to store and update all forms of
-camera related stuff. This will directly handle inputs
-from the SDL manager. Yup, real clever*/
-class CameraManager
-{
-public:
-   static CameraManager* Get();
-   static void Startup();
-   //Camera* m_camera;
-
-private:
-   static CameraManager* m_singleton;
-   CameraManager();
-   ~CameraManager();
-   
-};
-
-/**
 Struct used internally by the camera manager*/
 struct Camera
 {
@@ -39,3 +21,23 @@ struct Camera
    mat4x4 perspective;
    mat4x4 world;
 };
+
+/**
+Internal singleton to store and update all forms of
+camera related stuff. This will directly handle inputs
+from the SDL manager. Yup, real clever*/
+class CameraManager
+{
+public:
+   static CameraManager* Get();
+   static void Startup();
+   void Update();
+   Camera* m_camera;
+
+private:
+   static CameraManager* m_singleton;
+   CameraManager();
+   ~CameraManager();
+   static float m_movementSpeed;
+};
+
