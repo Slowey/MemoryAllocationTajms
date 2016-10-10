@@ -18,6 +18,7 @@ public:
     static RenderManager* Get();
     static void Startup();
     void Render();
+    // Public pointers. This was easiest
     ShaderHandler* m_shaderHandler;
 
 private:

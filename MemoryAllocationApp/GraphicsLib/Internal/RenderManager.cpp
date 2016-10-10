@@ -1,6 +1,14 @@
 // This class
 #include "RenderManager.h"
 
+
+
+
+// debug
+#include <iostream>
+#include "SDLManager.h"
+using namespace std;
+
 RenderManager* RenderManager::m_singleton = nullptr;
 
 RenderManager::RenderManager()
@@ -62,8 +70,8 @@ void RenderManager::Render()
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     // Start render with default shader
     glUseProgram(m_shaderHandler->GetShaderProgram(ShaderProgram::DefaultShader));
-
+    
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-
+    
 }
 

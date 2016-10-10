@@ -10,12 +10,54 @@
 
 SDLManager* SDLManager::m_singleton = nullptr;
 
+bool SDLManager::KeysDown(int p_keys)
+{
+   int result = m_keysPressed & p_keys;
+   return result == p_keys;
+}
+
 SDLManager::SDLManager()
 {
 }
 
 SDLManager::~SDLManager()
 {
+}
+
+#include <iostream>
+using namespace std;
+void SDLManager::UpdateInput()
+{
+   SDL_Event t_event;
+   SDL_PumpEvents();
+   const Uint8* t_keyState = SDL_GetKeyboardState(NULL);
+   m_keysPressed = 0;
+   
+   if (t_keyState[SDL_SCANCODE_W])
+   {
+      m_keysPressed |= (int)InputKey::W;
+   }
+   if (t_keyState[SDL_SCANCODE_S])
+   {
+      m_keysPressed |= (int)InputKey::S;
+   }   
+   if (t_keyState[SDL_SCANCODE_A])
+   {
+      m_keysPressed |= (int)InputKey::A;
+   }   
+   if (t_keyState[SDL_SCANCODE_D])
+   {
+      m_keysPressed |= (int)InputKey::D;
+   }
+   if (t_keyState[SDL_SCANCODE_SPACE])
+   {
+      m_keysPressed |= (int)InputKey::Up;
+   }
+   if (t_keyState[SDL_SCANCODE_C])
+   {
+      m_keysPressed |= (int)InputKey::Down;
+   }
+
 }
 
 void SDLManager::Startup()
@@ -57,6 +99,7 @@ void SDLManager::Update()
     // Swap backbuffer
     SDL_GL_SwapWindow(m_window);
     // Update input (TODO)
+    UpdateInput();
 }
 
 
