@@ -41,8 +41,31 @@ void ParserAndContainerManager::ParseByEnding(void * p_fileBuffer, size_t p_size
 {
     std::string t_fileNameString(p_fileName);
     size_t t_lastDot = t_fileNameString.find_last_of(".");
-    std::string t_ending = t_fileNameString.substr(t_lastDot);
-    std::string t_name = t_fileNameString.substr(0, t_lastDot);
+
+    // No ending
+    if (t_lastDot == std::string::npos)
+        return;
+
+    // Find start of name
+    size_t t_beginning = t_fileNameString.find_last_of("/");
+    if (t_beginning == std::string::npos)
+        t_beginning = -1;
+
+    // Increment because we dont want the slash in the name
+    t_beginning++;
+    std::string t_ending = t_fileNameString.substr(t_lastDot + 1);
+    std::string t_name = t_fileNameString.substr(t_beginning, (t_lastDot - t_beginning));
+    GUID t_guid = GUID(t_name);
+
+    // Find all parsers and parse for ending
+    auto m_parsers = m_fileEndingToParser.at(t_ending);
+    for (size_t i = 0; i < m_parsers.size(); i++)
+    {
+        if (m_parsers[i]->ResourceExist(t_guid))
+        {
+            m_parsers[i]->ParseAndSaveParsedData(p_fileBuffer, p_sizeOfBuffer, t_guid);
+        }
+    }
 
     int a = 3;
 }
