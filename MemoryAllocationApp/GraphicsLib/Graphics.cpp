@@ -42,3 +42,8 @@ void Graphics::Update()
     CameraManager::Get()->Update();
     RenderManager::Get()->Render();
 }
+
+uint Graphics::CreateMesh(std::vector<glm::vec3>& p_positions)
+{
+   return RenderManager::Get()->CreateMesh(p_positions);
+}
