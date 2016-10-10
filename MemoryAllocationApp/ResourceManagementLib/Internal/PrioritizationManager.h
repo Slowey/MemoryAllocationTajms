@@ -16,14 +16,13 @@ public:
 	in our constructor. 
 	*/
 	void UpdatePriority(GUID p_id, int& o_parserHandle);
+    void GetRemovableResource();
 
 private:
 	PrioritizationManager(PrioritizationAlgorithm p_algo);
 	~PrioritizationManager();
 	static PrioritizationManager* m_singleton;
 	Prioritization* m_prioritization;
-
-protected:
 	std::vector<std::map<GUID, size_t>> m_parserList;
 	
 };

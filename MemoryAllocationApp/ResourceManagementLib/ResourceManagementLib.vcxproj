@@ -125,7 +125,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="EnumsAndDefines.h" />
+    <ClInclude Include="FIFOPriority.h" />
     <ClInclude Include="Internal\DataManager.h" />
+    <ClInclude Include="Internal\Explicit.h" />
+    <ClInclude Include="Internal\ExplicitPriority.h" />
     <ClInclude Include="Internal\FileLoader.h" />
     <ClInclude Include="Internal\Prioritization.h" />
     <ClInclude Include="Internal\PrioritizationManager.h" />
@@ -137,7 +140,9 @@
     <ClInclude Include="WavManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="FIFOPriority.cpp" />
     <ClCompile Include="Internal\DataManager.cpp" />
+    <ClCompile Include="Internal\ExplicitPriority.cpp" />
     <ClCompile Include="Internal\FileLoader.cpp" />
     <ClCompile Include="Internal\PrioritizationManager.cpp" />
     <ClCompile Include="Internal\ZZIPLoader.cpp" />
