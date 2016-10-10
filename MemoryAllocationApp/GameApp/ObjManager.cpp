@@ -3,6 +3,7 @@
 #include <iostream>
 #include <glm/glm.hpp>
 #include <vector>
+#include <Graphics.h>
 
 ObjManager* ObjManager::m_singleton = nullptr;
 
