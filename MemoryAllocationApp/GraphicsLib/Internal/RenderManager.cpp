@@ -12,6 +12,16 @@ using namespace std;
 
 RenderManager* RenderManager::m_singleton = nullptr;
 
+void RenderManager::AddMatrixToMeshDrawList(unsigned int p_meshID, glm::mat4x4 p_worldMatrix)
+{
+   if (m_meshDrawLists.find(p_meshID) == m_meshDrawLists.end())
+   {
+      // Mesh didn't exist! We do nothing. This could be changed for debug assistance
+      return;
+   }
+   m_meshDrawLists[p_meshID].push_back(p_worldMatrix);
+}
+
 RenderManager::RenderManager()
 {
 }
@@ -26,6 +36,8 @@ GLuint RenderManager::CreateMesh(std::vector<glm::vec3>& p_positions)
    glGenBuffers(1, &r_positionBuffer);
    glBindBuffer(GL_ARRAY_BUFFER, r_positionBuffer);
    glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 3 * p_positions.size(), &p_positions[0], GL_STATIC_DRAW);
+   // Create empty draw list for new mesh
+   m_meshDrawLists[r_positionBuffer] = vector<mat4x4>();
    return r_positionBuffer;
 }
 
