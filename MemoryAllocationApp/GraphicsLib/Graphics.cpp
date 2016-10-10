@@ -43,7 +43,9 @@ void Graphics::Update()
     RenderManager::Get()->Render();
 }
 
-uint Graphics::CreateMesh(std::vector<glm::vec3>& p_positions)
+unsigned int Graphics::CreateMesh(std::vector<glm::vec3>& p_positions)
 {
-   return RenderManager::Get()->CreateMesh(p_positions);
+   GLuint r_objectVBO = RenderManager::Get()->CreateMesh(p_positions);
+   //m_meshDrawLists[r_objectVBO] = std::vector<glm::mat4x4>();
+   return r_objectVBO;
 }
