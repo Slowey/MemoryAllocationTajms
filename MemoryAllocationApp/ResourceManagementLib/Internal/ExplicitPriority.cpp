@@ -17,5 +17,5 @@ void ExplicitPriority::UpdateMap(GUID p_id, int & o_parserHandle)
 
 GUID ExplicitPriority::GetRemovable()
 {
-   
+    return GUID();
 }

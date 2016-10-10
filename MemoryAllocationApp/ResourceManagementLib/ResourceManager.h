@@ -1,5 +1,6 @@
 #pragma once
 #include <string> //Byt mot forward decl TODO
+#include "EnumsAndDefines.h"
 class PrioritizationManager;
 class ResourceManager
 {

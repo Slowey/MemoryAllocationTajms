@@ -5,6 +5,9 @@
 #include "Prioritization.h"
 class ExplicitPriority : public Prioritization
 {
+    /**
+    This class is supposed to give the user the full access to removal logic instead of using priority algoritms
+    */
 public:
     ExplicitPriority(std::vector<std::map<GUID, size_t>>& p_parserList);
     ~ExplicitPriority();

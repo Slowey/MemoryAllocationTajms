@@ -33,7 +33,7 @@ void ResourceManager::FreeResource(GUID p_guid)
 }
 void ResourceManager::FreeResource()
 {
-    GUID t_guidOfRemovableResource = m_prioritizationManager->GetRemovableResource();
+    m_prioritizationManager->GetRemovableResource();
     //SKicka guidet till parser and container för removal.
 }
 
