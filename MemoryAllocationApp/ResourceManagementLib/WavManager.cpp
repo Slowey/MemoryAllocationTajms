@@ -33,6 +33,13 @@ WavManager & WavManager::Get()
 
 void WavManager::ParseAndSaveParsedData(void* p_dataStart, size_t p_size, GUID p_guid)
 {
+    // see if we already have the resource
+    if (m_wavResources.count(p_guid) != 0)
+    {
+        // we already have the resource!
+        return;
+    }
+
     ParsedWav newParsedData;
     newParsedData.startOfMemory = p_dataStart;
     newParsedData.size = p_size;
