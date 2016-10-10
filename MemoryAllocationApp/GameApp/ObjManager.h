@@ -1,5 +1,11 @@
 #pragma once
 #include <ParserAndContainer.h>
+#include <unordered_map>
+struct ParsedObj
+{
+    unsigned int graphicResourceID;
+};
+
 class ObjManager: public ParserAndContainer
 {
 public:
@@ -14,5 +20,6 @@ public:
     void ParseAndSaveParsedData(void* p_dataStart, size_t p_size, GUID p_guid) override;
 private:
     static ObjManager* m_singleton;
+    std::unordered_map<GUID, ParsedObj> m_objResources;
 };
 

@@ -9,8 +9,8 @@ ObjManager* ObjManager::m_singleton = nullptr;
 
 ObjManager::ObjManager(): ParserAndContainer("obj")
 {
-    void* vp = static_cast<void*>(new std::string("f 1/2/3 4/5/6 7/8/9"));
-    //ParseAndSaveParsedData(vp, 1, 1);
+    void* vp = static_cast<void*>(new std::string("f 1/2/3 4/5/6 7/8/9\nf 2/3/4 5/6/8 1/2/3"));
+    // ParseAndSaveParsedData(vp, 1, 1);
     delete vp;
 }
 
@@ -41,6 +41,12 @@ ObjManager & ObjManager::Get()
 
 void ObjManager::ParseAndSaveParsedData(void * p_dataStart, size_t p_size, GUID p_guid)
 {
+    // see if we already have the resource
+    if (m_objResources.count(p_guid) != 0)
+    {
+        // we already have the resource!
+        return;
+    }
     // Parsing of obj file format
     std::string* inputData = static_cast<std::string*>(p_dataStart);
     std::cout << *inputData;
@@ -97,7 +103,7 @@ void ObjManager::ParseAndSaveParsedData(void * p_dataStart, size_t p_size, GUID 
     // go thorugh all the faces, doesnt matter which indices vector we take, they are all the same size
     size_t count = vertexIndices.size();
     // TODO should be a complete mesh data, not just pos
-    std::vector<glm::vec3> completedVerices;
+    std::vector<glm::vec3> completedVertices;
     for (size_t i = 0; i < count; i++)
     {
         // -1 cuz obj starts at 1 and c++ at 0. [] on the second vector access since we know the size of them and shouldnt miss
@@ -105,6 +111,13 @@ void ObjManager::ParseAndSaveParsedData(void * p_dataStart, size_t p_size, GUID 
         glm::vec2 vertexUVMap = uvMappingData.at(uvIndices[i] - 1);
         glm::vec3 vertexNormal = normalData.at(normalIndices[i] - 1);
         // push the completed vertex TODO should be a complete mesh data, not just pos
-        completedVerices.push_back(vertexPosition);
+        completedVertices.push_back(vertexPosition);
     }
+
+    // create a new resource
+    ParsedObj newResource;
+    // Make graphics engine create the mesh, this return a unsigned int which we will use to access the resource
+    newResource.graphicResourceID = Graphics::Get()->CreateMesh(completedVertices);
+
+    m_objResources[p_guid] = newResource;
 }

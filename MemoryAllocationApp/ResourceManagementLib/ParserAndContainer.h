@@ -8,6 +8,7 @@ public:
     ParserAndContainer(std::string p_fileEndingToParse);
     ~ParserAndContainer();
 
+    // Dont delete the raw data, it might be used later!!
     virtual void ParseAndSaveParsedData(void* p_dataStart, size_t p_size, GUID p_guid) = 0;
 };
 
