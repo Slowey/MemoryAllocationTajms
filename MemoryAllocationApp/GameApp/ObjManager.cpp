@@ -10,7 +10,7 @@ ObjManager* ObjManager::m_singleton = nullptr;
 ObjManager::ObjManager(): ParserAndContainer("obj")
 {
     void* vp = static_cast<void*>(new std::string("f 1/2/3 4/5/6 7/8/9"));
-    ParseAndSaveParsedData(vp, 1, 1);
+    //ParseAndSaveParsedData(vp, 1, 1);
     delete vp;
 }
 
