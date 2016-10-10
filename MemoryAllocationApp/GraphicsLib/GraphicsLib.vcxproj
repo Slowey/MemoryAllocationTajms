@@ -120,9 +120,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Graphics.h" />
+    <ClInclude Include="Internal\CameraManager.h" />
+    <ClInclude Include="Internal\RenderManager.h" />
+    <ClInclude Include="Internal\SDLManager.h" />
+    <ClInclude Include="Internal\ShaderHandler.h" />
+    <ClInclude Include="WindowParams.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Graphics.cpp" />
+    <ClCompile Include="Internal\CameraManager.cpp" />
+    <ClCompile Include="Internal\RenderManager.cpp" />
+    <ClCompile Include="Internal\SDLManager.cpp" />
+    <ClCompile Include="Internal\ShaderHandler.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

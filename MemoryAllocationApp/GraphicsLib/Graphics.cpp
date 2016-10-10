@@ -1,6 +1,6 @@
 #include "Graphics.h"
-#include <SDL\SDL.h>
-#include <GL2\glew.h>
+#include "Internal\SDLManager.h"
+#include "Internal\RenderManager.h"
 
 Graphics* Graphics::m_singleton = nullptr;
 
@@ -14,6 +14,7 @@ Graphics * Graphics::Get()
 void Graphics::Startup()
 {
     m_singleton = new Graphics();
+    
 }
 
 Graphics::Graphics()
@@ -27,24 +28,14 @@ Graphics::~Graphics()
 
 void Graphics::CreateWindow(WindowParams p_parameters)
 {
-    SDL_Window* window;
+    // This order is VERY important. Don't mess with it
+    SDLManager::Startup();
+    SDLManager::Get()->CreateWindow(p_parameters);
+    RenderManager::Startup();
+}
 
-    SDL_Init(SDL_INIT_EVERYTHING);
-
-    window = SDL_CreateWindow(
-        p_parameters.windowName,
-        p_parameters.winPosX, 
-        p_parameters.winPosY, 
-        p_parameters.winSizeX,
-        p_parameters.winSizeY,
-        SDL_WINDOW_OPENGL);
-
-    SDL_GLContext glContext = SDL_GL_CreateContext(window);
-    GLenum status = glewInit();
-    if (status != GLEW_OK)
-        int derp = 5; // Just for debug purpose
-
-    // This has to be done somewhere
-    // SDL_DestroyWindow(window);
-
+void Graphics::Update()
+{
+    SDLManager::Get()->Update();
+    RenderManager::Get()->Render();
 }
