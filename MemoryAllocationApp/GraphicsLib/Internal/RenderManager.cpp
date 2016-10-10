@@ -100,6 +100,18 @@ void RenderManager::Render()
        
     }
 
+    // HARD CODED SHIT BELOW! Draws a silly triangle
+    GLuint mvpHandle = glGetUniformLocation(m_shaderHandler->GetShaderProgram(ShaderProgram::DefaultShader), "MVP");
+    glUniformMatrix4fv(mvpHandle, 1, GL_FALSE, &vp[0][0]);
+
+    glEnableVertexAttribArray(0);
+    // Bind current buffer
+    glBindBuffer(GL_ARRAY_BUFFER, 1);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+
+    glDrawArrays(GL_TRIANGLES, 0, 3);
+    glDisableVertexAttribArray(0);
+
 
 
     
