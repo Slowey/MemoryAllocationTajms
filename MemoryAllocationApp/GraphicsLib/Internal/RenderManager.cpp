@@ -63,79 +63,96 @@ GLuint RenderManager::CreateTexture(void * p_textureData, int p_numBytes)
    return r_textureHandle;
 }
 
+GLuint RenderManager::CreateTexture(const char * p_fileName)
+{
+   // Let soil do all the work
+   GLuint r_texturehandle = SOIL_load_OGL_texture(p_fileName, SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID,
+      SOIL_FLAG_MIPMAPS | SOIL_FLAG_INVERT_Y | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT);
+   if (0 == r_texturehandle)
+   {
+      // Shit went wrong. Error handling?
+      printf("SOIL loading error: '%s'\n", SOIL_last_result());
+   }
+   return r_texturehandle;
+}
+
 void RenderManager::DEBUGTriangleCreation()
 {
-      vector<vec3> t_positions;
-      t_positions.push_back(vec3(-0.5, -0.5, 1));
-      t_positions.push_back(vec3(0.5, -0.5, 1));
-      t_positions.push_back(vec3(0, 0.5, 1));
-      GLuint meshVBO = RenderManager::Get()->CreateMesh(t_positions);
+   // Create vertex buffer
+   vector<vec3> t_positions;
+   t_positions.push_back(vec3(-0.5, -0.5, 1));
+   t_positions.push_back(vec3(0.5, -0.5, 1));
+   t_positions.push_back(vec3(0, 0.5, 1));
+   GLuint meshVBO = RenderManager::Get()->CreateMesh(t_positions);
+
+   // Create texture
+   GLuint textureHandle = CreateTexture("../GraphicsLib/Resources/test.jpg");
 }
 
 
 RenderManager * RenderManager::Get()
 {
-    // Todo: safer handling when startup not called
-    if (m_singleton != nullptr)
-        return m_singleton;
-    return nullptr;
+   // Todo: safer handling when startup not called
+   if (m_singleton != nullptr)
+      return m_singleton;
+   return nullptr;
 }
 
 void RenderManager::Startup()
 {
-    m_singleton = new RenderManager();
-    RenderManager::Get()->m_shaderHandler = new ShaderHandler();
-    RenderManager::Get()->DEBUGTriangleCreation();
+   m_singleton = new RenderManager();
+   RenderManager::Get()->m_shaderHandler = new ShaderHandler();
+   RenderManager::Get()->DEBUGTriangleCreation();
 }
 
 void RenderManager::Render()
 {
-    // Set background color. Probably should be done here
-    glClearColor(0, 0, 1, 0);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+   // Set background color. Probably should be done here
+   glClearColor(0, 0, 1, 0);
+   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    // Get camera matrix
-    mat4x4 vp = CameraManager::Get()->GetCameraMatrix();
+   // Get camera matrix
+   mat4x4 vp = CameraManager::Get()->GetCameraMatrix();
 
-    // Start render with default shader
-    glUseProgram(m_shaderHandler->GetShaderProgram(ShaderProgram::DefaultShader));
+   // Start render with default shader
+   glUseProgram(m_shaderHandler->GetShaderProgram(ShaderProgram::DefaultShader));
 
-    // Iterate over all meshes to draw them
-    for (auto it = m_meshDrawLists.begin(); it != m_meshDrawLists.end(); ++it)
-    {
-       // Iterate over all matrices for current mesh
-       size_t t_numMatrices = it->second.size();
-       for (size_t i = 0; i < t_numMatrices; i++)
-       {
-          mat4x4 mvp = vp * it->second.at(i);
-          GLuint mvpHandle = glGetUniformLocation(m_shaderHandler->GetShaderProgram(ShaderProgram::DefaultShader), "MVP");
-          glUniformMatrix4fv(mvpHandle, 1, GL_FALSE, &mvp[0][0]);
+   // Iterate over all meshes to draw them
+   for (auto it = m_meshDrawLists.begin(); it != m_meshDrawLists.end(); ++it)
+   {
+      // Iterate over all matrices for current mesh
+      size_t t_numMatrices = it->second.size();
+      for (size_t i = 0; i < t_numMatrices; i++)
+      {
+         mat4x4 mvp = vp * it->second.at(i);
+         GLuint mvpHandle = glGetUniformLocation(m_shaderHandler->GetShaderProgram(ShaderProgram::DefaultShader), "MVP");
+         glUniformMatrix4fv(mvpHandle, 1, GL_FALSE, &mvp[0][0]);
 
-          glEnableVertexAttribArray(0);
-          // Bind current buffer
-          glBindBuffer(GL_ARRAY_BUFFER, it->first); 
-          glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+         glEnableVertexAttribArray(0);
+         // Bind current buffer
+         glBindBuffer(GL_ARRAY_BUFFER, it->first);
+         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
 
-          glDrawArrays(GL_TRIANGLES, 0, 3);
-          glDisableVertexAttribArray(0);
-       }
-       
-    }
+         glDrawArrays(GL_TRIANGLES, 0, 3);
+         glDisableVertexAttribArray(0);
+      }
 
-    // HARD CODED SHIT BELOW! Draws a silly triangle
-    GLuint mvpHandle = glGetUniformLocation(m_shaderHandler->GetShaderProgram(ShaderProgram::DefaultShader), "MVP");
-    glUniformMatrix4fv(mvpHandle, 1, GL_FALSE, &vp[0][0]);
+   }
 
-    glEnableVertexAttribArray(0);
-    // Bind current buffer
-    glBindBuffer(GL_ARRAY_BUFFER, 1);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+   // HARD CODED SHIT BELOW! Draws a silly triangle
+   GLuint mvpHandle = glGetUniformLocation(m_shaderHandler->GetShaderProgram(ShaderProgram::DefaultShader), "MVP");
+   glUniformMatrix4fv(mvpHandle, 1, GL_FALSE, &vp[0][0]);
 
-    glDrawArrays(GL_TRIANGLES, 0, 3);
-    glDisableVertexAttribArray(0);
+   glEnableVertexAttribArray(0);
+   // Bind current buffer
+   glBindBuffer(GL_ARRAY_BUFFER, 1);
+   glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+
+   glDrawArrays(GL_TRIANGLES, 0, 3);
+   glDisableVertexAttribArray(0);
 
 
 
-    
+
 }
 

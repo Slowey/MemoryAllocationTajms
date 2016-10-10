@@ -31,6 +31,11 @@ public:
     GLuint CreateTexture(void* p_textureData, int p_numbBytes);
 
     /**
+    Loads the specified file and converts it to
+    a texture. Returns handle to texture*/
+    GLuint CreateTexture(const char* p_fileName);
+
+    /**
     Adds the matrix to draw list for given ID.
     If mesh with the ID doesn't exist, it does nothing.*/
     void AddMatrixToMeshDrawList(unsigned int p_meshID, glm::mat4x4 p_worldMatrix);
