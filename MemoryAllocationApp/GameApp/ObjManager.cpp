@@ -4,6 +4,7 @@
 #include <glm/glm.hpp>
 #include <vector>
 #include <Graphics.h>
+#include <EnumsAndDefines.h>
 
 ObjManager* ObjManager::m_singleton = nullptr;
 
@@ -45,7 +46,8 @@ ObjManager::ObjManager(): ParserAndContainer("obj")
     myBasicOBJStream << "f 5/3/6 1/2/6 3/4/6\n";
     std::string myBasicOBJ = myBasicOBJStream.str();      
     void* vp = static_cast<void*>(&myBasicOBJ);
-    //ParseAndSaveParsedData(vp, 1, 1);
+    GUID newGUID = GUID(1, 1);
+    ParseAndSaveParsedData(vp, 1, newGUID);
     delete vp;
 }
 

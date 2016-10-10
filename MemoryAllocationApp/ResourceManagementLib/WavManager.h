@@ -1,7 +1,7 @@
 #pragma once
 #include "ParserAndContainer.h"
 
-#include <unordered_map>
+#include <map>
 struct ParsedWav
 {
     void* startOfMemory;
@@ -25,6 +25,6 @@ public:
 private:
     static WavManager* m_singleton;
     // Contains all the loaded wav resources, parsed and ready to use
-    std::unordered_map<GUID, ParsedWav> m_wavResources;
+    std::map<GUID, ParsedWav> m_wavResources;
 };
 
