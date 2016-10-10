@@ -1,16 +1,5 @@
 #pragma once
-
-
-struct WindowParams
-{
-    int argc;
-    char* argv;
-    const char* windowName;
-    float winSizeX;
-    float winSizeY;
-    float winPosX;
-    float winPosY;
-};
+#include "WindowParams.h"
 
 class Graphics
 {
@@ -24,8 +13,13 @@ public:
    using the graphics singleton in any way.*/
    static void Startup();
    /** 
-   Creates a window with the parameters specified*/
+   Creates a window with the parameters specified.
+   This also initializes openGL (yes, that's how we're doing it)*/
    void CreateWindow(WindowParams p_parameters);
+
+   /**
+   Performs a graphics update with all that it includes*/
+   void Update();
 
 private:
    static Graphics* m_singleton;

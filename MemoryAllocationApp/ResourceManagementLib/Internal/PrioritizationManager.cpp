@@ -1,5 +1,7 @@
 #include "PrioritizationManager.h"
 #include "../LRUPriority.h"
+#include "../FIFOPriority.h"
+#include "../ParserAndContainerManager.h"
 
 PrioritizationManager* PrioritizationManager::m_singleton = nullptr;
 
@@ -11,7 +13,7 @@ PrioritizationManager::PrioritizationManager(PrioritizationAlgorithm p_algo)
 	}
 	else if (p_algo == PrioritizationAlgorithm::FIFO)
 	{
-
+        m_prioritization = new FIFOPriority(m_parserList);
 	}
 }
 
@@ -36,4 +38,9 @@ void PrioritizationManager::Startup(PrioritizationAlgorithm p_algo)
 void PrioritizationManager::UpdatePriority(GUID p_id, int & o_parserHandle)
 {
 	m_prioritization->UpdateMap(p_id, o_parserHandle);
+}
+
+void PrioritizationManager::GetRemovableResource()
+{
+    //ParserAndContainerManager::Get()->RemoveResource(m_prioritization->GetRemovable());
 }
