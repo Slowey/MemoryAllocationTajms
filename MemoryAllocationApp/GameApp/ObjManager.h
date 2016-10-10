@@ -20,6 +20,8 @@ public:
     void ParseAndSaveParsedData(void* p_dataStart, size_t p_size, GUID p_guid) override;
     // Returns the parsed data on the GUID
     ParsedObj GetResource(const GUID& p_guid);
+
+    void FreeResource(GUID p_guid) override;
 private:
     static ObjManager* m_singleton;
     std::unordered_map<GUID, ParsedObj> m_objResources;
