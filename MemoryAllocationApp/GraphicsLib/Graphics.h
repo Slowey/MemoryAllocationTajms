@@ -8,6 +8,7 @@
 
 // Our stuff
 #include "WindowParams.h"
+#include "Vertex.h"
 
 class Graphics
 {
@@ -32,6 +33,10 @@ public:
    /**
    Loads a mesh into a vertex buffer and returns the ID*/
    unsigned int CreateMesh(std::vector<glm::vec3>& p_positions);
+
+   /**
+   Creates a mesh from provided vertices and returns handle*/
+   unsigned int CreateMesh(std::vector<Vertex>& p_vertices);
 
    /**
    Draws desired mesh at world position and rotation
