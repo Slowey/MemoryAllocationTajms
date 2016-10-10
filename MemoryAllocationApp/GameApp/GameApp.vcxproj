@@ -102,7 +102,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>ResourceManagementLib.lib;TajmsLib.lib;SDL2.lib;SDL2main.lib;glew32.lib;libSoil.lib;OpenGL32.lib;GraphicsLib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>ResourceManagementLib.lib;TajmsLib.lib;SDL2.lib;SDL2main.lib;glew32.lib;SOIL.lib;OpenGL32.lib;GraphicsLib.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
