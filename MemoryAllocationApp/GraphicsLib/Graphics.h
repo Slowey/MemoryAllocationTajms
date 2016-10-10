@@ -4,6 +4,7 @@
 
 // Standard library
 #include <vector>
+#include <unordered_map>
 
 // Our stuff
 #include "WindowParams.h"
@@ -30,12 +31,19 @@ public:
 
    /**
    Loads a mesh into a vertex buffer and returns the ID*/
-   uint CreateMesh(std::vector<glm::vec3>& p_positions);
+   unsigned int CreateMesh(std::vector<glm::vec3>& p_positions);
+
+   /**
+   Draws desired mesh at world position and rotation
+   specified in the provided world matrix parameter.*/
+   void DrawObject(unsigned int p_meshID, glm::mat4x4 p_worldMatrix);
 
 private:
    static Graphics* m_singleton;
    Graphics();
    ~Graphics();
+   
+   std::unordered_map<unsigned int, std::vector<glm::mat4x4>> m_meshDrawLists;
    
 };
 
