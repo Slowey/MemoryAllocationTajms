@@ -18,6 +18,11 @@ void Graphics::Startup()
     
 }
 
+void Graphics::DrawObject(unsigned int p_meshID, glm::mat4x4 p_worldMatrix)
+{
+   RenderManager::Get()->AddMatrixToMeshDrawList(p_meshID, p_worldMatrix);
+}
+
 Graphics::Graphics()
 {
 }
@@ -45,7 +50,5 @@ void Graphics::Update()
 
 unsigned int Graphics::CreateMesh(std::vector<glm::vec3>& p_positions)
 {
-   GLuint r_objectVBO = RenderManager::Get()->CreateMesh(p_positions);
-   //m_meshDrawLists[r_objectVBO] = std::vector<glm::mat4x4>();
-   return r_objectVBO;
+   return RenderManager::Get()->CreateMesh(p_positions);
 }

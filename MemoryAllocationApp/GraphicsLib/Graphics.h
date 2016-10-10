@@ -35,7 +35,8 @@ public:
 
    /**
    Draws desired mesh at world position and rotation
-   specified in the provided world matrix parameter.*/
+   specified in the provided world matrix parameter.
+   If the mesh ID does not exist, nothing will happen.*/
    void DrawObject(unsigned int p_meshID, glm::mat4x4 p_worldMatrix);
 
 private:
@@ -43,7 +44,7 @@ private:
    Graphics();
    ~Graphics();
    
-   std::unordered_map<unsigned int, std::vector<glm::mat4x4>> m_meshDrawLists;
+   
    
 };
 
