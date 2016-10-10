@@ -46,7 +46,7 @@ void ParserAndContainerManager::FreeResource(size_t p_parserHandle, GUID p_guid)
     m_prioHandlesToParser[p_parserHandle]->FreeResource(p_guid);
 }
 
-void ParserAndContainerManager::ParseByEnding(void * p_fileBuffer, size_t p_sizeOfBuffer, char * p_fileName)
+void ParserAndContainerManager::ParseByEnding(void * p_fileBuffer, const size_t &p_sizeOfBuffer, char * p_fileName)
 {
     std::string t_fileNameString(p_fileName);
     size_t t_lastDot = t_fileNameString.find_last_of(".");
@@ -64,16 +64,22 @@ void ParserAndContainerManager::ParseByEnding(void * p_fileBuffer, size_t p_size
     t_beginning++;
     std::string t_ending = t_fileNameString.substr(t_lastDot + 1);
     std::string t_name = t_fileNameString.substr(t_beginning, (t_lastDot - t_beginning));
-    //GUID t_guid = GUID(t_name);
+
+    // We have decided to use split sign in ID, ask Techis & Jaws
+    size_t t_idSplit = t_name.find_last_of("_");
+    if (t_idSplit == std::string::npos)
+        return;
+
+    GUID t_guid = GUID(t_name);
 
     // Find all parsers and parse for ending
     auto m_parsers = m_fileEndingToParser.at(t_ending);
     for (size_t i = 0; i < m_parsers.size(); i++)
     {
-        /*if (m_parsers[i]->ResourceExist(t_guid))
+        if (m_parsers[i]->ResourceExist(t_guid))
         {
             m_parsers[i]->ParseAndSaveParsedData(p_fileBuffer, p_sizeOfBuffer, t_guid);
-        }*/
+        }
     }
 
     int a = 3;

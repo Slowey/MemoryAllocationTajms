@@ -21,7 +21,7 @@ public:
     void FreeResource(size_t p_parserHandle, GUID p_guid);
 
     // Parses filename with guid and file ending and parses with correct parser
-    void ParseByEnding(void * p_fileBuffer, size_t p_sizeOfBuffer, char * p_fileName);
+    void ParseByEnding(void * p_fileBuffer, const size_t &p_sizeOfBuffer, char * p_fileName);
 
 private:
     static ParserAndContainerManager* m_singleton;

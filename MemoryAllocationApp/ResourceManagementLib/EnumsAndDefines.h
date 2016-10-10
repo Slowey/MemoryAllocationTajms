@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 
 enum PrioritizationAlgorithm
 {
@@ -25,6 +26,16 @@ struct GUID
 		val[1] = p_valueTwo;
 	}
 	GUID() {};
+
+    GUID(std::string &p_idInString)
+    {
+        // 12321_1321321
+        size_t split = p_idInString.find_last_of("_");
+        std::string first = p_idInString.substr(split);
+        std::string second = p_idInString.substr(0, split);
+        val[0] = stol(first);
+        val[1] = stol(first);
+    }
 };
 
 #define ERROR_GUID GUID(-1,-1)
