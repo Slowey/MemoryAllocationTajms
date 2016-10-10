@@ -45,3 +45,7 @@ void WavManager::ParseAndSaveParsedData(void* p_dataStart, size_t p_size, GUID p
     newParsedData.size = p_size;
     m_wavResources[p_guid] = newParsedData;    
 }
+
+void WavManager::FreeResource(GUID p_guid)
+{
+}
