@@ -28,7 +28,7 @@ public:
     /**
     Takes the provided data and turns it into a
     texture on the GPU. Returns GLuint handle*/
-    GLuint CreateTexture(void* p_textureData, int p_texWidth, int p_texHeight);
+    GLuint CreateTexture(void* p_textureData, int p_numbBytes);
 
     /**
     Adds the matrix to draw list for given ID.
