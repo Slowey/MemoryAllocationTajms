@@ -8,3 +8,8 @@ enum PrioritizationAlgorithm
 };
 
 typedef int GUID;
+struct ParserUID
+{
+    GUID guid;
+    size_t parserHandle;
+};

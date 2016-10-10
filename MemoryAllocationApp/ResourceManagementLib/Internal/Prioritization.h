@@ -1,10 +1,6 @@
 #pragma once
 #include "../EnumsAndDefines.h"
-struct ParserUID
-{
-    GUID guid;
-    size_t parserHandle;
-};
+
 class Prioritization
 {
 public:
