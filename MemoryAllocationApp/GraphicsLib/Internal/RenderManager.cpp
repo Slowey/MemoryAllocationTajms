@@ -11,6 +11,15 @@ RenderManager::~RenderManager()
 {
 }
 
+GLuint RenderManager::CreateMesh(std::vector<glm::vec3>& p_positions)
+{
+   GLuint r_positionBuffer;
+   glGenBuffers(1, &r_positionBuffer);
+   glBindBuffer(GL_ARRAY_BUFFER, r_positionBuffer);
+   glBufferData(GL_ARRAY_BUFFER, sizeof(float) * p_positions.size(), &p_positions[0].x, GL_STATIC_DRAW);
+   return GLuint();
+}
+
 void RenderManager::DEBUGTriangleCreation()
 {
     GLuint t_positionBuffer;
