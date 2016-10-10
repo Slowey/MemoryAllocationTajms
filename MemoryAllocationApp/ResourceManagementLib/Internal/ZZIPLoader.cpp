@@ -25,11 +25,19 @@ void ZZIPLoader::LoadFile(std::string p_fileName)
             //assuming that there is a stdafx.h file in the test.zip...
             ZZIP_FILE* fp = zzip_file_open(dir, dirent.d_name, 0);
             if (fp) {
-                char buf[10];
-                zzip_ssize_t len = zzip_file_read(fp, buf, 10);
+                // Create buffer that can hold the memory
+                // We only keep the memory for one resource at a time?
+                char* temporaryBuffer = new char[dirent.st_size];
+
+                // Read the input to the buffer
+                zzip_ssize_t len = zzip_file_read(fp, temporaryBuffer, dirent.st_size);
+
                 if (len) {
-                    /* show head of README */
-                    _write(1, buf, len);
+                    
+                    // Parse for specific
+
+
+
                 }
                 zzip_file_close(fp);
             }
