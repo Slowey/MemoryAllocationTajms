@@ -28,13 +28,13 @@ void FIFOPriority::UpdateMap(GUID p_id, int & o_parserHandle)
     }
 }
 
-GUID FIFOPriority::GetRemovable()
+ParserUID FIFOPriority::FindAndForwardRemovable()
 {
     // Variables needed for this function
     size_t t_length = m_parserList.size() - 1;
-    GUID t_guidToRemove;
+    ParserUID t_parserUID;
+    t_parserUID.parserHandle = -1;
     int t_lowestIterator = INT_MAX;
-    int t_vectorContainingRemovable = -1;
     //Iterate over the list containing the different parsers maps. (We dont want to remove memory that a different parser is using. Two parsers can use the same memory and GUID but it is handled as two different objects
     for (size_t i = 0; i < t_length; i++)
     {
@@ -42,12 +42,12 @@ GUID FIFOPriority::GetRemovable()
         for (auto iterator = m_parserList[i].begin(); iterator != m_parserList[i].end(); iterator++) {
             if (iterator->second < t_lowestIterator)
             {
-                t_guidToRemove = iterator->first;
-                t_vectorContainingRemovable = i;
+                t_parserUID.guid = iterator->first;
+                t_parserUID.parserHandle = i;
             }
         }
     }
     //Remove the guid from the map and return the GUID so someone else can free the resource.
-    m_parserList[t_vectorContainingRemovable].erase(t_guidToRemove);
-    return t_guidToRemove;
+    m_parserList[t_parserUID.parserHandle].erase(t_parserUID.guid);
+    return t_parserUID;
 }
