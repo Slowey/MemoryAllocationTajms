@@ -21,12 +21,14 @@ public:
     // Public pointers. This was easiest
     ShaderHandler* m_shaderHandler;
 
+    GLuint CreateMesh(std::vector<glm::vec3>& p_positions);
+
 private:
     static RenderManager* m_singleton;
     RenderManager();
     ~RenderManager();
 
-    GLuint CreateMesh(std::vector<glm::vec3>& p_positions);
+    
 
     // Debug stuff
     void DEBUGTriangleCreation();

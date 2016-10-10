@@ -1,6 +1,7 @@
 #include "Graphics.h"
 #include "Internal\SDLManager.h"
 #include "Internal\RenderManager.h"
+#include "Internal\CameraManager.h"
 
 Graphics* Graphics::m_singleton = nullptr;
 
@@ -32,10 +33,12 @@ void Graphics::CreateWindow(WindowParams p_parameters)
     SDLManager::Startup();
     SDLManager::Get()->CreateWindow(p_parameters);
     RenderManager::Startup();
+    CameraManager::Startup();
 }
 
 void Graphics::Update()
 {
     SDLManager::Get()->Update();
+    CameraManager::Get()->Update();
     RenderManager::Get()->Render();
 }
