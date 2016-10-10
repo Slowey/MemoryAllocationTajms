@@ -43,7 +43,7 @@ void PrioritizationManager::UpdatePriority(GUID p_id, int & o_parserHandle)
 bool PrioritizationManager::GetRemovableResource()
 {
     ParserUID t_parserUID = m_prioritization->FindAndForwardRemovable();
-    if (t_parserUID.guid != -1)
+    if (t_parserUID.guid != ERROR_GUID)
     {
            
     }

@@ -16,6 +16,9 @@ struct GUID
 	bool const operator<(const GUID &o)const {
 		return val[0] < o.val[0] || (val[0] == o.val[0] && val[1] < o.val[1]);
 	}
+    bool const operator!=(const GUID &o)const {
+        return val[0] != o.val[0] || val[1] != o.val[1];
+    }
 	GUID(long long p_valueOne, long long p_valueTwo)
 	{
 		val[0] = p_valueOne;
@@ -23,6 +26,9 @@ struct GUID
 	}
 	GUID() {};
 };
+
+#define ERROR_GUID GUID(-1,-1)
+
 struct ParserUID
 {
     GUID guid;

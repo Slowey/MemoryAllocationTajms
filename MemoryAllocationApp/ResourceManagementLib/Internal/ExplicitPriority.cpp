@@ -19,7 +19,7 @@ void ExplicitPriority::UpdateMap(GUID p_id, int & o_parserHandle)
 ParserUID ExplicitPriority::FindAndForwardRemovable()
 {
     ParserUID t_parserUID;
-    t_parserUID.guid = -1;
+    t_parserUID.guid = ERROR_GUID;
     printf("You ended up in priority management while running explicit freeing of resources. Will not free resource");
     return t_parserUID;
 }
