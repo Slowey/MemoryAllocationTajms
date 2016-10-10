@@ -76,7 +76,7 @@ ObjManager & ObjManager::Get()
     return *m_singleton;
 }
 
-void ObjManager::ParseAndSaveParsedData(void * p_dataStart, size_t p_size, GUID p_guid)
+void ObjManager::ParseAndSaveParsedData(void* p_dataStart, const size_t &p_size, const GUID &p_guid)
 {
     // see if we already have the resource
     if (m_objResources.count(p_guid) != 0)
@@ -168,6 +168,11 @@ ParsedObj ObjManager::GetResource(const GUID & p_guid)
     return m_objResources.at(p_guid);
 }
 
-void ObjManager::FreeResource(GUID p_guid)
+bool ObjManager::ResourceExist(const GUID &p_guid)
+{
+    return true;// TODO FIX :D
+}
+
+void ObjManager::FreeResource(const GUID &p_guid)
 {
 }

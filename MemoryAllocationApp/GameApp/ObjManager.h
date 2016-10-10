@@ -17,11 +17,13 @@ public:
     // Get singleton
     static ObjManager& Get();
     // Parses the wav format and saves it to a container mapping between GUID and ... TODO take GUID as input
-    void ParseAndSaveParsedData(void* p_dataStart, const size_t &p_size, GUID p_guid) override;
+    void ParseAndSaveParsedData(void* p_dataStart, const size_t &p_size, const GUID &p_guid) override;
     // Returns the parsed data on the GUID
     ParsedObj GetResource(const GUID& p_guid);
 
-    void FreeResource(GUID p_guid) override;
+    bool ResourceExist(const GUID & p_guid) override;
+
+    void FreeResource(const GUID &p_guid) override;
 private:
     static ObjManager* m_singleton;
     std::map<GUID, ParsedObj> m_objResources;

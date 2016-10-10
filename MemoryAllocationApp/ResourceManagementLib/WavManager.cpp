@@ -31,7 +31,12 @@ WavManager & WavManager::Get()
     return *m_singleton;
 }
 
-void WavManager::ParseAndSaveParsedData(void* p_dataStart, size_t p_size, GUID p_guid)
+bool WavManager::ResourceExist(const GUID & p_guid)
+{
+    return true; // TODO fix :D
+}
+
+void WavManager::ParseAndSaveParsedData(void* p_dataStart, const size_t &p_size, const GUID &p_guid)
 {
     // see if we already have the resource
     if (m_wavResources.count(p_guid) != 0)
@@ -46,6 +51,6 @@ void WavManager::ParseAndSaveParsedData(void* p_dataStart, size_t p_size, GUID p
     m_wavResources[p_guid] = newParsedData;    
 }
 
-void WavManager::FreeResource(GUID p_guid)
+void WavManager::FreeResource(const GUID &p_guid)
 {
 }
