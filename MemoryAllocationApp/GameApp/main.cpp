@@ -21,7 +21,6 @@ int main()
    ResourceManager::Startup();
    ResourceManager* resMan = ResourceManager::Get();
    ParserAndContainerManager::Initialize();
-   ObjManager::Initialize();
 
    std::string fileNAme = "test.zip";
    resMan->LoadChunk(fileNAme);
@@ -29,6 +28,8 @@ int main()
    int a = 3;
    Graphics::Startup();
    CreateWindow();
+
+   ObjManager::Initialize();
    while (true)
       Graphics::Get()->Update();
 }
