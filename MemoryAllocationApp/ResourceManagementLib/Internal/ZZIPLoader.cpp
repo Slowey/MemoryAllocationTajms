@@ -1,7 +1,7 @@
 #include "ZZIPLoader.h"
-
 #include <zzip/zzip.h>
 #include <zlib/zlib.h>
+#include "../ParserAndContainerManager.h"
 
 ZZIPLoader::ZZIPLoader(std::string  p_fileEnding) : FileLoader(p_fileEnding)
 {
@@ -9,6 +9,7 @@ ZZIPLoader::ZZIPLoader(std::string  p_fileEnding) : FileLoader(p_fileEnding)
 
 void ZZIPLoader::LoadFile(std::string p_fileName)
 {
+    ParserAndContainerManager &parAndContMan = ParserAndContainerManager::Get();
     ZZIP_DIR* dir = zzip_dir_open(p_fileName.c_str(), 0);
 
     // If we could open directory
@@ -33,10 +34,8 @@ void ZZIPLoader::LoadFile(std::string p_fileName)
                 zzip_ssize_t len = zzip_file_read(fp, temporaryBuffer, dirent.st_size);
 
                 if (len) {
-                    
                     // Parse for specific
-
-
+                    parAndContMan.ParseByEnding(temporaryBuffer, dirent.d_name);
 
                 }
                 zzip_file_close(fp);
