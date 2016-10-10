@@ -23,7 +23,6 @@ private:
 	~PrioritizationManager();
 	static PrioritizationManager* m_singleton;
 	Prioritization* m_prioritization;
-	std::vector<std::map<GUID, size_t>> m_parserList;
 	
 };
 

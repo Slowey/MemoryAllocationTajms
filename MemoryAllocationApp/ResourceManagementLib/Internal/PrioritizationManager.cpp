@@ -9,11 +9,11 @@ PrioritizationManager::PrioritizationManager(PrioritizationAlgorithm p_algo)
 {
 	if (p_algo == PrioritizationAlgorithm::LRU)
 	{
-		m_prioritization = new LRUPriority(m_parserList);
+		m_prioritization = new LRUPriority();
 	}
 	else if (p_algo == PrioritizationAlgorithm::FIFO)
 	{
-        m_prioritization = new FIFOPriority(m_parserList);
+        m_prioritization = new FIFOPriority();
 	}
 }
 
@@ -45,7 +45,7 @@ bool PrioritizationManager::GetRemovableResource()
     ParserUID t_parserUID = m_prioritization->FindAndForwardRemovable();
     if (t_parserUID.guid != -1)
     {
-        //forward this parserUID to parserandcontainermanager       
+           
     }
     else 
     {
