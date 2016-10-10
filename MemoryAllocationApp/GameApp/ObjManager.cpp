@@ -121,3 +121,12 @@ void ObjManager::ParseAndSaveParsedData(void * p_dataStart, size_t p_size, GUID 
 
     m_objResources[p_guid] = newResource;
 }
+
+ParsedObj ObjManager::GetResource(const GUID & p_guid)
+{
+    if (m_objResources.count(p_guid) == 0)
+    {
+        // The resource doesn't exist.. :( Return debug shit)
+    }
+    return m_objResources.at(p_guid);
+}
