@@ -69,19 +69,19 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>../ResourceManagementLib/;$(IncludePath)</IncludePath>
+    <IncludePath>../ResourceManagementLib/;../GraphicsLib/3rd Party/include/;$(IncludePath)</IncludePath>
     <LibraryPath>../x64/Debug/;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>../ResourceManagementLib/;$(IncludePath)</IncludePath>
+    <IncludePath>../ResourceManagementLib/;../GraphicsLib/3rd Party/include/glm;$(IncludePath)</IncludePath>
     <LibraryPath>../x64/Release/;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>../ResourceManagementLib/;$(IncludePath)</IncludePath>
+    <IncludePath>../ResourceManagementLib/;../GraphicsLib/3rd Party/include/;$(IncludePath)</IncludePath>
     <LibraryPath>../x64/Debug/;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>../ResourceManagementLib/;$(IncludePath)</IncludePath>
+    <IncludePath>../ResourceManagementLib/;../GraphicsLib/3rd Party/include/glm;$(IncludePath)</IncludePath>
     <LibraryPath>../x64/Release/;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
