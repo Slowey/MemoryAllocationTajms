@@ -22,14 +22,18 @@ int main()
    ResourceManager* resMan = ResourceManager::Get();
    ParserAndContainerManager::Initialize();
 
-   std::string fileNAme = "test.zip";
-   resMan->LoadChunk(fileNAme);
 
    int a = 3;
    Graphics::Startup();
    CreateWindow();
 
    ObjManager::Initialize();
+
+   // We want to have started all parsers before we load the file x)
+   std::string fileNAme = "test.zip";
+   resMan->LoadChunk(fileNAme);
+
+
    while (true)
       Graphics::Get()->Update();
 }

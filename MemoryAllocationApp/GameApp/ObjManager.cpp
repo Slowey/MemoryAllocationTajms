@@ -170,7 +170,7 @@ ParsedObj ObjManager::GetResource(const GUID & p_guid)
 
 bool ObjManager::ResourceExist(const GUID &p_guid)
 {
-    return true;// TODO FIX :D
+    return false;// TODO FIX :D
 }
 
 void ObjManager::FreeResource(const GUID &p_guid)
