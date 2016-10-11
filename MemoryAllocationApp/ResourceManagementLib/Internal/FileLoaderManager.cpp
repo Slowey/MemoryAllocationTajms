@@ -39,9 +39,10 @@ void FileLoaderManager::LoadChunk(std::string p_fileName)
 
     std::string t_ending = p_fileName.substr(t_lastDot + 1);
 
-    auto t_loader = m_endingToLoaderMap.at(t_ending);
-    if (t_loader == nullptr)
+    // Find loader
+    auto t_loader = m_endingToLoaderMap.find(t_ending);
+    if (t_loader == m_endingToLoaderMap.end())
         return;
 
-    t_loader->LoadFile(p_fileName);
+    t_loader->second->LoadFile(p_fileName);
 }

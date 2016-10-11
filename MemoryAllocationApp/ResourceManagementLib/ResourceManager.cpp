@@ -18,7 +18,7 @@ ResourceManager::ResourceManager()
     PrioritizationManager::Startup(PrioritizationAlgorithm::LRU);
     m_prioritizationManager = PrioritizationManager::Get();
     FileLoaderManager::Startup(); // Could save this one as well if we want
-    ZZIPLoader* loader = new ZZIPLoader("test"); // Add shipped loaders 
+    ZZIPLoader* loader = new ZZIPLoader("zip"); // Add shipped loaders 
 }
 
 
