@@ -73,14 +73,17 @@ void ParserAndContainerManager::ParseByEnding(void * p_fileBuffer, const size_t 
     GUID t_guid = GUID(t_name);
 
     // Find all parsers and parse for ending
-    auto m_parsers = m_fileEndingToParser.at(t_ending);
-    for (size_t i = 0; i < m_parsers.size(); i++)
+    auto m_pair = m_fileEndingToParser.find(t_ending);
+    if (m_pair == m_fileEndingToParser.end())
+        return;
+
+    auto m_parsers = m_pair->second;
+    size_t t_numParsers = m_parsers.size();
+    for (size_t i = 0; i < t_numParsers; i++)
     {
-        if (m_parsers[i]->ResourceExist(t_guid))
+        if (!m_parsers[i]->ResourceExist(t_guid))
         {
             m_parsers[i]->ParseAndSaveParsedData(p_fileBuffer, p_sizeOfBuffer, t_guid);
         }
     }
-
-    int a = 3;
 }
