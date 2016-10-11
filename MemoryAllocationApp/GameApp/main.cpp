@@ -30,8 +30,8 @@ int main()
    ObjManager::Initialize();
 
    // We want to have started all parsers before we load the file x)
-   std::string fileNAme = "test.zip";
-   resMan->LoadChunk(fileNAme);
+   std::string fileName = "test.zip";
+   resMan->LoadChunk(fileName, "one");
 
 
    while (true)

@@ -47,8 +47,8 @@ ObjManager::ObjManager(): ParserAndContainer("obj")
     std::string myBasicOBJ = myBasicOBJStream.str();      
     void* vp = static_cast<void*>(&myBasicOBJ);
     GUID newGUID = GUID(1, 1);
-    ParseAndSaveParsedData(vp, 1, newGUID);
-    //delete vp;
+    //ParseAndSaveParsedData(vp, 1, newGUID);
+    //delete vp; // Shouldn't delete things you haven't used new on
 }
 
 
@@ -85,9 +85,10 @@ void ObjManager::ParseAndSaveParsedData(void* p_dataStart, const size_t &p_size,
         return;
     }
     // Parsing of obj file format
-    std::string* inputData = static_cast<std::string*>(p_dataStart);
-    std::cout << *inputData;
-    std::istringstream stream(*inputData);
+    char* t_charData = static_cast<char*>(p_dataStart);
+    std::string inputData = t_charData;
+    //std::cout << inputData; // Too much output for BTH LOGGA
+    std::istringstream stream(inputData);
     std::vector<glm::vec3> vertexData;
     std::vector<glm::vec2> uvMappingData;
     std::vector<glm::vec3> normalData;

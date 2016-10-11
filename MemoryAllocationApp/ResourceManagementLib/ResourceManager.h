@@ -16,14 +16,13 @@ public:
 	been called!*/
 	static ResourceManager* Get();
 
+    // Load whole or sub part of chunk
+    void LoadChunk(const std::string & p_fileName, const std::string & p_subDirectory);
+
 	/**
 	Starts the DataManager
 	*/
 	static void Startup();
-
-
-    // Temporary placeholder to test Loaders
-    void LoadChunk(std::string &p_fileName);
 
 private:
 	ResourceManager();

@@ -29,7 +29,7 @@ void FileLoaderManager::RegisterLoader(FileLoader* p_loader, std::string p_endin
     m_endingToLoaderMap[p_ending] = p_loader;
 }
 
-void FileLoaderManager::LoadChunk(std::string p_fileName)
+void FileLoaderManager::LoadChunk(const std::string &p_fileName, const std::string &p_subDirectory)
 {
     size_t t_lastDot = p_fileName.find_last_of(".");
 
@@ -39,10 +39,11 @@ void FileLoaderManager::LoadChunk(std::string p_fileName)
 
     std::string t_ending = p_fileName.substr(t_lastDot + 1);
 
+
     // Find loader
     auto t_loader = m_endingToLoaderMap.find(t_ending);
     if (t_loader == m_endingToLoaderMap.end())
         return;
 
-    t_loader->second->LoadFile(p_fileName);
+    t_loader->second->LoadFile(p_fileName, p_subDirectory);
 }

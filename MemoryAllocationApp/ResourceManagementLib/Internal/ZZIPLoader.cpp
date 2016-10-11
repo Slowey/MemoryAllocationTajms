@@ -7,7 +7,7 @@ ZZIPLoader::ZZIPLoader(std::string  p_fileEnding) : FileLoader(p_fileEnding)
 {
 }
 
-void ZZIPLoader::LoadFile(std::string p_fileName)
+void ZZIPLoader::LoadFile(const std::string &p_fileName, const std::string &p_subDirectory)
 {
     ParserAndContainerManager &parAndContMan = ParserAndContainerManager::Get();
     ZZIP_DIR* dir = zzip_dir_open(p_fileName.c_str(), 0);
@@ -47,4 +47,10 @@ void ZZIPLoader::LoadFile(std::string p_fileName)
 
 void ZZIPLoader::LoadResource(int p_GUID)
 {
+    // How do we know where it is?
+    
+    // Other problem, we want to load a chunk like chunk.zip
+    // We also want to load a sub chunk as chunk.zip/animations, this could be in a sub folder as well like world1/chunk1.zip/animations, this is actually only parsing..
+    // We also want to load a specific resource 342432_3423423,
+    // For the last case, do we have a lookup to which chunk.zip and subdirectory? Or is that provided by user?
 }

@@ -50,8 +50,8 @@ ResourceManager * ResourceManager::Get()
 }
 
 
-void ResourceManager::LoadChunk(std::string &p_fileName)
+void ResourceManager::LoadChunk(const std::string & p_fileName, const std::string & p_subDirectory)
 {
-    FileLoaderManager::Get()->LoadChunk(p_fileName);
+    FileLoaderManager::Get()->LoadChunk(p_fileName, p_subDirectory);
 }
 
