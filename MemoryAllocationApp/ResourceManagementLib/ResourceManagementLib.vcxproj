@@ -130,6 +130,7 @@
     <ClInclude Include="Internal\Explicit.h" />
     <ClInclude Include="Internal\ExplicitPriority.h" />
     <ClInclude Include="Internal\FileLoader.h" />
+    <ClInclude Include="Internal\FileLoaderManager.h" />
     <ClInclude Include="Internal\Prioritization.h" />
     <ClInclude Include="Internal\PrioritizationManager.h" />
     <ClInclude Include="Internal\ZZIPLoader.h" />
@@ -144,6 +145,7 @@
     <ClCompile Include="Internal\DataManager.cpp" />
     <ClCompile Include="Internal\ExplicitPriority.cpp" />
     <ClCompile Include="Internal\FileLoader.cpp" />
+    <ClCompile Include="Internal\FileLoaderManager.cpp" />
     <ClCompile Include="Internal\PrioritizationManager.cpp" />
     <ClCompile Include="Internal\ZZIPLoader.cpp" />
     <ClCompile Include="LRUPriority.cpp" />

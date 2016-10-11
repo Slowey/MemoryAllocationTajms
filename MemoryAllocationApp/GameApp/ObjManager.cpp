@@ -48,7 +48,7 @@ ObjManager::ObjManager(): ParserAndContainer("obj")
     void* vp = static_cast<void*>(&myBasicOBJ);
     GUID newGUID = GUID(1, 1);
     ParseAndSaveParsedData(vp, 1, newGUID);
-    delete vp;
+    //delete vp;
 }
 
 

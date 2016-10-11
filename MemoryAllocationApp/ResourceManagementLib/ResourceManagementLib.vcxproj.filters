@@ -66,6 +66,9 @@
     <ClInclude Include="Internal\ExplicitPriority.h">
       <Filter>Header Files\Internal</Filter>
     </ClInclude>
+    <ClInclude Include="Internal\FileLoaderManager.h">
+      <Filter>Header Files\Internal</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ResourceManager.cpp">
@@ -99,6 +102,9 @@
       <Filter>Source Files\Internal</Filter>
     </ClCompile>
     <ClCompile Include="Internal\ExplicitPriority.cpp">
+      <Filter>Source Files\Internal</Filter>
+    </ClCompile>
+    <ClCompile Include="Internal\FileLoaderManager.cpp">
       <Filter>Source Files\Internal</Filter>
     </ClCompile>
   </ItemGroup>

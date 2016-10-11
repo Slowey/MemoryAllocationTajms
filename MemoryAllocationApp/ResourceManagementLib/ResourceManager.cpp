@@ -4,6 +4,11 @@
 #include <PoolAllocator.h>
 #include "Internal/PrioritizationManager.h"
 #include "EnumsAndDefines.h"
+#include "Internal/FileLoaderManager.h"
+
+// Shipped loaders
+#include "Internal/ZZIPLoader.h"
+
 #pragma comment (lib, "MemLib.lib")
 
 ResourceManager* ResourceManager::m_singleton = nullptr;
@@ -12,6 +17,8 @@ ResourceManager::ResourceManager()
 {
     PrioritizationManager::Startup(PrioritizationAlgorithm::LRU);
     m_prioritizationManager = PrioritizationManager::Get();
+    FileLoaderManager::Startup(); // Could save this one as well if we want
+    ZZIPLoader* loader = new ZZIPLoader("test"); // Add shipped loaders 
 }
 
 
@@ -42,11 +49,9 @@ ResourceManager * ResourceManager::Get()
 	return m_singleton;
 }
 
-#include "Internal/ZZIPLoader.h"
+
 void ResourceManager::LoadChunk(std::string &p_fileName)
 {
-    ZZIPLoader* loader = new ZZIPLoader("test");
-
-    loader->LoadFile(p_fileName);
+    FileLoaderManager::Get()->LoadChunk(p_fileName);
 }
 
