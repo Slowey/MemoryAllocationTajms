@@ -89,12 +89,19 @@ GLuint RenderManager::CreateTexture(const char * p_fileName)
 
 void RenderManager::DEBUGTriangleCreation()
 {
-   // Create vertex buffer
-   vector<vec3> t_positions;
-   t_positions.push_back(vec3(-0.5, -0.5, 1));
-   t_positions.push_back(vec3(0.5, -0.5, 1));
-   t_positions.push_back(vec3(0, 0.5, 1));
-   GLuint meshVBO = RenderManager::Get()->CreateMesh(t_positions);
+   //// Create vertex buffer
+   //vector<vec3> t_positions;
+   //t_positions.push_back(vec3(-0.5, -0.5, 1));
+   //t_positions.push_back(vec3(0.5, -0.5, 1));
+   //t_positions.push_back(vec3(0, 0.5, 1));
+   //GLuint meshVBO = RenderManager::Get()->CreateMesh(t_positions);
+
+   // Create new vertex buffer with vertices, not just positions
+   vector<Vertex> t_vertices;
+   t_vertices.push_back(Vertex(vec3(-0.5, -0.5, 1), vec3(0, 0, -1), vec2(-1, -1)));
+   t_vertices.push_back(Vertex(vec3(0.5, -0.5, 1), vec3(0, 0, -1), vec2(1, -1)));
+   t_vertices.push_back(Vertex(vec3(0, 0.5, 1), vec3(0, 0, -1), vec2(0, 1)));
+   GLuint meshVBO = RenderManager::Get()->CreateMesh(t_vertices);
 
    // Create texture
    GLuint textureHandle = CreateTexture("../GraphicsLib/Resources/test.jpg");
@@ -153,11 +160,19 @@ void RenderManager::Render()
    // HARD CODED SHIT BELOW! Draws a silly triangle
    GLuint mvpHandle = glGetUniformLocation(m_shaderHandler->GetShaderProgram(ShaderProgram::DefaultShader), "MVP");
    glUniformMatrix4fv(mvpHandle, 1, GL_FALSE, &vp[0][0]);
+   glUniform1i(1, 0);
 
    glEnableVertexAttribArray(0);
+   glEnableVertexAttribArray(1);
+   glEnableVertexAttribArray(2);
    // Bind current buffer
    glBindBuffer(GL_ARRAY_BUFFER, 1);
-   glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+   glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0);
+   glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const GLvoid*)12);
+   glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const GLvoid*)24);
+
+   glActiveTexture(GL_TEXTURE0);
+   glBindTexture(GL_TEXTURE_2D, 1);
 
    glDrawArrays(GL_TRIANGLES, 0, 3);
    glDisableVertexAttribArray(0);

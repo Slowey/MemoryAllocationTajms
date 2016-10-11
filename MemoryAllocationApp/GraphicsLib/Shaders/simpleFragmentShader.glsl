@@ -9,7 +9,7 @@ uniform sampler2D sampler;
 void main() 
 {
 	// Debug red color
-	color = vec4(1,0,0,0);
+	//color = vec4(1,0,0,0);
 	// Texture color
-	//color = textured2D(sample, texCoord);
+	color = texture2D(sampler, texCoordF);
 }
