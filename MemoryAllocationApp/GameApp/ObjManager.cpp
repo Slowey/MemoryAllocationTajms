@@ -44,10 +44,9 @@ ObjManager::ObjManager(): ParserAndContainer("obj")
     myBasicOBJStream << "f 4/3/5 8/2/5 6/4/5\n";
     myBasicOBJStream << "f 7/1/6 1/2/6 5/3/6\n";
     myBasicOBJStream << "f 5/3/6 1/2/6 3/4/6\n";
-    std::string myBasicOBJ = myBasicOBJStream.str();      
-    void* vp = static_cast<void*>(&myBasicOBJ);
-    GUID newGUID = GUID(1, 1);
-    //ParseAndSaveParsedData(vp, 1, newGUID);
+    std::string myBasicOBJ = myBasicOBJStream.str().c_str();      
+    void* vp = const_cast<char*>( myBasicOBJ.c_str());
+    m_dummyMesh = ParseDataAndSendToGraphic(vp);
     //delete vp; // Shouldn't delete things you haven't used new on
 }
 
@@ -84,6 +83,33 @@ void ObjManager::ParseAndSaveParsedData(void* p_dataStart, const size_t &p_size,
         // we already have the resource!
         return;
     }
+    
+    ParsedObj newResource = ParseDataAndSendToGraphic(p_dataStart);
+    m_objResources[p_guid] = newResource;
+}
+
+ParsedObj ObjManager::GetResource(const GUID & p_guid)
+{
+    if (!ResourceExist(p_guid))
+    {
+        // The resource doesn't exist.. :( Return debug shit)
+        return m_dummyMesh;
+    }
+    return m_objResources.at(p_guid);
+}
+
+bool ObjManager::ResourceExist(const GUID &p_guid)
+{
+    bool r_exists = m_objResources.count(p_guid) != 0;
+    return r_exists;
+}
+
+void ObjManager::FreeResource(const GUID &p_guid)
+{
+}
+
+ParsedObj ObjManager::ParseDataAndSendToGraphic(void * p_dataStart)
+{
     // Parsing of obj file format
     char* t_charData = static_cast<char*>(p_dataStart);
     std::string inputData = t_charData;
@@ -94,20 +120,20 @@ void ObjManager::ParseAndSaveParsedData(void* p_dataStart, const size_t &p_size,
     std::vector<glm::vec3> normalData;
     std::vector<unsigned int> vertexIndices, uvIndices, normalIndices;
     while (!stream.eof())
-    { 
+    {
         std::string currentInstruction;
         stream >> currentInstruction;
         if (currentInstruction.compare("v") == 0)
         {
             // Vertex data found, make vec3
-            float x,y,z;
+            float x, y, z;
             stream >> x >> y >> z;
             vertexData.push_back(glm::vec3(x, y, z));
         }
         else if (currentInstruction.compare("vt") == 0)
         {
             // uv data found, make vec2
-            float u,v;
+            float u, v;
             stream >> u >> v;
             uvMappingData.push_back(glm::vec2(u, v));
         }
@@ -156,24 +182,5 @@ void ObjManager::ParseAndSaveParsedData(void* p_dataStart, const size_t &p_size,
     ParsedObj newResource;
     // Make graphics engine create the mesh, this return a unsigned int which we will use to access the resource
     newResource.graphicResourceID = Graphics::Get()->CreateMesh(completedVertices);
-
-    m_objResources[p_guid] = newResource;
-}
-
-ParsedObj ObjManager::GetResource(const GUID & p_guid)
-{
-    if (m_objResources.count(p_guid) == 0)
-    {
-        // The resource doesn't exist.. :( Return debug shit)
-    }
-    return m_objResources.at(p_guid);
-}
-
-bool ObjManager::ResourceExist(const GUID &p_guid)
-{
-    return false;// TODO FIX :D
-}
-
-void ObjManager::FreeResource(const GUID &p_guid)
-{
+    return newResource;
 }

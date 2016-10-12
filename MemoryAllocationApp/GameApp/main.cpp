@@ -1,6 +1,7 @@
 #include <ResourceManager.h>
 #include <ParserAndContainerManager.h>
 #include <Graphics.h>
+#include <glm/gtc/matrix_transform.hpp>
 #include "ObjManager.h"
 
 void CreateWindow()
@@ -33,7 +34,10 @@ int main()
    std::string fileName = "test.zip";
    resMan->LoadChunk(fileName, "one");
 
-
+   // Game loop
    while (true)
-      Graphics::Get()->Update();
+   {
+       Graphics::Get()->DrawObject(ObjManager::Get().GetResource(GUID(1337, 1337)).graphicResourceID, glm::scale(glm::mat4(), glm::vec3(0.1,0.1,0.1)));
+       Graphics::Get()->Update();
+   }
 }
