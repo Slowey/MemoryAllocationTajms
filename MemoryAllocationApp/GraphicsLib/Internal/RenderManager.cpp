@@ -97,50 +97,6 @@ GLuint RenderManager::CreateTexture(const char * p_fileName)
    return r_texturehandle;
 }
 
-GLuint RenderManager::CreateMesh(std::vector<Vertex> p_vertices)
-{
-   GLuint r_positionBuffer;
-   glGenBuffers(1, &r_positionBuffer);
-   glBindBuffer(GL_ARRAY_BUFFER, r_positionBuffer);
-   glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * p_vertices.size(), &p_vertices[0], GL_STATIC_DRAW);
-   // Create empty draw list for new mesh
-   m_meshDrawLists[r_positionBuffer] = vector<mat4x4>();
-   m_meshSizes[r_positionBuffer] = p_vertices.size();
-   return r_positionBuffer;
-}
-
-GLuint RenderManager::CreateTexture(void * p_textureData, int p_numBytes)
-{
-   // Magic soil thing that's really untested
-   GLuint r_textureHandle = SOIL_load_OGL_texture_from_memory(
-      reinterpret_cast<unsigned char*>(p_textureData),
-      p_numBytes,
-      SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS | SOIL_FLAG_INVERT_Y | SOIL_FLAG_COMPRESS_TO_DXT);
-   //// Code to manually create an empty texture. Dumping this here sounds like a bood idea
-   //glGenTextures(1, &r_textureHandle);
-   ////glActiveTexture(GL_TEXTURE0); // Might be necessary
-   //glBindTexture(GL_TEXTURE_2D, r_textureHandle);
-   ////glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); // Might be needed
-   ////glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR); // Might be needed
-   //glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA32F, p_texWidth, p_texHeight, 0, GL_RGBA, GL_FLOAT, NULL); // Last parameter is the data
-   //
-   ////glBindImageTexture(0, r_textureHandle, 0, GL_FALSE, 0, GL_WRITE_ONLY, GL_RGBA32F); // Might be needed
-   return r_textureHandle;
-}
-
-GLuint RenderManager::CreateTexture(const char * p_fileName)
-{
-   // Let soil do all the work
-   GLuint r_texturehandle = SOIL_load_OGL_texture(p_fileName, SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID,
-      SOIL_FLAG_MIPMAPS | SOIL_FLAG_INVERT_Y | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT);
-   if (0 == r_texturehandle)
-   {
-      // Shit went wrong. Error handling?
-      printf("SOIL loading error: '%s'\n", SOIL_last_result());
-   }
-   return r_texturehandle;
-}
-
 void RenderManager::DEBUGTriangleCreation()
 {
    //// Create vertex buffer
