@@ -52,3 +52,18 @@ unsigned int Graphics::CreateMesh(std::vector<glm::vec3>& p_positions)
 {
    return RenderManager::Get()->CreateMesh(p_positions);
 }
+
+unsigned int Graphics::CreateMesh(std::vector<Vertex>& p_vertices)
+{
+   return RenderManager::Get()->CreateMesh(p_vertices);
+}
+
+unsigned int Graphics::LoadTexture(void * p_data, int p_textureByteSize)
+{
+   return RenderManager::Get()->CreateTexture(p_data, p_textureByteSize);
+}
+
+unsigned int Graphics::LoadTexture(const char * p_fileName)
+{
+   return RenderManager::Get()->CreateTexture(p_fileName);
+}

@@ -25,7 +25,10 @@ public:
 
     void FreeResource(const GUID &p_guid) override;
 private:
+    ParsedObj ParseDataAndSendToGraphic(void* p_dataStart);
+
     static ObjManager* m_singleton;
     std::map<GUID, ParsedObj> m_objResources;
+    ParsedObj m_dummyMesh;
 };
 

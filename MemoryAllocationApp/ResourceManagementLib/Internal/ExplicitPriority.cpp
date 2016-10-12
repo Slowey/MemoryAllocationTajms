@@ -1,7 +1,6 @@
 #include "ExplicitPriority.h"
 
-ExplicitPriority::ExplicitPriority(std::vector<std::map<GUID, size_t>>& p_parserList)
-    :m_parserList(p_parserList)
+ExplicitPriority::ExplicitPriority()
 {
 
 }
@@ -11,7 +10,7 @@ ExplicitPriority::~ExplicitPriority()
 
 }
 
-void ExplicitPriority::UpdateMap(GUID p_id, int & o_parserHandle)
+void ExplicitPriority::UpdateMap(GUID p_id, size_t o_parserHandle)
 {
     printf("I'm in updatemap in explicitprio. Nothing happens here. Remove this print if useless and spammy");
 }
