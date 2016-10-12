@@ -13,6 +13,14 @@
 #include "SDLManager.h"
 using namespace std;
 
+using namespace glm;
+
+struct DrawObject
+{
+   mat4x4 world;
+   GLuint textureHandle;
+};
+
 RenderManager* RenderManager::m_singleton = nullptr;
 
 void RenderManager::AddMatrixToMeshDrawList(unsigned int p_meshID, glm::mat4x4 p_worldMatrix)
