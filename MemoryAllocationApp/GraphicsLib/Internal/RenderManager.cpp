@@ -164,8 +164,11 @@ void RenderManager::Render()
          glDrawArrays(GL_TRIANGLES, 0, m_meshSizes[it->first]);
          glDisableVertexAttribArray(0);
       }
-
+      // Clear draw list for this mesh
+      it->second.clear();
    }
+
+
 
    //// HARD CODED SHIT BELOW! Draws a silly triangle
    //GLuint mvpHandle = glGetUniformLocation(m_shaderHandler->GetShaderProgram(ShaderProgram::DefaultShader), "MVP");
