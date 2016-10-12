@@ -2,6 +2,8 @@
 #include "../LRUPriority.h"
 #include "../FIFOPriority.h"
 #include "../ParserAndContainerManager.h"
+#include "ExplicitPriority.h"
+#include "LFUPriority.h"
 
 PrioritizationManager* PrioritizationManager::m_singleton = nullptr;
 
@@ -15,6 +17,14 @@ PrioritizationManager::PrioritizationManager(PrioritizationAlgorithm p_algo)
 	{
         m_prioritization = new FIFOPriority();
 	}
+    else if (p_algo == PrioritizationAlgorithm::EXPLICIT)
+    {
+        m_prioritization = new ExplicitPriority();
+    }
+    else if (p_algo == PrioritizationAlgorithm::LFU)
+    {
+        m_prioritization = new LFUPriority();
+    }
 }
 
 
