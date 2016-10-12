@@ -49,6 +49,11 @@ ResourceManager * ResourceManager::Get()
 	return m_singleton;
 }
 
+void ResourceManager::LoadChunk(const std::string & p_fileName)
+{
+    FileLoaderManager::Get()->LoadChunk(p_fileName);
+}
+
 
 void ResourceManager::LoadChunk(const std::string & p_fileName, const std::string & p_subDirectory)
 {

@@ -20,6 +20,12 @@ struct GUID
     bool const operator!=(const GUID &o)const {
         return val[0] != o.val[0] || val[1] != o.val[1];
     }
+
+    std::string ToString()
+    {
+        return std::to_string(val[0]) + "_" + std::to_string(val[1]);
+     }
+
 	GUID(long long p_valueOne, long long p_valueTwo)
 	{
 		val[0] = p_valueOne;
@@ -36,6 +42,8 @@ struct GUID
         val[0] = stol(first);
         val[1] = stol(second);
     }
+
+    
 };
 
 #define ERROR_GUID GUID(-1,-1)
