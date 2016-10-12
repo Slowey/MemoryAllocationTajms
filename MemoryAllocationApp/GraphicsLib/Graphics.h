@@ -39,6 +39,16 @@ public:
    unsigned int CreateMesh(std::vector<Vertex>& p_vertices);
 
    /**
+   Loads a texture and returns handle.
+   Provide data pointer and file lenth, in bytes*/
+   unsigned int LoadTexture(void* p_data, int p_textureByteSize);
+
+   /**
+   Loads a texture and returns handle.
+   Provide file name.*/
+   unsigned int LoadTexture(const char* p_fileName);
+
+   /**
    Draws desired mesh at world position and rotation
    specified in the provided world matrix parameter.
    If the mesh ID does not exist, nothing will happen.*/
