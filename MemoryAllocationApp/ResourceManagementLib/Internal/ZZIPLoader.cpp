@@ -46,10 +46,10 @@ void ZZIPLoader::LoadFile(const std::string &p_fileName, const std::string &p_su
             std::string p_entryName = dirent.d_name;
             // When we find the directory
             // If not our name contine
-            if (!std::equal(p_entryName.begin(), p_entryName.end(), p_subDirectory.begin(), p_subDirectory.end()))
+            if (p_entryName.compare(0, p_subDirectory.size(), p_subDirectory) != 0)
                 continue;
 
-
+           
             LoadAndParseFile(dir, dirent);
         }
         zzip_dir_close(dir);
@@ -73,7 +73,7 @@ void ZZIPLoader::LoadResource(GUID p_GUID, const std::string &p_directory)
             std::string p_entryName = dirent.d_name;
 
             // If not our name contine
-            if (!std::equal(p_entryName.rbegin(), p_entryName.rend(), t_guidString.rbegin(), t_guidString.rend()))
+            if (p_entryName.compare(p_entryName.size() - t_guidString.size(), t_guidString.size(), t_guidString) != 0)
                 continue;
 
             LoadAndParseFile(dir, dirent);
