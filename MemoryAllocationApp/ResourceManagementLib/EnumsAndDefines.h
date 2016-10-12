@@ -5,7 +5,8 @@ enum PrioritizationAlgorithm
 {
 	LRU,
 	FIFO,
-	EXPLICIT
+	EXPLICIT,
+    LFU
 };
 
 struct GUID
