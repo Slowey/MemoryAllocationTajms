@@ -49,6 +49,7 @@ GLuint RenderManager::CreateMesh(std::vector<glm::vec3>& p_positions)
    glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 3 * p_positions.size(), &p_positions[0], GL_STATIC_DRAW);
    // Create empty draw list for new mesh
    m_meshDrawLists[r_positionBuffer] = vector<mat4x4>();
+   m_meshSizes[r_positionBuffer] = p_positions.size();
    return r_positionBuffer;
 }
 
@@ -60,6 +61,7 @@ GLuint RenderManager::CreateMesh(std::vector<Vertex> p_vertices)
    glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * p_vertices.size(), &p_vertices[0], GL_STATIC_DRAW);
    // Create empty draw list for new mesh
    m_meshDrawLists[r_positionBuffer] = vector<mat4x4>();
+   m_meshSizes[r_positionBuffer] = p_vertices.size();
    return r_positionBuffer;
 }
 
@@ -159,31 +161,31 @@ void RenderManager::Render()
          glBindBuffer(GL_ARRAY_BUFFER, it->first);
          glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
 
-         glDrawArrays(GL_TRIANGLES, 0, 3);
+         glDrawArrays(GL_TRIANGLES, 0, m_meshSizes[it->first]);
          glDisableVertexAttribArray(0);
       }
 
    }
 
-   // HARD CODED SHIT BELOW! Draws a silly triangle
-   GLuint mvpHandle = glGetUniformLocation(m_shaderHandler->GetShaderProgram(ShaderProgram::DefaultShader), "MVP");
-   glUniformMatrix4fv(mvpHandle, 1, GL_FALSE, &vp[0][0]);
-   glUniform1i(1, 0);
-
-   glEnableVertexAttribArray(0);
-   glEnableVertexAttribArray(1);
-   glEnableVertexAttribArray(2);
-   // Bind current buffer
-   glBindBuffer(GL_ARRAY_BUFFER, 1);
-   glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0);
-   glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const GLvoid*)12);
-   glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const GLvoid*)24);
-
-   glActiveTexture(GL_TEXTURE0);
-   glBindTexture(GL_TEXTURE_2D, 1);
-
-   glDrawArrays(GL_TRIANGLES, 0, 3);
-   glDisableVertexAttribArray(0);
+   //// HARD CODED SHIT BELOW! Draws a silly triangle
+   //GLuint mvpHandle = glGetUniformLocation(m_shaderHandler->GetShaderProgram(ShaderProgram::DefaultShader), "MVP");
+   //glUniformMatrix4fv(mvpHandle, 1, GL_FALSE, &vp[0][0]);
+   //glUniform1i(1, 0);
+   //
+   //glEnableVertexAttribArray(0);
+   //glEnableVertexAttribArray(1);
+   //glEnableVertexAttribArray(2);
+   //// Bind current buffer
+   //glBindBuffer(GL_ARRAY_BUFFER, 1);
+   //glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0);
+   //glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const GLvoid*)12);
+   //glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const GLvoid*)24);
+   //
+   //glActiveTexture(GL_TEXTURE0);
+   //glBindTexture(GL_TEXTURE_2D, 1);
+   //
+   //glDrawArrays(GL_TRIANGLES, 0, 3);
+   //glDisableVertexAttribArray(0);
 
 
 

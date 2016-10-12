@@ -52,6 +52,8 @@ private:
     ~RenderManager();
 
     std::unordered_map<unsigned int, std::vector<glm::mat4x4>> m_meshDrawLists;
+    // Map to store how many vertices a mesh has
+    std::unordered_map<unsigned int, unsigned int> m_meshSizes;
 
     // Debug stuff
     void DEBUGTriangleCreation();
