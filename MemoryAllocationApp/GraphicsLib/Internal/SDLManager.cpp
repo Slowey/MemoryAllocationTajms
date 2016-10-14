@@ -30,8 +30,6 @@ SDLManager::~SDLManager()
 {
 }
 
-#include <iostream>
-using namespace std;
 void SDLManager::UpdateInput()
 {
    SDL_Event t_event;
