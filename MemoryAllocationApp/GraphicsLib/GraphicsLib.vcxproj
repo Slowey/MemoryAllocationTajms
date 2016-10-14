@@ -124,6 +124,7 @@
     <ClInclude Include="Internal\RenderManager.h" />
     <ClInclude Include="Internal\SDLManager.h" />
     <ClInclude Include="Internal\ShaderHandler.h" />
+    <ClInclude Include="Vertex.h" />
     <ClInclude Include="WindowParams.h" />
   </ItemGroup>
   <ItemGroup>
