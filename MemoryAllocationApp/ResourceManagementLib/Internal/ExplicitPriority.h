@@ -11,9 +11,12 @@ class ExplicitPriority : public Prioritization
 public:
     ExplicitPriority();
     ~ExplicitPriority();
-    void UpdateMap(GUID p_id, size_t o_parserHandle);
-    ParserUID FindAndForwardRemovable();
+    //void UpdateMap(GUID p_id, size_t o_parserHandle);
+    //ParserUID FindAndForwardRemovable();
 
+	void AddToRemovableQueue(GUID p_id, size_t p_parserHandle);
+	ParserUID GetRemovableResource();
+	void RemoveFromRemovableQueue(GUID p_id, size_t p_parserHandle);
 
 private:
 };

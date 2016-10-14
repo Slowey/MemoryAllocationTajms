@@ -37,6 +37,7 @@ public:
    void Update();
 
    mat4x4 GetCameraMatrix();
+   vec3 GetCameraPosition();
    Camera* m_camera;
 
 private:
@@ -44,5 +45,6 @@ private:
    CameraManager();
    ~CameraManager();
    float m_movementSpeed;
+   float m_turnSpeed;
 };
 

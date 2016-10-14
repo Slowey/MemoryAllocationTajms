@@ -36,17 +36,22 @@ void ResourceManager::Startup()
 
 void ResourceManager::FreeResource(GUID p_guid)
 {
-	//Skicka vidare till parser and container
+	//Skicka vidare till parser and container OUTDATED
 }
 void ResourceManager::FreeResource()
 {
-    m_prioritizationManager->GetRemovableResource();
+    m_prioritizationManager->FindAndForwardRemovableResource();
     //SKicka guidet till parser and container för removal.
 }
 
 ResourceManager * ResourceManager::Get()
 {
 	return m_singleton;
+}
+
+void ResourceManager::LoadChunk(const std::string & p_fileName)
+{
+    FileLoaderManager::Get()->LoadChunk(p_fileName);
 }
 
 

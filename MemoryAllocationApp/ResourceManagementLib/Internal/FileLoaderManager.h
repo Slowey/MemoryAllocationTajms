@@ -8,6 +8,7 @@ public:
     static FileLoaderManager* Get();
     static void Startup();
     void RegisterLoader(FileLoader * p_loader, std::string p_ending);
+    void LoadChunk(const std::string & p_fileName);
     void LoadChunk(const std::string & p_fileName, const std::string & p_subDirectory);
 
 private:

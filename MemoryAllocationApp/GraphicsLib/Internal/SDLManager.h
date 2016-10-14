@@ -36,16 +36,24 @@ public:
     down. Build bit mask from enum class InputKey*/
     bool KeysDown(int p_keys);
 
+    /**
+    Changes the paramters to delta x and delta y
+    mouse movement since last frame*/
+    void GetMouseMovement(int& o_x, int& o_y);
+
 private:
     static SDLManager* m_singleton;
     SDLManager();
     ~SDLManager();
 
     void UpdateInput();
+    void UpdateMouseInput();
 
 
     int m_keysPressed;
     
+    int m_deltaX;
+    int m_deltaY;
     
     SDL_Window* m_window;
     SDL_GLContext m_glContext;

@@ -16,6 +16,8 @@ public:
 	been called!*/
 	static ResourceManager* Get();
 
+    void LoadChunk(const std::string & p_fileName);
+
     // Load whole or sub part of chunk
     void LoadChunk(const std::string & p_fileName, const std::string & p_subDirectory);
 
