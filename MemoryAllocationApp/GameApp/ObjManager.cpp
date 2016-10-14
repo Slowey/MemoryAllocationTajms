@@ -167,7 +167,7 @@ ParsedObj ObjManager::ParseDataAndSendToGraphic(void * p_dataStart)
     // go thorugh all the faces, doesnt matter which indices vector we take, they are all the same size
     size_t count = vertexIndices.size();
     // TODO should be a complete mesh data, not just pos
-    std::vector<glm::vec3> completedVertices;
+    std::vector<Vertex> completedVertices;
     for (size_t i = 0; i < count; i++)
     {
         // -1 cuz obj starts at 1 and c++ at 0. [] on the second vector access since we know the size of them and shouldnt miss
@@ -175,7 +175,7 @@ ParsedObj ObjManager::ParseDataAndSendToGraphic(void * p_dataStart)
         glm::vec2 vertexUVMap = uvMappingData.at(uvIndices[i] - 1);
         glm::vec3 vertexNormal = normalData.at(normalIndices[i] - 1);
         // push the completed vertex TODO should be a complete mesh data, not just pos
-        completedVertices.push_back(vertexPosition);
+        completedVertices.push_back(Vertex(vertexPosition, vertexNormal, vertexUVMap));
     }
 
     // create a new resource

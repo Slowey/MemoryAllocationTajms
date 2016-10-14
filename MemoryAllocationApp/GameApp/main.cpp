@@ -37,7 +37,7 @@ int main()
    // Game loop
    while (true)
    {
-       Graphics::Get()->DrawObject(ObjManager::Get().GetResource(GUID(1337, 1337)).graphicResourceID, glm::scale(glm::mat4(), glm::vec3(0.1,0.1,0.1)));
+      Graphics::Get()->DrawObject(ObjManager::Get().GetResource(GUID(1337, 1337)).graphicResourceID, glm::scale(glm::mat4(), glm::vec3(0.1, 0.1, 0.1)), 1);
       Graphics::Get()->Update();
-}
+   }
 }

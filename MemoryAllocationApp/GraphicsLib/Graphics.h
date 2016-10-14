@@ -52,7 +52,7 @@ public:
    Draws desired mesh at world position and rotation
    specified in the provided world matrix parameter.
    If the mesh ID does not exist, nothing will happen.*/
-   void DrawObject(unsigned int p_meshID, glm::mat4x4 p_worldMatrix);
+   void DrawObject(unsigned int p_meshID, glm::mat4x4 p_worldMatrix, unsigned int p_textureID);
 
 private:
    static Graphics* m_singleton;

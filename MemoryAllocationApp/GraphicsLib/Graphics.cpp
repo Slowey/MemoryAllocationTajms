@@ -18,9 +18,9 @@ void Graphics::Startup()
     
 }
 
-void Graphics::DrawObject(unsigned int p_meshID, glm::mat4x4 p_worldMatrix)
+void Graphics::DrawObject(unsigned int p_meshID, glm::mat4x4 p_worldMatrix, unsigned int p_textureID)
 {
-   RenderManager::Get()->AddMatrixToMeshDrawList(p_meshID, p_worldMatrix);
+   RenderManager::Get()->AddMatrixToMeshDrawList(p_meshID, p_worldMatrix, p_textureID);
 }
 
 Graphics::Graphics()

@@ -15,22 +15,31 @@ using namespace std;
 
 using namespace glm;
 
+/**
+Struct containing what we need to draw an object*/
 struct DrawObject
 {
+   DrawObject(mat4x4 p_world, GLuint p_textureHandle)
+      :world(p_world), textureHandle(p_textureHandle)
+   {
+
+   }
    mat4x4 world;
    GLuint textureHandle;
+
 };
 
 RenderManager* RenderManager::m_singleton = nullptr;
 
-void RenderManager::AddMatrixToMeshDrawList(unsigned int p_meshID, glm::mat4x4 p_worldMatrix)
+void RenderManager::AddMatrixToMeshDrawList(unsigned int p_meshID, glm::mat4x4 p_worldMatrix, unsigned int p_textureID)
 {
    if (m_meshDrawLists.find(p_meshID) == m_meshDrawLists.end())
    {
       // Mesh didn't exist! We do nothing. This could be changed for debug assistance
       return;
    }
-   m_meshDrawLists[p_meshID].push_back(p_worldMatrix);
+
+   m_meshDrawLists[p_meshID].push_back(DrawObject(p_worldMatrix, p_textureID));
 }
 
 RenderManager::RenderManager()
@@ -48,7 +57,7 @@ GLuint RenderManager::CreateMesh(std::vector<glm::vec3>& p_positions)
    glBindBuffer(GL_ARRAY_BUFFER, r_positionBuffer);
    glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 3 * p_positions.size(), &p_positions[0], GL_STATIC_DRAW);
    // Create empty draw list for new mesh
-   m_meshDrawLists[r_positionBuffer] = vector<mat4x4>();
+   m_meshDrawLists[r_positionBuffer] = vector<DrawObject>();
    m_meshSizes[r_positionBuffer] = p_positions.size();
    return r_positionBuffer;
 }
@@ -60,7 +69,7 @@ GLuint RenderManager::CreateMesh(std::vector<Vertex> p_vertices)
    glBindBuffer(GL_ARRAY_BUFFER, r_positionBuffer);
    glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * p_vertices.size(), &p_vertices[0], GL_STATIC_DRAW);
    // Create empty draw list for new mesh
-   m_meshDrawLists[r_positionBuffer] = vector<mat4x4>();
+   m_meshDrawLists[r_positionBuffer] = vector<DrawObject>();
    m_meshSizes[r_positionBuffer] = p_vertices.size();
    return r_positionBuffer;
 }
@@ -143,7 +152,8 @@ void RenderManager::Render()
    mat4x4 vp = CameraManager::Get()->GetCameraMatrix();
 
    // Start render with default shader
-   glUseProgram(m_shaderHandler->GetShaderProgram(ShaderProgram::DefaultShader));
+   GLuint t_shaderProgram = m_shaderHandler->GetShaderProgram(ShaderProgram::DefaultShader);
+   glUseProgram(t_shaderProgram);
 
    // Iterate over all meshes to draw them
    for (auto it = m_meshDrawLists.begin(); it != m_meshDrawLists.end(); ++it)
@@ -152,17 +162,30 @@ void RenderManager::Render()
       size_t t_numMatrices = it->second.size();
       for (size_t i = 0; i < t_numMatrices; i++)
       {
-         mat4x4 mvp = vp * it->second.at(i);
-         GLuint mvpHandle = glGetUniformLocation(m_shaderHandler->GetShaderProgram(ShaderProgram::DefaultShader), "MVP");
+         mat4x4 mvp = vp * it->second.at(i).world;
+         GLuint mvpHandle = glGetUniformLocation(t_shaderProgram, "MVP");
          glUniformMatrix4fv(mvpHandle, 1, GL_FALSE, &mvp[0][0]);
+         GLuint samplerHandle = glGetUniformLocation(t_shaderProgram, "sampler");
+         glUniform1i(samplerHandle, 0); // 0 Is the gl texture's id (the 0 from GL_TEXTURE0)
 
-         glEnableVertexAttribArray(0);
+         // Enable attribs
+         glEnableVertexAttribArray(0); // Positions
+         glEnableVertexAttribArray(1); // Normals
+         glEnableVertexAttribArray(2); // Texture coordinates
          // Bind current buffer
          glBindBuffer(GL_ARRAY_BUFFER, it->first);
-         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0);
+         glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const GLvoid*)12);
+         glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const GLvoid*)24);
+
+         // Activate texture
+         glActiveTexture(GL_TEXTURE0);
+         glBindTexture(GL_TEXTURE_2D, it->second.at(i).textureHandle);
 
          glDrawArrays(GL_TRIANGLES, 0, m_meshSizes[it->first]);
          glDisableVertexAttribArray(0);
+         glDisableVertexAttribArray(1);
+         glDisableVertexAttribArray(2);
       }
       // Clear draw list for this mesh
       it->second.clear();
