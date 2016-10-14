@@ -13,10 +13,13 @@ public:
 	static void Startup(PrioritizationAlgorithm p_algo);
 	/**
 	Calls the prioritization abstraction variable which was assigned a proper implementation
-	in our constructor. 
+	in our constructor. Will find the correct object to remove and send a signal to remove in the correct parser.
 	*/
-	void UpdatePriority(GUID p_id, int& o_parserHandle);
-    bool GetRemovableResource();
+    bool FindAndForwardRemovableResource();
+	/**
+	*/
+	void RemoveFromRemovableQueue(GUID p_id, size_t p_parserHandle);
+	void AddToRemovableQueue(GUID p_id, size_t p_parserHandle);
 
 private:
 	PrioritizationManager(PrioritizationAlgorithm p_algo);
