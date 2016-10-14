@@ -1,5 +1,6 @@
 #include "ParserAndContainer.h"
 #include "ParserAndContainerManager.h"
+#include "Internal/PrioritizationManager.h"
 
 
 ParserAndContainer::ParserAndContainer(std::string p_fileEndingToParse)
@@ -19,6 +20,10 @@ void ParserAndContainer::ReleaseResource(const GUID & p_guid)
         // mutex::lock()
         m_activeReferencesToResource.at(p_guid)--;
         // mutex::unlock()
+        if (m_activeReferencesToResource.at(p_guid) == 0)
+        {
+            PrioritizationManager::Get()->AddToRemovableQueue(p_guid, m_priorityHandle);
+        }
     }
     else
     {
@@ -31,6 +36,10 @@ void ParserAndContainer::ResourceRequested(const GUID p_guid)
 {
     if (m_activeReferencesToResource.count(p_guid) != 0)
     {
+        if (m_activeReferencesToResource.at(p_guid) == 0)
+        {
+            PrioritizationManager::Get()->RemoveFromRemovableQueue(p_guid, m_priorityHandle);
+        }
         // mutex::lock()
         m_activeReferencesToResource.at(p_guid)++;
         // mutex::unlock()

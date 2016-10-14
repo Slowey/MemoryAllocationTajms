@@ -23,8 +23,11 @@ public:
 
     bool ResourceExist(const GUID & p_guid) override;
 
-    void FreeResource(const GUID &p_guid) override;
+
 private:
+    // Acctually deletes the data
+    void FreeResource(const GUID &p_guid) override;
+
     ParsedObj* ParseDataAndSendToGraphic(void* p_dataStart);
 
     static ObjManager* m_singleton;
