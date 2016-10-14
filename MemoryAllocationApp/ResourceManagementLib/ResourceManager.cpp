@@ -36,11 +36,11 @@ void ResourceManager::Startup()
 
 void ResourceManager::FreeResource(GUID p_guid)
 {
-	//Skicka vidare till parser and container
+	//Skicka vidare till parser and container OUTDATED
 }
 void ResourceManager::FreeResource()
 {
-    m_prioritizationManager->GetRemovableResource();
+    m_prioritizationManager->FindAndForwardRemovableResource();
     //SKicka guidet till parser and container för removal.
 }
 

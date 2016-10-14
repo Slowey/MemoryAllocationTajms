@@ -45,22 +45,28 @@ void PrioritizationManager::Startup(PrioritizationAlgorithm p_algo)
 	new (m_singleton) PrioritizationManager(p_algo);
 }
 
-void PrioritizationManager::UpdatePriority(GUID p_id, int & o_parserHandle)
+bool PrioritizationManager::FindAndForwardRemovableResource()
 {
-	m_prioritization->UpdateMap(p_id, o_parserHandle);
-}
-
-bool PrioritizationManager::GetRemovableResource()
-{
-    ParserUID t_parserUID = m_prioritization->FindAndForwardRemovable();
+    ParserUID t_parserUID = m_prioritization->GetRemovableResource();
     if (t_parserUID.guid != ERROR_GUID)
     {
-           
-    }
+           //Send to parserandcontainer
+		ParserAndContainerManager::Get().FreeResource(t_parserUID.parserHandle, t_parserUID.guid);
+	}
     else 
     {
         //We are using explicit prio.
         return false;
     }
     return true;
+}
+
+void PrioritizationManager::RemoveFromRemovableQueue(GUID p_id, size_t p_parserHandle)
+{
+	m_prioritization->RemoveFromRemovableQueue(p_id, p_parserHandle);
+}
+
+void PrioritizationManager::AddToRemovableQueue(GUID p_id, size_t p_parserHandle)
+{
+	m_prioritization->AddToRemovableQueue(p_id, p_parserHandle);
 }
