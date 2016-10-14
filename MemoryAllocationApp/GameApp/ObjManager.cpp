@@ -102,6 +102,7 @@ ParsedObj** ObjManager::GetResource(const GUID & p_guid)
         // break;
         // }
     }
+    ResourceRequested(p_guid);
     return &m_objResources.at(p_guid);
 }
 
