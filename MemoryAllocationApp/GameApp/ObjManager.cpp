@@ -77,38 +77,50 @@ ObjManager & ObjManager::Get()
 
 void ObjManager::ParseAndSaveParsedData(void* p_dataStart, const size_t &p_size, const GUID &p_guid)
 {
-    // see if we already have the resource
-    if (m_objResources.count(p_guid) != 0)
+    // see if we already have the resource and its not the dummy
+    if (ResourceExist(p_guid))
     {
         // we already have the resource!
         return;
     }
-    
-    ParsedObj newResource = ParseDataAndSendToGraphic(p_dataStart);
+    ParsedObj* newResource = ParseDataAndSendToGraphic(p_dataStart);
+    // mutex::lock()
     m_objResources[p_guid] = newResource;
+    // mutex::unlock()
 }
 
-ParsedObj ObjManager::GetResource(const GUID & p_guid)
+ParsedObj** ObjManager::GetResource(const GUID & p_guid)
 {
-    if (!ResourceExist(p_guid))
+    while (m_objResources.count(p_guid) == 0)
     {
         // The resource doesn't exist.. :( Return debug shit)
-        return m_dummyMesh;
+        // if(mutex::try_lock())
+        // {
+        m_objResources[p_guid] = m_dummyMesh;
+        // mutex::unlock();
+        // Load(GUID);
+        // break;
+        // }
     }
-    return m_objResources.at(p_guid);
+    return &m_objResources.at(p_guid);
 }
 
 bool ObjManager::ResourceExist(const GUID &p_guid)
 {
-    bool r_exists = m_objResources.count(p_guid) != 0;
+    bool r_exists = m_objResources.count(p_guid) != 0 && m_objResources.at(p_guid) != m_dummyMesh;
     return r_exists;
 }
 
 void ObjManager::FreeResource(const GUID &p_guid)
 {
+    if (ResourceExist(p_guid))
+    {
+        // should call graphic manager to remove the gpu resource to...
+        m_objResources.erase(p_guid);
+    }
 }
 
-ParsedObj ObjManager::ParseDataAndSendToGraphic(void * p_dataStart)
+ParsedObj* ObjManager::ParseDataAndSendToGraphic(void * p_dataStart)
 {
     // Parsing of obj file format
     char* t_charData = static_cast<char*>(p_dataStart);
@@ -179,8 +191,8 @@ ParsedObj ObjManager::ParseDataAndSendToGraphic(void * p_dataStart)
     }
 
     // create a new resource
-    ParsedObj newResource;
+    ParsedObj* newResource = new ParsedObj();
     // Make graphics engine create the mesh, this return a unsigned int which we will use to access the resource
-    newResource.graphicResourceID = Graphics::Get()->CreateMesh(completedVertices);
+    newResource->graphicResourceID = Graphics::Get()->CreateMesh(completedVertices);
     return newResource;
 }

@@ -44,5 +44,6 @@ private:
    CameraManager();
    ~CameraManager();
    float m_movementSpeed;
+   float m_turnSpeed;
 };
 

@@ -166,7 +166,7 @@ void RenderManager::Render()
          GLuint mvpHandle = glGetUniformLocation(t_shaderProgram, "MVP");
          glUniformMatrix4fv(mvpHandle, 1, GL_FALSE, &mvp[0][0]);
          GLuint samplerHandle = glGetUniformLocation(t_shaderProgram, "sampler");
-         glUniform1i(samplerHandle, 0); // 0 Is the gl texture's id (the 0 from GL_TEXTURE0)
+         glUniform1i(samplerHandle, 0); // 0 Is the gl texture's id (the 0 from GL_TEXTURE0) ... I think
 
          // Enable attribs
          glEnableVertexAttribArray(0); // Positions
