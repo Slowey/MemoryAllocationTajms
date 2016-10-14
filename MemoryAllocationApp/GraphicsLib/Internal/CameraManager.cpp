@@ -103,3 +103,8 @@ mat4x4 CameraManager::GetCameraMatrix()
 {
    return m_camera->perspective * m_camera->world;
 }
+
+vec3 CameraManager::GetCameraPosition()
+{
+   return m_camera->position;
+}
