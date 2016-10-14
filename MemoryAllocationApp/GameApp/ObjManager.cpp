@@ -106,6 +106,11 @@ bool ObjManager::ResourceExist(const GUID &p_guid)
 
 void ObjManager::FreeResource(const GUID &p_guid)
 {
+    if (ResourceExist(p_guid))
+    {
+        // should call graphic manager to remove the gpu resource to...
+        m_objResources.erase(p_guid);
+    }
 }
 
 ParsedObj ObjManager::ParseDataAndSendToGraphic(void * p_dataStart)
