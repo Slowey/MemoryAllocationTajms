@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MemoryAllocationApp", "MemoryAllocationApp\MemoryAllocationApp.vcxproj", "{0F57E84B-7F12-4ECB-8885-416A8063995E}"
 EndProject
@@ -14,6 +14,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GraphicsLib", "GraphicsLib\GraphicsLib.vcxproj", "{7C7100F8-D3BB-445F-9ED5-BE86B96FC552}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GameApp", "GameApp\GameApp.vcxproj", "{C5129C77-AD88-4CD6-BE7E-89EE9F88FE35}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FileNameConverter", "FileNameConverter\FileNameConverter.vcxproj", "{F1379882-8E15-420A-83B5-1F185C403ADA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -71,6 +73,14 @@ Global
 		{C5129C77-AD88-4CD6-BE7E-89EE9F88FE35}.Release|x64.Build.0 = Release|x64
 		{C5129C77-AD88-4CD6-BE7E-89EE9F88FE35}.Release|x86.ActiveCfg = Release|Win32
 		{C5129C77-AD88-4CD6-BE7E-89EE9F88FE35}.Release|x86.Build.0 = Release|Win32
+		{F1379882-8E15-420A-83B5-1F185C403ADA}.Debug|x64.ActiveCfg = Debug|x64
+		{F1379882-8E15-420A-83B5-1F185C403ADA}.Debug|x64.Build.0 = Debug|x64
+		{F1379882-8E15-420A-83B5-1F185C403ADA}.Debug|x86.ActiveCfg = Debug|Win32
+		{F1379882-8E15-420A-83B5-1F185C403ADA}.Debug|x86.Build.0 = Debug|Win32
+		{F1379882-8E15-420A-83B5-1F185C403ADA}.Release|x64.ActiveCfg = Release|x64
+		{F1379882-8E15-420A-83B5-1F185C403ADA}.Release|x64.Build.0 = Release|x64
+		{F1379882-8E15-420A-83B5-1F185C403ADA}.Release|x86.ActiveCfg = Release|Win32
+		{F1379882-8E15-420A-83B5-1F185C403ADA}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
