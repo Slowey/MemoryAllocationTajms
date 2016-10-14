@@ -54,6 +54,11 @@ public:
    If the mesh ID does not exist, nothing will happen.*/
    void DrawObject(unsigned int p_meshID, glm::mat4x4 p_worldMatrix, unsigned int p_textureID);
 
+   /**
+   Returns the position of the camera. This design is
+   really really silly...*/
+   glm::vec3 GetCameraPosition();
+
 private:
    static Graphics* m_singleton;
    Graphics();

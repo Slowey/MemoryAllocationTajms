@@ -23,6 +23,11 @@ void Graphics::DrawObject(unsigned int p_meshID, glm::mat4x4 p_worldMatrix, unsi
    RenderManager::Get()->AddMatrixToMeshDrawList(p_meshID, p_worldMatrix, p_textureID);
 }
 
+glm::vec3 Graphics::GetCameraPosition()
+{
+   return CameraManager::Get()->GetCameraPosition();
+}
+
 Graphics::Graphics()
 {
 }

@@ -3,6 +3,7 @@
 #include <Graphics.h>
 #include <glm/gtc/matrix_transform.hpp>
 #include "ObjManager.h"
+#include "GameObject.h"
 
 void CreateWindow()
 {
@@ -36,10 +37,13 @@ int main()
    std::string fileName = "test.zip";
    resMan->LoadChunk(fileName);
 
+   GameObject obj;
+
    // Game loop
    while (true)
    {
-      Graphics::Get()->DrawObject((*bthLogo)->graphicResourceID, glm::scale(glm::mat4(), glm::vec3(0.1, 0.1, 0.1)), 1);
+      //Graphics::Get()->DrawObject((*bthLogo)->graphicResourceID, glm::scale(glm::mat4(), glm::vec3(0.1, 0.1, 0.1)), 1);
+      obj.Draw();
       Graphics::Get()->Update();
    }
 }
