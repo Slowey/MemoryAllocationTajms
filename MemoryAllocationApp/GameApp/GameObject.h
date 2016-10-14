@@ -1,6 +1,8 @@
 #pragma once
 // Third party
 #include <glm\glm.hpp>
+
+#include "ObjManager.h"
 using namespace glm;
 /**
 Simple game object that renders itself and such*/
@@ -19,6 +21,6 @@ private:
    // Resource handles
    unsigned int m_textureHighID;
    unsigned int m_textureLowID;
-   unsigned int m_meshID;
+   ParsedObj** m_meshID;
 };
 

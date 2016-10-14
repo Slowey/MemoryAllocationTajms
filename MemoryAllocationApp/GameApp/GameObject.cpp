@@ -7,6 +7,7 @@
 // Our stuff
 #include <Graphics.h>
 
+
 // debug stuff
 #include <iostream>
 using namespace std;
@@ -17,7 +18,8 @@ GameObject::GameObject()
    // Hard coded opengl handles
    m_textureHighID = 1;
    m_textureLowID = 2;
-   m_meshID = 2;
+   // This is bth logo
+   m_meshID = ObjManager::Get().GetResource(GUID(1337,1337));
 
    m_position = vec3(0, 0, 5);
    m_target = vec3(0, 0, 1);
@@ -39,5 +41,5 @@ void GameObject::Draw()
    cout << t_texId << endl;
    // Create world matrix and call draw object
    mat4x4 t_world = lookAt(m_position, m_position + m_target, vec3(0, 1, 0));
-   Graphics::Get()->DrawObject(m_meshID, t_world, t_texId);
+   Graphics::Get()->DrawObject((*m_meshID)->graphicResourceID, t_world, t_texId);
 }

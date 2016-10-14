@@ -31,19 +31,21 @@ int main()
 
    ObjManager::Initialize();
 
-
-   ParsedObj** bthLogo = ObjManager::Get().GetResource(GUID(1337, 1337));
    // We want to have started all parsers before we load the file x)
-   std::string fileName = "test.zip";
-   resMan->LoadChunk(fileName);
+
 
    GameObject obj;
-
+   int first = 0;
    // Game loop
    while (true)
    {
-      //Graphics::Get()->DrawObject((*bthLogo)->graphicResourceID, glm::scale(glm::mat4(), glm::vec3(0.1, 0.1, 0.1)), 1);
       obj.Draw();
       Graphics::Get()->Update();
+      first++;
+      if (first == 10000)
+      {
+          std::string fileName = "test.zip";
+          resMan->LoadChunk(fileName);
+      }
    }
 }
