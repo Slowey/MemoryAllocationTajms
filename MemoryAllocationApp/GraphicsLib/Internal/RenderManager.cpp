@@ -79,13 +79,19 @@ GLuint RenderManager::CreateMesh(std::vector<Vertex> p_vertices, bool p_async)
    return r_positionBuffer;
 }
 
-GLuint RenderManager::CreateTexture(void * p_textureData, int p_numBytes)
+GLuint RenderManager::CreateTexture(void * p_textureData, int p_numBytes, bool p_async)
 {
    // Magic soil thing that's really untested
+
+    if (p_async)
+        SDLManager::Get()->SetLoadContext(true);
    GLuint r_textureHandle = SOIL_load_OGL_texture_from_memory(
       reinterpret_cast<unsigned char*>(p_textureData),
       p_numBytes,
       SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS | SOIL_FLAG_INVERT_Y | SOIL_FLAG_COMPRESS_TO_DXT);
+   // Not sure why this is important, but it is
+   glFinish();
+
    //// Code to manually create an empty texture. Dumping this here sounds like a bood idea
    //glGenTextures(1, &r_textureHandle);
    ////glActiveTexture(GL_TEXTURE0); // Might be necessary
@@ -94,7 +100,7 @@ GLuint RenderManager::CreateTexture(void * p_textureData, int p_numBytes)
    ////glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR); // Might be needed
    //glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA32F, p_texWidth, p_texHeight, 0, GL_RGBA, GL_FLOAT, NULL); // Last parameter is the data
    //
-   ////glBindImageTexture(0, r_textureHandle, 0, GL_FALSE, 0, GL_WRITE_ONLY, GL_RGBA32F); // Might be needed
+   //glBindImageTexture(0, r_textureHandle, 0, GL_FALSE, 0, GL_WRITE_ONLY, GL_RGBA32F); // Might be needed
    return r_textureHandle;
 }
 
@@ -196,6 +202,7 @@ void RenderManager::Render()
       // Clear draw list for this mesh
       it->second.clear();
    }
+
 
 
 

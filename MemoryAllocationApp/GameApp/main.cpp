@@ -37,6 +37,7 @@ int main()
    CreateWindow();
 
    ObjManager::Initialize();
+   PngManager::Initialize();
 
    // We want to have started all parsers before we load the file x)
 

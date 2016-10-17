@@ -39,7 +39,7 @@ public:
     /**
     Takes the provided data and turns it into a
     texture on the GPU. Returns GLuint handle*/
-    GLuint CreateTexture(void* p_textureData, int p_numbBytes);
+    GLuint CreateTexture(void* p_textureData, int p_numbBytes, bool p_async);
 
     /**
     Loads the specified file and converts it to

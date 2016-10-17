@@ -3,6 +3,7 @@
 #include <glm\glm.hpp>
 
 #include "ObjManager.h"
+#include "PngManager.h"
 using namespace glm;
 /**
 Simple game object that renders itself and such*/
@@ -19,8 +20,7 @@ private:
    vec3 m_target;
 
    // Resource handles
-   unsigned int m_textureHighID;
-   unsigned int m_textureLowID;
+   ParsedPng** m_textureHighID;
    ParsedObj** m_meshID;
 };
 
