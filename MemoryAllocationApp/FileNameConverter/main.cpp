@@ -13,7 +13,7 @@
 #include "ExtraKlass.h"
 // HÅRDKODAT lite här o där vilken folder som ska läsas ifrån. 
 // ResourcesTajms är det nu så om du ska läsa från en annan folder är det den du ska ändra.
-int main()
+int main(int numArgs, char * args[])
 {
 	ExtraKlass extraKlass;
 
