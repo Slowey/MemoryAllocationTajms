@@ -35,8 +35,9 @@ public:
    unsigned int CreateMesh(std::vector<glm::vec3>& p_positions);
 
    /**
-   Creates a mesh from provided vertices and returns handle*/
-   unsigned int CreateMesh(std::vector<Vertex>& p_vertices);
+   Creates a mesh from provided vertices and returns handle.
+   p_async specifies if we want to load asynchronously*/
+   unsigned int CreateMesh(std::vector<Vertex>& p_vertices, bool p_async);
 
    /**
    Loads a texture and returns handle.
