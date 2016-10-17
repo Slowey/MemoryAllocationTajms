@@ -53,6 +53,18 @@ void PngManager::ParseAndSaveParsedData(void * p_dataStart, const size_t & p_siz
     m_mutexLockResourceMap->unlock();
 }
 
+void PngManager::DumpMemoryData()
+{
+    FILE * pFile;
+    fopen_s(&pFile, "OBJParserDataDump", "w");
+    for (auto iterator = m_pngResources.begin(); iterator != m_pngResources.end(); iterator++)
+    {
+        fprintf(pFile, "%d, %d", iterator->first.val[0], iterator->first.val[1]);
+    }
+    // Glöm inte att spara ner vilken resurs som skulle bli inladdad när overflowen occurade.
+
+}
+
 ParsedPng ** PngManager::GetResource(const GUID & p_guid)
 {
     while (m_pngResources.count(p_guid) == 0)

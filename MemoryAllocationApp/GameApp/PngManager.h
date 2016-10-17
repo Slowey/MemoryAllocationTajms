@@ -23,6 +23,8 @@ public:
     ParsedPng** GetResource(const GUID& p_guid);
 
     bool ResourceExist(const GUID & p_guid) override;
+
+    void DumpMemoryData();
 private:
     // Acctually deletes the data
     void FreeResource(const GUID &p_guid) override;
