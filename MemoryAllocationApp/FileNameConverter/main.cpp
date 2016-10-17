@@ -15,7 +15,16 @@
 // ResourcesTajms är det nu så om du ska läsa från en annan folder är det den du ska ändra.
 int main(int numArgs, char * args[])
 {
-	ExtraKlass extraKlass;
+    // Parse args
+    std::string t_filePath = args[0];
+
+    size_t t_pos = t_filePath.find_last_of("\\");
+    if (t_pos == std::string::npos)
+        t_pos = -1;
+    
+    t_pos++;
+    std::string t_fileName = t_filePath.substr(t_pos);
+
 
 	// Load every filename into a vector of strings.
 	std::vector<std::string> t_whatFilesToRead;
