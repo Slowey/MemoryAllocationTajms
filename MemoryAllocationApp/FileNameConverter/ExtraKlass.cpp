@@ -20,8 +20,6 @@ std::string ExtraKlass::CreateGUID(std::string p_fileLocation, std::string p_str
 	m_guidToString.insert(std::pair<GUIDD, std::string>(t_guid, p_fileLocation));
 	std::cout << "Guid: " << t_guid.val[0] << t_guid.val[1] << std::endl;
 	std::cout << "Stringen: " << m_guidToString[t_guid] << std::endl;
-	//r_guid = t_guid.val[0];// +t_guid.val[1];
-
 
 	std::string number;
 	std::stringstream strstream;
@@ -47,14 +45,10 @@ std::string ExtraKlass::ReadFileAndReturnTheStringOfAllContent(std::string p_fil
 		while (!myReadFile.eof())
 		{
 			myReadFile >> output;
-
-			// std::cout << output << std::endl;
-
 			stringForConversion += output;
 		}
 	}
 	myReadFile.close();
-	//std::cout << stringForConversion;
 	return stringForConversion;
 }
 // Reads from a text files what files want to be converted.
@@ -115,8 +109,6 @@ void ExtraKlass::ReadEveryFileInTheFolder(std::string p_directoryName, std::vect
 		std::wstring t_wstring(FindFileData.cFileName);
 		std::string t_string(t_wstring.begin(), t_wstring.end());
 		o_fileNamesInFolder.push_back(t_string);
-		// std::cout << t_string << std::endl;
 	}
 	FindClose(hFind);
-	int holamuchocao = 0;
 }
