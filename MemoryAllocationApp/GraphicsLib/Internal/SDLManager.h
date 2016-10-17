@@ -41,6 +41,11 @@ public:
     mouse movement since last frame*/
     void GetMouseMovement(int& o_x, int& o_y);
 
+    /**
+    Toggles whether the load context is active
+    or the render context.*/
+    void SetLoadContext(bool p_active);
+
 private:
     static SDLManager* m_singleton;
     SDLManager();
@@ -57,6 +62,7 @@ private:
     
     SDL_Window* m_window;
     SDL_GLContext m_glContext;
+    SDL_GLContext m_loadContext;
 
 };
 enum class InputKey

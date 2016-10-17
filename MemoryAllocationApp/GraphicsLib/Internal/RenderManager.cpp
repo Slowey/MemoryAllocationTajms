@@ -62,15 +62,20 @@ GLuint RenderManager::CreateMesh(std::vector<glm::vec3>& p_positions)
    return r_positionBuffer;
 }
 
-GLuint RenderManager::CreateMesh(std::vector<Vertex> p_vertices)
+GLuint RenderManager::CreateMesh(std::vector<Vertex> p_vertices, bool p_async)
 {
+   if (p_async)
+      SDLManager::Get()->SetLoadContext(true);
    GLuint r_positionBuffer;
    glGenBuffers(1, &r_positionBuffer);
    glBindBuffer(GL_ARRAY_BUFFER, r_positionBuffer);
    glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * p_vertices.size(), &p_vertices[0], GL_STATIC_DRAW);
+
    // Create empty draw list for new mesh
+   cout << r_positionBuffer << endl;
    m_meshDrawLists[r_positionBuffer] = vector<DrawObject>();
    m_meshSizes[r_positionBuffer] = p_vertices.size();
+   //SDLManager::Get()->SetLoadContext(false);
    return r_positionBuffer;
 }
 
@@ -120,11 +125,11 @@ void RenderManager::DEBUGTriangleCreation()
    t_vertices.push_back(Vertex(vec3(-0.5, -0.5, 1), vec3(0, 0, -1), vec2(-1, -1)));
    t_vertices.push_back(Vertex(vec3(0.5, -0.5, 1), vec3(0, 0, -1), vec2(1, -1)));
    t_vertices.push_back(Vertex(vec3(0, 0.5, 1), vec3(0, 0, -1), vec2(0, 1)));
-   GLuint meshVBO = RenderManager::Get()->CreateMesh(t_vertices);
+   GLuint meshVBO = RenderManager::Get()->CreateMesh(t_vertices, false);
 
    // Create texture
    GLuint textureHandle = CreateTexture("../GraphicsLib/Resources/test.jpg");
-    textureHandle = CreateTexture("../GraphicsLib/Resources/test_low.jpg");
+   textureHandle = CreateTexture("../GraphicsLib/Resources/test_low.jpg");
 }
 
 

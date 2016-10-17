@@ -19,7 +19,7 @@ public:
     void LoadChunk(const std::string & p_fileName);
 
     // Load whole or sub part of chunk
-    void LoadChunk(const std::string & p_fileName, const std::string & p_subDirectory);
+    //void LoadChunk(const std::string & p_fileName, const std::string & p_subDirectory);
 
 	/**
 	Starts the DataManager

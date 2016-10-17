@@ -22,6 +22,11 @@ void SDLManager::GetMouseMovement(int & o_x, int & o_y)
    o_y = m_deltaY;
 }
 
+void SDLManager::SetLoadContext(bool p_active)
+{
+   SDL_GL_MakeCurrent(m_window, p_active ? m_loadContext : m_glContext); // Cool code //kony12 2k16
+}
+
 SDLManager::SDLManager()
 {
 }
@@ -106,6 +111,7 @@ void SDLManager::CreateWindow(WindowParams p_parameters)
    SDL_GL_SetAttribute(SDL_GL_BUFFER_SIZE, 32);
    SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 16);
    SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+   SDL_GL_SetAttribute(SDL_GL_SHARE_WITH_CURRENT_CONTEXT, 1);
 
    m_window = SDL_CreateWindow(
       p_parameters.windowName,
@@ -116,6 +122,9 @@ void SDLManager::CreateWindow(WindowParams p_parameters)
       SDL_WINDOW_OPENGL);
 
    m_glContext = SDL_GL_CreateContext(m_window);
+   m_loadContext = SDL_GL_CreateContext(m_window); // Used for loading resources
+   SDL_GL_MakeCurrent(m_window, m_glContext);
+   // Make render context main
    GLenum status = glewInit();
    glEnable(GL_DEPTH_TEST);
    if (status != GLEW_OK)

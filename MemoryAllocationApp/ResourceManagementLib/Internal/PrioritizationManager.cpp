@@ -55,7 +55,7 @@ bool PrioritizationManager::FindAndForwardRemovableResource()
 	}
     else 
     {
-        //We are using explicit prio.
+        //We are at capacity
         return false;
     }
     return true;
