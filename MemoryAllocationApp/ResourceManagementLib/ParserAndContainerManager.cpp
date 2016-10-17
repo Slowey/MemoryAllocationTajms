@@ -6,6 +6,7 @@ ParserAndContainerManager* ParserAndContainerManager::m_singleton = nullptr;
 ParserAndContainerManager::ParserAndContainerManager()
 {
     m_prioHandleIncrementer = 0;
+	m_memoryUsage = 0;
 }
 
 
@@ -86,4 +87,12 @@ void ParserAndContainerManager::ParseByEnding(void * p_fileBuffer, const size_t 
             m_parsers[i]->ParseAndSaveParsedData(p_fileBuffer, p_sizeOfBuffer, t_guid);
         }
     }
+}
+
+void ParserAndContainerManager::DumpAllParserData()
+{
+	for (auto iterator = m_prioHandlesToParser.begin(); iterator != m_prioHandlesToParser.end(); iterator++)
+	{
+		iterator->second->DumpMemoryData();
+	}
 }

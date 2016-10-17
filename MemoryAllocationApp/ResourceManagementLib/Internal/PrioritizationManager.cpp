@@ -52,13 +52,15 @@ bool PrioritizationManager::FindAndForwardRemovableResource()
     {
            //Send to parserandcontainer
 		ParserAndContainerManager::Get().FreeResource(t_parserUID.parserHandle, t_parserUID.guid);
+		return true;
 	}
     else 
     {
         //We are at capacity
+		printf("You hit max memory! I'm dumping all the parser data into a file");
+		ParserAndContainerManager::Get().DumpAllParserData();
         return false;
     }
-    return true;
 }
 
 void PrioritizationManager::RemoveFromRemovableQueue(GUID p_id, size_t p_parserHandle)
