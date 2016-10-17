@@ -15,12 +15,21 @@
 // ResourcesTajms är det nu så om du ska läsa från en annan folder är det den du ska ändra.
 int main(int numArgs, char * args[])
 {
+    // Parse args
+    std::string t_filePath = args[0];
+
+    size_t t_pos = t_filePath.find_last_of("\\");
+    if (t_pos == std::string::npos)
+        t_pos = -1;
+    
+    t_pos++;
+    std::string t_fileName = t_filePath.substr(t_pos);
+
 	ExtraKlass extraKlass;
 
 	// Load every filename into a vector of strings.
 	std::vector<std::string> t_whatFilesToRead;
-	//t_whatFilesToRead = ReadTheNamesOfTheFilesToRead();
-	extraKlass.ReadEveryFileInTheFolder("ResourcesTajms\\*", t_whatFilesToRead);
+	extraKlass.ReadEveryFileInTheFolder("ResourcesTajms\\*", t_whatFilesToRead, t_fileName);
 	
 	std::ofstream myfile;
 	myfile.open("DebugFileMD5.txt");
@@ -39,8 +48,6 @@ int main(int numArgs, char * args[])
 		// extraKlass.RenameTextFile(t_whatFilesToRead[i], t_stringForGUID);
 	}
 
-
-	int hola = 2;
 	return 0;
 }
 

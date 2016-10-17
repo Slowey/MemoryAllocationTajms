@@ -24,7 +24,7 @@ void SDLManager::GetMouseMovement(int & o_x, int & o_y)
 
 void SDLManager::SetLoadContext(bool p_active)
 {
-   SDL_GL_MakeCurrent(m_window, p_active ? m_loadContext : m_glContext); // Cool code //kony12 2k16
+   SDL_GL_MakeCurrent(m_window, p_active ? m_loadContext : m_glContext);
 }
 
 SDLManager::SDLManager()
