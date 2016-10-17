@@ -125,7 +125,7 @@ void ReadEveryFileInTheFolder(std::string p_directoryName)
 	FindClose(hFind);	
 	int holamuchocao = 0;
 }
-int main()
+int main(int numArgs, char * args[])
 {
 	// Load every filename into a vector of strings.
 	std::vector<std::string> t_whatFilesToRead;
