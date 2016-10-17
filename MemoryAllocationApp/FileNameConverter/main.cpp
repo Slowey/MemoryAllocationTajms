@@ -26,9 +26,10 @@ int main(int numArgs, char * args[])
     std::string t_fileName = t_filePath.substr(t_pos);
 
 	ExtraKlass extraKlass;
+
 	// Load every filename into a vector of strings.
 	std::vector<std::string> t_whatFilesToRead;
-	extraKlass.ReadEveryFileInTheFolder("ResourcesTajms\\*", t_whatFilesToRead);
+	extraKlass.ReadEveryFileInTheFolder("ResourcesTajms\\*", t_whatFilesToRead, t_fileName);
 	
 	std::ofstream myfile;
 	myfile.open("DebugFileMD5.txt");

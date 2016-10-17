@@ -91,7 +91,7 @@ void ExtraKlass::RenameTextFile(std::string p_oldFileName, std::string p_newFile
 	result = rename(cstr, secondConstCharForConversion);
 }
 // Example on how to write the directoy "ResourcesTajms\\*" this is how it is done.
-void ExtraKlass::ReadEveryFileInTheFolder(std::string p_directoryName, std::vector<std::string> &o_fileNamesInFolder)
+void ExtraKlass::ReadEveryFileInTheFolder(std::string p_directoryName, std::vector<std::string> &o_fileNamesInFolder, const std::string &p_excludeFile)
 {
 	WIN32_FIND_DATA FindFileData;
 	HANDLE hFind;
@@ -108,7 +108,8 @@ void ExtraKlass::ReadEveryFileInTheFolder(std::string p_directoryName, std::vect
 	{
 		std::wstring t_wstring(FindFileData.cFileName);
 		std::string t_string(t_wstring.begin(), t_wstring.end());
-		o_fileNamesInFolder.push_back(t_string);
+        if(t_string != p_excludeFile)
+		    o_fileNamesInFolder.push_back(t_string);
 	}
 	FindClose(hFind);
 }
