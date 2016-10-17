@@ -23,6 +23,7 @@ public:
 
     bool ResourceExist(const GUID &p_guid) override;
     void FreeResource(const GUID &p_guid) override;
+	void DumpMemoryData();
 private:
     static WavManager* m_singleton;
     // Contains all the loaded wav resources, parsed and ready to use

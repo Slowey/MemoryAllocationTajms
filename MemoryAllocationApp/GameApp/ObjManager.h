@@ -23,6 +23,8 @@ public:
 
     bool ResourceExist(const GUID & p_guid) override;
 
+	void DumpMemoryData();
+
 
 private:
     // Acctually deletes the data

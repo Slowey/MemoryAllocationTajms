@@ -78,12 +78,13 @@ ObjManager & ObjManager::Get()
 void ObjManager::ParseAndSaveParsedData(void* p_dataStart, const size_t &p_size, const GUID &p_guid)
 {
     // see if we already have the resource and its not the dummy
-    if (ResourceExist(p_guid))
-    {
-        // we already have the resource!
-        return;
-    }
-    ParsedObj* newResource = ParseDataAndSendToGraphic(p_dataStart);
+	if (ResourceExist(p_guid))
+	{
+		// we already have the resource!
+		return;
+	}
+	SetMemoryUsage(p_size);
+	ParsedObj* newResource = ParseDataAndSendToGraphic(p_dataStart);
     // mutex::lock()
     m_objResources[p_guid] = newResource;
     // mutex::unlock()
@@ -110,6 +111,18 @@ bool ObjManager::ResourceExist(const GUID &p_guid)
 {
     bool r_exists = m_objResources.count(p_guid) != 0 && m_objResources.at(p_guid) != m_dummyMesh;
     return r_exists;
+}
+
+void ObjManager::DumpMemoryData()
+{
+	FILE * pFile;
+	fopen_s(&pFile, "OBJParserDataDump", "w");
+	for (auto iterator = m_objResources.begin(); iterator != m_objResources.end(); iterator++)
+	{
+		fprintf(pFile, "%d, %d", iterator->first.val[0], iterator->first.val[1]);
+	}
+	// Glöm inte att spara ner vilken resurs som skulle bli inladdad när overflowen occurade.
+
 }
 
 void ObjManager::FreeResource(const GUID &p_guid)
