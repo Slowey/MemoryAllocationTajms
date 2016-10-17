@@ -123,7 +123,7 @@ void SDLManager::CreateWindow(WindowParams p_parameters)
 
    m_glContext = SDL_GL_CreateContext(m_window);
    m_loadContext = SDL_GL_CreateContext(m_window); // Used for loading resources
-
+   SDL_GL_MakeCurrent(m_window, m_glContext);
    // Make render context main
    GLenum status = glewInit();
    glEnable(GL_DEPTH_TEST);

@@ -31,8 +31,10 @@ public:
 
     /**
     Creates a mesh from a set of vertices and 
-    returns the handle to the buffer.*/
-    GLuint CreateMesh(std::vector<Vertex> p_vertices);
+    returns the handle to the buffer.
+    p_async specifies if we're loading from another
+    thread.*/
+    GLuint CreateMesh(std::vector<Vertex> p_vertices, bool p_async);
 
     /**
     Takes the provided data and turns it into a

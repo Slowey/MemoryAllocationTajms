@@ -38,7 +38,7 @@ void GameObject::Draw()
    float t_dist = length(t_playerPos - m_position);
    unsigned int t_texId;
    t_texId = t_dist > 5 ? m_textureLowID : m_textureHighID;
-   cout << t_texId << endl;
+   //cout << t_texId << endl;
    // Create world matrix and call draw object
    mat4x4 t_world = lookAt(m_position, m_position + m_target, vec3(0, 1, 0));
    Graphics::Get()->DrawObject((*m_meshID)->graphicResourceID, t_world, t_texId);
