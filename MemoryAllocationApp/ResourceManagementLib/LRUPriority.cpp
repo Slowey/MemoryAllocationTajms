@@ -54,7 +54,7 @@ void LRUPriority::AddToRemovableQueue(GUID p_id, size_t p_parserHandle)
 }
 ParserUID LRUPriority::GetRemovableResource()
 {
-	if (m_removableList.size > 0)
+	if (m_removableList.size() > 0)
 	{
 		ParserUID t_tempParserUID = m_removableList.front();
 		m_removableList.pop_front();
