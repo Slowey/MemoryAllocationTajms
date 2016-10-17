@@ -54,9 +54,18 @@ void LRUPriority::AddToRemovableQueue(GUID p_id, size_t p_parserHandle)
 }
 ParserUID LRUPriority::GetRemovableResource()
 {
-	ParserUID t_tempParserUID = m_removableList.front();
-	m_removableList.pop_front();
-	return t_tempParserUID;
+	if (m_removableList.size > 0)
+	{
+		ParserUID t_tempParserUID = m_removableList.front();
+		m_removableList.pop_front();
+		return t_tempParserUID;
+	}
+	else
+	{
+		ParserUID t_tempParserUID;
+		t_tempParserUID.guid = GUID(-1, -1);
+		return t_tempParserUID;
+	}
 }
 void LRUPriority::RemoveFromRemovableQueue(GUID p_id, size_t p_parserHandle)
 {
