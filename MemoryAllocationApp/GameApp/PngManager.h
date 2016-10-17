@@ -2,40 +2,37 @@
 #include <ParserAndContainer.h>
 #include <map>
 #include <mutex>
-struct ParsedObj
+
+struct ParsedPng
 {
     unsigned int graphicResourceID;
 };
 
-class ObjManager: public ParserAndContainer
+class PngManager: public ParserAndContainer
 {
 public:
-    ObjManager();
-    ~ObjManager();
-
+    PngManager();
+    ~PngManager();
     // Initialize singleton
     static void Initialize();
     // Get singleton
-    static ObjManager& Get();
-    // Parses the wav format and saves it to a container mapping between GUID and ... TODO take GUID as input
+    static PngManager& Get();
+    // Parses the png format and saves it to a container mapping between GUID and ... TODO take GUID as input
     void ParseAndSaveParsedData(void* p_dataStart, const size_t &p_size, const GUID &p_guid) override;
     // Returns the parsed data on the GUID
-    ParsedObj** GetResource(const GUID& p_guid);
+    ParsedPng** GetResource(const GUID& p_guid);
 
     bool ResourceExist(const GUID & p_guid) override;
 
-	void DumpMemoryData();
-
-
+    void DumpMemoryData();
 private:
     // Acctually deletes the data
     void FreeResource(const GUID &p_guid) override;
 
-    ParsedObj* ParseDataAndSendToGraphic(void* p_dataStart);
+    static PngManager* m_singleton;
 
-    static ObjManager* m_singleton;
-    std::map<GUID, ParsedObj*> m_objResources;
-    ParsedObj* m_dummyMesh;
+    std::map<GUID, ParsedPng*> m_pngResources;
+    ParsedPng* m_dummyTexture;
 
     std::shared_ptr<std::mutex> m_mutexLockResourceMap;
 };

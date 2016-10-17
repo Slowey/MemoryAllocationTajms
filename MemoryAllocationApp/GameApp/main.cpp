@@ -8,6 +8,7 @@
 #include <PoolAllocator.h>
 #include "ObjManager.h"
 #include "GameObject.h"
+#include "Global.h"
 using namespace std;
 void CreateWindow()
 {
@@ -22,11 +23,13 @@ void CreateWindow()
    Graphics::Get()->CreateWindow(params);
 }
 
+std::thread::id g_mainThread;
 
 int main()
 {
    ResourceManager::Startup(100000);
    MemoryManager::Startup(10240, 200000);
+   g_mainThread = std::this_thread::get_id();
    ResourceManager* resMan = ResourceManager::Get();
    ParserAndContainerManager::Initialize();
 
@@ -36,6 +39,7 @@ int main()
    CreateWindow();
 
    ObjManager::Initialize();
+   PngManager::Initialize();
 
    // We want to have started all parsers before we load the file x)
 

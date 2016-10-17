@@ -5,11 +5,14 @@
 #include <vector>
 #include <Graphics.h>
 #include <EnumsAndDefines.h>
+#include "Global.h"
 
 ObjManager* ObjManager::m_singleton = nullptr;
 
 ObjManager::ObjManager(): ParserAndContainer("obj")
 { 
+    m_mutexLockResourceMap = std::make_shared<std::mutex>();
+
     std::stringstream myBasicOBJStream;
     myBasicOBJStream << "v -0.500000 -0.500000 0.500000\n";
     myBasicOBJStream << "v 0.500000 -0.500000 0.500000\n";
@@ -78,6 +81,14 @@ ObjManager & ObjManager::Get()
 void ObjManager::ParseAndSaveParsedData(void* p_dataStart, const size_t &p_size, const GUID &p_guid)
 {
     // see if we already have the resource and its not the dummy
+    if (ResourceExist(p_guid))
+    {
+        // we already have the resource!
+        return;
+    }
+    SetMemoryUsage(p_size);
+    ParsedObj* newResource = ParseDataAndSendToGraphic(p_dataStart);
+    m_mutexLockResourceMap->lock();
 	if (ResourceExist(p_guid))
 	{
 		// we already have the resource!
@@ -85,9 +96,9 @@ void ObjManager::ParseAndSaveParsedData(void* p_dataStart, const size_t &p_size,
 	}
 	AddMemoryUsage(p_size);
 	ParsedObj* newResource = ParseDataAndSendToGraphic(p_dataStart);
-    // mutex::lock()
+    mutex::lock()
     m_objResources[p_guid] = newResource;
-    // mutex::unlock()
+    m_mutexLockResourceMap->unlock();
 }
 
 ParsedObj** ObjManager::GetResource(const GUID & p_guid)
@@ -95,13 +106,13 @@ ParsedObj** ObjManager::GetResource(const GUID & p_guid)
     while (m_objResources.count(p_guid) == 0)
     {
         // The resource doesn't exist.. :( Return debug shit)
-        // if(mutex::try_lock())
-        // {
-        m_objResources[p_guid] = m_dummyMesh;
-        // mutex::unlock();
-        // Load(GUID);
-        // break;
-        // }
+         if(m_mutexLockResourceMap->try_lock())
+         {
+            m_objResources[p_guid] = m_dummyMesh;
+            m_mutexLockResourceMap->unlock();
+         // Load(GUID);
+         break;
+         }
     }
     ResourceRequested(p_guid);
     return &m_objResources.at(p_guid);
@@ -211,7 +222,7 @@ ParsedObj* ObjManager::ParseDataAndSendToGraphic(void * p_dataStart)
     // create a new resource
     ParsedObj* newResource = new ParsedObj();
     // Make graphics engine create the mesh, this return a unsigned int which we will use to access the resource
-    if (completedVertices.size() > 40)
+    if (!IsMainThread())
       newResource->graphicResourceID = Graphics::Get()->CreateMesh(completedVertices, true);
     else
        newResource->graphicResourceID = Graphics::Get()->CreateMesh(completedVertices, false);

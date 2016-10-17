@@ -42,7 +42,7 @@ public:
    /**
    Loads a texture and returns handle.
    Provide data pointer and file lenth, in bytes*/
-   unsigned int LoadTexture(void* p_data, int p_textureByteSize);
+   unsigned int LoadTexture(void* p_data, int p_textureByteSize, bool p_async);
 
    /**
    Loads a texture and returns handle.
