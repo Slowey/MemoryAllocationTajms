@@ -35,6 +35,7 @@ documentation and/or software.
 
 #include <cstring>
 #include <iostream>
+#include <string>
 
 
 // namespace std
@@ -63,6 +64,10 @@ struct GUIDD
 		val[1] = p_valueTwo;
 	}
 	GUIDD() {};
+    std::string ToString()
+    {
+        return std::to_string(val[0]) + "_" + std::to_string(val[1]);
+    }
 };
 class MD5
 {

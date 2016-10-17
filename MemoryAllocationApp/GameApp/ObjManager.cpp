@@ -195,6 +195,10 @@ ParsedObj* ObjManager::ParseDataAndSendToGraphic(void * p_dataStart)
     // create a new resource
     ParsedObj* newResource = new ParsedObj();
     // Make graphics engine create the mesh, this return a unsigned int which we will use to access the resource
-    newResource->graphicResourceID = Graphics::Get()->CreateMesh(completedVertices);
+    if (completedVertices.size() > 40)
+      newResource->graphicResourceID = Graphics::Get()->CreateMesh(completedVertices, true);
+    else
+       newResource->graphicResourceID = Graphics::Get()->CreateMesh(completedVertices, false);
+    
     return newResource;
 }
