@@ -127,6 +127,10 @@ void ReadEveryFileInTheFolder(std::string p_directoryName)
 }
 int main(int numArgs, char * args[])
 {
+    // Parse args
+
+
+
 	// Load every filename into a vector of strings.
 	std::vector<std::string> t_whatFilesToRead;
 	t_whatFilesToRead = ReadTheNamesOfTheFilesToRead();

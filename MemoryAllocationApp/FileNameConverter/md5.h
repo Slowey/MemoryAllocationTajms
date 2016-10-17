@@ -35,6 +35,7 @@ documentation and/or software.
 
 #include <cstring>
 #include <iostream>
+#include <string>
 
 
 // namespace std
