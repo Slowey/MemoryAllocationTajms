@@ -204,7 +204,7 @@ ParsedObj* ObjManager::ParseDataAndSendToGraphic(void * p_dataStart)
         // push the completed vertex TODO should be a complete mesh data, not just pos
         completedVertices.push_back(Vertex(vertexPosition, vertexNormal, vertexUVMap));
     }
-
+	// in med memoryusage bumping
     // create a new resource
     ParsedObj* newResource = new ParsedObj();
     // Make graphics engine create the mesh, this return a unsigned int which we will use to access the resource

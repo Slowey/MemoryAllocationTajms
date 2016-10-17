@@ -7,15 +7,16 @@ FileLoaderManager* FileLoaderManager::Get()
     return m_singleton;
 }
 
-void FileLoaderManager::Startup()
+void FileLoaderManager::Startup(size_t p_maximumMemoryUsage)
 {
     if (m_singleton == nullptr)
     {
-        m_singleton = new FileLoaderManager();
+        m_singleton = new FileLoaderManager(p_maximumMemoryUsage);
     }
 }
 
-FileLoaderManager::FileLoaderManager()
+FileLoaderManager::FileLoaderManager(size_t p_maximumMemoryUsage):
+	m_maximumMemoryUsage(p_maximumMemoryUsage)
 {
 }
 

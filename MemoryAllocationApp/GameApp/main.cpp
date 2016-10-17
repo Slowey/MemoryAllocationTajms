@@ -22,7 +22,7 @@ void CreateWindow()
 
 int main()
 {
-   ResourceManager::Startup();
+   ResourceManager::Startup(100000);
    ResourceManager* resMan = ResourceManager::Get();
    ParserAndContainerManager::Initialize();
 
