@@ -5,6 +5,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 //#pragma comment (lib, "MemLib.lib")
 #include <MemoryManager.h>
+#include <PoolAllocator.h>
 #include "ObjManager.h"
 #include "GameObject.h"
 using namespace std;
@@ -39,12 +40,17 @@ int main()
    // We want to have started all parsers before we load the file x)
 
    thread m_loadThread;
-   GameObject obj;
+   
+   PoolAllocator* objAllocator;
+   objAllocator = MemoryManager::Get()->CreatePoolAllocator(sizeof(GameObject));
+   
+   GameObject* obj = new(objAllocator) GameObject();
+
    int first = 0;
    // Game loop
    while (true)
    {
-      obj.Draw();
+      obj->Draw();
       Graphics::Get()->Update();
       first++;
       if (first == 1000)
