@@ -5,6 +5,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include "ObjManager.h"
 #include "GameObject.h"
+#include "Global.h"
 using namespace std;
 void CreateWindow()
 {
@@ -19,9 +20,11 @@ void CreateWindow()
    Graphics::Get()->CreateWindow(params);
 }
 
+std::thread::id g_mainThread;
 
 int main()
 {
+   g_mainThread = std::this_thread::get_id();
    ResourceManager::Startup();
    ResourceManager* resMan = ResourceManager::Get();
    ParserAndContainerManager::Initialize();
@@ -29,6 +32,8 @@ int main()
 
    int a = 3;
    Graphics::Startup();
+   // Lets get the thread that started Graphics
+
    CreateWindow();
 
    ObjManager::Initialize();

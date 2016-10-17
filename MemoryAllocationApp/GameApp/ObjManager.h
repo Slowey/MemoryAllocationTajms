@@ -1,6 +1,7 @@
 #pragma once
 #include <ParserAndContainer.h>
 #include <map>
+#include <mutex>
 struct ParsedObj
 {
     unsigned int graphicResourceID;
@@ -33,5 +34,7 @@ private:
     static ObjManager* m_singleton;
     std::map<GUID, ParsedObj*> m_objResources;
     ParsedObj* m_dummyMesh;
+
+    std::shared_ptr<std::mutex> m_mutexLockResourceMap;
 };
 
