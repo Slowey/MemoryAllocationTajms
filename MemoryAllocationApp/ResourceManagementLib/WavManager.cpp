@@ -54,3 +54,7 @@ void WavManager::ParseAndSaveParsedData(void* p_dataStart, const size_t &p_size,
 void WavManager::FreeResource(const GUID &p_guid)
 {
 }
+
+void WavManager::DumpMemoryData()
+{
+}

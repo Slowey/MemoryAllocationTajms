@@ -86,6 +86,7 @@ void ObjManager::ParseAndSaveParsedData(void* p_dataStart, const size_t &p_size,
         // we already have the resource!
         return;
     }
+    SetMemoryUsage(p_size);
     ParsedObj* newResource = ParseDataAndSendToGraphic(p_dataStart);
     m_mutexLockResourceMap->lock();
     m_objResources[p_guid] = newResource;
@@ -113,6 +114,18 @@ bool ObjManager::ResourceExist(const GUID &p_guid)
 {
     bool r_exists = m_objResources.count(p_guid) != 0 && m_objResources.at(p_guid) != m_dummyMesh;
     return r_exists;
+}
+
+void ObjManager::DumpMemoryData()
+{
+	FILE * pFile;
+	fopen_s(&pFile, "OBJParserDataDump", "w");
+	for (auto iterator = m_objResources.begin(); iterator != m_objResources.end(); iterator++)
+	{
+		fprintf(pFile, "%d, %d", iterator->first.val[0], iterator->first.val[1]);
+	}
+	// Glöm inte att spara ner vilken resurs som skulle bli inladdad när overflowen occurade.
+
 }
 
 void ObjManager::FreeResource(const GUID &p_guid)
@@ -194,7 +207,7 @@ ParsedObj* ObjManager::ParseDataAndSendToGraphic(void * p_dataStart)
         // push the completed vertex TODO should be a complete mesh data, not just pos
         completedVertices.push_back(Vertex(vertexPosition, vertexNormal, vertexUVMap));
     }
-
+	// in med memoryusage bumping
     // create a new resource
     ParsedObj* newResource = new ParsedObj();
     // Make graphics engine create the mesh, this return a unsigned int which we will use to access the resource

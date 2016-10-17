@@ -24,10 +24,10 @@ public:
 	/**
 	Starts the DataManager
 	*/
-	static void Startup();
+	static void Startup(size_t p_maximumMemoryUsage);
 
 private:
-	ResourceManager();
+	ResourceManager(size_t p_maximumMemoryUsage);
 	~ResourceManager();
 	static ResourceManager* m_singleton;
     PrioritizationManager* m_prioritizationManager;

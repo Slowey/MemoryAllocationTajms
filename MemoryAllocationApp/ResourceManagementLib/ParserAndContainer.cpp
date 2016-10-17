@@ -31,8 +31,11 @@ void ParserAndContainer::ReleaseResource(const GUID & p_guid)
         throw 1337;
     }
 }
+void ParserAndContainer::SetMemoryUsage(int p_memoryUsageToAdd) {
+	ParserAndContainerManager::Get().SetMemoryUsage(p_memoryUsageToAdd);
+}
 
-void ParserAndContainer::ResourceRequested(const GUID p_guid)
+void ParserAndContainer::ResourceRequested(const GUID& p_guid)
 {
     if (m_activeReferencesToResource.count(p_guid) != 0)
     {

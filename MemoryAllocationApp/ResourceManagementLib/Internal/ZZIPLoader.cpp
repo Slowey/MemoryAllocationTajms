@@ -11,7 +11,7 @@ void ZZIPLoader::LoadFile(const std::string &p_fileName)
 {
     ParserAndContainerManager &parAndContMan = ParserAndContainerManager::Get();
     ZZIP_DIR* dir = zzip_dir_open(p_fileName.c_str(), 0);
-
+	
     // If we could open directory
     if (dir)
     {
@@ -90,7 +90,7 @@ void ZZIPLoader::LoadAndParseFile(zzip_dir *p_dir, const zzip_dirent &p_dirent)
     ParserAndContainerManager &parAndContMan = ParserAndContainerManager::Get();
     ZZIP_FILE* fp = zzip_file_open(p_dir, p_dirent.d_name, 0);
     if (fp) {
-
+		
         // Create buffer that can hold the memory
         // We only keep the memory for one resource at a time?
         char* temporaryBuffer = new char[p_dirent.st_size];
@@ -103,6 +103,7 @@ void ZZIPLoader::LoadAndParseFile(zzip_dir *p_dir, const zzip_dirent &p_dirent)
             parAndContMan.ParseByEnding(temporaryBuffer, p_dirent.st_size, p_dirent.d_name);
 
         }
+		delete temporaryBuffer;
         zzip_file_close(fp);
     }
 }
