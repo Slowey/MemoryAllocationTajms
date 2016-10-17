@@ -102,6 +102,7 @@ ParsedObj** ObjManager::GetResource(const GUID & p_guid)
         // break;
         // }
     }
+    ResourceRequested(p_guid);
     return &m_objResources.at(p_guid);
 }
 
@@ -116,6 +117,7 @@ void ObjManager::FreeResource(const GUID &p_guid)
     if (ResourceExist(p_guid))
     {
         // should call graphic manager to remove the gpu resource to...
+        delete m_objResources.at(p_guid);
         m_objResources.erase(p_guid);
     }
 }

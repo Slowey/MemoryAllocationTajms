@@ -4,10 +4,6 @@
 // Our stuff
 #include "SDLManager.h"
 
-// Debug stuff
-#include <iostream>
-using namespace std;
-// end debug
 CameraManager* CameraManager::m_singleton = nullptr;
 
 CameraManager * CameraManager::Get()
@@ -69,7 +65,6 @@ void CameraManager::Update()
    int t_dx;
    int t_dy;
    SDLManager::Get()->GetMouseMovement(t_dx, t_dy);
-   cout << t_dx << "  " << t_dy << endl;
    /* Might actually be an idea to normalize the deltas
    since y moves slower than x due to x being more pixels.*/
    float t_rotationX = (float)t_dx * m_turnSpeed;
@@ -102,4 +97,9 @@ void CameraManager::Update()
 mat4x4 CameraManager::GetCameraMatrix()
 {
    return m_camera->perspective * m_camera->world;
+}
+
+vec3 CameraManager::GetCameraPosition()
+{
+   return m_camera->position;
 }

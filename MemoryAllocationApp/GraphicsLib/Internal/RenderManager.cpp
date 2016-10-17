@@ -124,6 +124,7 @@ void RenderManager::DEBUGTriangleCreation()
 
    // Create texture
    GLuint textureHandle = CreateTexture("../GraphicsLib/Resources/test.jpg");
+    textureHandle = CreateTexture("../GraphicsLib/Resources/test_low.jpg");
 }
 
 
