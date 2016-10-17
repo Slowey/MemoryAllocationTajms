@@ -39,7 +39,7 @@ std::string ExtraKlass::ReadFileAndReturnTheStringOfAllContent(std::string p_fil
 	std::ifstream myReadFile;
 	std::string stringForConversion = "";
 	char output[100000];
-	myReadFile.open("ResourcesTajms/"+p_filename);
+	myReadFile.open(m_folderName + p_filename);
 	if (myReadFile.is_open())
 	{
 		while (!myReadFile.eof())
@@ -57,7 +57,7 @@ std::vector<std::string> ExtraKlass::ReadTheNamesOfTheFilesToRead()
 	std::vector<std::string> r_whatFilesToRead;
 	std::ifstream myReadFile;
 	char output[100000];
-	myReadFile.open("ResourcesTajms/WhatFilesToRead.txt");
+	myReadFile.open(m_folderName + "WhatFilesToRead.txt");
 	if (myReadFile.is_open())
 	{
 		while (!myReadFile.eof())
@@ -81,10 +81,10 @@ void ExtraKlass::WriteToDebugMDFiveFile(std::string p_fileName, std::string p_md
 void ExtraKlass::RenameTextFile(std::string p_oldFileName, std::string p_newFileName)
 {
 	int result;
-	std::string t_stringForOldFileName = "ResourcesTajms/";
+	std::string t_stringForOldFileName = m_folderName;
 	t_stringForOldFileName += p_oldFileName;
 	const char *cstr = t_stringForOldFileName.c_str();
-	std::string t_stringForNameChanging = "ResourcesTajms/";
+	std::string t_stringForNameChanging = m_folderName;
 	t_stringForNameChanging += p_newFileName;
 	t_stringForNameChanging += ".txt";
 	const char *secondConstCharForConversion = t_stringForNameChanging.c_str();

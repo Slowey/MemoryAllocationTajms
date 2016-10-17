@@ -19,7 +19,6 @@ int main(int numArgs, char * args[])
 
 	// Load every filename into a vector of strings.
 	std::vector<std::string> t_whatFilesToRead;
-	//t_whatFilesToRead = ReadTheNamesOfTheFilesToRead();
 	extraKlass.ReadEveryFileInTheFolder("ResourcesTajms\\*", t_whatFilesToRead);
 	
 	std::ofstream myfile;
@@ -39,8 +38,6 @@ int main(int numArgs, char * args[])
 		// extraKlass.RenameTextFile(t_whatFilesToRead[i], t_stringForGUID);
 	}
 
-
-	int hola = 2;
 	return 0;
 }
 
