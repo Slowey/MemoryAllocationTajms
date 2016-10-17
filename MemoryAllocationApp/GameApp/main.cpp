@@ -3,6 +3,8 @@
 #include <Graphics.h>
 #include <thread>
 #include <glm/gtc/matrix_transform.hpp>
+//#pragma comment (lib, "MemLib.lib")
+#include <MemoryManager.h>
 #include "ObjManager.h"
 #include "GameObject.h"
 using namespace std;
@@ -22,6 +24,7 @@ void CreateWindow()
 
 int main()
 {
+   MemoryManager::Startup(10240, 200000);
    ResourceManager::Startup();
    ResourceManager* resMan = ResourceManager::Get();
    ParserAndContainerManager::Initialize();
