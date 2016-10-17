@@ -41,7 +41,7 @@ void ResourceManager::FreeResource(GUID p_guid)
 void ResourceManager::FreeResource()
 {
     m_prioritizationManager->FindAndForwardRemovableResource();
-    //SKicka guidet till parser and container för removal.
+    //SKicka guidet till prioritization för removal.
 }
 
 ResourceManager * ResourceManager::Get()
