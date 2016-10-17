@@ -43,6 +43,6 @@ void TAJMSArchiver::Archive(std::vector<std::string>& p_filePaths, std::string &
         GUIDD t_outID = m_myFive.GetResult();
 
         // Write header
-        
+        t_outID
     }
 }

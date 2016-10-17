@@ -63,14 +63,9 @@ struct GUIDD
 		val[1] = p_valueTwo;
 	}
 	GUIDD() {};
-    GUIDD(std::string &p_idInString)
+    std::string ToString()
     {
-        // 12321_1321321
-        size_t split = p_idInString.find_last_of("_");
-        std::string first = p_idInString.substr(0, split);
-        std::string second = p_idInString.substr(split + 1);
-        val[0] = stol(first);
-        val[1] = stol(second);
+        return std::to_string(val[0]) + "_" + std::to_string(val[1]);
     }
 };
 class MD5
