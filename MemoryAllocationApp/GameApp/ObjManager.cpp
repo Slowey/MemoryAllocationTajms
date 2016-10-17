@@ -83,7 +83,7 @@ void ObjManager::ParseAndSaveParsedData(void* p_dataStart, const size_t &p_size,
 		// we already have the resource!
 		return;
 	}
-	SetMemoryUsage(p_size);
+	AddMemoryUsage(p_size);
 	ParsedObj* newResource = ParseDataAndSendToGraphic(p_dataStart);
     // mutex::lock()
     m_objResources[p_guid] = newResource;
@@ -130,9 +130,12 @@ void ObjManager::FreeResource(const GUID &p_guid)
     if (ResourceExist(p_guid))
     {
         // should call graphic manager to remove the gpu resource to...
+		AddMemoryUsage(-1*sizeof(m_objResources.at(p_guid)->graphicResourceID));
         delete m_objResources.at(p_guid);
         m_objResources.erase(p_guid);
+
     }
+
 }
 
 ParsedObj* ObjManager::ParseDataAndSendToGraphic(void * p_dataStart)

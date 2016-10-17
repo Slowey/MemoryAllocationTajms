@@ -2,6 +2,8 @@
 #include <zzip/zzip.h>
 #include <zlib/zlib.h>
 #include "../ParserAndContainerManager.h"
+#include "../MemoryTracker.h"
+#include "PrioritizationManager.h"
 
 ZZIPLoader::ZZIPLoader(std::string  p_fileEnding) : FileLoader(p_fileEnding)
 {
@@ -90,7 +92,27 @@ void ZZIPLoader::LoadAndParseFile(zzip_dir *p_dir, const zzip_dirent &p_dirent)
     ParserAndContainerManager &parAndContMan = ParserAndContainerManager::Get();
     ZZIP_FILE* fp = zzip_file_open(p_dir, p_dirent.d_name, 0);
     if (fp) {
-		
+
+		std::string t_ending;
+		GUID t_guid;
+		if (!ParseGUIDAndEndingFromFilePath(p_dirent.d_name, &t_ending, &t_guid))
+		{
+			zzip_file_close(fp);
+			return;
+		}
+
+		if (!parAndContMan.ShouldLoadResource(t_ending, t_guid))
+		{
+			zzip_file_close(fp);
+			return;
+		}
+
+		while(!MemoryTracker::Get()->CheckIfMemoryAvailable(p_dirent.st_size))
+		{
+			//Calla på prio för att remova? :O
+			PrioritizationManager::Get()->FindAndForwardRemovableResource();
+		}
+
         // Create buffer that can hold the memory
         // We only keep the memory for one resource at a time?
         char* temporaryBuffer = new char[p_dirent.st_size];
@@ -100,7 +122,7 @@ void ZZIPLoader::LoadAndParseFile(zzip_dir *p_dir, const zzip_dirent &p_dirent)
 
         if (len) {
             // Parse for specific
-            parAndContMan.ParseByEnding(temporaryBuffer, p_dirent.st_size, p_dirent.d_name);
+            parAndContMan.ParseByEnding(temporaryBuffer, p_dirent.st_size, t_ending, t_guid);
 
         }
 		delete temporaryBuffer;

@@ -44,8 +44,37 @@ struct GUID
         val[1] = stol(second);
     }
 
+
     
 };
+
+static bool ParseGUIDAndEndingFromFilePath(char* p_filePath, std::string *o_ending, GUID * o_outGuid)
+{
+	std::string t_fileNameString(p_filePath);
+	size_t t_lastDot = t_fileNameString.find_last_of(".");
+
+	// No ending
+	if (t_lastDot == std::string::npos)
+		return false;
+
+	// Find start of name
+	size_t t_beginning = t_fileNameString.find_last_of("/");
+	if (t_beginning == std::string::npos)
+		t_beginning = -1;
+
+	// Increment because we dont want the slash in the name
+	t_beginning++;
+	*o_ending = t_fileNameString.substr(t_lastDot + 1);
+	std::string t_name = t_fileNameString.substr(t_beginning, (t_lastDot - t_beginning));
+
+	// We have decided to use split sign in ID, ask Techis & Jaws
+	size_t t_idSplit = t_name.find_last_of("_");
+	if (t_idSplit == std::string::npos)
+		return false;
+
+	*o_outGuid = GUID(t_name);
+	return true;
+}
 
 #define ERROR_GUID GUID(-1,-1)
 

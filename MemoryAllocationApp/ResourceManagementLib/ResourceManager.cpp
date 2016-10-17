@@ -17,7 +17,9 @@ ResourceManager::ResourceManager(size_t p_maximumMemoryUsage)
 {
     PrioritizationManager::Startup(PrioritizationAlgorithm::LRU);
     m_prioritizationManager = PrioritizationManager::Get();
-    FileLoaderManager::Startup(p_maximumMemoryUsage); // Could save this one as well if we want
+	MemoryTracker::Startup(p_maximumMemoryUsage);
+	m_memoryTracker = MemoryTracker::Get();
+    FileLoaderManager::Startup(); // Could save this one as well if we want
     ZZIPLoader* loader = new ZZIPLoader("zip"); // Add shipped loaders 
 }
 
