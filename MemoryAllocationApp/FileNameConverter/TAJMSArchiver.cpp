@@ -17,21 +17,19 @@ void TAJMSArchiver::Archive(std::vector<std::string>& p_filePaths, std::string &
     FILE* t_file;
     fopen_s(&t_file, p_outName.c_str(), "bw");
 
+    if (!t_file)
+        return;
+
     // Write how big the header will be
     size_t t_size = p_filePaths.size();
     fwrite(&t_size, sizeof(size_t), 1, t_file);
-    fpos_t t_headerPos, t_filePos;
+    fpos_t t_headerPos;
     std::fgetpos(t_file, &t_headerPos);
 
-    // Move to start of file to get position of it, not so nice way but doc said couln't read fpos_t directly
-    for (size_t i = 0; i < t_size; i++)
-    {
-        Header t_emptyHead;
-        fwrite(&t_emptyHead, sizeof(Header), 1, t_file);
-    }
+    Header* t_headers = new Header[t_size]();
     
-    // Get pos for files
-    std::fgetpos(t_file, &t_filePos);
+    // Move to files
+    fwrite(t_headers, sizeof(Header), t_size, t_file);
 
     // Now open each file
     for (size_t i = 0; i < t_size; i++)
@@ -51,19 +49,15 @@ void TAJMSArchiver::Archive(std::vector<std::string>& p_filePaths, std::string &
         t_curFile.close();
         
         // Get MD5
-        Header t_head;
         MD5 m_myFive = MD5(t_fileInString);
-        t_head.guid = m_myFive.GetResult();
-        t_head.p_fileSize = t_sizeEnd;
-
-        // Write header
-        fsetpos(t_file, &t_headerPos);
-        fwrite(&t_head, sizeof(Header), 1, t_file);
-        std::fgetpos(t_file, &t_headerPos);
+        t_headers[i].guid = m_myFive.GetResult();
+        t_headers[i].p_fileSize = t_sizeEnd;
 
         // Write data
-        fsetpos(t_file, &t_filePos);
         fwrite(&t_fileInString[0], t_sizeEnd, 1, t_file);
-        std::fgetpos(t_file, &t_filePos);
     }
+
+    fsetpos(t_file, &t_headerPos);
+    fwrite(t_headers, sizeof(Header), t_size, t_file);
+    fclose(t_file);
 }
