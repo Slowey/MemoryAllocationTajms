@@ -9,6 +9,8 @@
 #include "ObjManager.h"
 #include "GameObject.h"
 #include "Global.h"
+#include "TAJMSLoader.h"
+
 using namespace std;
 void CreateWindow()
 {
@@ -32,7 +34,7 @@ int main()
    g_mainThread = std::this_thread::get_id();
    ResourceManager* resMan = ResourceManager::Get();
    ParserAndContainerManager::Initialize();
-
+   TAJMSLoader t_loader = TAJMSLoader();
 
    int a = 3;
    Graphics::Startup();
