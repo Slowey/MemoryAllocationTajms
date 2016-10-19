@@ -125,7 +125,7 @@ void ObjManager::DumpMemoryData()
 		fprintf(pFile, "%d, %d", iterator->first.val[0], iterator->first.val[1]);
 	}
 	// Glöm inte att spara ner vilken resurs som skulle bli inladdad när overflowen occurade.
-
+	fclose(pFile);
 }
 
 void ObjManager::FreeResource(const GUID &p_guid)
