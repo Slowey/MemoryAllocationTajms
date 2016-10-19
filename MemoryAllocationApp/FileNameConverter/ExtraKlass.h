@@ -24,7 +24,7 @@ public:
     void ReadEveryFileInTheFolder(std::string p_directoryName, std::vector<std::string>& o_fileNamesInFolder, const std::string & p_excludeFile);
 	
 private:
-	std::string m_folderName = "ResourcesTajms/";
+	std::string m_folderName = "";
 	//std::string m_folderName = "";
 };
 

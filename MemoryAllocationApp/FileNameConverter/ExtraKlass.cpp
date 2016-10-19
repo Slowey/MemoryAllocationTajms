@@ -74,7 +74,7 @@ std::vector<std::string> ExtraKlass::ReadTheNamesOfTheFilesToRead()
 void ExtraKlass::WriteToDebugMDFiveFile(std::string p_fileName, std::string p_mdfive)
 {
 	std::ofstream myfile;
-	myfile.open(m_folderName + "DebugFileMD5.txt", std::fstream::app);
+	myfile.open("DebugFileMD5.txt", std::fstream::app);
 	myfile << p_fileName << ": " << p_mdfive << std::endl;
 	myfile.close();
 }

@@ -35,7 +35,7 @@ int main(int numArgs, char * args[])
 	extraKlass.ReadEveryFileInTheFolder("\*", t_whatFilesToRead, t_fileName);
 
 	std::ofstream myfile;
-	myfile.open("ResourcesTajms/DebugFileMD5.txt");
+	myfile.open("DebugFileMD5.txt");
 	myfile.close();
 
     TAJMSArchiver tajmsArkWay = TAJMSArchiver();

@@ -40,6 +40,10 @@ void TAJMSArchiver::Archive(std::vector<std::string>& p_filePaths, std::string &
 
         // Get size of file (might only work on windows and binary mode :D)
         int t_sizeEnd = t_curFile.tellg();
+        if (t_sizeEnd == -1)
+        {
+            continue;
+        }
 
         // Load file into memory
         std::string t_fileInString;
