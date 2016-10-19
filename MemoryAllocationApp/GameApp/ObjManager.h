@@ -5,6 +5,7 @@
 struct ParsedObj
 {
     unsigned int graphicResourceID;
+	size_t size;
 };
 
 class ObjManager: public ParserAndContainer

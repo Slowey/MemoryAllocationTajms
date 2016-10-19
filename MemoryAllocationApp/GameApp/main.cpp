@@ -9,6 +9,7 @@
 #include "ObjManager.h"
 #include "GameObject.h"
 #include "Global.h"
+#include "main.h"
 using namespace std;
 void CreateWindow()
 {
@@ -27,7 +28,7 @@ std::thread::id g_mainThread;
 
 int main()
 {
-   ResourceManager::Startup(100000);
+   ResourceManager::Startup(10000000);
    MemoryManager::Startup(10240, 200000);
    g_mainThread = std::this_thread::get_id();
    ResourceManager* resMan = ResourceManager::Get();
@@ -48,13 +49,18 @@ int main()
    PoolAllocator* objAllocator;
    objAllocator = MemoryManager::Get()->CreatePoolAllocator(sizeof(GameObject));
    
-   GameObject* obj = new(objAllocator) GameObject();
-
+   GameObject* obj = new(objAllocator) GameObject(GUID(1337, 1337));
+   GameObject* boy = new(objAllocator) GameObject(GUID(1336, 1336));
+   GameObject* girl = new(objAllocator) GameObject(GUID(1339, 1339));
+   boy->UpdatePosition(vec3(2,0,3));
+   girl->UpdatePosition(vec3(-2, 0, 3));
    int first = 0;
    // Game loop
    while (true)
    {
       obj->Draw();
+	  boy->Draw();
+	  girl->Draw();
       Graphics::Get()->Update();
       first++;
       if (first == 1000)

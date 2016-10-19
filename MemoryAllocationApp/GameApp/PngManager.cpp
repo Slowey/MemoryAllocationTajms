@@ -59,10 +59,13 @@ void PngManager::DumpMemoryData()
     fopen_s(&pFile, "PNGParserDataDump", "w");
     for (auto iterator = m_pngResources.begin(); iterator != m_pngResources.end(); iterator++)
     {
-        fprintf(pFile, "%d, %d", iterator->first.val[0], iterator->first.val[1]);
+		if (iterator->second != m_dummyTexture)
+		{
+			fprintf(pFile, "%d, %d", iterator->first.val[0], iterator->first.val[1]);
+		}
     }
     // Glöm inte att spara ner vilken resurs som skulle bli inladdad när overflowen occurade.
-
+	fclose(pFile);
 }
 
 ParsedPng ** PngManager::GetResource(const GUID & p_guid)

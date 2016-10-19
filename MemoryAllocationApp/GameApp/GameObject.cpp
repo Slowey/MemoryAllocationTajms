@@ -13,12 +13,12 @@
 using namespace std;
 // end debug
 
-GameObject::GameObject()
+GameObject::GameObject(GUID p_objectToLoad)
 {
    // Hard coded opengl handles
    m_textureHighID = PngManager::Get().GetResource(GUID(1338,1338));
    // This is bth logo
-   m_meshID = ObjManager::Get().GetResource(GUID(1339,1339));
+   m_meshID = ObjManager::Get().GetResource(GUID(p_objectToLoad));
 
    m_position = vec3(0, 0, 5);
    m_target = vec3(0, 0, 1);
@@ -30,6 +30,10 @@ GameObject::~GameObject()
 {
 }
 
+void GameObject::UpdatePosition(vec3 p_pos)
+{
+	m_position = p_pos;
+}
 void GameObject::Draw()
 {
    // Figure out if we want the low or high res texture
