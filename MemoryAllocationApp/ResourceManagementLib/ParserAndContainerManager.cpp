@@ -50,6 +50,10 @@ void ParserAndContainerManager::FreeResource(size_t p_parserHandle, GUID p_guid)
 bool ParserAndContainerManager::ShouldLoadResource(std::string &p_ending, GUID p_guid)
 {
 	auto m_pair = m_fileEndingToParser.find(p_ending);
+    if (m_pair == m_fileEndingToParser.end())
+    {
+        return false;
+    }
 	auto m_parsers = m_pair->second;
 	size_t t_numParsers = m_parsers.size();
 	for (size_t i = 0; i < t_numParsers; i++)
