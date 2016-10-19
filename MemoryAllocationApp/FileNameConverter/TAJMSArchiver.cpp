@@ -33,20 +33,17 @@ void TAJMSArchiver::Archive(std::vector<std::string>& p_filePaths, std::string &
     fwrite(t_headers, sizeof(Header), t_size, t_file);
 
     // Now open each file
-    //for (size_t i = 0; i < t_size; i++)
-    //{
+    for (size_t i = 0; i < t_size; ++i)
+    {
         // Places pointer at end of file, getting filesize.. but is a open
-        std::ifstream t_curFile = std::ifstream(p_filePaths[0].c_str(), std::ios::in | std::ios::binary | std::ios::ate);
-
-        if (t_curFile)
-            return;
+        std::ifstream t_curFile = std::ifstream(p_filePaths[i].c_str(), std::ios::in | std::ios::binary | std::ios::ate);
 
         // Get size of file (might only work on windows and binary mode :D)
         int t_sizeEnd = t_curFile.tellg();
 
         // Load file into memory
         std::string t_fileInString;
-        //////////////////////////////// NOT WORKING SOMETHING HERE SIZE NOT FIND FILE OR SOMETHING YY? U FIX? GOOD
+
         t_fileInString.resize(t_sizeEnd);
 
         t_curFile.seekg(0, std::ios::beg);
@@ -58,22 +55,22 @@ void TAJMSArchiver::Archive(std::vector<std::string>& p_filePaths, std::string &
 
 
         // Get extension here
-        size_t t_dotPos = p_filePaths[0].find_last_of(".");
+        size_t t_dotPos = p_filePaths[i].find_last_of(".");
 
         if (t_dotPos == std::string::npos)
             t_dotPos = -1;
 
         t_dotPos++;
-        std::string t_fileExtension = p_filePaths[0].substr(t_dotPos);
+        std::string t_fileExtension = p_filePaths[i].substr(t_dotPos);
 
         // Write data
         fwrite(&t_fileInString[0], t_sizeEnd, 1, t_file);
 
         // Add to header header
-        t_headers[0].guid = m_myFive.GetResult();
-        t_headers[0].fileSize = t_sizeEnd;
-        memcpy(t_headers[0].fileType, &t_fileExtension, t_fileExtension.size() % 10);
-    //}
+        t_headers[i].guid = m_myFive.GetResult();
+        t_headers[i].fileSize = t_sizeEnd;
+        memcpy(t_headers[i].fileType, &t_fileExtension, t_fileExtension.size() % 10);
+    }
 
     fsetpos(t_file, &t_headerPos);
     fwrite(t_headers, sizeof(Header), t_size, t_file);
