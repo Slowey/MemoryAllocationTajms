@@ -139,6 +139,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ObjManager.cpp" />
     <ClCompile Include="PngManager.cpp" />
+    <ClCompile Include="TAJMSLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h" />
@@ -146,6 +147,7 @@
     <ClInclude Include="main.h" />
     <ClInclude Include="ObjManager.h" />
     <ClInclude Include="PngManager.h" />
+    <ClInclude Include="TAJMSLoader.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

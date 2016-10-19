@@ -27,6 +27,9 @@
     <ClCompile Include="PngManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TAJMSLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ObjManager.h">
@@ -41,7 +44,7 @@
     <ClInclude Include="PngManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="main.h">
+    <ClInclude Include="TAJMSLoader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

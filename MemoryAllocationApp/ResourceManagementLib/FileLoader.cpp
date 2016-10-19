@@ -1,5 +1,5 @@
 #include "FileLoader.h"
-#include "FileLoaderManager.h"
+#include "Internal/FileLoaderManager.h"
 
 
 FileLoader::FileLoader(std::string & p_fileEnding)

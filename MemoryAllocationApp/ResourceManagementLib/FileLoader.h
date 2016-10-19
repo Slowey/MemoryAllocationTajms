@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
-#include "../EnumsAndDefines.h"
+#include "EnumsAndDefines.h"
 
 class FileLoader
 {
