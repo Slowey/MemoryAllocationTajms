@@ -73,7 +73,7 @@ void TAJMSArchiver::Archive(std::vector<std::string>& p_filePaths, std::string &
         // Add to header header
         t_headers[i].guid = m_myFive.GetResult();
         t_headers[i].fileSize = t_sizeEnd;
-        memcpy(t_headers[i].fileType, &t_fileExtension, t_fileExtension.size() % 10);
+        memcpy(t_headers[i].fileType, &t_fileExtension[0], t_fileExtension.size() % 10);
     }
 
     fsetpos(t_file, &t_headerPos);

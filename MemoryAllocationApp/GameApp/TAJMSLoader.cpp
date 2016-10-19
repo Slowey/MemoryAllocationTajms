@@ -37,16 +37,26 @@ void TAJMSLoader::LoadFile(const std::string & p_fileName)
     {
         // Get Ending
         std::string t_ending = t_headers[i].fileType;
-        if (t_parAndContMan.ShouldLoadResource(t_ending, t_headers[i].guid))
+        if (!t_parAndContMan.ShouldLoadResource(t_ending, t_headers[i].guid))
+            continue;
+
+        // Wait until we can allocate TODO INSERT LUCAS CODE HERE
+        // DEBUG PRINT IF WE CANT?
+
+        // Read to buffer
+        char* t_tempBuff = new char[t_headers[i].fileSize];
+        size_t len =fread(t_tempBuff, t_headers[i].fileSize, 1, t_file);
+        size_t t_fileSize = t_headers[i].fileSize;
+
+        if (len)
         {
-
-
-
-            t_parAndContMan.ParseByEnding()
+            t_parAndContMan.ParseByEnding(t_tempBuff, t_fileSize, t_ending, t_headers[i].guid);
         }
 
-
+        delete t_tempBuff;
     }
+
+    fclose(t_file);
 }
 
 void TAJMSLoader::LoadFile(const std::string & p_fileName, const std::string & p_subDirectory)

@@ -5,12 +5,13 @@
 /*
     Base class of loaders.
     Should contain:
-    *LoadFile() that can call:
-        ParseGUIDAndEndingFromFilePath() from EnumsAndDefines.h to get GUID and ending of a path
-    Should call:
-        ParserAndContainerManager.ShouldLoadResource() to check if need load on file
-        while on MemoryTracker.CheckIfMemoryAvailable() until true
-        then ParserAndContainerManager.ParseByEnding() to forward parsing
+    *LoadFile() 
+        can call:
+            ParseGUIDAndEndingFromFilePath() from EnumsAndDefines.h to get GUID and ending of a path
+        Should call:
+            ParserAndContainerManager.ShouldLoadResource() to check if need load on file
+            while on MemoryTracker.CheckIfMemoryAvailable() until true
+            then ParserAndContainerManager.ParseByEnding() to forward parsing
 */
 class FileLoader
 {

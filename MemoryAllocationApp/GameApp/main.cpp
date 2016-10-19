@@ -51,9 +51,9 @@ int main()
    PoolAllocator* objAllocator;
    objAllocator = MemoryManager::Get()->CreatePoolAllocator(sizeof(GameObject));
    
-   GameObject* obj = new(objAllocator) GameObject(GUID(1337, 1337));
-   GameObject* boy = new(objAllocator) GameObject(GUID(1336, 1336));
-   GameObject* girl = new(objAllocator) GameObject(GUID(1339, 1339));
+   GameObject* obj = new(objAllocator) GameObject(GUID(6355060461449191778, 9343578793668495956));
+   GameObject* boy = new(objAllocator) GameObject(GUID(10501337584122868014, 4174563121594872176));
+   GameObject* girl = new(objAllocator) GameObject(GUID(12148441303352944357, 8744070554219738464));
    boy->UpdatePosition(vec3(2,0,3));
    girl->UpdatePosition(vec3(-2, 0, 3));
    int first = 0;
@@ -65,9 +65,9 @@ int main()
 	  girl->Draw();
       Graphics::Get()->Update();
       first++;
-      if (first == 1000)
+      if (first == 10)
       {
-          std::string fileName = "test.zip";
+          std::string fileName = "tajms.tajms";
           m_loadThread = thread(&ResourceManager::LoadChunk, resMan, fileName);
           //resMan->LoadChunk(fileName);
       }
