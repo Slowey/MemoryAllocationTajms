@@ -6,7 +6,8 @@
 struct Header
 {
     GUIDD guid;
-    size_t p_fileSize;
+    char fileType[10]; // No mega fileendings
+    size_t fileSize;
 };
 
 class TAJMSArchiver
