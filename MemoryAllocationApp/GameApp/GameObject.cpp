@@ -16,7 +16,7 @@ using namespace std;
 GameObject::GameObject(GUID p_objectToLoad)
 {
    // Hard coded opengl handles
-   m_textureHighID = PngManager::Get().GetResource(GUID(1338,1338));
+   m_textureHighID = PngManager::Get().GetResource(GUID(7799555238942610605, 15628347817556400855));
    // This is bth logo
    m_meshID = ObjManager::Get().GetResource(GUID(p_objectToLoad));
 
