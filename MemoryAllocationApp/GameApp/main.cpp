@@ -30,7 +30,7 @@ std::thread::id g_mainThread;
 
 int main()
 {
-   ResourceManager::Startup(10000000);
+   ResourceManager::Startup(10000000); //Seet this lower to have memorytracker get full and start replacing stuff. Need to explicitly say that some resources are not used to actually replace. Otherwise crash
    MemoryManager::Startup(10240, 200000);
    g_mainThread = std::this_thread::get_id();
    ResourceManager* resMan = ResourceManager::Get();
@@ -65,7 +65,7 @@ int main()
 	  girl->Draw();
       Graphics::Get()->Update();
       first++;
-      if (first == 10)
+      if (first == 1000)
       {
           std::string fileName = "tajms.tajms";
           m_loadThread = thread(&ResourceManager::LoadChunk, resMan, fileName);
