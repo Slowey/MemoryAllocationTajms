@@ -183,16 +183,16 @@ ParsedObj* ObjManager::ParseDataAndSendToGraphic(void * p_dataStart)
             for (size_t i = 0; i < 3; i++)
             {
                 // three ints for saving the connected vertex, normal and uvmap
-                unsigned int vertexIndex, uvIndex, normalIndex;
+                int vertexIndex, uvIndex, normalIndex;
                 // Reading three connected things, v/u/n
                 std::string connectedData;
                 stream >> connectedData;
                 // scan the given string since its in format v/u/n
-                sscanf_s(connectedData.c_str(), "%d/%d/%d", &vertexIndex, &uvIndex, &normalIndex);
+                sscanf_s(connectedData.c_str(), "%i/%i/%i", &vertexIndex, &uvIndex, &normalIndex);
                 // insert info into vectors
-                vertexIndices.push_back(vertexIndex);
-                uvIndices.push_back(uvIndex);
-                normalIndices.push_back(normalIndex);
+                vertexIndices.push_back(abs(vertexIndex));
+                uvIndices.push_back(abs(uvIndex));
+                normalIndices.push_back(abs(normalIndex));
             }
         }
     }
