@@ -86,17 +86,9 @@ void ObjManager::ParseAndSaveParsedData(void* p_dataStart, const size_t &p_size,
         // we already have the resource!
         return;
     }
-    SetMemoryUsage(p_size);
-    ParsedObj* newResource = ParseDataAndSendToGraphic(p_dataStart);
-    m_mutexLockResourceMap->lock();
-	if (ResourceExist(p_guid))
-	{
-		// we already have the resource!
-		return;
-	}
 	AddMemoryUsage(p_size);
 	ParsedObj* newResource = ParseDataAndSendToGraphic(p_dataStart);
-    mutex::lock()
+    m_mutexLockResourceMap->lock();
     m_objResources[p_guid] = newResource;
     m_mutexLockResourceMap->unlock();
 }
