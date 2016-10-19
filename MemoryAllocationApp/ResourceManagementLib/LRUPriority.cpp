@@ -54,6 +54,7 @@ void LRUPriority::AddToRemovableQueue(GUID p_id, size_t p_parserHandle)
 }
 ParserUID LRUPriority::GetRemovableResource()
 {
+	// Pop the queue if there are items in the queue. Oterwise return errorguid.
 	if (m_removableList.size() > 0)
 	{
 		ParserUID t_tempParserUID = m_removableList.front();
