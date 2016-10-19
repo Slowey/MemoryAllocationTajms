@@ -125,6 +125,7 @@ void ZZIPLoader::LoadAndParseFile(zzip_dir *p_dir, const zzip_dirent &p_dirent)
             parAndContMan.ParseByEnding(temporaryBuffer, p_dirent.st_size, t_ending, t_guid);
 
         }
+		MemoryTracker::Get()->AddMemoryUsage(-p_dirent.st_size);
 		delete temporaryBuffer;
         zzip_file_close(fp);
     }

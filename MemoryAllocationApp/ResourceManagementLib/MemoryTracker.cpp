@@ -37,5 +37,6 @@ bool MemoryTracker::CheckIfMemoryAvailable(size_t p_desiredMemory)
 			return false;
 		}
 	}
+	AddMemoryUsage(p_desiredMemory);
 	return true;
 }

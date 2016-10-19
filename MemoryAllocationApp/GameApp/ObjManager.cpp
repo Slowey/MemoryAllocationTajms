@@ -6,6 +6,7 @@
 #include <Graphics.h>
 #include <EnumsAndDefines.h>
 #include "Global.h"
+#include <MemoryTracker.h>
 
 ObjManager* ObjManager::m_singleton = nullptr;
 
@@ -217,6 +218,12 @@ ParsedObj* ObjManager::ParseDataAndSendToGraphic(void * p_dataStart)
 	// in med memoryusage bumping
     // create a new resource
     ParsedObj* newResource = new ParsedObj();
+	newResource->size = sizeof(Vertex) * completedVertices.size();
+	if (!MemoryTracker::Get()->CheckIfMemoryAvailable(newResource->size))
+	{
+		//We cant allocate this. Cos memory is full. Time to crash!
+		throw 1337;
+	}
     // Make graphics engine create the mesh, this return a unsigned int which we will use to access the resource
     if (!IsMainThread())
       newResource->graphicResourceID = Graphics::Get()->CreateMesh(completedVertices, true);
