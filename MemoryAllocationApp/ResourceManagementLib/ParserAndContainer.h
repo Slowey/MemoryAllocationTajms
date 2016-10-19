@@ -23,7 +23,7 @@ protected:
     This is to ensure the resource manager doesnt remove a resource that is still referenced by the game
     */
     void ResourceRequested(const GUID& p_guid);
-	void SetMemoryUsage(int p_memoryUsageToAdd);
+	void AddMemoryUsage(int p_memoryUsageToAdd);
     /**
     Releases the resource, removing the data.
     Is called when the prioritization manager have deemed the resources time in memory is up

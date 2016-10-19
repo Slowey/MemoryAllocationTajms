@@ -25,5 +25,6 @@ public:
 	
 private:
 	std::string m_folderName = "ResourcesTajms/";
+	//std::string m_folderName = "";
 };
 

@@ -63,9 +63,9 @@ unsigned int Graphics::CreateMesh(std::vector<Vertex>& p_vertices, bool p_async)
    return RenderManager::Get()->CreateMesh(p_vertices, p_async);
 }
 
-unsigned int Graphics::LoadTexture(void * p_data, int p_textureByteSize)
+unsigned int Graphics::LoadTexture(void * p_data, int p_textureByteSize, bool p_async)
 {
-   return RenderManager::Get()->CreateTexture(p_data, p_textureByteSize);
+   return RenderManager::Get()->CreateTexture(p_data, p_textureByteSize, p_async);
 }
 
 unsigned int Graphics::LoadTexture(const char * p_fileName)

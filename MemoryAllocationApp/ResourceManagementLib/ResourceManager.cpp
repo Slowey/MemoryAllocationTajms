@@ -13,10 +13,12 @@
 
 ResourceManager* ResourceManager::m_singleton = nullptr;
 
-ResourceManager::ResourceManager()
+ResourceManager::ResourceManager(size_t p_maximumMemoryUsage)
 {
     PrioritizationManager::Startup(PrioritizationAlgorithm::LRU);
     m_prioritizationManager = PrioritizationManager::Get();
+	MemoryTracker::Startup(p_maximumMemoryUsage);
+	m_memoryTracker = MemoryTracker::Get();
     FileLoaderManager::Startup(); // Could save this one as well if we want
     ZZIPLoader* loader = new ZZIPLoader("zip"); // Add shipped loaders 
 }
@@ -25,13 +27,13 @@ ResourceManager::ResourceManager()
 ResourceManager::~ResourceManager()
 {
 }
-void ResourceManager::Startup()
+void ResourceManager::Startup(size_t p_maximumMemoryUsage)
 {
 	if (m_singleton != nullptr)
 	{
 		return;
 	}
-	m_singleton = new ResourceManager();
+	m_singleton = new ResourceManager(p_maximumMemoryUsage);
 }
 
 void ResourceManager::FreeResource(GUID p_guid)

@@ -136,6 +136,7 @@
     <ClInclude Include="Internal\PrioritizationManager.h" />
     <ClInclude Include="Internal\ZZIPLoader.h" />
     <ClInclude Include="LRUPriority.h" />
+    <ClInclude Include="MemoryTracker.h" />
     <ClInclude Include="ParserAndContainer.h" />
     <ClInclude Include="ParserAndContainerManager.h" />
     <ClInclude Include="ResourceManager.h" />
@@ -151,6 +152,7 @@
     <ClCompile Include="Internal\PrioritizationManager.cpp" />
     <ClCompile Include="Internal\ZZIPLoader.cpp" />
     <ClCompile Include="LRUPriority.cpp" />
+    <ClCompile Include="MemoryTracker.cpp" />
     <ClCompile Include="ParserAndContainer.cpp" />
     <ClCompile Include="ParserAndContainerManager.cpp" />
     <ClCompile Include="ResourceManager.cpp" />

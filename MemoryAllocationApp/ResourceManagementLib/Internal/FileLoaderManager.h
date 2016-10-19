@@ -16,7 +16,6 @@ private:
 
     FileLoaderManager();
     ~FileLoaderManager();
-
     std::unordered_map<std::string, FileLoader*> m_endingToLoaderMap;
 
 };

@@ -77,7 +77,7 @@
     <LibraryPath>../x64/Release/;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>../ResourceManagementLib/;../GraphicsLib/;../GraphicsLib/3rd Party/include/;$(IncludePath)</IncludePath>
+    <IncludePath>../Memlib/;../ResourceManagementLib/;../GraphicsLib/;../GraphicsLib/3rd Party/include/;$(IncludePath)</IncludePath>
     <LibraryPath>../GraphicsLib/3rd Party/lib;../x64/Debug/;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -102,7 +102,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>ResourceManagementLib.lib;TajmsLib.lib;SDL2.lib;SDL2main.lib;glew32.lib;SOIL.lib;OpenGL32.lib;GraphicsLib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>ResourceManagementLib.lib;TajmsLib.lib;SDL2.lib;SDL2main.lib;glew32.lib;SOIL.lib;memLib.lib;OpenGL32.lib;GraphicsLib.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -138,10 +138,13 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ObjManager.cpp" />
+    <ClCompile Include="PngManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="Global.h" />
     <ClInclude Include="ObjManager.h" />
+    <ClInclude Include="PngManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
