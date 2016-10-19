@@ -24,9 +24,6 @@
     <ClInclude Include="ResourceManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Internal\FileLoader.h">
-      <Filter>Header Files\Internal</Filter>
-    </ClInclude>
     <ClInclude Include="Internal\PrioritizationManager.h">
       <Filter>Header Files\Internal</Filter>
     </ClInclude>
@@ -75,13 +72,13 @@
     <ClInclude Include="MemoryTracker.h">
       <Filter>Header Files\Internal</Filter>
     </ClInclude>
+    <ClInclude Include="Internal\FileLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ResourceManager.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Internal\FileLoader.cpp">
-      <Filter>Source Files\Internal</Filter>
     </ClCompile>
     <ClCompile Include="Internal\PrioritizationManager.cpp">
       <Filter>Source Files\Internal</Filter>
@@ -118,6 +115,9 @@
     </ClCompile>
     <ClCompile Include="MemoryTracker.cpp">
       <Filter>Source Files\Internal</Filter>
+    </ClCompile>
+    <ClCompile Include="Internal\FileLoader.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
