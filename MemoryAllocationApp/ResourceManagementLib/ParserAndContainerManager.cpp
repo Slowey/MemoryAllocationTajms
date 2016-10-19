@@ -42,7 +42,7 @@ void ParserAndContainerManager::InsertNewParserToList(ParserAndContainer* p_newP
     m_prioHandleIncrementer++;
 }
 
-void ParserAndContainerManager::FreeResource(size_t p_parserHandle, GUID p_guid)
+bool ParserAndContainerManager::FreeResource(size_t p_parserHandle, GUID p_guid)
 {
     m_prioHandlesToParser[p_parserHandle]->FreeResource(p_guid);
 }

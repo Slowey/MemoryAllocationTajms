@@ -80,15 +80,14 @@ void ExtraKlass::WriteToDebugMDFiveFile(std::string p_fileName, std::string p_md
 }
 void ExtraKlass::RenameTextFile(std::string p_oldFileName, std::string p_newFileName)
 {
-	int result;
-	std::string t_stringForOldFileName = m_folderName;
-	t_stringForOldFileName += p_oldFileName;
-	const char *cstr = t_stringForOldFileName.c_str();
-	std::string t_stringForNameChanging = m_folderName;
-	t_stringForNameChanging += p_newFileName;
-	t_stringForNameChanging += ".txt";
-	const char *secondConstCharForConversion = t_stringForNameChanging.c_str();
-	result = rename(cstr, secondConstCharForConversion);
+    std::string t_stringForOldFileName = m_folderName;
+    t_stringForOldFileName += p_oldFileName;
+    const char *cstr = t_stringForOldFileName.c_str();
+    std::string t_stringForNameChanging = m_folderName;
+    t_stringForNameChanging += p_newFileName;
+    t_stringForNameChanging += ".txt";
+    const char *secondConstCharForConversion = t_stringForNameChanging.c_str();
+    rename(cstr, secondConstCharForConversion);
 }
 // Example on how to write the directoy "ResourcesTajms\\*" this is how it is done.
 void ExtraKlass::ReadEveryFileInTheFolder(std::string p_directoryName, std::vector<std::string> &o_fileNamesInFolder, const std::string &p_excludeFile)
@@ -108,8 +107,10 @@ void ExtraKlass::ReadEveryFileInTheFolder(std::string p_directoryName, std::vect
 	{
 		std::wstring t_wstring(FindFileData.cFileName);
 		std::string t_string(t_wstring.begin(), t_wstring.end());
-        if(t_string != p_excludeFile)
-		    o_fileNamesInFolder.push_back(t_string);
-	}
+        if (t_string != p_excludeFile && t_string != "DebugFileMD5.txt")
+        {
+            o_fileNamesInFolder.push_back(t_string);
+        }
+    }
 	FindClose(hFind);
 }
