@@ -56,7 +56,7 @@ void PngManager::ParseAndSaveParsedData(void * p_dataStart, const size_t & p_siz
 void PngManager::DumpMemoryData()
 {
     FILE * pFile;
-    fopen_s(&pFile, "OBJParserDataDump", "w");
+    fopen_s(&pFile, "PNGParserDataDump", "w");
     for (auto iterator = m_pngResources.begin(); iterator != m_pngResources.end(); iterator++)
     {
         fprintf(pFile, "%d, %d", iterator->first.val[0], iterator->first.val[1]);
