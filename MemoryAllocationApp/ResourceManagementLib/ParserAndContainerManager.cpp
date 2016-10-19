@@ -6,7 +6,6 @@ ParserAndContainerManager* ParserAndContainerManager::m_singleton = nullptr;
 ParserAndContainerManager::ParserAndContainerManager()
 {
     m_prioHandleIncrementer = 0;
-	m_memoryUsage = 0;
 }
 
 
@@ -94,7 +93,4 @@ void ParserAndContainerManager::DumpAllParserData()
 	}
 }
 
-void ParserAndContainerManager::AddMemoryUsage(int p_memoryToAdd)
-{
-	m_memoryUsage += p_memoryToAdd;
-}
+

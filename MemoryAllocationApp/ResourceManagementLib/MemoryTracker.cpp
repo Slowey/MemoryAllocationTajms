@@ -1,5 +1,5 @@
 #include "MemoryTracker.h"
-#include "ParserAndContainerManager.h"
+#include "Internal/PrioritizationManager.h"
 
 MemoryTracker* MemoryTracker::m_singleton = nullptr;
 
@@ -15,7 +15,7 @@ void MemoryTracker::Startup(size_t p_maximumMemory)
 		m_singleton = new MemoryTracker(p_maximumMemory);
 	}
 }
-MemoryTracker::MemoryTracker(size_t p_maximumMemory): m_maximumMemory(p_maximumMemory)
+MemoryTracker::MemoryTracker(size_t p_maximumMemory) : m_maximumMemory(p_maximumMemory), m_usedMemory(0)
 {
 }
 
@@ -23,15 +23,19 @@ MemoryTracker::~MemoryTracker()
 {
 }
 
+void MemoryTracker::AddMemoryUsage(int p_memoryToAdd) {
+	m_usedMemory += p_memoryToAdd;
+}
+
 bool MemoryTracker::CheckIfMemoryAvailable(size_t p_desiredMemory)
 {
-	size_t t_currentMemoryUsage = ParserAndContainerManager::Get().GetMemoryUsage();
-	if (t_currentMemoryUsage + p_desiredMemory < m_maximumMemory)
+	// Loop as long as we cant fit the desired memory. If we cannot remove more resources crash!
+	while (m_usedMemory + p_desiredMemory > m_maximumMemory)
 	{
-		return true;
+		if (!PrioritizationManager::Get()->FindAndForwardRemovableResource())
+		{
+			return false;
+		}
 	}
-	else 
-	{
-		return false;
-	}
+	return true;
 }
