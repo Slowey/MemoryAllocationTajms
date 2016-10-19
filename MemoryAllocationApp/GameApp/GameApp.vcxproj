@@ -144,6 +144,7 @@
   <ItemGroup>
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Global.h" />
+    <ClInclude Include="main.h" />
     <ClInclude Include="ObjManager.h" />
     <ClInclude Include="PngManager.h" />
     <ClInclude Include="TAJMSLoader.h" />

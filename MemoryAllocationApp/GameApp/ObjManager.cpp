@@ -14,14 +14,14 @@ ObjManager::ObjManager(): ParserAndContainer("obj")
     m_mutexLockResourceMap = std::make_shared<std::mutex>();
 
     std::stringstream myBasicOBJStream;
-    myBasicOBJStream << "v -0.500000 -0.500000 0.500000\n";
-    myBasicOBJStream << "v 0.500000 -0.500000 0.500000\n";
-    myBasicOBJStream << "v -0.500000 0.500000 0.500000\n";
-    myBasicOBJStream << "v 0.500000 0.500000 0.500000\n";
-    myBasicOBJStream << "v -0.500000 0.500000 -0.500000\n";
-    myBasicOBJStream << "v 0.500000 0.500000 -0.500000\n";
-    myBasicOBJStream << "v -0.500000 -0.500000 -0.500000\n";
-    myBasicOBJStream << "v 0.500000 -0.500000 -0.500000\n";
+    myBasicOBJStream << "v -3.500000 -3.500000 3.500000\n";
+    myBasicOBJStream << "v 3.500000 -3.500000 3.500000\n";
+    myBasicOBJStream << "v -3.500000 3.500000 3.500000\n";
+    myBasicOBJStream << "v 3.500000 3.500000 3.500000\n";
+    myBasicOBJStream << "v -3.500000 3.500000 -3.500000\n";
+    myBasicOBJStream << "v 3.500000 3.500000 -3.500000\n";
+    myBasicOBJStream << "v -3.500000 -3.500000 -3.500000\n";
+    myBasicOBJStream << "v 3.500000 -3.500000 -3.500000\n";
     
     myBasicOBJStream << "vt 0.000000 0.000000\n";
     myBasicOBJStream << "vt 1.000000 0.000000\n";
@@ -88,6 +88,7 @@ void ObjManager::ParseAndSaveParsedData(void* p_dataStart, const size_t &p_size,
     }
 	AddMemoryUsage(p_size);
 	ParsedObj* newResource = ParseDataAndSendToGraphic(p_dataStart);
+	newResource->size = p_size;
     m_mutexLockResourceMap->lock();
     m_objResources[p_guid] = newResource;
     m_mutexLockResourceMap->unlock();
@@ -122,7 +123,10 @@ void ObjManager::DumpMemoryData()
 	fopen_s(&pFile, "OBJParserDataDump", "w");
 	for (auto iterator = m_objResources.begin(); iterator != m_objResources.end(); iterator++)
 	{
-		fprintf(pFile, "%d, %d", iterator->first.val[0], iterator->first.val[1]);
+		if (iterator->second!= m_dummyMesh)
+		{
+			fprintf(pFile, "%d, %d", iterator->first.val[0], iterator->first.val[1]);
+		}
 	}
 	// Glöm inte att spara ner vilken resurs som skulle bli inladdad när overflowen occurade.
 	fclose(pFile);
@@ -133,7 +137,7 @@ void ObjManager::FreeResource(const GUID &p_guid)
     if (ResourceExist(p_guid))
     {
         // should call graphic manager to remove the gpu resource to...
-		AddMemoryUsage(-1*sizeof(m_objResources.at(p_guid)->graphicResourceID));
+		AddMemoryUsage(-1*m_objResources.at(p_guid)->size);
         delete m_objResources.at(p_guid);
         m_objResources.erase(p_guid);
 

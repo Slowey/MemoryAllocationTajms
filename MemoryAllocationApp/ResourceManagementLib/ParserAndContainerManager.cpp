@@ -93,3 +93,8 @@ void ParserAndContainerManager::DumpAllParserData()
 		iterator->second->DumpMemoryData();
 	}
 }
+
+void ParserAndContainerManager::AddMemoryUsage(int p_memoryToAdd)
+{
+	m_memoryUsage += p_memoryToAdd;
+}

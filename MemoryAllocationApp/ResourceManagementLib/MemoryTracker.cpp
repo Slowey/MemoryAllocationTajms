@@ -15,7 +15,7 @@ void MemoryTracker::Startup(size_t p_maximumMemory)
 		m_singleton = new MemoryTracker(p_maximumMemory);
 	}
 }
-MemoryTracker::MemoryTracker(size_t p_maximumMemory)
+MemoryTracker::MemoryTracker(size_t p_maximumMemory): m_maximumMemory(p_maximumMemory)
 {
 }
 
