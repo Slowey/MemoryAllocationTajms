@@ -1,6 +1,7 @@
 #include "ParserAndContainer.h"
 #include "ParserAndContainerManager.h"
 #include "Internal/PrioritizationManager.h"
+#include "MemoryTracker.h"
 
 
 ParserAndContainer::ParserAndContainer(std::string p_fileEndingToParse)
@@ -32,7 +33,7 @@ void ParserAndContainer::ReleaseResource(const GUID & p_guid)
     }
 }
 void ParserAndContainer::AddMemoryUsage(int p_memoryUsageToAdd) {
-	ParserAndContainerManager::Get().AddMemoryUsage(p_memoryUsageToAdd);
+	MemoryTracker::Get()->AddMemoryUsage(p_memoryUsageToAdd);
 }
 
 void ParserAndContainer::ResourceRequested(const GUID& p_guid)

@@ -107,20 +107,10 @@ void ZZIPLoader::LoadAndParseFile(zzip_dir *p_dir, const zzip_dirent &p_dirent)
 			return;
 		}
 
-		while(!MemoryTracker::Get()->CheckIfMemoryAvailable(p_dirent.st_size))
+		if (!MemoryTracker::Get()->CheckIfMemoryAvailable(p_dirent.st_size))
 		{
-			//Calla på prio för att remova? :O
-			if (!PrioritizationManager::Get()->FindAndForwardRemovableResource())
-			{
-				//Not very flexible. But will get the job done for testing
-				FILE * pFile;
-				fopen_s(&pFile, "Resource that overflowed the resourcemanager memory", "w");
-				
-				fprintf(pFile, "Resource named: %s overflowed the system",p_dirent.d_name);
-				
-				// Glöm inte att spara ner vilken resurs som skulle bli inladdad när overflowen occurade.
-				fclose(pFile);
-			}
+			//There is no memory available. A dump has been created its time to crash!!
+			throw 1337;
 		}
 
         // Create buffer that can hold the memory
