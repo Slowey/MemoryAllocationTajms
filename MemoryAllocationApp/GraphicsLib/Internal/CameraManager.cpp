@@ -25,8 +25,8 @@ CameraManager::CameraManager()
    m_camera = new Camera(vec3(0, 0, -1), vec3(0, 0, 1), vec3(0, 1, 0), t_perspective);
 
    // Set some variables
-   m_movementSpeed = 0.001f;
-   m_turnSpeed = 0.0001f;
+   m_movementSpeed = 0.005f;
+   m_turnSpeed = 0.0005f;
 }
 
 CameraManager::~CameraManager()
