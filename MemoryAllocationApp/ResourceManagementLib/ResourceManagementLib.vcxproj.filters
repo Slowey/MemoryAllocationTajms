@@ -116,7 +116,7 @@
     <ClCompile Include="MemoryTracker.cpp">
       <Filter>Source Files\Internal</Filter>
     </ClCompile>
-    <ClCompile Include="Internal\FileLoader.cpp">
+    <ClCompile Include="FileLoader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

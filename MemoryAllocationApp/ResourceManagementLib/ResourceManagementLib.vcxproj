@@ -144,9 +144,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FIFOPriority.cpp" />
+    <ClCompile Include="FileLoader.cpp" />
     <ClCompile Include="Internal\DataManager.cpp" />
     <ClCompile Include="Internal\ExplicitPriority.cpp" />
-    <ClCompile Include="Internal\FileLoader.cpp" />
     <ClCompile Include="Internal\FileLoaderManager.cpp" />
     <ClCompile Include="Internal\LFUPriority.cpp" />
     <ClCompile Include="Internal\PrioritizationManager.cpp" />

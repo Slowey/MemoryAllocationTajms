@@ -1,7 +1,7 @@
 #pragma once
-#include <FileLoader.h>
 
-class TAJMSLoader : public FileLoader
+
+class TAJMSLoader
 {
 public:
     TAJMSLoader();
