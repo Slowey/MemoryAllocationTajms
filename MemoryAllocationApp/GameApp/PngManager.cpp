@@ -2,6 +2,7 @@
 #include <ParserAndContainerManager.h>
 #include <Graphics.h>
 #include "Global.h"
+#include <MemoryTracker.h>
 
 PngManager* PngManager::m_singleton = nullptr;
 
@@ -47,6 +48,13 @@ void PngManager::ParseAndSaveParsedData(void * p_dataStart, const size_t & p_siz
     ParsedPng* newResource = new ParsedPng;
     // Might need to say if we are main thread or not...
     newResource->graphicResourceID = Graphics::Get()->LoadTexture(p_dataStart, p_size, !IsMainThread());
+
+    newResource->size = p_size;
+    if (!MemoryTracker::Get()->CheckIfMemoryAvailable(newResource->size))
+    {
+       //We cant allocate this. Cos memory is full. Time to crash!
+       throw 1337;
+    }
 
     m_mutexLockResourceMap->lock();
     m_pngResources[p_guid] = newResource;
@@ -96,6 +104,7 @@ void PngManager::FreeResource(const GUID & p_guid)
     if (ResourceExist(p_guid))
     {
         // should call graphic manager to remove the gpu resource to...
+        AddMemoryUsage(-1 * m_pngResources.at(p_guid)->size);
         delete m_pngResources.at(p_guid);
         m_pngResources.erase(p_guid);
     }

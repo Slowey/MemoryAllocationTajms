@@ -6,6 +6,7 @@
 struct ParsedPng
 {
     unsigned int graphicResourceID;
+    size_t size;
 };
 
 class PngManager: public ParserAndContainer
