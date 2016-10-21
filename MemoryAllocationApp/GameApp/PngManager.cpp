@@ -104,6 +104,12 @@ void PngManager::LoadResource(const GUID & p_guid, const std::string & p_file)
         ResourceManager::Get()->LoadResource(p_guid, m_fileEnding, p_file);
 }
 
+bool PngManager::ResourceIsDummy(const GUID & p_guid)
+{
+    bool r_exists = m_pngResources.count(p_guid) != 0 && m_pngResources.at(p_guid) == m_dummyTexture;
+    return r_exists;
+}
+
 ParsedPng ** PngManager::GetResource(const GUID & p_guid)
 {
     if (m_pngResources.count(p_guid) == 0)

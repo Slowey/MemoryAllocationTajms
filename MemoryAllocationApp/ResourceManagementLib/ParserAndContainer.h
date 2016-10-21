@@ -18,6 +18,8 @@ public:
     void SetPriorityHandle(size_t p_priorityHandle) { m_priorityHandle = p_priorityHandle; };
 	virtual void DumpMemoryData() = 0;
     virtual void LoadResource(const GUID &p_guid, const std::string &p_file) = 0;
+
+    virtual bool ResourceIsDummy(const GUID & p_guid) = 0;
 protected:
     /**
     Should be called every time someone requests a resource.

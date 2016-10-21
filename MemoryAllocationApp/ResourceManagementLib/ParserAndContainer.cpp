@@ -16,10 +16,11 @@ ParserAndContainer::~ParserAndContainer()
 
 void ParserAndContainer::ReleaseResource(const GUID & p_guid)
 {
-    if (!ResourceExist(p_guid))
+    if (!ResourceExist(p_guid) && !ResourceIsDummy(p_guid))
     {
         return;
     }
+
     if (m_activeReferencesToResource.count(p_guid) != 0)
     {
         // mutex::lock()
