@@ -2,6 +2,7 @@
 #include <iostream>
 #include <EnumsAndDefines.h>
 #include <ParserAndContainerManager.h>
+#include <MemoryTracker.h>
 #include <string>
 
 
@@ -40,8 +41,12 @@ void TAJMSLoader::LoadFile(const std::string & p_fileName)
         if (!t_parAndContMan.ShouldLoadResource(t_ending, t_headers[i].guid))
             continue;
 
-        // Wait until we can allocate TODO INSERT LUCAS CODE HERE
-        // DEBUG PRINT IF WE CANT?
+        // Wait until we can allocate
+        if (!MemoryTracker::Get()->CheckIfMemoryAvailable(t_headers[i].fileSize))
+        {
+            fclose(t_file);
+            throw 1337;
+        }
 
         // Read to buffer
         char* t_tempBuff = new char[t_headers[i].fileSize];
@@ -53,6 +58,7 @@ void TAJMSLoader::LoadFile(const std::string & p_fileName)
             t_parAndContMan.ParseByEnding(t_tempBuff, t_fileSize, t_ending, t_headers[i].guid);
         }
 
+        MemoryTracker::Get()->AddMemoryUsage(-1 * t_headers[i].fileSize);
         delete t_tempBuff;
     }
 

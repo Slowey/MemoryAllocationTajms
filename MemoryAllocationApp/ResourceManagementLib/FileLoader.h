@@ -10,8 +10,10 @@
             ParseGUIDAndEndingFromFilePath() from EnumsAndDefines.h to get GUID and ending of a path
         Should call:
             ParserAndContainerManager.ShouldLoadResource() to check if need load on file
-            while on MemoryTracker.CheckIfMemoryAvailable() until true
+            MemoryTracker.CheckIfMemoryAvailable() To get memory for the RAW data
             then ParserAndContainerManager.ParseByEnding() to forward parsing
+            MemoryTracker.AddMemoryUsage(size) with negative size to unallocate raw data
+
 */
 class FileLoader
 {
