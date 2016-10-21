@@ -80,8 +80,46 @@ void FileLoaderManager::LoadChunkWithSub(const std::string &p_fileName, const st
 
 void FileLoaderManager::LoadResource(GUID p_GUID, const std::string & p_directory)
 {
+    m_sharedMutex->lock();
+
+    size_t t_lastDot = p_directory.find_last_of(".");
+
+    // No ending
+    if (t_lastDot == std::string::npos)
+        return;
+
+    std::string t_ending = p_directory.substr(t_lastDot + 1);
+
+
+    // Find loader
+    auto t_loader = m_endingToLoaderMap.find(t_ending);
+    if (t_loader == m_endingToLoaderMap.end())
+        return;
+
+    t_loader->second->LoadResource(p_GUID, p_directory);
+
+    m_sharedMutex->unlock();
 }
 
 void FileLoaderManager::LoadResourceWithEnding(GUID p_GUID, const std::string & p_fileEnding, const std::string & p_directory)
 {
+    m_sharedMutex->lock();
+
+    size_t t_lastDot = p_directory.find_last_of(".");
+
+    // No ending
+    if (t_lastDot == std::string::npos)
+        return;
+
+    std::string t_ending = p_directory.substr(t_lastDot + 1);
+
+
+    // Find loader
+    auto t_loader = m_endingToLoaderMap.find(t_ending);
+    if (t_loader == m_endingToLoaderMap.end())
+        return;
+
+    t_loader->second->LoadResource(p_GUID, p_fileEnding, p_directory);
+
+    m_sharedMutex->unlock();
 }
