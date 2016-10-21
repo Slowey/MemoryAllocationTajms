@@ -39,7 +39,10 @@ void TAJMSLoader::LoadFile(const std::string & p_fileName)
         // Get Ending
         std::string t_ending = t_headers[i].fileType;
         if (!t_parAndContMan.ShouldLoadResource(t_ending, t_headers[i].guid))
+        {
+            fseek(t_file, t_headers[i].fileSize, SEEK_CUR);
             continue;
+        }
 
         // Wait until we can allocate
         if (!MemoryTracker::Get()->CheckIfMemoryAvailable(t_headers[i].fileSize))
@@ -50,7 +53,7 @@ void TAJMSLoader::LoadFile(const std::string & p_fileName)
 
         // Read to buffer
         char* t_tempBuff = new char[t_headers[i].fileSize];
-        size_t len =fread(t_tempBuff, t_headers[i].fileSize, 1, t_file);
+        size_t len = fread(t_tempBuff, t_headers[i].fileSize, 1, t_file);
         size_t t_fileSize = t_headers[i].fileSize;
 
         if (len)
