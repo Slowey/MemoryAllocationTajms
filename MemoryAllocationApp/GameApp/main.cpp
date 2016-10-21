@@ -30,8 +30,10 @@ std::thread::id g_mainThread;
 
 int main()
 {
-   ResourceManager::Startup(10000000); //Seet this lower to have memorytracker get full and start replacing stuff. Need to explicitly say that some resources are not used to actually replace. Otherwise crash
    MemoryManager::Startup(10240, 200000);
+   ResourceManager::Startup(10000000); //Seet this lower to have memorytracker get full and start replacing stuff. Need to explicitly say that some resources are not used to actually replace. Otherwise crash
+
+
    g_mainThread = std::this_thread::get_id();
    ResourceManager* resMan = ResourceManager::Get();
    ParserAndContainerManager::Initialize();
@@ -57,6 +59,8 @@ int main()
    boy->UpdatePosition(vec3(2,0,3));
    girl->UpdatePosition(vec3(-2, 0, 3));
    int first = 0;
+
+
    // Game loop
    while (true)
    {

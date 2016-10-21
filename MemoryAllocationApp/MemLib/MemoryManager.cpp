@@ -94,14 +94,14 @@ void* operator new (size_t size)
     {
         allocator = AllocatorManager::Get()->GetDefault4BytePool();
     }
-    //else if (size <= 8)
-    //{
-    //    allocator = AllocatorManager::Get()->GetDefault8BytePool();
-    //}
-   //else if (size <= 16)
-   //{
-   //    allocator = AllocatorManager::Get()->GetDefault16BytePool();
-   //}
+    else if (size <= 8)
+    {
+        allocator = AllocatorManager::Get()->GetDefault8BytePool();
+    }
+   else if (size <= 16)
+   {
+       allocator = AllocatorManager::Get()->GetDefault16BytePool();
+   }
 
 
     // Allocate from correct pool
@@ -142,18 +142,18 @@ void operator delete (void* memBlock)
     {
         allocator = AllocatorManager::Get()->GetDefault4BytePool();
     }
-    //else if (header->memorySize <= 8)
-    //{
-    //    allocator = AllocatorManager::Get()->GetDefault8BytePool();
-    //}
-    //else if (header->memorySize <= 16)
-    //{
-    //    allocator = AllocatorManager::Get()->GetDefault16BytePool();
-    //}
+    else if (header->memorySize <= 8)
+    {
+        allocator = AllocatorManager::Get()->GetDefault8BytePool();
+    }
+    else if (header->memorySize <= 16)
+    {
+        allocator = AllocatorManager::Get()->GetDefault16BytePool();
+    }
 
     if (allocator != nullptr)
     {
-        operator delete(memBlock, allocator, header->memorySize);
+        operator delete(header, allocator, header->memorySize);
     }
     else
     {
