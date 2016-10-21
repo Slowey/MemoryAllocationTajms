@@ -10,6 +10,7 @@ Simple game object that renders itself and such*/
 class GameObject
 {
 public:
+   GameObject();
    GameObject(GUID p_objectToLoad);
    ~GameObject();
 
@@ -17,7 +18,7 @@ public:
 
    void Draw();
 
-private:
+protected:
    vec3 m_position;
    vec3 m_target;
 
