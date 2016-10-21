@@ -96,12 +96,18 @@ void TAJMSLoader::LoadResource(GUID p_GUID, const std::string & p_directory)
     for (size_t i = 0; i < t_size; i++)
     {
         if (p_GUID != t_headers[i].guid)
+        {
+            fseek(t_file, t_headers[i].fileSize, SEEK_CUR);
             continue;
+        }
 
         // Get Ending
         std::string t_ending = t_headers[i].fileType;
         if (!t_parAndContMan.ShouldLoadResource(t_ending, t_headers[i].guid))
+        {
+            fseek(t_file, t_headers[i].fileSize, SEEK_CUR);
             continue;
+        }
 
         // Wait until we can allocate
         if (!MemoryTracker::Get()->CheckIfMemoryAvailable(t_headers[i].fileSize))
@@ -149,15 +155,24 @@ void TAJMSLoader::LoadResource(GUID p_GUID, const std::string & p_fileEnding, co
     for (size_t i = 0; i < t_size; i++)
     {
         if (p_GUID != t_headers[i].guid)
+        {
+            fseek(t_file, t_headers[i].fileSize, SEEK_CUR);
             continue;
+        }
 
         // Get Ending
         std::string t_ending = t_headers[i].fileType;
         if (!t_parAndContMan.ShouldLoadResource(t_ending, t_headers[i].guid))
+        {
+            fseek(t_file, t_headers[i].fileSize, SEEK_CUR);
             continue;
+        }
 
         if (t_ending != p_fileEnding)
+        {
+            fseek(t_file, t_headers[i].fileSize, SEEK_CUR);
             continue;
+        }
 
         // Wait until we can allocate
         if (!MemoryTracker::Get()->CheckIfMemoryAvailable(t_headers[i].fileSize))
