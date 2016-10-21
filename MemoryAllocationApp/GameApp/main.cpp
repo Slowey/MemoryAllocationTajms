@@ -82,7 +82,7 @@ int main()
       first++;
       if (first == 2)
       {
-          ResourceManager::Get()->LoadChunk("tajms.tajms");
+          //ResourceManager::Get()->LoadChunk("tajms.tajms");
           //resMan->LoadChunk(fileName);
       }
    }
