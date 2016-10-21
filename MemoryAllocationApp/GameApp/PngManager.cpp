@@ -2,6 +2,8 @@
 #include <ParserAndContainerManager.h>
 #include <Graphics.h>
 #include "Global.h"
+#include <MemoryTracker.h>
+#include <ResourceManager.h>
 
 PngManager* PngManager::m_singleton = nullptr;
 
@@ -48,6 +50,13 @@ void PngManager::ParseAndSaveParsedData(void * p_dataStart, const size_t & p_siz
     // Might need to say if we are main thread or not...
     newResource->graphicResourceID = Graphics::Get()->LoadTexture(p_dataStart, p_size, !IsMainThread());
 
+    newResource->size = p_size;
+    if (!MemoryTracker::Get()->CheckIfMemoryAvailable(newResource->size))
+    {
+       //We cant allocate this. Cos memory is full. Time to crash!
+       throw 1337;
+    }
+
     m_mutexLockResourceMap->lock();
     m_pngResources[p_guid] = newResource;
     m_mutexLockResourceMap->unlock();
@@ -68,20 +77,39 @@ void PngManager::DumpMemoryData()
 	fclose(pFile);
 }
 
-ParsedPng ** PngManager::GetResource(const GUID & p_guid)
+void PngManager::LoadResource(const GUID & p_guid, const std::string & p_file)
 {
-    while (m_pngResources.count(p_guid) == 0)
+    if (m_pngResources.count(p_guid) != 0)
+        return;
+
+
+    bool t_shouldLoad = false;
+    // The resource doesn't exist.. :( Return debug shit)
+    while (true)
     {
-        // The resource doesn't exist.. :( Return debug shit)
         if (m_mutexLockResourceMap->try_lock())
         {
-            m_pngResources[p_guid] = m_dummyTexture;
+            if (m_pngResources.count(p_guid) == 0)
+            {
+                m_pngResources[p_guid] = m_dummyTexture;
+                t_shouldLoad = true;
+            }
+
             m_mutexLockResourceMap->unlock();
-            // Load(GUID);
             break;
         }
     }
-    ResourceRequested(p_guid);
+
+    if (t_shouldLoad)
+        ResourceManager::Get()->LoadResource(p_guid, m_fileEnding, p_file);
+}
+
+ParsedPng ** PngManager::GetResource(const GUID & p_guid)
+{
+    if (m_pngResources.count(p_guid) == 0)
+    {
+        LoadResource(p_guid, ResourceManager::Get()->GetSavedPathFromGUID(p_guid));
+    }
     return &m_pngResources.at(p_guid);
 }
 
@@ -96,6 +124,7 @@ void PngManager::FreeResource(const GUID & p_guid)
     if (ResourceExist(p_guid))
     {
         // should call graphic manager to remove the gpu resource to...
+        AddMemoryUsage(-1 * m_pngResources.at(p_guid)->size);
         delete m_pngResources.at(p_guid);
         m_pngResources.erase(p_guid);
     }

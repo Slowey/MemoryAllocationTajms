@@ -24,6 +24,8 @@ public:
     bool ResourceExist(const GUID &p_guid) override;
     void FreeResource(const GUID &p_guid) override;
 	void DumpMemoryData();
+
+    void LoadResource(const GUID &p_guid, const std::string &p_file) override;
 private:
     static WavManager* m_singleton;
     // Contains all the loaded wav resources, parsed and ready to use

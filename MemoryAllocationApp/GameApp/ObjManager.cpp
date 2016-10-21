@@ -7,6 +7,7 @@
 #include <EnumsAndDefines.h>
 #include "Global.h"
 #include <MemoryTracker.h>
+#include <ResourceManager.h>
 
 ObjManager* ObjManager::m_singleton = nullptr;
 
@@ -97,18 +98,10 @@ void ObjManager::ParseAndSaveParsedData(void* p_dataStart, const size_t &p_size,
 
 ParsedObj** ObjManager::GetResource(const GUID & p_guid)
 {
-    while (m_objResources.count(p_guid) == 0)
+    if (m_objResources.count(p_guid) == 0)
     {
-        // The resource doesn't exist.. :( Return debug shit)
-         if(m_mutexLockResourceMap->try_lock())
-         {
-            m_objResources[p_guid] = m_dummyMesh;
-            m_mutexLockResourceMap->unlock();
-         // Load(GUID);
-         break;
-         }
+        LoadResource(p_guid, ResourceManager::Get()->GetSavedPathFromGUID(p_guid));
     }
-    ResourceRequested(p_guid);
     return &m_objResources.at(p_guid);
 }
 
@@ -131,6 +124,33 @@ void ObjManager::DumpMemoryData()
 	}
 	// Glöm inte att spara ner vilken resurs som skulle bli inladdad när overflowen occurade.
 	fclose(pFile);
+}
+
+void ObjManager::LoadResource(const GUID & p_guid, const std::string & p_file)
+{
+    if (m_objResources.count(p_guid) != 0)
+        return;
+
+
+    bool t_shouldLoad = false;
+    // The resource doesn't exist.. :( Return debug shit)
+    while (true)
+    {
+        if (m_mutexLockResourceMap->try_lock())
+        {
+            if (m_objResources.count(p_guid) == 0)
+            {
+                m_objResources[p_guid] = m_dummyMesh;
+                t_shouldLoad = true;
+            }
+
+            m_mutexLockResourceMap->unlock();
+            break;
+        }
+    }
+
+    if(t_shouldLoad)
+        ResourceManager::Get()->LoadResource(p_guid, m_fileEnding, p_file);
 }
 
 void ObjManager::FreeResource(const GUID &p_guid)

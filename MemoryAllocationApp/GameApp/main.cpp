@@ -7,10 +7,12 @@
 #include <MemoryManager.h>
 #include <PoolAllocator.h>
 #include "ObjManager.h"
+#include "LodObject.h"
 #include "GameObject.h"
 #include "Global.h"
 #include "main.h"
 #include "TAJMSLoader.h"
+
 
 using namespace std;
 void CreateWindow()
@@ -26,12 +28,16 @@ void CreateWindow()
    Graphics::Get()->CreateWindow(params);
 }
 
+
 std::thread::id g_mainThread;
+
 
 int main()
 {
    MemoryManager::Startup(10240, 200000);
-   ResourceManager::Startup(10000000); //Seet this lower to have memorytracker get full and start replacing stuff. Need to explicitly say that some resources are not used to actually replace. Otherwise crash
+   ResourceManager::Startup(3500000000); //Seet this lower to have memorytracker get full and start replacing stuff. Need to explicitly say that some resources are not used to actually replace. Otherwise crash
+
+   //ResourceManager::Startup(10000000); //Seet this lower to have memorytracker get full and start replacing stuff. Need to explicitly say that some resources are not used to actually replace. Otherwise crash
 
 
    g_mainThread = std::this_thread::get_id();
@@ -53,26 +59,30 @@ int main()
    PoolAllocator* objAllocator;
    objAllocator = MemoryManager::Get()->CreatePoolAllocator(sizeof(GameObject));
    
-   GameObject* obj = new(objAllocator) GameObject(GUID(6355060461449191778, 9343578793668495956));
-   GameObject* boy = new(objAllocator) GameObject(GUID(10501337584122868014, 4174563121594872176));
-   GameObject* girl = new(objAllocator) GameObject(GUID(12148441303352944357, 8744070554219738464));
-   boy->UpdatePosition(vec3(2,0,3));
-   girl->UpdatePosition(vec3(-2, 0, 3));
+   //GameObject* obj = new(objAllocator) GameObject(GUID(6355060461449191778, 9343578793668495956));
+   //GameObject* boy = new(objAllocator) GameObject(GUID(10501337584122868014, 4174563121594872176));
+   //GameObject* girl = new(objAllocator) GameObject(GUID(12148441303352944357, 8744070554219738464));
+   LodObject* lodObj = new LodObject(GUID(6355060461449191778, 9343578793668495956));
+
+  //boy->UpdatePosition(vec3(2,0,3));
+  //girl->UpdatePosition(vec3(-2, 0, 3));
    int first = 0;
 
-
+   //ResourceManager::Get()->LoadChunk("tajms.tajms");
    // Game loop
    while (true)
    {
-      obj->Draw();
-	  boy->Draw();
-	  girl->Draw();
+      lodObj->UpdateLod();
+      lodObj->Draw();
+
+      //obj->Draw();
+	 // boy->Draw();
+	  //girl->Draw();
       Graphics::Get()->Update();
       first++;
-      if (first == 1000)
+      if (first == 2)
       {
-          std::string fileName = "tajms.tajms";
-          m_loadThread = thread(&ResourceManager::LoadChunk, resMan, fileName);
+          ResourceManager::Get()->LoadChunk("tajms.tajms");
           //resMan->LoadChunk(fileName);
       }
    }

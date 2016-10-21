@@ -17,6 +17,7 @@ public:
     void ReleaseResource(const GUID &p_guid);
     void SetPriorityHandle(size_t p_priorityHandle) { m_priorityHandle = p_priorityHandle; };
 	virtual void DumpMemoryData() = 0;
+    virtual void LoadResource(const GUID &p_guid, const std::string &p_file) = 0;
 protected:
     /**
     Should be called every time someone requests a resource.
@@ -29,10 +30,11 @@ protected:
     Is called when the prioritization manager have deemed the resources time in memory is up
     */
     virtual void FreeResource(const GUID &p_guid) = 0;
+    
+    const std::string m_fileEnding;
 private:
     // need to befriend this class since it needs access right to FreeResource
     friend class ParserAndContainerManager;
-
 
     size_t m_priorityHandle;
     std::map<GUID, size_t> m_activeReferencesToResource;
