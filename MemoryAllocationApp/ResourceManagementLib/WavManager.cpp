@@ -63,3 +63,8 @@ void WavManager::LoadResource(const GUID & p_guid, const std::string & p_file)
 {
     //nothing
 }
+
+bool WavManager::ResourceIsDummy(const GUID & p_guid)
+{
+    return false;
+}

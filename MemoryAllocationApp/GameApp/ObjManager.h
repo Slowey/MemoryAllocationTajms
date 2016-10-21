@@ -29,6 +29,9 @@ public:
 
     void LoadResource(const GUID &p_guid, const std::string &p_file) override;
 
+protected:
+    bool ResourceIsDummy(const GUID & p_guid) override;
+
 private:
     // Acctually deletes the data
     void FreeResource(const GUID &p_guid) override;
