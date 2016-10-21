@@ -106,11 +106,11 @@ void PngManager::LoadResource(const GUID & p_guid, const std::string & p_file)
 
 ParsedPng ** PngManager::GetResource(const GUID & p_guid)
 {
+    ResourceRequested(p_guid);
     if (m_pngResources.count(p_guid) == 0)
     {
         LoadResource(p_guid, ResourceManager::Get()->GetSavedPathFromGUID(p_guid));
     }
-    ResourceRequested(p_guid);
     return &m_pngResources.at(p_guid);
 }
 
