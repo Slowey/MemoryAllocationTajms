@@ -87,7 +87,7 @@ void ObjManager::ParseAndSaveParsedData(void* p_dataStart, const size_t &p_size,
         // we already have the resource!
         return;
     }
-	AddMemoryUsage(p_size);
+	// AddMemoryUsage(p_size); Tror denna ska bort
 	ParsedObj* newResource = ParseDataAndSendToGraphic(p_dataStart);
 	newResource->size = p_size;
     m_mutexLockResourceMap->lock();
