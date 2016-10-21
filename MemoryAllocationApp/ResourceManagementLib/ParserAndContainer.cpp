@@ -4,7 +4,7 @@
 #include "MemoryTracker.h"
 
 
-ParserAndContainer::ParserAndContainer(std::string p_fileEndingToParse)
+ParserAndContainer::ParserAndContainer(std::string p_fileEndingToParse) : m_fileEnding(p_fileEndingToParse)
 {
     ParserAndContainerManager::Get().InsertNewParserToList(this, p_fileEndingToParse);
 }

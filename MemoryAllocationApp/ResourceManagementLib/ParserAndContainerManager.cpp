@@ -46,7 +46,7 @@ void ParserAndContainerManager::FreeResource(size_t p_parserHandle, GUID p_guid)
     m_prioHandlesToParser[p_parserHandle]->FreeResource(p_guid);
 }
 
-bool ParserAndContainerManager::ShouldLoadResource(std::string &p_ending, GUID p_guid)
+bool ParserAndContainerManager::ShouldLoadResource(const std::string &p_ending, GUID p_guid)
 {
 	auto m_pair = m_fileEndingToParser.find(p_ending);
     if (m_pair == m_fileEndingToParser.end())
@@ -66,7 +66,7 @@ bool ParserAndContainerManager::ShouldLoadResource(std::string &p_ending, GUID p
 	return false;
 }
 
-void ParserAndContainerManager::ParseByEnding(void * p_fileBuffer, const size_t &p_sizeOfBuffer, std::string &p_ending, GUID p_guid)
+void ParserAndContainerManager::ParseByEnding(void * p_fileBuffer, const size_t &p_sizeOfBuffer, const std::string &p_ending, GUID p_guid)
 {
     
 	// Find all parsers and parse for ending

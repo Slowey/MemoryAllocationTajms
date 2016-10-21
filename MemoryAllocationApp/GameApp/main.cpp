@@ -27,9 +27,10 @@ void CreateWindow()
    Graphics::Get()->CreateWindow(params);
 }
 
+
 std::thread::id g_mainThread;
 
-#define MEGABYTE 1000000
+
 int main()
 {
 
@@ -81,8 +82,7 @@ int main()
       first++;
       if (first == 2)
       {
-          std::string fileName = "tajms.tajms";
-          m_loadThread = thread(&ResourceManager::LoadChunk, resMan, fileName);
+          ResourceManager::Get()->LoadChunk("tajms.tajms");
           //resMan->LoadChunk(fileName);
       }
    }

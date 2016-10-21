@@ -10,6 +10,7 @@ public:
     void LoadFile(const std::string & p_fileName) override;
     void LoadFile(const std::string & p_fileName, const std::string & p_subDirectory) override;
     void LoadResource(GUID p_GUID, const std::string & p_directory) override;
+    void LoadResource(GUID p_GUID, const std::string &p_fileEnding, const std::string & p_directory) override;
 
 private:
     struct Header
