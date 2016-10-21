@@ -136,6 +136,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="LodObject.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ObjManager.cpp" />
     <ClCompile Include="PngManager.cpp" />
@@ -144,6 +145,7 @@
   <ItemGroup>
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Global.h" />
+    <ClInclude Include="LodObject.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="ObjManager.h" />
     <ClInclude Include="PngManager.h" />

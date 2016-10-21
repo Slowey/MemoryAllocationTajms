@@ -13,6 +13,10 @@
 using namespace std;
 // end debug
 
+GameObject::GameObject()
+{
+}
+
 GameObject::GameObject(GUID p_objectToLoad)
 {
    // Hard coded opengl handles
