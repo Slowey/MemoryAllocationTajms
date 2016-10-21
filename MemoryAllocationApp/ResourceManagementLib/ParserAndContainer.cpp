@@ -33,7 +33,7 @@ void ParserAndContainer::ReleaseResource(const GUID & p_guid)
     else
     {
         // Shouldnt get here
-        throw 1337;
+        //throw 1337;
     }
 }
 void ParserAndContainer::AddMemoryUsage(int p_memoryUsageToAdd) {

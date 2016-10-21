@@ -110,6 +110,7 @@ ParsedPng ** PngManager::GetResource(const GUID & p_guid)
     {
         LoadResource(p_guid, ResourceManager::Get()->GetSavedPathFromGUID(p_guid));
     }
+    ResourceRequested(p_guid);
     return &m_pngResources.at(p_guid);
 }
 
