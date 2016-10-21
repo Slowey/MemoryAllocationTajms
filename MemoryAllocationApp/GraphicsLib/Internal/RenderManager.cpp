@@ -91,6 +91,7 @@ GLuint RenderManager::CreateTexture(void * p_textureData, int p_numBytes, bool p
       SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS | SOIL_FLAG_INVERT_Y | SOIL_FLAG_COMPRESS_TO_DXT);
    // Not sure why this is important, but it is
    glFinish();
+   cout << "loaded object. Size: "<< p_numBytes << endl;
 
    //// Code to manually create an empty texture. Dumping this here sounds like a bood idea
    //glGenTextures(1, &r_textureHandle);

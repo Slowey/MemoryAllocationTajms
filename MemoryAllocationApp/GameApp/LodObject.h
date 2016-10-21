@@ -1,6 +1,9 @@
 #pragma once
-#include "GameObject.h"
 #include <vector>
+#include "ObjManager.h"
+#include "PngManager.h"
+#include <glm\glm.hpp>
+using namespace glm;
 using namespace std;
 struct LodTexture
 {
@@ -12,8 +15,7 @@ struct LodTexture
    float distance;
    GUID textureID;
 };
-class LodObject :
-   public GameObject
+class LodObject
 {
 public:
    LodObject();
@@ -26,7 +28,21 @@ public:
 private:
    vector<LodTexture> m_textures;
 
-   ParsedPng** m_texInFront;
-   ParsedPng** m_texBehind;
+   int m_currentLod;
+
+   vec3 m_position;
+   vec3 m_target;
+   vec3 m_up;
+
+   ParsedObj** m_mesh;
+
+   ParsedPng** m_currentTexture;
+   ParsedPng** m_closerTexture;
+   ParsedPng** m_furtherTexture;
+
+   GUID m_currentTextureID;
+   GUID m_closerTextureID;
+   GUID m_furtherTextureID;
+   
 };
 
