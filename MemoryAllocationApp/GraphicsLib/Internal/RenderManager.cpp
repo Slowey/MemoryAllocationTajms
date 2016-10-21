@@ -70,12 +70,13 @@ GLuint RenderManager::CreateMesh(std::vector<Vertex> p_vertices, bool p_async)
    glGenBuffers(1, &r_positionBuffer);
    glBindBuffer(GL_ARRAY_BUFFER, r_positionBuffer);
    glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * p_vertices.size(), &p_vertices[0], GL_STATIC_DRAW);
-
+   glFinish();
    // Create empty draw list for new mesh
    cout << r_positionBuffer << endl;
    m_meshDrawLists[r_positionBuffer] = vector<DrawObject>();
    m_meshSizes[r_positionBuffer] = p_vertices.size();
    //SDLManager::Get()->SetLoadContext(false);
+   SDLManager::Get()->SetLoadContext(false);
    return r_positionBuffer;
 }
 
@@ -102,6 +103,7 @@ GLuint RenderManager::CreateTexture(void * p_textureData, int p_numBytes, bool p
    //glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA32F, p_texWidth, p_texHeight, 0, GL_RGBA, GL_FLOAT, NULL); // Last parameter is the data
    //
    //glBindImageTexture(0, r_textureHandle, 0, GL_FALSE, 0, GL_WRITE_ONLY, GL_RGBA32F); // Might be needed
+   SDLManager::Get()->SetLoadContext(false);
    return r_textureHandle;
 }
 
