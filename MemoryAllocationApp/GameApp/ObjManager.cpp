@@ -98,11 +98,11 @@ void ObjManager::ParseAndSaveParsedData(void* p_dataStart, const size_t &p_size,
 
 ParsedObj** ObjManager::GetResource(const GUID & p_guid)
 {
+    ResourceRequested(p_guid);
     if (m_objResources.count(p_guid) == 0)
     {
         LoadResource(p_guid, ResourceManager::Get()->GetSavedPathFromGUID(p_guid));
     }
-    ResourceRequested(p_guid);
     return &m_objResources.at(p_guid);
 }
 
