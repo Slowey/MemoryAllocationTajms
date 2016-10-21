@@ -26,7 +26,9 @@ void CreateWindow()
    Graphics::Get()->CreateWindow(params);
 }
 
+
 std::thread::id g_mainThread;
+
 
 int main()
 {
@@ -71,8 +73,7 @@ int main()
       first++;
       if (first == 1000)
       {
-          std::string fileName = "tajms.tajms";
-          m_loadThread = thread(&ResourceManager::LoadChunk, resMan, fileName);
+          ResourceManager::Get()->LoadChunk("tajms.tajms");
           //resMan->LoadChunk(fileName);
       }
    }

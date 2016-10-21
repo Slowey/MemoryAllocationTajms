@@ -25,6 +25,8 @@ public:
     bool ResourceExist(const GUID & p_guid) override;
 
     void DumpMemoryData();
+
+    void LoadResource(const GUID &p_guid, const std::string &p_file) override;
 private:
     // Acctually deletes the data
     void FreeResource(const GUID &p_guid) override;

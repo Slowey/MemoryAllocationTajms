@@ -2,6 +2,7 @@
 #include <string> //Byt mot forward decl TODO
 #include "EnumsAndDefines.h"
 #include "MemoryTracker.h"
+
 class PrioritizationManager;
 class ResourceManager
 {
@@ -19,8 +20,13 @@ public:
 
     void LoadChunk(const std::string & p_fileName);
 
-    // Load whole or sub part of chunk
-    //void LoadChunk(const std::string & p_fileName, const std::string & p_subDirectory);
+    void LoadChunk(const std::string & p_fileName, const std::string & p_subDirectory);
+
+    void ResourceManager::LoadResource(const GUID &p_guid, const std::string & p_fileName);
+
+    void ResourceManager::LoadResource(const GUID &p_guid, const std::string p_fileEnding, const std::string & p_fileName);
+
+    std::string GetSavedPathFromGUID(const GUID &p_guid);
 
 	/**
 	Starts the DataManager

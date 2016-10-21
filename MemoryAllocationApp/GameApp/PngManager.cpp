@@ -2,6 +2,7 @@
 #include <ParserAndContainerManager.h>
 #include <Graphics.h>
 #include "Global.h"
+#include <ResourceManager.h>
 
 PngManager* PngManager::m_singleton = nullptr;
 
@@ -68,20 +69,36 @@ void PngManager::DumpMemoryData()
 	fclose(pFile);
 }
 
-ParsedPng ** PngManager::GetResource(const GUID & p_guid)
+void PngManager::LoadResource(const GUID & p_guid, const std::string & p_file)
 {
-    while (m_pngResources.count(p_guid) == 0)
+    if (m_pngResources.count(p_guid) != 0)
+        return;
+
+
+    bool t_shouldLoad = false;
+    // The resource doesn't exist.. :( Return debug shit)
+    while (!m_mutexLockResourceMap->try_lock())
     {
-        // The resource doesn't exist.. :( Return debug shit)
-        if (m_mutexLockResourceMap->try_lock())
+        if (m_pngResources.count(p_guid) == 0)
         {
             m_pngResources[p_guid] = m_dummyTexture;
-            m_mutexLockResourceMap->unlock();
-            // Load(GUID);
-            break;
+            t_shouldLoad = true;
         }
+
+        m_mutexLockResourceMap->unlock();
+        break;
     }
-    ResourceRequested(p_guid);
+
+    if (t_shouldLoad)
+        ResourceManager::Get()->LoadResource(p_guid, m_fileEnding, p_file);
+}
+
+ParsedPng ** PngManager::GetResource(const GUID & p_guid)
+{
+    if (m_pngResources.count(p_guid) == 0)
+    {
+        LoadResource(p_guid, ResourceManager::Get()->GetSavedPathFromGUID(p_guid));
+    }
     return &m_pngResources.at(p_guid);
 }
 

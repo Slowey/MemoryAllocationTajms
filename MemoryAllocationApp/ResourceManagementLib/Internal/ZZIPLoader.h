@@ -14,10 +14,15 @@ public:
 
     void LoadResource(GUID p_GUID, const std::string & p_directory) override;
 
+    void LoadResource(GUID p_GUID, const std::string &p_fileEnding, const std::string & p_directory) override;
+
+  
+
 
 
 
 private:
-
     void LoadAndParseFile(zzip_dir * p_dir, const zzip_dirent & p_dirent);
+    void LoadAndParseFile(zzip_dir * p_dir, const std::string &p_ending, const zzip_dirent & p_dirent);
+
 };
