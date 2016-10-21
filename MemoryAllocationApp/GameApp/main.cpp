@@ -13,6 +13,7 @@
 #include "main.h"
 #include "TAJMSLoader.h"
 
+
 using namespace std;
 void CreateWindow()
 {
@@ -33,10 +34,9 @@ std::thread::id g_mainThread;
 
 int main()
 {
-
+   MemoryManager::Startup(10240, 200000);
    ResourceManager::Startup(3500000000); //Seet this lower to have memorytracker get full and start replacing stuff. Need to explicitly say that some resources are not used to actually replace. Otherwise crash
 
-   MemoryManager::Startup(10240, 200000);
    //ResourceManager::Startup(10000000); //Seet this lower to have memorytracker get full and start replacing stuff. Need to explicitly say that some resources are not used to actually replace. Otherwise crash
 
 
@@ -68,7 +68,7 @@ int main()
   //girl->UpdatePosition(vec3(-2, 0, 3));
    int first = 0;
 
-
+   //ResourceManager::Get()->LoadChunk("tajms.tajms");
    // Game loop
    while (true)
    {

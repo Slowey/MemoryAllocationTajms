@@ -2,6 +2,8 @@
 #include <string> //Byt mot forward decl TODO
 #include "EnumsAndDefines.h"
 #include "MemoryTracker.h"
+#include <vector>
+#include <thread>
 
 class PrioritizationManager;
 class ResourceManager
@@ -39,5 +41,7 @@ private:
 	static ResourceManager* m_singleton;
     PrioritizationManager* m_prioritizationManager;
 	MemoryTracker* m_memoryTracker;
+
+    std::vector<std::thread> m_threads;
 };
 

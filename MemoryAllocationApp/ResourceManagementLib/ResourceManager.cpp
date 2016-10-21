@@ -6,7 +6,7 @@
 #include "Internal/PrioritizationManager.h"
 #include "EnumsAndDefines.h"
 #include "Internal/FileLoaderManager.h"
-#include <thread>
+
 
 
 // Shipped loaders
@@ -56,22 +56,22 @@ ResourceManager * ResourceManager::Get()
 
 void ResourceManager::LoadChunk(const std::string & p_fileName)
 {
-    std::thread m_loadThread = std::thread(&FileLoaderManager::LoadChunk, FileLoaderManager::Get(), p_fileName);
+    m_threads.push_back(std::thread(&FileLoaderManager::LoadChunk, FileLoaderManager::Get(), p_fileName));
 }
 
 void ResourceManager::LoadChunk(const std::string & p_fileName, const std::string & p_subDirectory)
 {
-    std::thread m_loadThread = std::thread(&FileLoaderManager::LoadChunkWithSub, FileLoaderManager::Get(), p_fileName, p_subDirectory);
+    m_threads.push_back(std::thread(&FileLoaderManager::LoadChunkWithSub, FileLoaderManager::Get(), p_fileName, p_subDirectory));
 }
 
 void ResourceManager::LoadResource(const GUID &p_guid, const std::string & p_fileName)
 {
-    std::thread m_loadThread = std::thread(&FileLoaderManager::LoadResource, FileLoaderManager::Get(), p_guid, p_fileName);
+    m_threads.push_back(std::thread(&FileLoaderManager::LoadResource, FileLoaderManager::Get(), p_guid, p_fileName));
 }
 
 void ResourceManager::LoadResource(const GUID &p_guid, const std::string p_fileEnding, const std::string & p_fileName)
 {
-    std::thread m_loadThread = std::thread(&FileLoaderManager::LoadResourceWithEnding, FileLoaderManager::Get(), p_guid, p_fileEnding, p_fileName);
+    m_threads.push_back(std::thread(&FileLoaderManager::LoadResourceWithEnding, FileLoaderManager::Get(), p_guid, p_fileEnding, p_fileName));
 }
 
 std::string ResourceManager::GetSavedPathFromGUID(const GUID & p_guid)
