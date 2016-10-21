@@ -134,16 +134,19 @@ void ObjManager::LoadResource(const GUID & p_guid, const std::string & p_file)
 
     bool t_shouldLoad = false;
     // The resource doesn't exist.. :( Return debug shit)
-    while (!m_mutexLockResourceMap->try_lock())
+    while (true)
     {
-        if (m_objResources.count(p_guid) == 0)
+        if (m_mutexLockResourceMap->try_lock())
         {
-            m_objResources[p_guid] = m_dummyMesh;
-            t_shouldLoad = true;
-        }
+            if (m_objResources.count(p_guid) == 0)
+            {
+                m_objResources[p_guid] = m_dummyMesh;
+                t_shouldLoad = true;
+            }
 
-        m_mutexLockResourceMap->unlock();
-        break;
+            m_mutexLockResourceMap->unlock();
+            break;
+        }
     }
 
     if(t_shouldLoad)
