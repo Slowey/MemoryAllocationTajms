@@ -16,7 +16,7 @@ void main()
 	//color = vec4(1,0,0,0);
 
 	// Calculate light factor
-	float ambientFactor = 0.1f;
+	float ambientFactor = 0.5f;
 	float diffuseFactor = dot(normalize(-lightDir), normalize(normalF.xyz));
 	// Clamp to avoid negative values
 	diffuseFactor = clamp(diffuseFactor, 0, 1);

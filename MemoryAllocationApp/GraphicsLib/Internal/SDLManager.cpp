@@ -112,6 +112,7 @@ void SDLManager::CreateWindow(WindowParams p_parameters)
    SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 16);
    SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
    SDL_GL_SetAttribute(SDL_GL_SHARE_WITH_CURRENT_CONTEXT, 1);
+   
 
    m_window = SDL_CreateWindow(
       p_parameters.windowName,
@@ -130,6 +131,8 @@ void SDLManager::CreateWindow(WindowParams p_parameters)
    if (status != GLEW_OK)
       int derp = 5; // Just for debug purpose. Should be done properly somewhere
 
+   // Hide cursor. Probable shouldn't be hardcoded
+   SDL_ShowCursor(SDL_DISABLE);
 }
 
 void SDLManager::Update()

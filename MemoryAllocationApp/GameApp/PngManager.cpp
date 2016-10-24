@@ -4,6 +4,8 @@
 #include "Global.h"
 #include <MemoryTracker.h>
 #include <ResourceManager.h>
+#include <iostream>
+using namespace std;
 
 PngManager* PngManager::m_singleton = nullptr;
 
@@ -70,7 +72,8 @@ void PngManager::DumpMemoryData()
     {
 		if (iterator->second != m_dummyTexture)
 		{
-			fprintf(pFile, "%d, %d", iterator->first.val[0], iterator->first.val[1]);
+			fprintf(pFile, "%lu, %lu", iterator->first.val[0], iterator->first.val[1]);
+         cout << "texture resource in resource when crash: " << iterator->first.val[0] << " - " << iterator->first.val[1] << endl;
 		}
     }
     // Glöm inte att spara ner vilken resurs som skulle bli inladdad när overflowen occurade.

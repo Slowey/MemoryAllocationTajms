@@ -72,7 +72,7 @@ GLuint RenderManager::CreateMesh(std::vector<Vertex> p_vertices, bool p_async)
    glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * p_vertices.size(), &p_vertices[0], GL_STATIC_DRAW);
    glFinish();
    // Create empty draw list for new mesh
-   cout << r_positionBuffer << endl;
+   cout << "loaded mesh with size " << p_vertices.size()*sizeof(Vertex) << endl;
    m_meshDrawLists[r_positionBuffer] = vector<DrawObject>();
    m_meshSizes[r_positionBuffer] = p_vertices.size();
    //SDLManager::Get()->SetLoadContext(false);

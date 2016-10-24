@@ -1,5 +1,6 @@
 #include "LRUPriority.h"
-
+#include <iostream>
+using namespace std;
 
 LRUPriority::LRUPriority()
 {
@@ -59,6 +60,8 @@ ParserUID LRUPriority::GetRemovableResource()
 	{
 		ParserUID t_tempParserUID = m_removableList.front();
 		m_removableList.pop_front();
+      //printf("Removed resource");
+      cout << "Removed resource" << endl;
 		return t_tempParserUID;
 	}
 	else
