@@ -48,14 +48,14 @@ void PngManager::ParseAndSaveParsedData(void * p_dataStart, const size_t & p_siz
     }
     ParsedPng* newResource = new ParsedPng;
     // Might need to say if we are main thread or not...
-    newResource->graphicResourceID = Graphics::Get()->LoadTexture(p_dataStart, p_size, !IsMainThread());
-
-    newResource->size = p_size;
+	newResource->size = p_size;
     if (!MemoryTracker::Get()->CheckIfMemoryAvailable(newResource->size))
     {
        //We cant allocate this. Cos memory is full. Time to crash!
        throw 1337;
     }
+    newResource->graphicResourceID = Graphics::Get()->LoadTexture(p_dataStart, p_size, !IsMainThread());
+
 
     m_mutexLockResourceMap->lock();
     m_pngResources[p_guid] = newResource;
