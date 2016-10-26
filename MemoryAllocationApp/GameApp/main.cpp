@@ -35,7 +35,7 @@ std::thread::id g_mainThread;
 int main()
 {
    MemoryManager::Startup(10240, 200000);
-   ResourceManager::Startup(3500000000); //Seet this lower to have memorytracker get full and start replacing stuff. Need to explicitly say that some resources are not used to actually replace. Otherwise crash
+   ResourceManager::Startup(1200+1150*4); //Seet this lower to have memorytracker get full and start replacing stuff. Need to explicitly say that some resources are not used to actually replace. Otherwise crash
 
    //ResourceManager::Startup(10000000); //Seet this lower to have memorytracker get full and start replacing stuff. Need to explicitly say that some resources are not used to actually replace. Otherwise crash
 
@@ -62,7 +62,8 @@ int main()
    //GameObject* obj = new(objAllocator) GameObject(GUID(6355060461449191778, 9343578793668495956));
    //GameObject* boy = new(objAllocator) GameObject(GUID(10501337584122868014, 4174563121594872176));
    //GameObject* girl = new(objAllocator) GameObject(GUID(12148441303352944357, 8744070554219738464));
-   LodObject* lodObj = new LodObject(GUID(6355060461449191778, 9343578793668495956));
+   //LodObject* lodObj = new LodObject(GUID(6355060461449191778, 9343578793668495956));
+   LodObject* lodObj = new LodObject(GUID(1, 1));
 
   //boy->UpdatePosition(vec3(2,0,3));
   //girl->UpdatePosition(vec3(-2, 0, 3));

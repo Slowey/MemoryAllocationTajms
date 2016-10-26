@@ -18,6 +18,7 @@ LodObject::LodObject(GUID p_objectToLoad)
 {
 
    m_mesh = ObjManager::Get().GetResource(GUID(p_objectToLoad));
+   
 
    m_position = vec3(0, 0, 3);
    m_target = vec3(0, 0, 1);
@@ -79,6 +80,7 @@ void LodObject::Draw()
    mat4x4 t_world = lookAt(m_position, m_position + m_target, vec3(0, 1, 0));
    t_world = t_world*t_scalemat;
    Graphics::Get()->DrawObject((*m_mesh)->graphicResourceID, t_world, t_texId);
+   //Graphics::Get()->DrawObject(1, t_world, t_texId);
 
 }
 
@@ -97,7 +99,7 @@ void LodObject::UpdateLod()
          if (i > m_currentLod)
          {
 
-            cout << "moved closer to level: " << i << endl;
+            cout << "moved away to level: " << i << endl;
             /// New closer
             // Unload old closer
             if (i > 0)
@@ -126,7 +128,7 @@ void LodObject::UpdateLod()
          // Moved towards object
          else if (i < m_currentLod)
          {
-            cout << "moved further away to level: " << i << endl;
+            cout << "moved closer to level: " << i << endl;
             /// New further
             // Unload old further
             if (i < m_textures.size()-1)

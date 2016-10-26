@@ -29,7 +29,7 @@ private:
    vector<LodTexture> m_textures;
 
    int m_currentLod;
-
+  
    vec3 m_position;
    vec3 m_target;
    vec3 m_up;
