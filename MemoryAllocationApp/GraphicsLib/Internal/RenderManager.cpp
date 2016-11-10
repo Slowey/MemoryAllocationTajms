@@ -116,6 +116,7 @@ GLuint RenderManager::CreateTexture(const char * p_fileName)
    {
       // Shit went wrong. Error handling?
       printf("SOIL loading error: '%s'\n", SOIL_last_result());
+      printf(p_fileName);
    }
    return r_texturehandle;
 }
@@ -136,9 +137,7 @@ void RenderManager::DEBUGTriangleCreation()
    t_vertices.push_back(Vertex(vec3(0, 0.5, 1), vec3(0, 0, -1), vec2(0, 1)));
    GLuint meshVBO = RenderManager::Get()->CreateMesh(t_vertices, false);
 
-   // Create texture
-   GLuint textureHandle = CreateTexture("../GraphicsLib/Resources/test.jpg");
-   textureHandle = CreateTexture("../GraphicsLib/Resources/test_low.jpg");
+
 }
 
 
