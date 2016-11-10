@@ -81,7 +81,7 @@
     <LibraryPath>../GraphicsLib/3rd Party/lib;../x64/Debug/;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>../ResourceManagementLib/;../GraphicsLib/;../GraphicsLib/3rd Party/include/;$(IncludePath)</IncludePath>
+    <IncludePath>../ResourceManagementLib/;../GraphicsLib/;../GraphicsLib/3rd Party/include/;../Memlib/;$(IncludePath)</IncludePath>
     <LibraryPath>../x64/Release/;../GraphicsLib/3rd Party/lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

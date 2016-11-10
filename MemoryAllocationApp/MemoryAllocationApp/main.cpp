@@ -1,6 +1,6 @@
 #include <iostream>
 #include <TajmsLib.h>
-#include <Graphics.h>
+//#include <Graphics.h>
 #include "MemoryTests.h"
 #include "LibDefines.h"
 #include <string>
@@ -24,25 +24,25 @@ public:
 
 void CreateWindow()
 {
-    WindowParams params;
-    params.argc = 0;
-    params.argv = "";
-    params.windowName = "Window Name";
-    params.winPosX = 100;
-    params.winPosY = 100;
-    params.winSizeX = 1280;
-    params.winSizeY = 720;
-    Graphics::Get()->CreateWindow(params);
+    //WindowParams params;
+    //params.argc = 0;
+    //params.argv = "";
+    //params.windowName = "Window Name";
+    //params.winPosX = 100;
+    //params.winPosY = 100;
+    //params.winSizeX = 1280;
+    //params.winSizeY = 720;
+    //Graphics::Get()->CreateWindow(params);
 }
 
 int main(int numArgs, char * args[])
 {
     MemoryManager::Startup(1024, 2000000);
 
-    Graphics::Startup();
-    CreateWindow();
-    while(true)
-        Graphics::Get()->Update();
+    //Graphics::Startup();
+    //CreateWindow();
+    //while(true)
+        //Graphics::Get()->Update();
     TajmsLib tajm;
 
     int testToRun = 15;

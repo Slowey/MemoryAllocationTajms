@@ -96,7 +96,7 @@ void ExtraKlass::ReadEveryFileInTheFolder(std::string p_directoryName, std::vect
 	HANDLE hFind;
 	std::wstring t_wstringFileName(p_directoryName.begin(), p_directoryName.end());
 	LPCWSTR wildcard = (t_wstringFileName).c_str();
-	hFind = FindFirstFile(wildcard, &FindFileData);
+	hFind = FindFirstFile(reinterpret_cast<LPCSTR>(wildcard), &FindFileData);
 	if (hFind == INVALID_HANDLE_VALUE)
 	{
 		printf("FindFirstFile failed (%d)\n", GetLastError());
@@ -105,8 +105,9 @@ void ExtraKlass::ReadEveryFileInTheFolder(std::string p_directoryName, std::vect
 	FindNextFile(hFind, &FindFileData);
 	while (FindNextFile(hFind, &FindFileData))
 	{
-		std::wstring t_wstring(FindFileData.cFileName);
-		std::string t_string(t_wstring.begin(), t_wstring.end());
+		//std::wstring t_wstring(FindFileData.cFileName);
+		//std::string t_string(t_wstring.begin(), t_wstring.end());
+		std::string t_string = FindFileData.cFileName;
         if (t_string != p_excludeFile && t_string != "DebugFileMD5.txt")
         {
             o_fileNamesInFolder.push_back(t_string);
