@@ -131,7 +131,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>ResourceManagementLib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>ResourceManagementLib.lib;TajmsLib.lib;SDL2.lib;SDL2main.lib;glew32.lib;SOIL.lib;memLib.lib;OpenGL32.lib;GraphicsLib.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
